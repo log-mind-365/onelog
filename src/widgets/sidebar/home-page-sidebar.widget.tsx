@@ -33,7 +33,7 @@ const TOP_MENUS = [
   },
 ];
 
-export const HomeSidebar = () => {
+export const HomePageSidebar = () => {
   const { me } = useMe();
   const pathname = usePathname();
   const router = useRouter();

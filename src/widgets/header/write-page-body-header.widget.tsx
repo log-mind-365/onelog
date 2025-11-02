@@ -13,7 +13,7 @@ import {
 } from "@/shared/components/ui/avatar";
 import { Progress } from "@/shared/components/ui/progress";
 
-type WriteHeaderProps = {
+type WritePageBodyHeaderProps = {
   avatarUrl?: string | null;
   email?: string | null;
   userName?: string;
@@ -21,13 +21,13 @@ type WriteHeaderProps = {
   emotionLevel: EmotionLevel;
 };
 
-export const WriteBodyHeader = ({
+export const WritePageBodyHeader = ({
   avatarUrl,
   userName,
   email,
   createdAt,
   emotionLevel,
-}: WriteHeaderProps) => {
+}: WritePageBodyHeaderProps) => {
   const formattedDate = format(
     new Date(createdAt ?? Date.now()),
     "M월 d일 y년",

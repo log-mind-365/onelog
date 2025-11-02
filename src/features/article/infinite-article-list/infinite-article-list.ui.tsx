@@ -5,7 +5,7 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import { useEffect, useRef } from "react";
 import { articleQueries } from "@/entities/article/article.queries";
 import { useMe } from "@/shared/store/use-me";
-import { ArticleCard } from "@/widgets/article/article-card.widget";
+import { ArticleCard } from "@/widgets/card/article-card.widget";
 
 export const InfiniteArticleList = () => {
   const { me } = useMe();

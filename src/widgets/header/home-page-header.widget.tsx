@@ -42,7 +42,7 @@ const TOP_MENUS = [
   },
 ];
 
-export const HomeHeader = () => {
+export const HomePageHeader = () => {
   const { me } = useMe();
   const pathname = usePathname();
   const router = useRouter();

@@ -8,11 +8,11 @@ import type {
 } from "@/entities/article/article.model";
 import { Container } from "@/shared/components/container";
 import { Separator } from "@/shared/components/ui/separator";
+import { Textarea } from "@/shared/components/ui/textarea";
 import { useMe } from "@/shared/store/use-me";
-import { WriteBodyHeader } from "@/widgets/write/write-body-header.widget";
-import { WriteForm } from "@/widgets/write/write-form.widget";
-import { WritePageHeader } from "@/widgets/write/write-page-header.widget";
-import { WritePageSidebar } from "@/widgets/write/write-page-sidebar.widget";
+import { WritePageBodyHeader } from "@/widgets/header/write-page-body-header.widget";
+import { WritePageHeader } from "@/widgets/header/write-page-header.widget";
+import { WritePageSidebar } from "@/widgets/sidebar/write-page-sidebar.widget";
 
 const Page = () => {
   const router = useRouter();
@@ -69,7 +69,7 @@ const Page = () => {
         onBack={() => router.back()}
       />
       <Container.Body variant="write">
-        <WriteBodyHeader
+        <WritePageBodyHeader
           avatarUrl={me?.avatarUrl}
           userName={me?.userName}
           email={me?.email}
@@ -77,7 +77,11 @@ const Page = () => {
           emotionLevel={emotionLevel}
         />
         <Separator />
-        <WriteForm value={content} onValueChange={handleValueChange} />
+        <Textarea
+          value={content}
+          onChange={handleValueChange}
+          className="h-full resize-none border-none shadow-none"
+        />
       </Container.Body>
     </>
   );

@@ -1,15 +1,15 @@
 import type { PropsWithChildren } from "react";
 import { Container } from "@/shared/components/container";
 import { TransitionContainer } from "@/shared/components/transition-container";
-import { HomeHeader } from "@/widgets/home/home-header.widget";
-import { HomeSidebar } from "@/widgets/home/home-sidebar.widget";
+import { HomePageHeader } from "@/widgets/header/home-page-header.widget";
+import { HomePageSidebar } from "@/widgets/sidebar/home-page-sidebar.widget";
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
     <TransitionContainer.FadeIn>
       <Container.Layout>
-        <HomeHeader />
-        <HomeSidebar />
+        <HomePageHeader />
+        <HomePageSidebar />
         {children}
       </Container.Layout>
     </TransitionContainer.FadeIn>
