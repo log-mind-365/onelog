@@ -20,6 +20,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/shared/components/ui/dialog";
+import { Spinner } from "@/shared/components/ui/spinner";
 
 type SignInModalProps = PropsWithChildren &
   DialogProps & {
@@ -90,7 +91,7 @@ export const SignInModal = ({
             </div>
           )}
           <Button type="submit" disabled={isPending} className="w-full">
-            {isPending ? <Loader2 className="size-4 animate-spin" /> : "로그인"}
+            {isPending ? <Spinner /> : "로그인"}
           </Button>
         </form>
       </DialogContent>

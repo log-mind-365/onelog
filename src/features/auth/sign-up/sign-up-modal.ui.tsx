@@ -1,8 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
-import type { ReactNode } from "react";
+import type { DialogProps } from "@radix-ui/react-dialog";
+import type { PropsWithChildren } from "react";
 import { useForm } from "react-hook-form";
 import { AuthFormField } from "@/entities/auth/ui/auth-form-field";
 import {
@@ -15,18 +15,19 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/shared/components/ui/dialog";
 import { Spinner } from "@/shared/components/ui/spinner";
 
-type SignUpModalProps = {
-  children?: ReactNode;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
-  onSwitchToSignIn?: () => void;
-};
+type SignUpModalProps = PropsWithChildren &
+  DialogProps & {
+    open?: boolean;
+    onOpenChange?: (open: boolean) => void;
+    onSwitchToSignIn?: () => void;
+  };
 
 export const SignUpModal = ({
   children,
@@ -96,22 +97,24 @@ export const SignUpModal = ({
             type="password"
             name="비밀번호 확인"
           />
-          {onSwitchToSignIn && (
-            <div className="flex items-center justify-end">
-              <Button
-                type="button"
-                variant="link"
-                size="sm"
-                className="px-0"
-                onClick={onSwitchToSignIn}
-              >
-                로그인하러 가기
-              </Button>
-            </div>
-          )}
-          <Button type="submit" disabled={isPending} className="w-full">
-            {isPending ? <Spinner /> : "회원가입"}
-          </Button>
+          <DialogFooter>
+            {onSwitchToSignIn && (
+              <div className="flex items-center justify-end">
+                <Button
+                  type="button"
+                  variant="link"
+                  size="sm"
+                  className="px-0"
+                  onClick={onSwitchToSignIn}
+                >
+                  로그인하러 가기
+                </Button>
+              </div>
+            )}
+            <Button type="submit" disabled={isPending} className="w-full">
+              {isPending ? <Spinner /> : "회원가입"}
+            </Button>
+          </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>

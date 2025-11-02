@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { AuthGuardDialog } from "@/entities/auth/ui/auth-guard-dialog";
+import { AuthGuardModal } from "@/features/auth/auth-guard/auth-guard-modal.ui";
 import { SignInModal } from "@/features/auth/sign-in/sign-in-modal.ui";
 import { SignUpModal } from "@/features/auth/sign-up/sign-up-modal.ui";
 import {
@@ -64,7 +64,7 @@ export const FakeForm = () => {
       </Card>
 
       {/* Auth Dialogs */}
-      <AuthGuardDialog
+      <AuthGuardModal
         open={showAuthGuard}
         onOpenChange={setShowAuthGuard}
         onSignInClick={handleSignInClick}
