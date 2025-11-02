@@ -6,7 +6,7 @@ import type {
   AccessType,
   EmotionLevel,
 } from "@/entities/article/article.model";
-import { useSubmitArticle } from "@/features/article/submit-article/submit-article.mutation";
+import { useSubmitArticle } from "@/features/submit-article/submit-article.mutation";
 import { Button } from "@/shared/components/ui/button";
 import {
   Dialog,

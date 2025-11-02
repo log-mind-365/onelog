@@ -8,8 +8,8 @@ import { AuthFormField } from "@/entities/auth/ui/auth-form-field";
 import {
   type SignUpFormData,
   signUpSchema,
-} from "@/features/auth/sign-up/sign-up.model";
-import { useSignUp } from "@/features/auth/sign-up/sign-up.mutation";
+} from "@/features/sign-up/sign-up.model";
+import { useSignUp } from "@/features/sign-up/sign-up.mutation";
 import { Button } from "@/shared/components/ui/button";
 import {
   Dialog,

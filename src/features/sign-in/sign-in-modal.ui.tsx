@@ -2,15 +2,14 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { DialogProps } from "@radix-ui/react-dialog";
-import { Loader2 } from "lucide-react";
 import type { PropsWithChildren } from "react";
 import { useForm } from "react-hook-form";
 import { AuthFormField } from "@/entities/auth/ui/auth-form-field";
 import {
   type SignInFormData,
   signInSchema,
-} from "@/features/auth/sign-in/sign-in.model";
-import { useSignIn } from "@/features/auth/sign-in/sign-in.mutation";
+} from "@/features/sign-in/sign-in.model";
+import { useSignIn } from "@/features/sign-in/sign-in.mutation";
 import { Button } from "@/shared/components/ui/button";
 import {
   Dialog,

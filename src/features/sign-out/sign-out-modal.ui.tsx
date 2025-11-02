@@ -1,6 +1,6 @@
 import type { DialogProps } from "@radix-ui/react-dialog";
 import type { PropsWithChildren } from "react";
-import { useSignOut } from "@/features/auth/sign-out/sign-out.mutation";
+import { useSignOut } from "@/features/sign-out/sign-out.mutation";
 import { Button } from "@/shared/components/ui/button";
 import {
   Dialog,

@@ -5,9 +5,9 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { UserAvatarPopover } from "@/entities/user/ui/user-avatar-popover";
-import { SignInModal } from "@/features/auth/sign-in/sign-in-modal.ui";
-import { SignUpModal } from "@/features/auth/sign-up/sign-up-modal.ui";
+import { UserAvatar } from "@/entities/user/ui/user-avatar";
+import { SignInModal } from "@/features/sign-in/sign-in-modal.ui";
+import { SignUpModal } from "@/features/sign-up/sign-up-modal.ui";
 import { Container } from "@/shared/components/container";
 import {
   Avatar,
@@ -24,6 +24,7 @@ import {
 } from "@/shared/components/ui/tooltip";
 import { ROUTES } from "@/shared/routes";
 import { useMe } from "@/shared/store/use-me";
+import { UserProfilePopoverMenu } from "@/widgets/menu/user-profile-popover-menu.ui";
 
 const TOP_MENUS = [
   {
@@ -139,21 +140,19 @@ export const HomePageSidebar = () => {
 
           {/* Auth / Profile Button */}
           <Tooltip>
-            <UserAvatarPopover
+            <UserProfilePopoverMenu
               avatarUrl={me?.avatarUrl}
               userName={me?.userName}
             >
               <TooltipTrigger asChild>
                 <Button variant="ghost" size="icon" className="h-12 w-12">
-                  <Avatar className="size-8">
-                    <AvatarImage src={me?.avatarUrl || undefined} />
-                    <AvatarFallback>
-                      {me?.userName?.[0]?.toUpperCase() || "U"}
-                    </AvatarFallback>
-                  </Avatar>
+                  <UserAvatar
+                    fallback={me?.userName || "U"}
+                    avatarUrl={me?.avatarUrl}
+                  />
                 </Button>
               </TooltipTrigger>
-            </UserAvatarPopover>
+            </UserProfilePopoverMenu>
             <TooltipContent side="right">
               <p>{me ? "프로필" : "로그인"}</p>
             </TooltipContent>

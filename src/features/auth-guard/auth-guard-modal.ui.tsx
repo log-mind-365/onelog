@@ -1,7 +1,7 @@
 "use client";
 
 import type { DialogProps } from "@radix-ui/react-dialog";
-import type { PropsWithChildren, ReactNode } from "react";
+import type { PropsWithChildren } from "react";
 import { Button } from "@/shared/components/ui/button";
 import {
   Dialog,

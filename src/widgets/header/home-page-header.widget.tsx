@@ -13,8 +13,8 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { SignInModal } from "@/features/auth/sign-in/sign-in-modal.ui";
-import { SignUpModal } from "@/features/auth/sign-up/sign-up-modal.ui";
+import { SignInModal } from "@/features/sign-in/sign-in-modal.ui";
+import { SignUpModal } from "@/features/sign-up/sign-up-modal.ui";
 import { Container } from "@/shared/components/container";
 import {
   Avatar,
