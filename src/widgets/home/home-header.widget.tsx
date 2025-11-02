@@ -13,8 +13,8 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { SignInDialog } from "@/features/auth/sign-in/sign-in.ui";
-import { SignUpDialog } from "@/features/auth/sign-up/sign-up.ui";
+import { SignInModal } from "@/features/auth/sign-in/sign-in-modal.ui";
+import { SignUpModal } from "@/features/auth/sign-up/sign-up-modal.ui";
 import { Container } from "@/shared/components/container";
 import {
   Avatar,
@@ -215,12 +215,12 @@ export const HomeHeader = () => {
         </nav>
       </Container.Header>
       {/* Auth Dialogs */}
-      <SignInDialog
+      <SignInModal
         open={showSignIn}
         onOpenChange={setShowSignIn}
         onSwitchToSignUp={handleSwitchToSignUp}
       />
-      <SignUpDialog
+      <SignUpModal
         open={showSignUp}
         onOpenChange={setShowSignUp}
         onSwitchToSignIn={handleSwitchToSignIn}

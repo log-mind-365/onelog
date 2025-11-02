@@ -1,12 +1,13 @@
 "use client";
 
-import { Home, LogIn, Moon, PenSquare, Sun } from "lucide-react";
+import { Home, Moon, PenSquare, Sun } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { SignInDialog } from "@/features/auth/sign-in/sign-in.ui";
-import { SignUpDialog } from "@/features/auth/sign-up/sign-up.ui";
+import { UserAvatarPopover } from "@/entities/user/ui/user-avatar-popover";
+import { SignInModal } from "@/features/auth/sign-in/sign-in-modal.ui";
+import { SignUpModal } from "@/features/auth/sign-up/sign-up-modal.ui";
 import { Container } from "@/shared/components/container";
 import {
   Avatar,
@@ -138,25 +139,21 @@ export const HomeSidebar = () => {
 
           {/* Auth / Profile Button */}
           <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-12 w-12"
-                onClick={handleAuthClick}
-              >
-                {me ? (
+            <UserAvatarPopover
+              avatarUrl={me?.avatarUrl}
+              userName={me?.userName}
+            >
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon" className="h-12 w-12">
                   <Avatar className="size-8">
-                    <AvatarImage src={me.avatarUrl || undefined} />
+                    <AvatarImage src={me?.avatarUrl || undefined} />
                     <AvatarFallback>
-                      {me.userName?.[0]?.toUpperCase() || "U"}
+                      {me?.userName?.[0]?.toUpperCase() || "U"}
                     </AvatarFallback>
                   </Avatar>
-                ) : (
-                  <LogIn className="size-5" />
-                )}
-              </Button>
-            </TooltipTrigger>
+                </Button>
+              </TooltipTrigger>
+            </UserAvatarPopover>
             <TooltipContent side="right">
               <p>{me ? "프로필" : "로그인"}</p>
             </TooltipContent>
@@ -165,12 +162,12 @@ export const HomeSidebar = () => {
       </Container.Sidebar>
 
       {/* Auth Dialogs */}
-      <SignInDialog
+      <SignInModal
         open={showSignIn}
         onOpenChange={setShowSignIn}
         onSwitchToSignUp={handleSwitchToSignUp}
       />
-      <SignUpDialog
+      <SignUpModal
         open={showSignUp}
         onOpenChange={setShowSignUp}
         onSwitchToSignIn={handleSwitchToSignIn}

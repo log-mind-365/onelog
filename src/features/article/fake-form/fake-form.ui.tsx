@@ -3,8 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AuthGuardDialog } from "@/entities/auth/ui/auth-guard-dialog";
-import { SignInDialog } from "@/features/auth/sign-in/sign-in.ui";
-import { SignUpDialog } from "@/features/auth/sign-up/sign-up.ui";
+import { SignInModal } from "@/features/auth/sign-in/sign-in-modal.ui";
+import { SignUpModal } from "@/features/auth/sign-up/sign-up-modal.ui";
 import {
   Avatar,
   AvatarFallback,
@@ -69,12 +69,12 @@ export const FakeForm = () => {
         onOpenChange={setShowAuthGuard}
         onSignInClick={handleSignInClick}
       />
-      <SignInDialog
+      <SignInModal
         open={showSignIn}
         onOpenChange={setShowSignIn}
         onSwitchToSignUp={handleSwitchToSignUp}
       />
-      <SignUpDialog
+      <SignUpModal
         open={showSignUp}
         onOpenChange={setShowSignUp}
         onSwitchToSignIn={handleSwitchToSignIn}

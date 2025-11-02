@@ -1,8 +1,9 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import type { DialogProps } from "@radix-ui/react-dialog";
 import { Loader2 } from "lucide-react";
-import type { ReactNode } from "react";
+import type { PropsWithChildren } from "react";
 import { useForm } from "react-hook-form";
 import { AuthFormField } from "@/entities/auth/ui/auth-form-field";
 import {
@@ -20,19 +21,17 @@ import {
   DialogTrigger,
 } from "@/shared/components/ui/dialog";
 
-type SignInDialogProps = {
-  children?: ReactNode;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
-  onSwitchToSignUp?: () => void;
-};
+type SignInModalProps = PropsWithChildren &
+  DialogProps & {
+    onSwitchToSignUp?: () => void;
+  };
 
-export const SignInDialog = ({
+export const SignInModal = ({
   children,
   open,
   onOpenChange,
   onSwitchToSignUp,
-}: SignInDialogProps) => {
+}: SignInModalProps) => {
   const { mutate: signIn, isPending } = useSignIn();
   const {
     register,

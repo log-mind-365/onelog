@@ -19,20 +19,21 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/shared/components/ui/dialog";
+import { Spinner } from "@/shared/components/ui/spinner";
 
-type SignUpDialogProps = {
+type SignUpModalProps = {
   children?: ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   onSwitchToSignIn?: () => void;
 };
 
-export const SignUpDialog = ({
+export const SignUpModal = ({
   children,
   open,
   onOpenChange,
   onSwitchToSignIn,
-}: SignUpDialogProps) => {
+}: SignUpModalProps) => {
   const { mutate: signUp, isPending } = useSignUp();
   const {
     register,
@@ -109,11 +110,7 @@ export const SignUpDialog = ({
             </div>
           )}
           <Button type="submit" disabled={isPending} className="w-full">
-            {isPending ? (
-              <Loader2 className="size-4 animate-spin" />
-            ) : (
-              "회원가입"
-            )}
+            {isPending ? <Spinner /> : "회원가입"}
           </Button>
         </form>
       </DialogContent>

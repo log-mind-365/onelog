@@ -1,8 +1,6 @@
 import {
-  boolean,
   integer,
   pgEnum,
-  pgPolicy,
   pgTable,
   text,
   timestamp,
