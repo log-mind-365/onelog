@@ -52,7 +52,7 @@ export const InfiniteArticleList = () => {
           id,
           createdAt,
           content,
-          isPublic,
+          accessType,
           userId,
           emotionLevel,
           author,
@@ -61,7 +61,7 @@ export const InfiniteArticleList = () => {
         return (
           <li key={id}>
             <ArticleCard
-              isPublic={isPublic}
+              accessType={accessType}
               content={content}
               isMe={isMe}
               createdAt={createdAt}

@@ -1,3 +1,4 @@
+import type { AccessType } from "@/entities/article/article.model";
 import { ArticleCardContent } from "@/entities/article/ui/article-card-content";
 import { ArticleCardHeader } from "@/entities/article/ui/article-card-header";
 
@@ -10,7 +11,7 @@ type ArticleCardProps = {
   isMe: boolean;
   content: string;
   createdAt: Date;
-  isPublic: boolean;
+  accessType: AccessType;
   onClick: () => void;
 };
 
@@ -22,7 +23,7 @@ export const ArticleCard = ({
   emotionLevel,
   isMe,
   content,
-  isPublic,
+  accessType,
   createdAt,
   onClick,
 }: ArticleCardProps) => {
@@ -41,7 +42,7 @@ export const ArticleCard = ({
         userId={userId}
         isMe={isMe}
         content={content}
-        isPublic={isPublic}
+        accessType={accessType}
         onClick={onClick}
       />
     </article>

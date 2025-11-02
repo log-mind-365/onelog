@@ -1,3 +1,4 @@
+import type { AccessType } from "@/entities/article/article.model";
 import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-type-button";
 import { ArticleCommentButton } from "@/entities/article/ui/article-comment-button";
 import { ArticleLikeButton } from "@/entities/article/ui/article-like-button";
@@ -8,12 +9,12 @@ type ArticleCardContentProps = {
   userId: string;
   isMe: boolean;
   content: string;
-  isPublic: boolean;
+  accessType: AccessType;
   onClick: () => void;
 };
 
 export const ArticleCardContent = ({
-  isPublic,
+  accessType,
   content,
   onClick,
 }: ArticleCardContentProps) => {
@@ -34,7 +35,7 @@ export const ArticleCardContent = ({
             onClick={() => null}
           />
           <ArticleCommentButton commentCount={0} />
-          <ArticleAccessTypeButton value={isPublic ? "public" : "private"} />
+          <ArticleAccessTypeButton value={accessType} />
           <ArticleReportButton onClick={() => null} />
         </div>
       </div>
