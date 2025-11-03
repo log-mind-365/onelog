@@ -1,10 +1,23 @@
-import { Home } from "lucide-react";
+import { Home, PenSquare } from "lucide-react";
 import { ROUTES } from "@/shared/model/routes";
 
-export const TOP_MENUS = [
+type SIDEBAR_MENUS_TYPE = {
+  label: string;
+  icon: any;
+  path?: string;
+  action?: () => void;
+};
+
+export const SIDEBAR_MENUS: Partial<SIDEBAR_MENUS_TYPE[]> = [
   {
-    name: "홈",
+    label: "글쓰기",
+    icon: PenSquare,
+    path: ROUTES.ARTICLE.NEW,
+  },
+  {
+    label: "홈",
     icon: Home,
     path: ROUTES.HOME,
   },
+  undefined,
 ];

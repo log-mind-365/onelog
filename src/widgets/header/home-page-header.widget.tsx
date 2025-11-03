@@ -13,8 +13,6 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { SignInModal } from "@/features/sign-in/sign-in-modal.ui";
-import { SignUpModal } from "@/features/sign-up/sign-up-modal.ui";
 import { Container } from "@/shared/components/container";
 import {
   Avatar,
@@ -33,23 +31,16 @@ import {
 import { cn } from "@/shared/lib/utils";
 import { ROUTES } from "@/shared/model/routes";
 import { useAuth } from "@/shared/store/use-auth";
-
-const TOP_MENUS = [
-  {
-    name: "홈",
-    icon: Home,
-    path: ROUTES.HOME,
-  },
-];
+import { useModal } from "@/shared/store/use-modal";
+import { HEADER_TOP_MENUS } from "@/widgets/header/home-page-header.model";
 
 export const HomePageHeader = () => {
   const { me } = useAuth();
+  const { openModal } = useModal();
   const pathname = usePathname();
   const router = useRouter();
-  const { theme, setTheme } = useTheme();
   const [open, setOpen] = useState(false);
-  const [showSignIn, setShowSignIn] = useState(false);
-  const [showSignUp, setShowSignUp] = useState(false);
+  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -74,16 +65,6 @@ export const HomePageHeader = () => {
       router.push(ROUTES.USER.VIEW(me.id));
       setOpen(false);
     }
-  };
-
-  const handleSignInClick = () => {
-    setOpen(false);
-    setShowSignIn(true);
-  };
-
-  const handleSignUpClick = () => {
-    setOpen(false);
-    setShowSignUp(true);
   };
 
   return (
@@ -120,7 +101,7 @@ export const HomePageHeader = () => {
 
               {/* Top Navigation */}
               <div className="flex flex-col gap-2">
-                {TOP_MENUS.map((menu) => {
+                {HEADER_TOP_MENUS.map((menu) => {
                   const Icon = menu.icon;
                   const active = isActive(menu.path);
 
@@ -165,7 +146,7 @@ export const HomePageHeader = () => {
                   <Button
                     variant="ghost"
                     className="w-full justify-start gap-2"
-                    onClick={handleSignInClick}
+                    onClick={() => openModal("sign-in")}
                   >
                     <LogIn className="size-5" />
                     <span>로그인</span>
@@ -173,7 +154,7 @@ export const HomePageHeader = () => {
                   <Button
                     variant="ghost"
                     className="w-full justify-start gap-2"
-                    onClick={handleSignUpClick}
+                    onClick={() => openModal("sign-up")}
                   >
                     <UserPlus className="size-5" />
                     <span>회원가입</span>

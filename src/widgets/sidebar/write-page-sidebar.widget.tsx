@@ -6,7 +6,7 @@ import type {
 } from "@/entities/article/article.model";
 import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-type-button";
 import { ArticleEmotionButton } from "@/entities/article/ui/article-emotion-button";
-import { SubmitArticleDialog } from "@/features/submit-article/submit-article.ui";
+import { SubmitArticleDialog } from "@/features/submit-article/ui/submit-article";
 import { Container } from "@/shared/components/container";
 import { Button } from "@/shared/components/ui/button";
 import { Separator } from "@/shared/components/ui/separator";

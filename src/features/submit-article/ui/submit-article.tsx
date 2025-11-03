@@ -1,12 +1,11 @@
 "use client";
 
-import { Loader2 } from "lucide-react";
 import type { FormEvent, PropsWithChildren } from "react";
 import type {
   AccessType,
   EmotionLevel,
 } from "@/entities/article/article.model";
-import { useSubmitArticle } from "@/features/submit-article/submit-article.mutation";
+import { useSubmitArticle } from "@/features/submit-article/submit-article.model";
 import { Button } from "@/shared/components/ui/button";
 import {
   Dialog,
@@ -16,6 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/shared/components/ui/dialog";
+import { Spinner } from "@/shared/components/ui/spinner";
 
 type SubmitArticleDialogProps = PropsWithChildren & {
   open?: boolean;
@@ -53,11 +53,7 @@ export const SubmitArticleDialog = ({
         </DialogHeader>
         <form onSubmit={handleSubmit} className="w-full space-y-4">
           <Button type="submit" disabled={isPending} className="w-full">
-            {isPending ? (
-              <Loader2 className="size-4 animate-spin" />
-            ) : (
-              "작성하기"
-            )}
+            {isPending ? <Spinner /> : "작성하기"}
           </Button>
         </form>
       </DialogContent>

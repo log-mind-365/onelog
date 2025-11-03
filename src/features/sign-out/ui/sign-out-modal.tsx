@@ -1,4 +1,4 @@
-import { useSignOut } from "@/features/sign-out/sign-out.mutation";
+import { useSignOut } from "@/features/sign-out/sign-out.model";
 import { Button } from "@/shared/components/ui/button";
 import {
   DialogContent,

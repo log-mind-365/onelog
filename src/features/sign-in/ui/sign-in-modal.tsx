@@ -6,8 +6,8 @@ import { AuthFormField } from "@/entities/auth/ui/auth-form-field";
 import {
   type SignInFormData,
   signInSchema,
+  useSignIn,
 } from "@/features/sign-in/sign-in.model";
-import { useSignIn } from "@/features/sign-in/sign-in.mutation";
 import { Button } from "@/shared/components/ui/button";
 import {
   DialogContent,

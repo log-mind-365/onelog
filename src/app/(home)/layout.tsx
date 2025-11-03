@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from "react";
-import { AuthGuardModal } from "@/features/auth-guard/auth-guard-modal.ui";
-import { SignInModal } from "@/features/sign-in/sign-in-modal.ui";
-import { SignUpModal } from "@/features/sign-up/sign-up-modal.ui";
+import { AuthGuardModal } from "@/features/auth-guard/ui/auth-guard-modal";
+import { SignInModal } from "@/features/sign-in/ui/sign-in-modal";
+import { SignUpModal } from "@/features/sign-up/ui/sign-up-modal";
 import { Container } from "@/shared/components/container";
 import { Modal } from "@/shared/components/modal-container";
 import { TransitionContainer } from "@/shared/components/transition-container";

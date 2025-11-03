@@ -31,7 +31,7 @@ export const articles = pgTable("articles", {
     .references(() => authUsers.id),
   content: text("content").notNull(),
   emotionLevel: integer("emotion_level").notNull(),
-  accessType: accessTypes("access_type").default("public"),
+  accessType: accessTypes("access_type").default("public").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
