@@ -97,16 +97,10 @@ export const SignUpModal = ({
             type="password"
             name="비밀번호 확인"
           />
-          <DialogFooter>
+          <DialogFooter className="sm:flex-col">
             {onSwitchToSignIn && (
               <div className="flex items-center justify-end">
-                <Button
-                  type="button"
-                  variant="link"
-                  size="sm"
-                  className="px-0"
-                  onClick={onSwitchToSignIn}
-                >
+                <Button variant="link" size="sm" onClick={onSwitchToSignIn}>
                   로그인하러 가기
                 </Button>
               </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, Moon, PenSquare, Sun } from "lucide-react";
+import { Home, Moon, PenSquare, Sun, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
@@ -9,11 +9,6 @@ import { UserAvatar } from "@/entities/user/ui/user-avatar";
 import { SignInModal } from "@/features/sign-in/sign-in-modal.ui";
 import { SignUpModal } from "@/features/sign-up/sign-up-modal.ui";
 import { Container } from "@/shared/components/container";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/shared/components/ui/avatar";
 import { Button } from "@/shared/components/ui/button";
 import { Separator } from "@/shared/components/ui/separator";
 import {
@@ -24,7 +19,8 @@ import {
 } from "@/shared/components/ui/tooltip";
 import { ROUTES } from "@/shared/routes";
 import { useMe } from "@/shared/store/use-me";
-import { UserProfilePopoverMenu } from "@/widgets/menu/user-profile-popover-menu.ui";
+import { AuthenticatedDropdownMenu } from "@/widgets/menu/authenticated-dropdown-menu.widget";
+import { UnauthenticatedDropdownMenu } from "@/widgets/menu/unauthenticated-dropdown-menu.widget";
 
 const TOP_MENUS = [
   {
@@ -61,11 +57,7 @@ export const HomePageSidebar = () => {
   };
 
   const handleAuthClick = () => {
-    if (me) {
-      router.push(ROUTES.USER.VIEW(me.id));
-    } else {
-      setShowSignIn(true);
-    }
+    router.push(ROUTES.USER.VIEW(me?.id || ""));
   };
 
   const handleSwitchToSignUp = () => {
@@ -139,24 +131,39 @@ export const HomePageSidebar = () => {
           <Separator />
 
           {/* Auth / Profile Button */}
-          <Tooltip>
-            <UserProfilePopoverMenu
-              avatarUrl={me?.avatarUrl}
-              userName={me?.userName}
-            >
-              <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-12 w-12">
-                  <UserAvatar
-                    fallback={me?.userName || "U"}
-                    avatarUrl={me?.avatarUrl}
-                  />
-                </Button>
-              </TooltipTrigger>
-            </UserProfilePopoverMenu>
-            <TooltipContent side="right">
-              <p>{me ? "프로필" : "로그인"}</p>
-            </TooltipContent>
-          </Tooltip>
+          {me ? (
+            <Tooltip>
+              <AuthenticatedDropdownMenu>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost">
+                    <UserAvatar
+                      fallback={me?.userName || "U"}
+                      avatarUrl={me?.avatarUrl}
+                    />
+                  </Button>
+                </TooltipTrigger>
+              </AuthenticatedDropdownMenu>
+              <TooltipContent side="right">
+                <p>프로필</p>
+              </TooltipContent>
+            </Tooltip>
+          ) : (
+            <Tooltip>
+              <UnauthenticatedDropdownMenu
+                onSwitchToSignIn={handleSwitchToSignIn}
+                onSwitchToSignUp={handleSwitchToSignUp}
+              >
+                <TooltipTrigger asChild>
+                  <Button variant="ghost">
+                    <User />
+                  </Button>
+                </TooltipTrigger>
+              </UnauthenticatedDropdownMenu>
+              <TooltipContent side="right">
+                <p>로그인</p>
+              </TooltipContent>
+            </Tooltip>
+          )}
         </div>
       </Container.Sidebar>
 

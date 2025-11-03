@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import { ThemeProvider } from "next-themes";
+import type { ReactNode } from "react";
 import { QueryProvider } from "@/shared/provider/query-provider";
+import { ThemeProvider } from "@/shared/provider/theme-provider";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
@@ -14,13 +15,15 @@ export const metadata: Metadata = {
 const RootLayout = async ({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) => {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased">
         <QueryProvider>
-          <ThemeProvider attribute="class">{children}</ThemeProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            {children}
+          </ThemeProvider>
         </QueryProvider>
       </body>
     </html>

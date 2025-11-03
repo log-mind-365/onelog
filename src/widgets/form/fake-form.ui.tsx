@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useAuthGuard } from "@/features/auth-guard/auth-guard.model";
 import { AuthGuardModal } from "@/features/auth-guard/auth-guard-modal.ui";
 import { SignInModal } from "@/features/sign-in/sign-in-modal.ui";
 import { SignUpModal } from "@/features/sign-up/sign-up-modal.ui";
@@ -17,18 +18,12 @@ import { useMe } from "@/shared/store/use-me";
 export const FakeForm = () => {
   const router = useRouter();
   const { me } = useMe();
-  const [showAuthGuard, setShowAuthGuard] = useState(false);
+  const { authGuard, showAuthGuard, setShowAuthGuard } = useAuthGuard();
   const [showSignIn, setShowSignIn] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
 
-  const pushNewPost = () => router.push(ROUTES.ARTICLE.NEW);
-
   const handlePostClick = () => {
-    if (me) {
-      pushNewPost();
-    } else {
-      setShowAuthGuard(true);
-    }
+    authGuard(() => router.push(ROUTES.ARTICLE.NEW));
   };
 
   const handleSignInClick = () => {
