@@ -12,7 +12,7 @@ import { Textarea } from "@/shared/components/ui/textarea";
 import { useAuth } from "@/shared/store/use-auth";
 import { WritePageBodyHeader } from "@/widgets/header/write-page-body-header.widget";
 import { WritePageHeader } from "@/widgets/header/write-page-header.widget";
-import { WritePageSidebar } from "@/widgets/sidebar/write-page-sidebar.widget";
+import { WritePageSidebar } from "@/widgets/sidebar/ui/write-page-sidebar";
 
 const Page = () => {
   const router = useRouter();

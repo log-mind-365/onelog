@@ -1,12 +1,12 @@
 "use client";
 
-import { User } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { UserAvatar } from "@/entities/user/ui/user-avatar";
-import { useAuthGuard } from "@/features/auth-guard/auth-guard.model";
+import { useAuthGuard } from "@/features/auth/auth.model";
+import { AuthMenuDropdown } from "@/features/auth/ui/auth-menu-dropdown";
 import { useToggleTheme } from "@/features/toggle-theme/toggle-theme.model";
 import { ToggleThemeButton } from "@/features/toggle-theme/ui/toggle-theme-button";
+import { UserProfileMenuDropdown } from "@/features/user/ui/user-profile-menu-dropdown";
 import { Container } from "@/shared/components/container";
 import { Button } from "@/shared/components/ui/button";
 import { Separator } from "@/shared/components/ui/separator";
@@ -18,8 +18,6 @@ import {
 } from "@/shared/components/ui/tooltip";
 import { ROUTES } from "@/shared/model/routes";
 import { useAuth } from "@/shared/store/use-auth";
-import { AuthenticatedDropdownMenu } from "@/widgets/menu/authenticated-dropdown-menu.widget";
-import { UnauthenticatedDropdownMenu } from "@/widgets/menu/unauthenticated-dropdown-menu.widget";
 import { SIDEBAR_MENUS } from "@/widgets/sidebar/home-page-sidebar-model";
 
 export const HomePageSidebar = () => {
@@ -49,7 +47,7 @@ export const HomePageSidebar = () => {
 
   return (
     <TooltipProvider delayDuration={0}>
-      <Container.Sidebar className="flex flex-col gap-2">
+      <Container.Sidebar>
         {SIDEBAR_MENUS.map((menu, index) => {
           if (!menu) {
             // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
@@ -66,7 +64,7 @@ export const HomePageSidebar = () => {
                   variant={active ? "default" : "ghost"}
                   onClick={() => handleNavigate(menu.path!)}
                 >
-                  <Icon className="size-5" />
+                  <Icon />
                 </Button>
               </TooltipTrigger>
               <TooltipContent side="right">
@@ -76,43 +74,19 @@ export const HomePageSidebar = () => {
           );
         })}
 
-        <div className="mt-auto flex flex-col gap-2">
-          <ToggleThemeButton onThemeToggle={onThemeToggle} theme={theme} />
+        <ToggleThemeButton onThemeToggle={onThemeToggle} theme={theme} />
 
-          <Separator />
+        <Separator />
 
-          {/* Auth / Profile Button */}
-          {isAuthenticated ? (
-            <Tooltip>
-              <AuthenticatedDropdownMenu>
-                <TooltipTrigger asChild>
-                  <Button variant="ghost">
-                    <UserAvatar
-                      fallback={me?.userName || "U"}
-                      avatarUrl={me?.avatarUrl}
-                    />
-                  </Button>
-                </TooltipTrigger>
-              </AuthenticatedDropdownMenu>
-              <TooltipContent side="right">
-                <p>프로필</p>
-              </TooltipContent>
-            </Tooltip>
-          ) : (
-            <Tooltip>
-              <UnauthenticatedDropdownMenu>
-                <TooltipTrigger asChild>
-                  <Button variant="ghost">
-                    <User />
-                  </Button>
-                </TooltipTrigger>
-              </UnauthenticatedDropdownMenu>
-              <TooltipContent side="right">
-                <p>로그인</p>
-              </TooltipContent>
-            </Tooltip>
-          )}
-        </div>
+        {/* Auth / Profile Button */}
+        {isAuthenticated ? (
+          <UserProfileMenuDropdown
+            userName={me?.userName || ""}
+            avatarUrl={me?.avatarUrl || undefined}
+          />
+        ) : (
+          <AuthMenuDropdown />
+        )}
       </Container.Sidebar>
     </TooltipProvider>
   );

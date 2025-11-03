@@ -43,7 +43,7 @@ export const authApi = {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
     if (typeof window !== "undefined") {
-      localStorage.removeItem("auth-guard-storage");
+      localStorage.removeItem("auth-storage");
     }
   },
 };

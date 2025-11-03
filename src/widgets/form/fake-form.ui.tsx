@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useAuthGuard } from "@/features/auth-guard/auth-guard.model";
+import { useAuthGuard } from "@/features/auth/auth.model";
 import {
   Avatar,
   AvatarFallback,

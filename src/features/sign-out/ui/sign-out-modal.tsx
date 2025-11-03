@@ -1,3 +1,5 @@
+"use client";
+
 import { useSignOut } from "@/features/sign-out/sign-out.model";
 import { Button } from "@/shared/components/ui/button";
 import {
@@ -12,6 +14,7 @@ import { useModal } from "@/shared/store/use-modal";
 export const SignOutModal = () => {
   const { mutate: signOut } = useSignOut();
   const { closeModal } = useModal();
+
   const handleSignOut = () => {
     signOut();
   };

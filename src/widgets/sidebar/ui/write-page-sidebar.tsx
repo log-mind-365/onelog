@@ -6,8 +6,9 @@ import type {
 } from "@/entities/article/article.model";
 import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-type-button";
 import { ArticleEmotionButton } from "@/entities/article/ui/article-emotion-button";
-import { SubmitArticleDialog } from "@/features/submit-article/ui/submit-article";
+import { SubmitArticleModal } from "@/features/submit-article/ui/submit-article-modal";
 import { Container } from "@/shared/components/container";
+import { Modal } from "@/shared/components/modal-container";
 import { Button } from "@/shared/components/ui/button";
 import { Separator } from "@/shared/components/ui/separator";
 import {
@@ -16,6 +17,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/shared/components/ui/tooltip";
+import { useModal } from "@/shared/store/use-modal";
 
 type WritePageSidebarProps = {
   accessType: AccessType;
@@ -36,7 +38,7 @@ export const WritePageSidebar = ({
   onEmotionChange,
   onBack,
 }: WritePageSidebarProps) => {
-  const [showSubmit, setShowSubmit] = useState(false);
+  const { openModal } = useModal();
   return (
     <>
       <TooltipProvider>
@@ -59,20 +61,20 @@ export const WritePageSidebar = ({
             onValueChange={onEmotionChange}
           />
           <Separator />
-          <Button onClick={() => setShowSubmit(true)}>
+          <Button onClick={() => openModal("submit-article")}>
             <Check />
           </Button>
         </Container.Sidebar>
       </TooltipProvider>
 
-      <SubmitArticleDialog
-        open={showSubmit}
-        onOpenChange={setShowSubmit}
-        accessType={accessType}
-        emotionLevel={emotionLevel}
-        userId={userId}
-        content={content}
-      />
+      <Modal type="submit-article">
+        <SubmitArticleModal
+          accessType={accessType}
+          emotionLevel={emotionLevel}
+          userId={userId}
+          content={content}
+        />
+      </Modal>
     </>
   );
 };

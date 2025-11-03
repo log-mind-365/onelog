@@ -1,4 +1,5 @@
 import { cva } from "class-variance-authority";
+import { User } from "lucide-react";
 import {
   Avatar,
   AvatarFallback,
@@ -7,7 +8,7 @@ import {
 import { cn } from "@/shared/lib/utils";
 
 type UserAvatarProps = {
-  avatarUrl?: string | null;
+  avatarUrl?: string;
   fallback: string;
   size?: "sm" | "md" | "lg";
 };
@@ -34,7 +35,9 @@ export const UserAvatar = ({
   return (
     <Avatar className={cn(userAvatarVariants({ size }))}>
       <AvatarImage src={avatarUrl || undefined} />
-      <AvatarFallback>{fallback?.[0]?.toUpperCase() || "U"}</AvatarFallback>
+      <AvatarFallback>
+        {fallback?.[0]?.toUpperCase() || <User />}
+      </AvatarFallback>
     </Avatar>
   );
 };
