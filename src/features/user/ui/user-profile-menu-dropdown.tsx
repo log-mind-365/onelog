@@ -32,7 +32,7 @@ export const UserProfileMenuDropdown = ({
       <DropdownMenu>
         <TooltipTrigger asChild>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost">
+            <Button variant="ghost" className="p-0">
               <UserAvatar
                 fallback={userName || "U"}
                 avatarUrl={avatarUrl}

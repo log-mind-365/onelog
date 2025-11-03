@@ -18,8 +18,8 @@ export const AuthMenuDropdown = () => {
   return (
     <Tooltip>
       <DropdownMenu>
-        <TooltipTrigger>
-          <DropdownMenuTrigger>
+        <TooltipTrigger asChild>
+          <DropdownMenuTrigger asChild>
             <Button variant="ghost">
               <User />
             </Button>

@@ -20,6 +20,7 @@ const Page = () => {
   const [accessType, setAccessType] = useState<AccessType>("public");
   const [emotionLevel, setEmotionLevel] = useState<EmotionLevel>(50);
   const { me } = useAuth();
+
   const handleAccessTypeChange = (value: string) => {
     setAccessType(value as AccessType);
   };
