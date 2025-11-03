@@ -4,11 +4,11 @@ import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useEffect, useRef } from "react";
 import { articleQueries } from "@/entities/article/article.queries";
-import { useMe } from "@/shared/store/use-me";
+import { useAuth } from "@/shared/store/use-auth";
 import { ArticleCard } from "@/widgets/card/article-card.widget";
 
 export const InfiniteArticleList = () => {
-  const { me } = useMe();
+  const { me } = useAuth();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useSuspenseInfiniteQuery(articleQueries.infinite());
 

@@ -1,13 +1,12 @@
 "use client";
 
-import { Home, Moon, PenSquare, Sun, User } from "lucide-react";
+import { Moon, PenSquare, Sun, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
-import { SignInModal } from "@/features/sign-in/sign-in-modal.ui";
-import { SignUpModal } from "@/features/sign-up/sign-up-modal.ui";
+import { useAuthGuard } from "@/features/auth-guard/auth-guard.model";
 import { Container } from "@/shared/components/container";
 import { Button } from "@/shared/components/ui/button";
 import { Separator } from "@/shared/components/ui/separator";
@@ -17,26 +16,18 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/shared/components/ui/tooltip";
-import { ROUTES } from "@/shared/routes";
-import { useMe } from "@/shared/store/use-me";
+import { ROUTES } from "@/shared/model/routes";
+import { useAuth } from "@/shared/store/use-auth";
 import { AuthenticatedDropdownMenu } from "@/widgets/menu/authenticated-dropdown-menu.widget";
 import { UnauthenticatedDropdownMenu } from "@/widgets/menu/unauthenticated-dropdown-menu.widget";
-
-const TOP_MENUS = [
-  {
-    name: "홈",
-    icon: Home,
-    path: ROUTES.HOME,
-  },
-];
+import { TOP_MENUS } from "@/widgets/sidebar/home-page-sidebar-model";
 
 export const HomePageSidebar = () => {
-  const { me } = useMe();
+  const { me } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
   const { theme, setTheme } = useTheme();
-  const [showSignIn, setShowSignIn] = useState(false);
-  const [showSignUp, setShowSignUp] = useState(false);
+  const { authGuard } = useAuthGuard();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -56,18 +47,8 @@ export const HomePageSidebar = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
-  const handleAuthClick = () => {
-    router.push(ROUTES.USER.VIEW(me?.id || ""));
-  };
-
-  const handleSwitchToSignUp = () => {
-    setShowSignIn(false);
-    setShowSignUp(true);
-  };
-
-  const handleSwitchToSignIn = () => {
-    setShowSignUp(false);
-    setShowSignIn(true);
+  const handleNavigate = (route: string) => {
+    authGuard(() => router.push(route));
   };
 
   return (
@@ -78,11 +59,9 @@ export const HomePageSidebar = () => {
           <TooltipTrigger asChild>
             <Button
               variant={pathname === ROUTES.ARTICLE.NEW ? "default" : "ghost"}
-              asChild
+              onClick={() => handleNavigate(ROUTES.ARTICLE.NEW)}
             >
-              <Link href={ROUTES.ARTICLE.NEW}>
-                <PenSquare />
-              </Link>
+              <PenSquare />
             </Button>
           </TooltipTrigger>
           <TooltipContent side="right">
@@ -101,7 +80,7 @@ export const HomePageSidebar = () => {
             return (
               <Tooltip key={menu.name}>
                 <TooltipTrigger asChild>
-                  <Button variant={active ? "default" : "ghost"} asChild>
+                  <Button variant={active ? "default" : "ghost"}>
                     <Link href={menu.path}>
                       <Icon className="size-5" />
                     </Link>
@@ -149,10 +128,7 @@ export const HomePageSidebar = () => {
             </Tooltip>
           ) : (
             <Tooltip>
-              <UnauthenticatedDropdownMenu
-                onSwitchToSignIn={handleSwitchToSignIn}
-                onSwitchToSignUp={handleSwitchToSignUp}
-              >
+              <UnauthenticatedDropdownMenu>
                 <TooltipTrigger asChild>
                   <Button variant="ghost">
                     <User />
@@ -166,18 +142,6 @@ export const HomePageSidebar = () => {
           )}
         </div>
       </Container.Sidebar>
-
-      {/* Auth Dialogs */}
-      <SignInModal
-        open={showSignIn}
-        onOpenChange={setShowSignIn}
-        onSwitchToSignUp={handleSwitchToSignUp}
-      />
-      <SignUpModal
-        open={showSignUp}
-        onOpenChange={setShowSignUp}
-        onSwitchToSignIn={handleSwitchToSignIn}
-      />
     </TooltipProvider>
   );
 };

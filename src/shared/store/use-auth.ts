@@ -2,14 +2,14 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { UserInfo } from "@/entities/user/user.model";
 
-type MeState = {
+type AuthStore = {
   me: UserInfo | null;
   isAuthenticated: boolean;
   setMe: (me: UserInfo | null) => void;
   clearMe: () => void;
 };
 
-export const useMe = create<MeState>()(
+export const useAuth = create<AuthStore>()(
   persist(
     (set) => ({
       me: null,

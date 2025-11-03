@@ -3,9 +3,9 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { postArticle } from "@/entities/article/article.api";
 import type { ArticleInsertSchema } from "@/entities/article/article.model";
-import { QUERY_KEY, TOAST_MESSAGE } from "@/shared/constants";
 import { getQueryClient } from "@/shared/lib/get-query-client";
-import { ROUTES } from "@/shared/routes";
+import { QUERY_KEY, TOAST_MESSAGE } from "@/shared/model/constants";
+import { ROUTES } from "@/shared/model/routes";
 
 export const useSubmitArticle = () => {
   const queryClient = getQueryClient();

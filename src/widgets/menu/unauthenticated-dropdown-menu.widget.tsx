@@ -7,31 +7,27 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu";
+import { useModal } from "@/shared/store/use-modal";
 
-type UnauthenticatedDropdownMenuProps = PropsWithChildren &
-  DropdownMenuProps & {
-    onSwitchToSignIn?: () => void;
-    onSwitchToSignUp?: () => void;
-  };
+type UnauthenticatedDropdownMenuProps = PropsWithChildren & DropdownMenuProps;
 
 export const UnauthenticatedDropdownMenu = ({
   open,
   onOpenChange,
-  onSwitchToSignIn,
-  onSwitchToSignUp,
   children,
 }: UnauthenticatedDropdownMenuProps) => {
+  const { openModal } = useModal();
   return (
     <DropdownMenu open={open} onOpenChange={onOpenChange}>
       {children && (
         <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
       )}
       <DropdownMenuContent side="bottom" align="start">
-        <DropdownMenuItem onClick={onSwitchToSignUp}>
+        <DropdownMenuItem onClick={() => openModal("sign-up")}>
           <UserPlus />
           회원가입
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={onSwitchToSignIn}>
+        <DropdownMenuItem onClick={() => openModal("sign-in")}>
           <User />
           로그인
         </DropdownMenuItem>

@@ -9,7 +9,7 @@ import type {
 import { Container } from "@/shared/components/container";
 import { Separator } from "@/shared/components/ui/separator";
 import { Textarea } from "@/shared/components/ui/textarea";
-import { useMe } from "@/shared/store/use-me";
+import { useAuth } from "@/shared/store/use-auth";
 import { WritePageBodyHeader } from "@/widgets/header/write-page-body-header.widget";
 import { WritePageHeader } from "@/widgets/header/write-page-header.widget";
 import { WritePageSidebar } from "@/widgets/sidebar/write-page-sidebar.widget";
@@ -19,7 +19,7 @@ const Page = () => {
   const [content, setContent] = useState("");
   const [accessType, setAccessType] = useState<AccessType>("public");
   const [emotionLevel, setEmotionLevel] = useState<EmotionLevel>(50);
-  const { me } = useMe();
+  const { me } = useAuth();
   const handleAccessTypeChange = (value: string) => {
     setAccessType(value as AccessType);
   };

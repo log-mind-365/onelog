@@ -15,4 +15,4 @@ export const ROUTES = {
   SETTINGS: {
     PROFILE: "/settings/profile",
   },
-};
+} as const;

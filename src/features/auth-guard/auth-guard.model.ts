@@ -1,17 +1,17 @@
-import { useState } from "react";
-import { useMe } from "@/shared/store/use-me";
+import { useAuth } from "@/shared/store/use-auth";
+import { useModal } from "@/shared/store/use-modal";
 
 export const useAuthGuard = () => {
-  const { isAuthenticated } = useMe();
-  const [showAuthGuard, setShowAuthGuard] = useState(false);
+  const { isAuthenticated } = useAuth();
+  const { openModal } = useModal();
 
   const authGuard = (callback: any) => {
     if (isAuthenticated) {
       callback();
     } else {
-      setShowAuthGuard(true);
+      openModal("auth-guard");
     }
   };
 
-  return { authGuard, showAuthGuard, setShowAuthGuard };
+  return { authGuard };
 };

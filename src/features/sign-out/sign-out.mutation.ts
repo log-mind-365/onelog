@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { authApi } from "@/entities/auth/auth.api";
-import { QUERY_KEY, TOAST_MESSAGE } from "@/shared/constants";
-import { ROUTES } from "@/shared/routes";
-import { useMe } from "@/shared/store/use-me";
+import { QUERY_KEY, TOAST_MESSAGE } from "@/shared/model/constants";
+import { ROUTES } from "@/shared/model/routes";
+import { useAuth } from "@/shared/store/use-auth";
 
 export const useSignOut = () => {
   const queryClient = useQueryClient();
-  const { clearMe } = useMe();
+  const { clearMe } = useAuth();
   return useMutation({
     mutationFn: async (): Promise<void> => {
       await authApi.signOut();

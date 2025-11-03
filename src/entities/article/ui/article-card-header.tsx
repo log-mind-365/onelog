@@ -13,7 +13,7 @@ import {
   HoverCardTrigger,
 } from "@/shared/components/ui/hover-card";
 import { cn } from "@/shared/lib/utils";
-import { ROUTES } from "@/shared/routes";
+import { ROUTES } from "@/shared/model/routes";
 
 const emotionColors: Record<number, string> = {
   0: "bg-gray-300",

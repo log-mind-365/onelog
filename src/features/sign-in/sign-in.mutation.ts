@@ -3,10 +3,10 @@ import { toast } from "sonner";
 import { authApi } from "@/entities/auth/auth.api";
 import { signInToEntity } from "@/entities/auth/auth.mapper";
 import type { UserInfo } from "@/entities/user/user.model";
-import { QUERY_KEY, TOAST_MESSAGE } from "@/shared/constants";
 import { getQueryClient } from "@/shared/lib/get-query-client";
-import { ROUTES } from "@/shared/routes";
-import { useMe } from "@/shared/store/use-me";
+import { QUERY_KEY, TOAST_MESSAGE } from "@/shared/model/constants";
+import { ROUTES } from "@/shared/model/routes";
+import { useAuth } from "@/shared/store/use-auth";
 
 type Params = {
   email: string;
@@ -15,7 +15,7 @@ type Params = {
 
 export const useSignIn = () => {
   const queryClient = getQueryClient();
-  const { setMe } = useMe();
+  const { setMe } = useAuth();
 
   return useMutation({
     mutationFn: async ({ email, password }: Params): Promise<UserInfo> => {
