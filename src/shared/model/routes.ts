@@ -5,7 +5,7 @@ export const PROTECTED_ROUTES = ["/post/edit", "/profile/edit"];
 export const ROUTES = {
   HOME: "/",
   USER: {
-    VIEW: (userId: string) => `/${userId}`,
+    VIEW: (id: string) => `/${id}`,
   },
   ARTICLE: {
     VIEW: (id: string) => `/article/${id}`,

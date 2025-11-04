@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { Toaster } from "sonner";
 import { QueryProvider } from "@/shared/provider/query-provider";
 import { ThemeProvider } from "@/shared/provider/theme-provider";
 import "./globals.css";
@@ -23,6 +24,7 @@ const RootLayout = async ({
         <QueryProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
+            <Toaster />
           </ThemeProvider>
         </QueryProvider>
       </body>
