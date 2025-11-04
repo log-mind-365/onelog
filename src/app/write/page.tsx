@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { type ChangeEvent, useState } from "react";
 import type { AccessType, EmotionLevel } from "@/entities/article/model/types";
 import { Container } from "@/shared/components/container";
+import { TransitionContainer } from "@/shared/components/transition-container";
 import { Separator } from "@/shared/components/ui/separator";
 import { Textarea } from "@/shared/components/ui/textarea";
 import { useAuth } from "@/shared/store/use-auth";

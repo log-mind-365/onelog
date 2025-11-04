@@ -1,3 +1,4 @@
+import { cva } from "class-variance-authority";
 import type { ComponentProps } from "react";
 import { cn } from "@/shared/lib/utils";
 
@@ -39,26 +40,28 @@ const Layout = ({ className, children }: ComponentProps<"div">) => {
     </main>
   );
 };
-
-const variantsBody = {
-  default: "",
-  write: "bg-card p-4 rounded-lg shadow-md",
-};
 type BodyProps = ComponentProps<"div"> & {
   variant?: "default" | "write";
 };
 
+const variantsBody = cva(
+  "flex h-[calc(100vh-5.2rem)] w-full flex-col gap-4 sm:my-8 sm:h-[calc(100vh-4rem)] sm:w-md md:w-lg lg:w-2xl",
+  {
+    variants: {
+      variant: {
+        default: "px-4",
+        write: "bg-card py-4 shadow-md",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  },
+);
+
 const Body = ({ variant = "default", className, children }: BodyProps) => {
   return (
-    <div
-      className={cn(
-        "flex h-[calc(100vh-5.2rem)] w-full flex-col gap-4 sm:my-8 sm:h-[calc(100vh-4rem)] sm:w-md md:w-lg lg:w-2xl",
-        variantsBody[variant],
-        className,
-      )}
-    >
-      {children}
-    </div>
+    <div className={cn(variantsBody({ variant }), className)}>{children}</div>
   );
 };
 

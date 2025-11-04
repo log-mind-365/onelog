@@ -15,11 +15,13 @@ const HomePage = async () => {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <Suspense fallback={<p>loading...</p>}>
         <Container.Body>
-          <TransitionContainer.SlideIn type="spring">
-            <FakeForm />
-          </TransitionContainer.SlideIn>
+          <TransitionContainer.FadeIn>
+            <TransitionContainer.SlideIn type="spring">
+              <FakeForm />
+            </TransitionContainer.SlideIn>
 
-          <InfiniteArticleList />
+            <InfiniteArticleList />
+          </TransitionContainer.FadeIn>
         </Container.Body>
       </Suspense>
     </HydrationBoundary>

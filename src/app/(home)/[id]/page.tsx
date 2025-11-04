@@ -2,6 +2,7 @@ import { Calendar, Mail, User } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getUserInfo } from "@/entities/user/api/server";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
+import { Container } from "@/shared/components/container";
 import {
   Card,
   CardContent,
@@ -36,7 +37,7 @@ const Page = async ({ params }: PageProps) => {
   };
 
   return (
-    <div className="mx-auto max-w-3xl space-y-6 p-6">
+    <Container.Body>
       {/* Profile Header Card */}
       <Card>
         <CardHeader>
@@ -96,7 +97,7 @@ const Page = async ({ params }: PageProps) => {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </Container.Body>
   );
 };
 

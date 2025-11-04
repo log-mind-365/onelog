@@ -11,14 +11,12 @@ import { HomePageSidebar } from "@/widgets/sidebar/ui/home-page-sidebar";
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
-    <>
-      <TransitionContainer.FadeIn>
-        <Container.Layout>
-          <HomePageHeader />
-          <HomePageSidebar />
-          {children}
-        </Container.Layout>
-      </TransitionContainer.FadeIn>
+    <TransitionContainer.FadeIn>
+      <Container.Layout>
+        <HomePageHeader />
+        <HomePageSidebar />
+        {children}
+      </Container.Layout>
 
       <Modal type="auth-guard">
         <AuthGuardModal />
@@ -32,7 +30,7 @@ const Layout = ({ children }: PropsWithChildren) => {
       <Modal type="sign-out">
         <SignOutModal />
       </Modal>
-    </>
+    </TransitionContainer.FadeIn>
   );
 };
 
