@@ -1,12 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { z } from "zod";
-import { signUp } from "@/entities/auth/auth.api";
-import { signUpToEntity } from "@/entities/auth/auth.mapper";
-import { postUserInfo } from "@/entities/user/user.api";
-import type { UserInfo } from "@/entities/user/user.model";
-import { getQueryClient } from "@/shared/lib/get-query-client";
+import { postUserInfo, signUp } from "@/entities/user/api/server";
+import { signUpToEntity } from "@/entities/user/lib/mappers";
+import type { UserInfo } from "@/entities/user/model/types";
 import { supabase } from "@/shared/lib/supabase/client";
+import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
 import { QUERY_KEY, TOAST_MESSAGE } from "@/shared/model/constants";
 import { ROUTES } from "@/shared/model/routes";
 import { useAuth } from "@/shared/store/use-auth";

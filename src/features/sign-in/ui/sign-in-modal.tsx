@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { AuthFormField } from "@/entities/auth/ui/auth-form-field";
+import { AuthFormField } from "@/entities/user/ui/auth-form-field";
 import {
   type SignInFormData,
   signInSchema,

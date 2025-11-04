@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { getUserInfo } from "@/entities/user/user.api";
+import { getUserInfo } from "@/entities/user/api/server";
 import { QUERY_KEY } from "@/shared/model/constants";
 
 export const userQueries = {

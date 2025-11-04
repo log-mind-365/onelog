@@ -2,10 +2,8 @@
 
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
-import {
-  EMOTION_STATUS,
-  type EmotionLevel,
-} from "@/entities/article/article.model";
+import { EMOTION_STATUS } from "@/entities/article/model/constants";
+import type { EmotionLevel } from "@/entities/article/model/types";
 import {
   Avatar,
   AvatarFallback,

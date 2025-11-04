@@ -1,6 +1,6 @@
 import type { PopoverContentProps } from "@radix-ui/react-popover";
 import { Globe, Lock } from "lucide-react";
-import type { AccessType } from "@/entities/article/article.model";
+import type { AccessType } from "@/entities/article/model/types";
 import { Button } from "@/shared/components/ui/button";
 import {
   DropdownMenu,

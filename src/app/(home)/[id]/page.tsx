@@ -1,7 +1,7 @@
 import { Calendar, Mail, User } from "lucide-react";
 import { notFound } from "next/navigation";
+import { getUserInfo } from "@/entities/user/api/server";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
-import { getUserInfo } from "@/entities/user/user.api";
 import {
   Card,
   CardContent,

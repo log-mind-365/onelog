@@ -1,9 +1,7 @@
 import type { PopoverContentProps } from "@radix-ui/react-popover";
 import { SmilePlus } from "lucide-react";
-import {
-  EMOTION_STATUS,
-  type EmotionLevel,
-} from "@/entities/article/article.model";
+import { EMOTION_STATUS } from "@/entities/article/model/constants";
+import type { EmotionLevel } from "@/entities/article/model/types";
 import { Button } from "@/shared/components/ui/button";
 import {
   DropdownMenu,

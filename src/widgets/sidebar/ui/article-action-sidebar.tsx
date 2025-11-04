@@ -1,4 +1,4 @@
-import type { AccessType } from "@/entities/article/article.model";
+import type { AccessType } from "@/entities/article/model/types";
 import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-type-button";
 import { ArticleCommentButton } from "@/entities/article/ui/article-comment-button";
 import { ArticleLikeButton } from "@/entities/article/ui/article-like-button";

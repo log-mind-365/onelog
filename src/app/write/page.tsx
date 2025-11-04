@@ -2,10 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { type ChangeEvent, useState } from "react";
-import type {
-  AccessType,
-  EmotionLevel,
-} from "@/entities/article/article.model";
+import type { AccessType, EmotionLevel } from "@/entities/article/model/types";
 import { Container } from "@/shared/components/container";
 import { Separator } from "@/shared/components/ui/separator";
 import { Textarea } from "@/shared/components/ui/textarea";

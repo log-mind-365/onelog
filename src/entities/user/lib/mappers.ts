@@ -1,5 +1,5 @@
 import type { User } from "@supabase/auth-js";
-import type { UserInfo } from "@/entities/user/user.model";
+import type { UserInfo } from "@/entities/user/model/types";
 
 export const signInToEntity = (user: User): UserInfo => {
   return {

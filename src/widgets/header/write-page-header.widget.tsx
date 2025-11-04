@@ -1,8 +1,5 @@
 import { ArrowLeft } from "lucide-react";
-import type {
-  AccessType,
-  EmotionLevel,
-} from "@/entities/article/article.model";
+import type { AccessType, EmotionLevel } from "@/entities/article/model/types";
 import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-type-button";
 import { ArticleEmotionButton } from "@/entities/article/ui/article-emotion-button";
 import { Container } from "@/shared/components/container";

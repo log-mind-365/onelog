@@ -1,4 +1,4 @@
-import type { AccessType } from "@/entities/article/article.model";
+import type { AccessType } from "@/entities/article/model/types";
 import { ArticleCardContent } from "@/entities/article/ui/article-card-content";
 import { ArticleCardHeader } from "@/entities/article/ui/article-card-header";
 

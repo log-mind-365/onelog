@@ -3,13 +3,13 @@
 import { desc, eq, getTableColumns, gt } from "drizzle-orm";
 import { db } from "@/db";
 import { articles, userInfo } from "@/db/schema";
-import {
-  type Article,
-  type ArticleInsertSchema,
-  type ArticleWithAuthorInfo,
-  type InfiniteArticleList,
-  PAGE_LIMIT,
-} from "@/entities/article/article.model";
+import { PAGE_LIMIT } from "@/entities/article/model/constants";
+import type {
+  Article,
+  ArticleInsertSchema,
+  ArticleWithAuthorInfo,
+  InfiniteArticleList,
+} from "@/entities/article/model/types";
 
 export const getInfinitePublicArticleList = async (
   pageParam?: string,

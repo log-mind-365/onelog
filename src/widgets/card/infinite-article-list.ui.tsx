@@ -3,7 +3,7 @@
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useEffect, useRef } from "react";
-import { articleQueries } from "@/entities/article/article.queries";
+import { articleQueries } from "@/entities/article/api/queries";
 import { useAuth } from "@/shared/store/use-auth";
 import { ArticleCard } from "@/widgets/card/article-card.widget";
 

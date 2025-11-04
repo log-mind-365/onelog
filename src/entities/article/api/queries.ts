@@ -1,6 +1,6 @@
 import { infiniteQueryOptions } from "@tanstack/react-query";
-import { getInfinitePublicArticleList } from "@/entities/article/article.api";
-import type { InfiniteArticleList } from "@/entities/article/article.model";
+import { getInfinitePublicArticleList } from "@/entities/article/api/server";
+import type { InfiniteArticleList } from "@/entities/article/model/types";
 import { QUERY_KEY } from "@/shared/model/constants";
 
 export const articleQueries = {

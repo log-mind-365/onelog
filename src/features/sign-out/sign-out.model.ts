@@ -2,8 +2,8 @@
 
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { signOut } from "@/entities/auth/auth.api";
-import { getQueryClient } from "@/shared/lib/get-query-client";
+import { signOut } from "@/entities/user/api/server";
+import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
 import { QUERY_KEY, TOAST_MESSAGE } from "@/shared/model/constants";
 import { ROUTES } from "@/shared/model/routes";
 import { useAuth } from "@/shared/store/use-auth";

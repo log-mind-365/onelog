@@ -1,10 +1,7 @@
 "use client";
 
 import type { FormEvent } from "react";
-import type {
-  AccessType,
-  EmotionLevel,
-} from "@/entities/article/article.model";
+import type { AccessType, EmotionLevel } from "@/entities/article/model/types";
 import { useSubmitArticle } from "@/features/submit-article/submit-article.model";
 import { Button } from "@/shared/components/ui/button";
 import {
