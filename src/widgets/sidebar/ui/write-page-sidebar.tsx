@@ -58,9 +58,17 @@ export const WritePageSidebar = ({
             onValueChange={onEmotionChange}
           />
           <Separator />
-          <Button onClick={() => openModal("submit-article")}>
-            <Check />
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                onClick={() => openModal("submit-article")}
+                disabled={!content.trim()}
+              >
+                <Check />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent side="right">완료</TooltipContent>
+          </Tooltip>
         </Container.Sidebar>
       </TooltipProvider>
 

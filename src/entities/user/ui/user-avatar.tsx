@@ -10,7 +10,7 @@ import { cn } from "@/shared/lib/utils";
 type UserAvatarProps = {
   avatarUrl?: string | null;
   fallback: string;
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "xl";
 };
 
 const userAvatarVariants = cva("", {

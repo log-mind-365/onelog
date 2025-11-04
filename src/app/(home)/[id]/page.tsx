@@ -38,6 +38,8 @@ const Page = async ({ params }: PageProps) => {
 
   return (
     <Container.Body>
+      <Container.Title title="프로필" description="사용자 정보를 확인하세요" />
+
       {/* Profile Header Card */}
       <Card>
         <CardHeader>

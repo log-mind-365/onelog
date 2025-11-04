@@ -65,4 +65,23 @@ const Body = ({ variant = "default", className, children }: BodyProps) => {
   );
 };
 
-export const Container = { Sidebar, Body, Layout, Header };
+type TitleProps = ComponentProps<"div"> & {
+  title: string;
+  description?: string;
+};
+
+const Title = ({ title, description, className, children }: TitleProps) => {
+  return (
+    <div className={cn("flex items-center justify-between", className)}>
+      <div>
+        <h1 className="font-bold text-3xl">{title}</h1>
+        {description && (
+          <p className="mt-1 text-muted-foreground text-sm">{description}</p>
+        )}
+      </div>
+      {children}
+    </div>
+  );
+};
+
+export const Container = { Sidebar, Body, Layout, Header, Title };

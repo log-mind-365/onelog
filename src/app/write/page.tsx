@@ -63,6 +63,8 @@ const Page = () => {
       <WritePageHeader
         emotionLevel={emotionLevel}
         accessType={accessType}
+        content={content}
+        userId={me?.id}
         onAccessTypeChange={handleAccessTypeChange}
         onEmotionChange={handleEmotionChange}
         onBack={() => router.back()}
