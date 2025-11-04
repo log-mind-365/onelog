@@ -1,29 +1,19 @@
 "use client";
 
-import {
-  Home,
-  LogIn,
-  Menu,
-  Moon,
-  PenSquare,
-  Sun,
-  UserPlus,
-} from "lucide-react";
+import { LogIn, Menu, Moon, PenSquare, Sun, UserPlus } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { UserAvatar } from "@/entities/user/ui/user-avatar";
+import { UserBaseInfo } from "@/entities/user/ui/user-base-info";
 import { Container } from "@/shared/components/container";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/shared/components/ui/avatar";
 import { Button } from "@/shared/components/ui/button";
 import { Separator } from "@/shared/components/ui/separator";
 import {
   Sheet,
   SheetContent,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -76,7 +66,7 @@ export const HomePageHeader = () => {
               <Menu className="size-5" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-3/4 px-4">
+          <SheetContent side="left" className="w-2/3 px-4">
             <SheetHeader>
               <SheetTitle>메뉴</SheetTitle>
             </SheetHeader>
@@ -92,7 +82,7 @@ export const HomePageHeader = () => {
                 onClick={() => setOpen(false)}
               >
                 <Link href={ROUTES.ARTICLE.NEW}>
-                  <PenSquare className="size-5" />
+                  <PenSquare />
                   <span>글쓰기</span>
                 </Link>
               </Button>
@@ -114,7 +104,7 @@ export const HomePageHeader = () => {
                       onClick={() => setOpen(false)}
                     >
                       <Link href={menu.path}>
-                        <Icon className="size-5" />
+                        <Icon />
                         <span>{menu.name}</span>
                       </Link>
                     </Button>
@@ -133,13 +123,8 @@ export const HomePageHeader = () => {
                   className="w-full justify-start gap-2"
                   onClick={handleProfileClick}
                 >
-                  <Avatar className="size-8">
-                    <AvatarImage src={me.avatarUrl || undefined} />
-                    <AvatarFallback>
-                      {me.userName?.[0]?.toUpperCase() || "U"}
-                    </AvatarFallback>
-                  </Avatar>
-                  <span>{me.userName}</span>
+                  <UserAvatar fallback={me.userName} avatarUrl={me.avatarUrl} />
+                  <UserBaseInfo userName={me.userName} email={me.email} />
                 </Button>
               ) : (
                 <div className="flex flex-col gap-2">
@@ -148,7 +133,7 @@ export const HomePageHeader = () => {
                     className="w-full justify-start gap-2"
                     onClick={() => openModal("sign-in")}
                   >
-                    <LogIn className="size-5" />
+                    <LogIn />
                     <span>로그인</span>
                   </Button>
                   <Button
@@ -156,16 +141,18 @@ export const HomePageHeader = () => {
                     className="w-full justify-start gap-2"
                     onClick={() => openModal("sign-up")}
                   >
-                    <UserPlus className="size-5" />
+                    <UserPlus />
                     <span>회원가입</span>
                   </Button>
                 </div>
               )}
+            </div>
 
+            <SheetFooter>
               <div className="mt-4 text-center text-muted-foreground text-xs">
                 © 2024 One-Sentence. All rights reserved.
               </div>
-            </div>
+            </SheetFooter>
           </SheetContent>
         </Sheet>
 

@@ -8,7 +8,7 @@ import {
 import { cn } from "@/shared/lib/utils";
 
 type UserAvatarProps = {
-  avatarUrl?: string;
+  avatarUrl?: string | null;
   fallback: string;
   size?: "sm" | "md" | "lg";
 };

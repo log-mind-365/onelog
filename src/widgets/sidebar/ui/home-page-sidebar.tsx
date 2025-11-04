@@ -4,8 +4,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useAuthGuard } from "@/features/auth/lib/use-auth-guard";
 import { AuthMenuDropdown } from "@/features/auth/ui/auth-menu-dropdown";
-import { ToggleThemeButton } from "@/features/toggle-theme/ui/toggle-theme-button";
 import { useToggleTheme } from "@/features/toggle-theme/lib/use-toggle-theme";
+import { ToggleThemeButton } from "@/features/toggle-theme/ui/toggle-theme-button";
 import { UserProfileMenuDropdown } from "@/features/user/ui/user-profile-menu-dropdown";
 import { Container } from "@/shared/components/container";
 import { Button } from "@/shared/components/ui/button";
@@ -18,7 +18,7 @@ import {
 } from "@/shared/components/ui/tooltip";
 import { ROUTES } from "@/shared/model/routes";
 import { useAuth } from "@/shared/store/use-auth";
-import { SIDEBAR_MENUS } from "@/widgets/sidebar/home-page-sidebar-model";
+import { SIDEBAR_MENUS } from "@/widgets/sidebar/model/types";
 
 export const HomePageSidebar = () => {
   const { me, isAuthenticated } = useAuth();

@@ -50,7 +50,7 @@ const variantsBody = cva(
     variants: {
       variant: {
         default: "px-4",
-        write: "bg-card py-4 shadow-md",
+        write: "bg-card p-4 shadow-md sm:rounded-lg",
       },
     },
     defaultVariants: {

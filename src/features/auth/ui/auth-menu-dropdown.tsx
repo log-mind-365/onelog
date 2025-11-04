@@ -26,11 +26,15 @@ export const AuthMenuDropdown = () => {
           </DropdownMenuTrigger>
         </TooltipTrigger>
         <DropdownMenuContent>
-          {authMenuItems.map((item) => (
-            <DropdownMenuItem key={item.id} onClick={item.action}>
-              {item.label}
-            </DropdownMenuItem>
-          ))}
+          {authMenuItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <DropdownMenuItem key={item.id} onClick={item.action}>
+                <Icon />
+                <span>{item.label}</span>
+              </DropdownMenuItem>
+            );
+          })}
         </DropdownMenuContent>
       </DropdownMenu>
       <TooltipContent side="right">

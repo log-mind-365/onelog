@@ -7,7 +7,7 @@ export const useAuthMenu = () => {
     {
       id: "sign-in",
       label: "로그인",
-      icon: () => User,
+      icon: User,
       action: () => openModal("sign-in"),
     },
     {
