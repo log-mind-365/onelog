@@ -1,5 +1,5 @@
 import { User } from "lucide-react";
-import { useAuthMenu } from "@/features/auth/auth.model";
+import { useAuthMenu } from "@/features/auth/lib/use-auth-menu";
 import { Button } from "@/shared/components/ui/button";
 import {
   DropdownMenu,

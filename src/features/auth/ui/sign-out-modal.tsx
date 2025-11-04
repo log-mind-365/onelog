@@ -1,6 +1,6 @@
 "use client";
 
-import { useSignOut } from "@/features/sign-out/sign-out.model";
+import { useSignOut } from "@/features/auth/lib/use-sign-out";
 import { Button } from "@/shared/components/ui/button";
 import {
   DialogContent,

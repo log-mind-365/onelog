@@ -2,7 +2,7 @@
 
 import type { FormEvent } from "react";
 import type { AccessType, EmotionLevel } from "@/entities/article/model/types";
-import { useSubmitArticle } from "@/features/submit-article/submit-article.model";
+import { useSubmitArticle } from "@/features/article/lib/use-submit-article";
 import { Button } from "@/shared/components/ui/button";
 import {
   DialogContent,

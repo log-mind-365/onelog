@@ -3,7 +3,7 @@ import { useState } from "react";
 import type { AccessType, EmotionLevel } from "@/entities/article/model/types";
 import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-type-button";
 import { ArticleEmotionButton } from "@/entities/article/ui/article-emotion-button";
-import { SubmitArticleModal } from "@/features/submit-article/ui/submit-article-modal";
+import { SubmitArticleModal } from "@/features/article/ui/submit-article-modal";
 import { Container } from "@/shared/components/container";
 import { Modal } from "@/shared/components/modal-container";
 import { Button } from "@/shared/components/ui/button";

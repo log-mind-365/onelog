@@ -2,10 +2,10 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useAuthGuard } from "@/features/auth/auth.model";
+import { useAuthGuard } from "@/features/auth/lib/use-auth-guard";
 import { AuthMenuDropdown } from "@/features/auth/ui/auth-menu-dropdown";
-import { useToggleTheme } from "@/features/toggle-theme/toggle-theme.model";
 import { ToggleThemeButton } from "@/features/toggle-theme/ui/toggle-theme-button";
+import { useToggleTheme } from "@/features/toggle-theme/lib/use-toggle-theme";
 import { UserProfileMenuDropdown } from "@/features/user/ui/user-profile-menu-dropdown";
 import { Container } from "@/shared/components/container";
 import { Button } from "@/shared/components/ui/button";

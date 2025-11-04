@@ -1,20 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { z } from "zod";
-import { signIn } from "@/entities/user/api/server";
 import { signInToEntity } from "@/entities/user/lib/mappers";
 import type { UserInfo } from "@/entities/user/model/types";
+import { signIn } from "@/features/auth/api/server";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
 import { QUERY_KEY, TOAST_MESSAGE } from "@/shared/model/constants";
 import { ROUTES } from "@/shared/model/routes";
 import { useAuth } from "@/shared/store/use-auth";
-
-export const signInSchema = z.object({
-  email: z.email("유효한 이메일을 입력해주세요"),
-  password: z.string().min(6, "비밀번호는 최소 6자 이상이어야 합니다"),
-});
-
-export type SignInFormData = z.infer<typeof signInSchema>;
 
 export const useSignIn = () => {
   const queryClient = getQueryClient();

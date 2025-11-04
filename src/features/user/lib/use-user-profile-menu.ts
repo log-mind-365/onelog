@@ -10,6 +10,7 @@ export const useUserProfileMenu = () => {
   const router = useRouter();
   const { openModal } = useModal();
   const { me } = useAuth();
+
   return [
     {
       id: "profile-modify",

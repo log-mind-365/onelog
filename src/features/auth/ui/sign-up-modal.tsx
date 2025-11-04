@@ -3,11 +3,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { AuthFormField } from "@/entities/user/ui/auth-form-field";
-import {
-  type SignUpFormData,
-  signUpSchema,
-  useSignUp,
-} from "@/features/sign-up/sign-up.model";
+import { useSignUp } from "@/features/auth/lib/use-sign-up";
+import { signUpSchema } from "@/features/auth/model/schema";
+import type { SignUpFormData } from "@/features/auth/model/types";
 import { Button } from "@/shared/components/ui/button";
 import {
   DialogContent,
