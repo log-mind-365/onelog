@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { z } from "zod";
-import { authApi } from "@/entities/auth/auth.api";
+import { signIn } from "@/entities/auth/auth.api";
 import { signInToEntity } from "@/entities/auth/auth.mapper";
 import type { UserInfo } from "@/entities/user/user.model";
 import { getQueryClient } from "@/shared/lib/get-query-client";
@@ -28,7 +28,7 @@ export const useSignIn = () => {
       email: string;
       password: string;
     }): Promise<UserInfo> => {
-      const result = await authApi.signIn({ email, password });
+      const result = await signIn({ email, password });
       return signInToEntity(result);
     },
     onSuccess: (data) => {

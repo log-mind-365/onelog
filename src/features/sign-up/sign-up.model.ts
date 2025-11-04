@@ -1,17 +1,19 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { z } from "zod";
-import { authApi } from "@/entities/auth/auth.api";
+import { signUp } from "@/entities/auth/auth.api";
 import { signUpToEntity } from "@/entities/auth/auth.mapper";
+import { postUserInfo } from "@/entities/user/user.api";
 import type { UserInfo } from "@/entities/user/user.model";
 import { getQueryClient } from "@/shared/lib/get-query-client";
+import { supabase } from "@/shared/lib/supabase/client";
 import { QUERY_KEY, TOAST_MESSAGE } from "@/shared/model/constants";
 import { ROUTES } from "@/shared/model/routes";
 import { useAuth } from "@/shared/store/use-auth";
 
 export const signUpSchema = z
   .object({
-    email: z.string().email("유효한 이메일을 입력해주세요"),
+    email: z.email("유효한 이메일을 입력해주세요"),
     userName: z.string().min(2, "필명은 최소 2자 이상이어야 합니다"),
     password: z.string().min(6, "비밀번호는 최소 6자 이상이어야 합니다"),
     passwordConfirmation: z.string(),
@@ -37,8 +39,18 @@ export const useSignUp = () => {
       password: string;
       userName: string;
     }): Promise<UserInfo | null> => {
-      const result = await authApi.signUp({ email, password, userName });
-      return signUpToEntity(result);
+      const result = await signUp({
+        email,
+        password,
+        userName,
+      });
+      const entity = signUpToEntity(result);
+
+      if (!entity) return null;
+      const userInfo = await postUserInfo(entity);
+
+      if (!userInfo) return null;
+      return userInfo;
     },
     onSuccess: (data) => {
       setMe(data);
