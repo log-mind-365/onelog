@@ -46,41 +46,39 @@ const Page = () => {
   };
   return (
     <Suspense fallback={<p>loading...</p>}>
-      <Container.Layout>
-        <WritePageSidebar
-          content={content}
-          userId={me?.id}
+      <WritePageSidebar
+        content={content}
+        userId={me?.id}
+        emotionLevel={emotionLevel}
+        accessType={accessType}
+        onAccessTypeChange={handleAccessTypeChange}
+        onEmotionChange={handleEmotionChange}
+        onBack={() => router.back()}
+      />
+      <WritePageHeader
+        emotionLevel={emotionLevel}
+        accessType={accessType}
+        content={content}
+        userId={me?.id}
+        onAccessTypeChange={handleAccessTypeChange}
+        onEmotionChange={handleEmotionChange}
+        onBack={() => router.back()}
+      />
+      <Container.Body variant="write">
+        <WritePageBodyHeader
+          avatarUrl={me?.avatarUrl}
+          userName={me?.userName}
+          email={me?.email}
+          createdAt={me?.createdAt}
           emotionLevel={emotionLevel}
-          accessType={accessType}
-          onAccessTypeChange={handleAccessTypeChange}
-          onEmotionChange={handleEmotionChange}
-          onBack={() => router.back()}
         />
-        <WritePageHeader
-          emotionLevel={emotionLevel}
-          accessType={accessType}
-          content={content}
-          userId={me?.id}
-          onAccessTypeChange={handleAccessTypeChange}
-          onEmotionChange={handleEmotionChange}
-          onBack={() => router.back()}
+        <Separator />
+        <Textarea
+          value={content}
+          onChange={handleValueChange}
+          className="h-full resize-none border-none shadow-none"
         />
-        <Container.Body variant="write">
-          <WritePageBodyHeader
-            avatarUrl={me?.avatarUrl}
-            userName={me?.userName}
-            email={me?.email}
-            createdAt={me?.createdAt}
-            emotionLevel={emotionLevel}
-          />
-          <Separator />
-          <Textarea
-            value={content}
-            onChange={handleValueChange}
-            className="h-full resize-none border-none shadow-none"
-          />
-        </Container.Body>
-      </Container.Layout>
+      </Container.Body>
     </Suspense>
   );
 };

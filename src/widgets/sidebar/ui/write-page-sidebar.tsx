@@ -2,9 +2,7 @@ import { ArrowLeft, Check } from "lucide-react";
 import type { AccessType, EmotionLevel } from "@/entities/article/model/types";
 import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-type-button";
 import { ArticleEmotionButton } from "@/entities/article/ui/article-emotion-button";
-import { SubmitArticleModal } from "@/features/article/ui/submit-article-modal";
 import { Container } from "@/shared/components/container";
-import { Modal } from "@/shared/components/modal-container";
 import { Button } from "@/shared/components/ui/button";
 import { Separator } from "@/shared/components/ui/separator";
 import {
@@ -36,49 +34,46 @@ export const WritePageSidebar = ({
 }: WritePageSidebarProps) => {
   const { openModal } = useModal();
   return (
-    <>
-      <TooltipProvider>
-        <Container.Sidebar>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="ghost" onClick={onBack}>
-                <ArrowLeft />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="right">뒤로 가기</TooltipContent>
-          </Tooltip>
-          <Separator />
-          <ArticleAccessTypeButton
-            value={accessType}
-            onValueChange={onAccessTypeChange}
-          />
-          <ArticleEmotionButton
-            value={emotionLevel}
-            onValueChange={onEmotionChange}
-          />
-          <Separator />
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                onClick={() => openModal("submit-article")}
-                disabled={!content.trim()}
-              >
-                <Check />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="right">완료</TooltipContent>
-          </Tooltip>
-        </Container.Sidebar>
-      </TooltipProvider>
-
-      <Modal type="submit-article">
-        <SubmitArticleModal
-          accessType={accessType}
-          emotionLevel={emotionLevel}
-          userId={userId}
-          content={content}
+    <TooltipProvider>
+      <Container.Sidebar>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button variant="ghost" onClick={onBack}>
+              <ArrowLeft />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side="right">뒤로 가기</TooltipContent>
+        </Tooltip>
+        <Separator />
+        <ArticleAccessTypeButton
+          value={accessType}
+          onValueChange={onAccessTypeChange}
         />
-      </Modal>
-    </>
+        <ArticleEmotionButton
+          value={emotionLevel}
+          onValueChange={onEmotionChange}
+        />
+        <Separator />
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              onClick={() =>
+                openModal("submit-article", {
+                  userId,
+                  content,
+                  accessType,
+                  emotionLevel,
+                })
+              }
+              className="w-full"
+              disabled={!content.trim()}
+            >
+              <Check />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side="right">완료</TooltipContent>
+        </Tooltip>
+      </Container.Sidebar>
+    </TooltipProvider>
   );
 };

@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 import { QueryProvider } from "@/shared/provider/query-provider";
 import { ThemeProvider } from "@/shared/provider/theme-provider";
 import "./globals.css";
+import { Modal } from "@/shared/provider/modal-provider";
 
 export const metadata: Metadata = {
   title: {
@@ -25,6 +26,7 @@ const RootLayout = async ({
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
             <Toaster />
+            <Modal />
           </ThemeProvider>
         </QueryProvider>
       </body>

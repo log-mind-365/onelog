@@ -12,8 +12,10 @@ import {
 import { useModal } from "@/shared/store/use-modal";
 
 export const SignOutModal = () => {
+  const { currentModal, closeModal } = useModal();
   const { mutate: signOut } = useSignOut();
-  const { closeModal } = useModal();
+
+  if (currentModal !== "sign-out") return null;
 
   const handleSignOut = () => {
     signOut();
