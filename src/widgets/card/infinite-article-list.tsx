@@ -2,13 +2,16 @@
 
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { useVirtualizer } from "@tanstack/react-virtual";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { articleQueries } from "@/entities/article/api/queries";
+import { ROUTES } from "@/shared/model/routes";
 import { useAuth } from "@/shared/store/use-auth";
 import { ArticleCard } from "@/widgets/card/article-card";
 
 export const InfiniteArticleList = () => {
   const { me } = useAuth();
+  const router = useRouter();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useSuspenseInfiniteQuery(articleQueries.infinite());
 
@@ -82,7 +85,7 @@ export const InfiniteArticleList = () => {
               avatarUrl={author?.avatarUrl}
               email={author?.email}
               emotionLevel={emotionLevel}
-              onClick={() => null}
+              onClick={() => router.push(ROUTES.ARTICLE.VIEW(id))}
             />
           </li>
         );

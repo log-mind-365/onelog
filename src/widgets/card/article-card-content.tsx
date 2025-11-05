@@ -14,8 +14,10 @@ type ArticleCardContentProps = {
 };
 
 export const ArticleCardContent = ({
+  userId,
   accessType,
   content,
+  isMe,
   onClick,
 }: ArticleCardContentProps) => {
   return (

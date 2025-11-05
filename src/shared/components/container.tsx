@@ -6,7 +6,7 @@ const Sidebar = ({ className, children }: ComponentProps<"aside">) => {
   return (
     <aside
       className={cn(
-        "hidden h-fit flex-col gap-2 rounded-lg bg-card p-2 shadow-md sm:my-8 sm:flex",
+        "hidden h-fit w-auto flex-col gap-2 rounded-lg border-1 bg-card p-2 sm:my-8 sm:flex",
         className,
       )}
     >

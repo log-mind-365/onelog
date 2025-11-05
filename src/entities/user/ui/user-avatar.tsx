@@ -14,10 +14,10 @@ type UserAvatarProps = {
   size?: "sm" | "md" | "lg" | "xl";
 };
 
-const userAvatarVariants = cva("shadow-md", {
+const userAvatarVariants = cva("border-1", {
   variants: {
     size: {
-      sm: "size-6",
+      sm: "size-8",
       md: "size-10",
       lg: "size-16",
       xl: "size-22",

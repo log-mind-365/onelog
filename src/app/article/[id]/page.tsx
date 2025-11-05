@@ -2,8 +2,6 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getArticleDetail } from "@/entities/article/api/server";
 import { Container } from "@/shared/components/container";
-import { TransitionContainer } from "@/shared/components/transition-container";
-import { Card } from "@/shared/components/ui/card";
 import { Separator } from "@/shared/components/ui/separator";
 import { ArticleCardContent } from "@/widgets/card/article-card-content";
 import { ArticleCardHeader } from "@/widgets/card/article-card-header";
@@ -26,24 +24,18 @@ const ArticlePage = async ({ params }: PageProps) => {
   return (
     <Suspense fallback={<p>loading...</p>}>
       <Container.Body>
-        <TransitionContainer.FadeIn>
-          <Container.Title title="게시글" description="게시글 상세 내용" />
+        <Container.Title title="게시글" description="게시글 상세 내용" />
 
-          <Card>
-            <ArticleCardHeader
-              author={article.author}
-              emotionLevel={article.emotionLevel}
-              accessType={article.accessType}
-              createdAt={article.createdAt}
-            />
-            <Separator />
-            <ArticleCardContent
-              id={article.id}
-              content={article.content}
-              author={article.author}
-            />
-          </Card>
-        </TransitionContainer.FadeIn>
+        <ArticleCardHeader
+          userId={article?.author?.id ?? ""}
+          userName={article?.author?.userName ?? ""}
+          avatarUrl={article?.author?.avatarUrl ?? ""}
+          email={article?.author?.email ?? ""}
+          emotionLevel={article.emotionLevel}
+          createdAt={article.createdAt}
+          isMe={false}
+        />
+        <Separator />
       </Container.Body>
     </Suspense>
   );

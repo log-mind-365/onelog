@@ -1,5 +1,3 @@
-"use client";
-
 import { Link, Share2 } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 import {
@@ -13,7 +11,7 @@ interface Props {
   onClick: () => Promise<void>;
 }
 
-export function ArticleShareButton({ onClick }: Props) {
+export function ShareArticleButton({ onClick }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

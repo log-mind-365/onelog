@@ -4,7 +4,7 @@ import { ArticleCommentButton } from "@/entities/article/ui/article-comment-butt
 import { ArticleLikeButton } from "@/entities/article/ui/article-like-button";
 import { ArticleOptionsDropdownMenu } from "@/entities/article/ui/article-option-button";
 import { ArticleReportButton } from "@/entities/article/ui/article-report-button";
-import { ArticleShareButton } from "@/entities/article/ui/article-share-button";
+import { ShareArticleButton } from "@/features/article/ui/share-article-button";
 import { Separator } from "@/shared/components/ui/separator";
 import { copyURL } from "@/shared/lib/utils";
 
@@ -41,7 +41,7 @@ export const ArticleActionbar = ({
         <ArticleCommentButton commentCount={commentCount} />
         <Separator />
         <ArticleAccessTypeButton value={accessType} />
-        <ArticleShareButton onClick={copyURL} />
+        <ShareArticleButton onClick={copyURL} />
         <ArticleReportButton onClick={onReport} />
         <ArticleOptionsDropdownMenu onDelete={onDelete} onModify={onModify} />
       </div>
