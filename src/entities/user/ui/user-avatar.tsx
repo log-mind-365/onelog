@@ -1,5 +1,6 @@
 import { cva } from "class-variance-authority";
 import { User } from "lucide-react";
+import { forwardRef } from "react";
 import {
   Avatar,
   AvatarFallback,
@@ -13,7 +14,7 @@ type UserAvatarProps = {
   size?: "sm" | "md" | "lg" | "xl";
 };
 
-const userAvatarVariants = cva("", {
+const userAvatarVariants = cva("shadow-md", {
   variants: {
     size: {
       sm: "size-6",
@@ -27,17 +28,15 @@ const userAvatarVariants = cva("", {
   },
 });
 
-export const UserAvatar = ({
-  avatarUrl,
-  fallback,
-  size = "md",
-}: UserAvatarProps) => {
-  return (
-    <Avatar className={cn(userAvatarVariants({ size }))}>
-      <AvatarImage src={avatarUrl || undefined} />
-      <AvatarFallback>
-        {fallback?.[0]?.toUpperCase() || <User />}
-      </AvatarFallback>
-    </Avatar>
-  );
-};
+export const UserAvatar = forwardRef<HTMLDivElement, UserAvatarProps>(
+  ({ avatarUrl, fallback, size = "md", ...props }, ref) => {
+    return (
+      <Avatar ref={ref} className={cn(userAvatarVariants({ size }))} {...props}>
+        <AvatarImage src={avatarUrl || undefined} />
+        <AvatarFallback className="select-none">
+          {fallback?.[0]?.toUpperCase() || <User />}
+        </AvatarFallback>
+      </Avatar>
+    );
+  },
+);

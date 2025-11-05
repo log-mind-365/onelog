@@ -9,7 +9,7 @@ import { Container } from "@/shared/components/container";
 import { Modal } from "@/shared/components/modal-container";
 import { TransitionContainer } from "@/shared/components/transition-container";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
-import { InfiniteArticleList } from "@/widgets/card/infinite-article-list.ui";
+import { InfiniteArticleList } from "@/widgets/card/infinite-article-list";
 import { FakeForm } from "@/widgets/form/fake-form.ui";
 
 const HomePage = async () => {

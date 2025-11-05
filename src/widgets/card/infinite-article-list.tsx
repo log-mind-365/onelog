@@ -5,7 +5,7 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import { useEffect, useRef } from "react";
 import { articleQueries } from "@/entities/article/api/queries";
 import { useAuth } from "@/shared/store/use-auth";
-import { ArticleCard } from "@/widgets/card/article-card.widget";
+import { ArticleCard } from "@/widgets/card/article-card";
 
 export const InfiniteArticleList = () => {
   const { me } = useAuth();
@@ -55,12 +55,11 @@ export const InfiniteArticleList = () => {
   }
 
   return (
-    <ul ref={parentRef} className={"h-full"}>
+    <ul ref={parentRef} className="flex h-full flex-col gap-8">
       {articleVirtualizer.getVirtualItems().map((virtualRow) => {
         const article = allArticles[virtualRow.index];
 
         if (!article) return null;
-
         const {
           id,
           createdAt,

@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getArticleDetail } from "@/entities/article/api/server";
-import { ArticleCardContent } from "@/entities/article/ui/article-card-content";
-import { ArticleCardHeader } from "@/entities/article/ui/article-card-header";
 import { Container } from "@/shared/components/container";
 import { TransitionContainer } from "@/shared/components/transition-container";
 import { Card } from "@/shared/components/ui/card";
 import { Separator } from "@/shared/components/ui/separator";
+import { ArticleCardContent } from "@/widgets/card/article-card-content";
+import { ArticleCardHeader } from "@/widgets/card/article-card-header";
 
 type PageProps = {
   params: Promise<{

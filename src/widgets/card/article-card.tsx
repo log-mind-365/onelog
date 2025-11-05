@@ -1,6 +1,6 @@
 import type { AccessType } from "@/entities/article/model/types";
-import { ArticleCardContent } from "@/entities/article/ui/article-card-content";
-import { ArticleCardHeader } from "@/entities/article/ui/article-card-header";
+import { ArticleCardContent } from "@/widgets/card/article-card-content";
+import { ArticleCardHeader } from "@/widgets/card/article-card-header";
 
 type ArticleCardProps = {
   userId: string;
@@ -28,7 +28,7 @@ export const ArticleCard = ({
   onClick,
 }: ArticleCardProps) => {
   return (
-    <article className="flex flex-col gap-4">
+    <article className="flex flex-col">
       <ArticleCardHeader
         userId={userId}
         userName={userName}
