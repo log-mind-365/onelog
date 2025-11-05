@@ -44,10 +44,23 @@ export const InfiniteArticleList = () => {
     articleVirtualizer.getVirtualItems(),
   ]);
 
+  if (allArticles.length === 0) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <p className="text-muted-foreground text-sm">
+          아직 작성된 글이 없습니다.
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <ul ref={parentRef}>
+    <ul ref={parentRef} className={"h-full"}>
       {articleVirtualizer.getVirtualItems().map((virtualRow) => {
         const article = allArticles[virtualRow.index];
+
+        if (!article) return null;
+
         const {
           id,
           createdAt,

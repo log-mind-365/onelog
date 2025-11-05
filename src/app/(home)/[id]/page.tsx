@@ -1,8 +1,10 @@
 import { Calendar, Mail, User } from "lucide-react";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { getUserInfo } from "@/entities/user/api/server";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
 import { Container } from "@/shared/components/container";
+import { TransitionContainer } from "@/shared/components/transition-container";
 import {
   Card,
   CardContent,
@@ -37,8 +39,10 @@ const Page = async ({ params }: PageProps) => {
   };
 
   return (
-    <Container.Body>
-      <Container.Title title="프로필" description="사용자 정보를 확인하세요" />
+    <Suspense fallback={<p>loading...</p>}>
+      <Container.Body>
+        <TransitionContainer.FadeIn>
+          <Container.Title title="프로필" description="사용자 정보를 확인하세요" />
 
       {/* Profile Header Card */}
       <Card>
@@ -99,7 +103,9 @@ const Page = async ({ params }: PageProps) => {
           </div>
         </CardContent>
       </Card>
-    </Container.Body>
+        </TransitionContainer.FadeIn>
+      </Container.Body>
+    </Suspense>
   );
 };
 
