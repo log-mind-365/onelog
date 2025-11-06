@@ -19,7 +19,7 @@ const Page = () => {
   };
 
   return (
-    <PageContainer className="my-2">
+    <PageContainer>
       <WritePageBodyHeader
         avatarUrl={me?.avatarUrl}
         userName={me?.userName}

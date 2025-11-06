@@ -4,7 +4,7 @@ import { ArticleDetailPageSidebar } from "@/views/article/article-detail-page-si
 
 export const ArticleDetailPageLayout = ({ children }: PropsWithChildren) => {
   return (
-    <TransitionContainer.FadeIn>
+    <TransitionContainer.FadeIn className="flex flex-col items-start justify-center gap-4 sm:flex-row">
       <ArticleDetailPageSidebar />
       {children}
     </TransitionContainer.FadeIn>

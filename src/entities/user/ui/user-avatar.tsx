@@ -14,7 +14,7 @@ type UserAvatarProps = {
   size?: "sm" | "md" | "lg" | "xl";
 };
 
-const userAvatarVariants = cva("border-1", {
+const userAvatarVariants = cva("border-1 bg-card", {
   variants: {
     size: {
       sm: "size-8",
@@ -33,7 +33,7 @@ export const UserAvatar = forwardRef<HTMLDivElement, UserAvatarProps>(
     return (
       <Avatar ref={ref} className={cn(userAvatarVariants({ size }))} {...props}>
         <AvatarImage src={avatarUrl || undefined} />
-        <AvatarFallback className="select-none">
+        <AvatarFallback className="select-none bg-card">
           {fallback?.[0]?.toUpperCase() || <User />}
         </AvatarFallback>
       </Avatar>

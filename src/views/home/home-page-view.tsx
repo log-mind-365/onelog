@@ -12,7 +12,6 @@ export const HomePageView = () => {
       <TransitionContainer.SlideIn type="spring">
         <FakeForm />
       </TransitionContainer.SlideIn>
-
       <InfiniteArticleList />
     </PageContainer>
   );

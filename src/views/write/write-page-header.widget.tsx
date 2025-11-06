@@ -4,9 +4,7 @@ import { ArrowLeft, Check } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-type-button";
 import { ArticleEmotionButton } from "@/entities/article/ui/article-emotion-button";
-import { HeaderContainer } from "@/shared/components/header-container";
 import { Button } from "@/shared/components/ui/button";
-import { Separator } from "@/shared/components/ui/separator";
 import {
   Tooltip,
   TooltipContent,
@@ -27,7 +25,7 @@ export const WritePageHeader = () => {
   const emotionLevel = useArticleFormStore((state) => state.emotionLevel);
 
   return (
-    <HeaderContainer>
+    <header className="flex w-full items-center justify-between px-2 sm:hidden">
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -35,11 +33,8 @@ export const WritePageHeader = () => {
               <ArrowLeft />
             </Button>
           </TooltipTrigger>
-          <TooltipContent side="bottom" align="start">
-            뒤로 가기
-          </TooltipContent>
+          <TooltipContent side="right">뒤로 가기</TooltipContent>
         </Tooltip>
-        <Separator orientation="vertical" />
         <ArticleAccessTypeButton
           value={accessType}
           onValueChange={setAccessType}
@@ -77,6 +72,6 @@ export const WritePageHeader = () => {
           </Tooltip>
         </div>
       </TooltipProvider>
-    </HeaderContainer>
+    </header>
   );
 };

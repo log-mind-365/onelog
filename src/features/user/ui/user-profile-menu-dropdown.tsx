@@ -41,7 +41,7 @@ export const UserProfileMenuDropdown = ({
             </Button>
           </DropdownMenuTrigger>
         </TooltipTrigger>
-        <DropdownMenuContent>
+        <DropdownMenuContent side="bottom" align="start">
           <DropdownMenuLabel>프로필</DropdownMenuLabel>
           <DropdownMenuSeparator />
           {profileMenuItems.map((item, index) => {

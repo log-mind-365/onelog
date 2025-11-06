@@ -13,18 +13,23 @@ import { Spinner } from "@/shared/components/ui/spinner";
 import { useModal } from "@/shared/store/use-modal";
 
 export const SubmitArticleModal = () => {
-  const { props } = useModal();
+  const { props, closeModal } = useModal();
   const { mutate: onSubmit, isPending } = useSubmitArticle();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!props?.userId) return;
-    onSubmit({
-      userId: props?.userId,
-      content: props?.content,
-      emotionLevel: props?.emotionLevel,
-      accessType: props?.accessType,
-    });
+    onSubmit(
+      {
+        userId: props?.userId,
+        content: props?.content,
+        emotionLevel: props?.emotionLevel,
+        accessType: props?.accessType,
+      },
+      {
+        onSuccess: () => closeModal(),
+      },
+    );
   };
 
   return (

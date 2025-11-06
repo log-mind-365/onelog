@@ -4,7 +4,7 @@ import { HomePageHeader } from "@/views/home/home-page-header.widget";
 
 const Template = ({ children }: PropsWithChildren) => {
   return (
-    <TransitionContainer.FadeIn className="flex flex-col gap-8">
+    <TransitionContainer.FadeIn className="flex flex-col gap-4">
       <HomePageHeader />
       {children}
     </TransitionContainer.FadeIn>

@@ -56,7 +56,7 @@ export const ArticleCardHeader = ({
         <HoverCardTrigger asChild>
           <UserAvatar fallback={userName || "U"} avatarUrl={avatarUrl} />
         </HoverCardTrigger>
-        <HoverCardContent align="center" side="bottom" className="w-auto p-0">
+        <HoverCardContent align="start" side="bottom" className="w-auto p-0">
           <div className="flex flex-col gap-4 p-4">
             <div className="flex flex-col items-center gap-4">
               <UserAvatar
@@ -75,12 +75,16 @@ export const ArticleCardHeader = ({
                       <Link href={ROUTES.SETTINGS.PROFILE}>프로필 수정</Link>
                     </Button>
                     <Button size="sm" asChild>
-                      <Link href={ROUTES.PROFILE.VIEW(userId)}>프로필 페이지</Link>
+                      <Link href={ROUTES.PROFILE.VIEW(userId)}>
+                        프로필 페이지
+                      </Link>
                     </Button>
                   </>
                 ) : (
                   <Button size="sm" asChild>
-                    <Link href={ROUTES.PROFILE.VIEW(userId)}>프로필 페이지</Link>
+                    <Link href={ROUTES.PROFILE.VIEW(userId)}>
+                      프로필 페이지
+                    </Link>
                   </Button>
                 )}
               </div>
@@ -93,7 +97,7 @@ export const ArticleCardHeader = ({
         email={email || ""}
         createdAt={createdAt}
       />
-      <div className="flex h-full flex-1 items-end justify-end p-2">
+      <div className="flex h-full flex-1 items-end justify-end">
         <div className="flex flex-col items-center gap-2 rounded-md p-2">
           <div className="flex items-center gap-2">
             <span className="text-muted-foreground text-xs">{label}</span>

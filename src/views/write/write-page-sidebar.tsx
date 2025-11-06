@@ -13,6 +13,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/shared/components/ui/tooltip";
+import { useAuth } from "@/shared/store/use-auth";
 import { useModal } from "@/shared/store/use-modal";
 import { useArticleFormStore } from "@/views/write/use-article-form-store";
 
@@ -20,10 +21,10 @@ export const WritePageSidebar = () => {
   const router = useRouter();
   const { setAccessType, setEmotionLevel } = useArticleFormStore();
   const { openModal } = useModal();
+  const { me } = useAuth();
   const content = useArticleFormStore((state) => state.content);
   const accessType = useArticleFormStore((state) => state.accessType);
   const emotionLevel = useArticleFormStore((state) => state.emotionLevel);
-  const userId = useArticleFormStore((state) => state.userId);
 
   return (
     <SidebarContainer>
@@ -51,7 +52,7 @@ export const WritePageSidebar = () => {
             <Button
               onClick={() =>
                 openModal("submit-article", {
-                  userId,
+                  userId: me?.id,
                   content,
                   accessType,
                   emotionLevel,
