@@ -1,43 +1,24 @@
-import { notFound } from "next/navigation";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { Suspense } from "react";
-import { getArticleDetail } from "@/entities/article/api/server";
-import { Container } from "@/shared/components/container";
-import { Separator } from "@/shared/components/ui/separator";
-import { ArticleCardContent } from "@/widgets/card/article-card-content";
-import { ArticleCardHeader } from "@/widgets/card/article-card-header";
+import { articleQueries } from "@/entities/article/api/queries";
+import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
+import { ArticleDetailPageView } from "@/views/article/article-detail-page-view";
 
 type PageProps = {
-  params: Promise<{
-    id: string;
-  }>;
+  params: Promise<{ id: string }>;
 };
 
 const ArticlePage = async ({ params }: PageProps) => {
   const { id } = await params;
-
-  const article = await getArticleDetail(id);
-
-  if (!article) {
-    notFound();
-  }
+  const queryClient = getQueryClient();
+  await queryClient.prefetchQuery(articleQueries.detail(id));
 
   return (
-    <Suspense fallback={<p>loading...</p>}>
-      <Container.Body>
-        <Container.Title title="게시글" description="게시글 상세 내용" />
-
-        <ArticleCardHeader
-          userId={article?.author?.id ?? ""}
-          userName={article?.author?.userName ?? ""}
-          avatarUrl={article?.author?.avatarUrl ?? ""}
-          email={article?.author?.email ?? ""}
-          emotionLevel={article.emotionLevel}
-          createdAt={article.createdAt}
-          isMe={false}
-        />
-        <Separator />
-      </Container.Body>
-    </Suspense>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <Suspense fallback={<p>loading...</p>}>
+        <ArticleDetailPageView id={id} />
+      </Suspense>
+    </HydrationBoundary>
   );
 };
 

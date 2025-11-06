@@ -1,13 +1,8 @@
 import type { PropsWithChildren } from "react";
-import { Container } from "@/shared/components/container";
-import { TransitionContainer } from "@/shared/components/transition-container";
+import { WritePageLayout } from "@/views/write/write-page-layout";
 
 const Layout = ({ children }: PropsWithChildren) => {
-  return (
-    <TransitionContainer.FadeIn>
-      <Container.Layout>{children}</Container.Layout>
-    </TransitionContainer.FadeIn>
-  );
+  return <WritePageLayout>{children}</WritePageLayout>;
 };
 
 export default Layout;

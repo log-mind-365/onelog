@@ -1,17 +1,8 @@
 import type { PropsWithChildren } from "react";
-import { Container } from "@/shared/components/container";
-import { TransitionContainer } from "@/shared/components/transition-container";
-import { ArticleDetailPageSidebar } from "@/widgets/sidebar/ui/article-detail-page-sidebar";
+import { ArticleDetailPageLayout } from "@/views/article/article-detail-page-layout";
 
 const Layout = ({ children }: PropsWithChildren) => {
-  return (
-    <TransitionContainer.FadeIn>
-      <Container.Layout>
-        <ArticleDetailPageSidebar />
-        {children}
-      </Container.Layout>
-    </TransitionContainer.FadeIn>
-  );
+  return <ArticleDetailPageLayout>{children}</ArticleDetailPageLayout>;
 };
 
 export default Layout;
