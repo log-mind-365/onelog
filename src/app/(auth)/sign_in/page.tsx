@@ -1,0 +1,111 @@
+"use client";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { Controller, useForm } from "react-hook-form";
+import { useSignIn } from "@/features/auth/lib/use-sign-in";
+import { signInSchema } from "@/features/auth/model/schema";
+import type { SignInFormData } from "@/features/auth/model/types";
+import { Button } from "@/shared/components/ui/button";
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSet,
+} from "@/shared/components/ui/field";
+import { Input } from "@/shared/components/ui/input";
+import { Spinner } from "@/shared/components/ui/spinner";
+import { ROUTES } from "@/shared/model/routes";
+
+const SignInPage = () => {
+  const router = useRouter();
+  const { mutate: signIn, isPending } = useSignIn();
+  const { control, handleSubmit } = useForm<SignInFormData>({
+    resolver: zodResolver(signInSchema),
+    mode: "onBlur",
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const handleSubmitSignIn = (data: SignInFormData) => {
+    signIn(data);
+  };
+
+  return (
+    <div className="flex w-sm flex-col gap-4">
+      <form onSubmit={handleSubmit(handleSubmitSignIn)}>
+        <FieldSet>
+          <FieldLegend>로그인</FieldLegend>
+          <FieldDescription>
+            가입 정보를 입력하여 로그인 하세요.
+          </FieldDescription>
+          <FieldGroup>
+            <Controller
+              name="email"
+              control={control}
+              render={({ field, fieldState }) => (
+                <Field
+                  data-invalid={fieldState.invalid}
+                  className="flex w-full flex-col gap-2"
+                >
+                  <FieldLabel htmlFor={field.name}>이메일</FieldLabel>
+                  <Input
+                    {...field}
+                    id={field.name}
+                    aria-invalid={fieldState.invalid}
+                    type="email"
+                    placeholder="example@mail.com"
+                    className="bg-card"
+                  />
+                  <FieldDescription>이메일을 입력하세요.</FieldDescription>
+                  <FieldError errors={[fieldState.error]} />
+                </Field>
+              )}
+            />
+            <Controller
+              name="password"
+              control={control}
+              render={({ field, fieldState }) => (
+                <Field>
+                  <FieldLabel htmlFor={field.name}>비밀번호</FieldLabel>
+                  <Input
+                    {...field}
+                    id={field.name}
+                    aria-invalid={fieldState.invalid}
+                    type="password"
+                    placeholder="******"
+                    className="bg-card"
+                    autoComplete="off"
+                  />
+                  <FieldDescription>
+                    6자리 비밀번호를 입력하세요.
+                  </FieldDescription>
+                  <FieldError errors={[fieldState.error]} />
+                </Field>
+              )}
+            />
+            <Button type="submit" disabled={isPending} className="w-full">
+              {isPending ? <Spinner /> : "로그인"}
+            </Button>
+          </FieldGroup>
+        </FieldSet>
+      </form>
+      <div className="flex items-center justify-end">
+        <Button
+          variant="link"
+          size="sm"
+          onClick={() => router.push(ROUTES.AUTH.SIGN_UP)}
+        >
+          회원가입 하러 가기
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default SignInPage;
