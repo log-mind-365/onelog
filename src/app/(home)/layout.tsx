@@ -1,19 +1,8 @@
 import type { PropsWithChildren } from "react";
-import { Container } from "@/shared/components/container";
-import { TransitionContainer } from "@/shared/components/transition-container";
-import { HomePageHeader } from "@/widgets/header/home-page-header.widget";
-import { HomePageSidebar } from "@/widgets/sidebar/ui/home-page-sidebar";
+import { HomePageLayout } from "@/views/home/home-page-layout";
 
-const Layout = ({ children }: PropsWithChildren) => {
-  return (
-    <TransitionContainer.FadeIn>
-      <Container.Layout>
-        <HomePageHeader />
-        <HomePageSidebar />
-        {children}
-      </Container.Layout>
-    </TransitionContainer.FadeIn>
-  );
+const HomeLayout = ({ children }: PropsWithChildren) => {
+  return <HomePageLayout>{children}</HomePageLayout>;
 };
 
-export default Layout;
+export default HomeLayout;

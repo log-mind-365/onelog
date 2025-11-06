@@ -1,10 +1,14 @@
-export const AUTH_RESTRICTED_ROUTES: string[] = [];
+export const AUTH_RESTRICTED_ROUTES: string[] = []; // 미사용
 
-export const PROTECTED_ROUTES = ["/post/edit", "/profile/edit"];
+export const PROTECTED_ROUTES = ["/post/edit", "/profile/edit"]; // 미사용
 
 export const ROUTES = {
   HOME: "/",
-  USER: {
+  AUTH: {
+    SIGN_IN: "/sign_in",
+    SIGN_UP: "/sign_up",
+  },
+  PROFILE: {
     VIEW: (id: string) => `/${id}`,
   },
   ARTICLE: {
@@ -14,5 +18,6 @@ export const ROUTES = {
   },
   SETTINGS: {
     PROFILE: "/settings/profile",
+    DISPLAY: "/settings/display",
   },
 } as const;
