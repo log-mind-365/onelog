@@ -7,7 +7,7 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
 import { UserBaseInfo } from "@/entities/user/ui/user-base-info";
-import { Container } from "@/shared/components/container";
+import { HeaderContainer } from "@/shared/components/header-container";
 import { Button } from "@/shared/components/ui/button";
 import { Separator } from "@/shared/components/ui/separator";
 import {
@@ -22,7 +22,7 @@ import { cn } from "@/shared/lib/utils";
 import { ROUTES } from "@/shared/model/routes";
 import { useAuth } from "@/shared/store/use-auth";
 import { useModal } from "@/shared/store/use-modal";
-import { HEADER_TOP_MENUS } from "@/widgets/header/home-page-header.model";
+import { HEADER_TOP_MENUS } from "@/views/home/home-page-header.model";
 
 export const HomePageHeader = () => {
   const { me } = useAuth();
@@ -52,13 +52,13 @@ export const HomePageHeader = () => {
 
   const handleProfileClick = () => {
     if (me) {
-      router.push(ROUTES.USER.VIEW(me.id));
+      router.push(ROUTES.PROFILE.VIEW(me.id));
       setOpen(false);
     }
   };
 
   return (
-    <Container.Header>
+    <HeaderContainer>
       <nav className="flex h-full items-center justify-between">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
@@ -170,6 +170,6 @@ export const HomePageHeader = () => {
           </div>
         </Button>
       </nav>
-    </Container.Header>
+    </HeaderContainer>
   );
 };

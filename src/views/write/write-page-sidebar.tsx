@@ -1,8 +1,10 @@
+"use client";
+
 import { ArrowLeft, Check } from "lucide-react";
-import type { AccessType, EmotionLevel } from "@/entities/article/model/types";
+import { useRouter } from "next/navigation";
 import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-type-button";
 import { ArticleEmotionButton } from "@/entities/article/ui/article-emotion-button";
-import { Container } from "@/shared/components/container";
+import { SidebarContainer } from "@/shared/components/sidebar-container";
 import { Button } from "@/shared/components/ui/button";
 import { Separator } from "@/shared/components/ui/separator";
 import {
@@ -12,33 +14,23 @@ import {
   TooltipTrigger,
 } from "@/shared/components/ui/tooltip";
 import { useModal } from "@/shared/store/use-modal";
+import { useArticleFormStore } from "@/views/write/use-article-form-store";
 
-type WritePageSidebarProps = {
-  accessType: AccessType;
-  emotionLevel: EmotionLevel;
-  content: string;
-  userId?: string;
-  onAccessTypeChange: (value: string) => void;
-  onEmotionChange: (value: string) => void;
-  onBack: () => void;
-};
-
-export const WritePageSidebar = ({
-  accessType,
-  emotionLevel,
-  content,
-  userId,
-  onAccessTypeChange,
-  onEmotionChange,
-  onBack,
-}: WritePageSidebarProps) => {
+export const WritePageSidebar = () => {
+  const router = useRouter();
+  const { setAccessType, setEmotionLevel } = useArticleFormStore();
   const { openModal } = useModal();
+  const content = useArticleFormStore((state) => state.content);
+  const accessType = useArticleFormStore((state) => state.accessType);
+  const emotionLevel = useArticleFormStore((state) => state.emotionLevel);
+  const userId = useArticleFormStore((state) => state.userId);
+
   return (
-    <TooltipProvider>
-      <Container.Sidebar>
+    <SidebarContainer>
+      <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="ghost" onClick={onBack}>
+            <Button variant="ghost" onClick={() => router.back()}>
               <ArrowLeft />
             </Button>
           </TooltipTrigger>
@@ -47,11 +39,11 @@ export const WritePageSidebar = ({
         <Separator />
         <ArticleAccessTypeButton
           value={accessType}
-          onValueChange={onAccessTypeChange}
+          onValueChange={setAccessType}
         />
         <ArticleEmotionButton
           value={emotionLevel}
-          onValueChange={onEmotionChange}
+          onValueChange={setEmotionLevel}
         />
         <Separator />
         <Tooltip>
@@ -73,7 +65,7 @@ export const WritePageSidebar = ({
           </TooltipTrigger>
           <TooltipContent side="right">완료</TooltipContent>
         </Tooltip>
-      </Container.Sidebar>
-    </TooltipProvider>
+      </TooltipProvider>
+    </SidebarContainer>
   );
 };

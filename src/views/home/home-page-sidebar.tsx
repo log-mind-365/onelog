@@ -7,7 +7,7 @@ import { AuthMenuDropdown } from "@/features/auth/ui/auth-menu-dropdown";
 import { useToggleTheme } from "@/features/toggle-theme/lib/use-toggle-theme";
 import { ToggleThemeButton } from "@/features/toggle-theme/ui/toggle-theme-button";
 import { UserProfileMenuDropdown } from "@/features/user/ui/user-profile-menu-dropdown";
-import { Container } from "@/shared/components/container";
+import { SidebarContainer } from "@/shared/components/sidebar-container";
 import { Button } from "@/shared/components/ui/button";
 import { Separator } from "@/shared/components/ui/separator";
 import {
@@ -18,7 +18,7 @@ import {
 } from "@/shared/components/ui/tooltip";
 import { ROUTES } from "@/shared/model/routes";
 import { useAuth } from "@/shared/store/use-auth";
-import { SIDEBAR_MENUS } from "@/widgets/sidebar/model/types";
+import { SIDEBAR_MENUS } from "@/views/home/types";
 
 export const HomePageSidebar = () => {
   const { me, isAuthenticated } = useAuth();
@@ -46,8 +46,8 @@ export const HomePageSidebar = () => {
   };
 
   return (
-    <TooltipProvider delayDuration={0}>
-      <Container.Sidebar>
+    <SidebarContainer>
+      <TooltipProvider delayDuration={0}>
         {SIDEBAR_MENUS.map((menu, index) => {
           if (!menu) {
             // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
@@ -87,7 +87,7 @@ export const HomePageSidebar = () => {
         ) : (
           <AuthMenuDropdown />
         )}
-      </Container.Sidebar>
-    </TooltipProvider>
+      </TooltipProvider>
+    </SidebarContainer>
   );
 };
