@@ -9,7 +9,7 @@ import { Dialog } from "@/shared/components/ui/dialog";
 import { useModal } from "@/shared/store/use-modal";
 
 export const Modal = () => {
-  const { currentModal, closeModal, props } = useModal();
+  const { currentModal, closeModal } = useModal();
 
   if (currentModal === null) return null;
 
@@ -18,11 +18,11 @@ export const Modal = () => {
       open={!!currentModal}
       onOpenChange={(open) => !open && closeModal()}
     >
-      <SignUpModal />
-      <SignInModal />
-      <SignOutModal />
-      <SubmitArticleModal {...props} />
-      <AuthGuardModal />
+      {currentModal === "sign-up" && <SignUpModal />}
+      {currentModal === "sign-in" && <SignInModal />}
+      {currentModal === "sign-out" && <SignOutModal />}
+      {currentModal === "submit-article" && <SubmitArticleModal />}
+      {currentModal === "auth-guard" && <AuthGuardModal />}
     </Dialog>
   );
 };

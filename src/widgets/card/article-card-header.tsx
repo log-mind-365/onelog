@@ -75,12 +75,12 @@ export const ArticleCardHeader = ({
                       <Link href={ROUTES.SETTINGS.PROFILE}>프로필 수정</Link>
                     </Button>
                     <Button size="sm" asChild>
-                      <Link href={ROUTES.USER.VIEW(userId)}>프로필 페이지</Link>
+                      <Link href={ROUTES.PROFILE.VIEW(userId)}>프로필 페이지</Link>
                     </Button>
                   </>
                 ) : (
                   <Button size="sm" asChild>
-                    <Link href={ROUTES.USER.VIEW(userId)}>프로필 페이지</Link>
+                    <Link href={ROUTES.PROFILE.VIEW(userId)}>프로필 페이지</Link>
                   </Button>
                 )}
               </div>

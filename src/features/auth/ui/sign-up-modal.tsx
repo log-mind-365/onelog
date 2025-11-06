@@ -18,7 +18,7 @@ import { Spinner } from "@/shared/components/ui/spinner";
 import { useModal } from "@/shared/store/use-modal";
 
 export const SignUpModal = () => {
-  const { currentModal, openModal } = useModal();
+  const { openModal } = useModal();
   const { mutate: signUp, isPending } = useSignUp();
   const {
     register,
@@ -34,8 +34,6 @@ export const SignUpModal = () => {
       passwordConfirmation: "",
     },
   });
-
-  if (currentModal !== "sign-up") return null;
 
   const handleSubmitSignUp = (data: SignUpFormData) => {
     signUp({

@@ -90,7 +90,7 @@ export const QUERY_KEY = {
       postType?: "journal" | "article",
       authorId?: string | null,
     ) => ["post", postType, authorId],
-    DETAIL: (postId?: number) => ["post", postId],
+    DETAIL: (postId?: string) => ["post", postId],
     CHECK_LIKED: (postId?: number, meId?: string | null) => [
       "post",
       "isLiked",

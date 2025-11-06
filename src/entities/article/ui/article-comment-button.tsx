@@ -23,14 +23,13 @@ export const ArticleCommentButton = ({
       <TooltipTrigger asChild>
         <Button
           variant="ghost"
-          size={isSide ? "default" : "sm"}
           onClick={onClick}
           className={cn(
-            "gap-1 font-light text-xs transition-colors hover:text-blue-400",
+            "gap-1 text-xs transition-colors hover:text-blue-400",
             isSide && "max-lg:flex-col",
           )}
         >
-          <MessageCircle className="size-4" />
+          <MessageCircle />
           {commentCount ?? 0}
         </Button>
       </TooltipTrigger>

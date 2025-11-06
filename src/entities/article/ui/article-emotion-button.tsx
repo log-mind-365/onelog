@@ -18,7 +18,7 @@ import {
 
 type ArticleEmotionButtonProps = {
   value: EmotionLevel | null;
-  onValueChange?: (value: string) => void;
+  onValueChange?: (value: EmotionLevel) => void;
   tooltipSide?: PopoverContentProps["side"];
   dropdownMenuSide?: PopoverContentProps["side"];
   dropdownMenuAlign?: PopoverContentProps["align"];

@@ -23,7 +23,7 @@ export const ArticleCardContent = ({
   return (
     <Card
       onClick={onClick}
-      className="w-full cursor-pointer border-0 p-4 transition-shadow hover:shadow-lg"
+      className="w-full cursor-pointer p-4 shadow-none transition-shadow hover:shadow-lg"
     >
       <div className="flex flex-col gap-4">
         <div className="relative max-h-64 overflow-hidden">

@@ -1,9 +1,12 @@
 import * as motion from "motion/react-client";
-import type { ComponentProps } from "react";
+import type { ReactNode } from "react";
 
-type BaseTransitionProps = ComponentProps<"div"> & {
+type BaseTransitionProps = {
   duration?: number;
+  children?: ReactNode;
+  className?: string;
 };
+
 type FadeInProps = BaseTransitionProps;
 type SlideInProps = BaseTransitionProps & {
   direction?: "left" | "right" | "up" | "down";

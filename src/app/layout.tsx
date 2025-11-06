@@ -5,6 +5,7 @@ import { QueryProvider } from "@/shared/provider/query-provider";
 import { ThemeProvider } from "@/shared/provider/theme-provider";
 import "./globals.css";
 import { Modal } from "@/shared/provider/modal-provider";
+import { HomePageHeader } from "@/views/home/home-page-header.widget";
 
 export const metadata: Metadata = {
   title: {

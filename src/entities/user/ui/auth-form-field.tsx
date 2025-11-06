@@ -1,13 +1,24 @@
-import type { FieldError, UseFormRegisterReturn } from "react-hook-form";
+import type {
+  // biome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>
+  FieldError as Error,
+  UseFormRegisterReturn,
+} from "react-hook-form";
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+} from "@/shared/components/ui/field";
 import { Input } from "@/shared/components/ui/input";
-import { Label } from "@/shared/components/ui/label";
 
 type AuthFormFieldProps = {
   register: UseFormRegisterReturn;
-  error?: FieldError;
+  error?: Error;
   type?: string;
-  name?: string;
+  name: string;
+  required?: boolean;
   placeholder?: string;
+  description?: string;
 };
 
 export const AuthFormField = ({
@@ -15,25 +26,23 @@ export const AuthFormField = ({
   type,
   name,
   register,
+  required = false,
   error,
+  description,
 }: AuthFormFieldProps) => {
   return (
-    <div className="flex w-full flex-col gap-2">
-      {name && (
-        <Label htmlFor={type} className="font-semibold text-sm">
-          {name}
-        </Label>
-      )}
+    <Field className="flex w-full flex-col gap-2">
+      <FieldLabel htmlFor={type}>{name}</FieldLabel>
       <Input
         id={type}
         placeholder={placeholder}
         type={type}
+        required={required}
         {...register}
-        className="w-full"
+        className="bg-card"
       />
-      {error?.message && (
-        <p className="text-destructive text-sm">{error.message}</p>
-      )}
-    </div>
+      <FieldDescription>{description}</FieldDescription>
+      <FieldError>{error?.message}</FieldError>
+    </Field>
   );
 };

@@ -10,21 +10,21 @@ import {
   DialogTitle,
 } from "@/shared/components/ui/dialog";
 import { Spinner } from "@/shared/components/ui/spinner";
-import type { SubmitArticleDialogProps } from "@/shared/model/types";
 import { useModal } from "@/shared/store/use-modal";
 
 export const SubmitArticleModal = () => {
-  const { currentModal, props } = useModal();
-  const { content, userId, emotionLevel, accessType } =
-    props as SubmitArticleDialogProps;
+  const { props } = useModal();
   const { mutate: onSubmit, isPending } = useSubmitArticle();
-
-  if (currentModal !== "submit-article") return null;
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!userId) return;
-    onSubmit({ userId, content, emotionLevel, accessType });
+    if (!props?.userId) return;
+    onSubmit({
+      userId: props?.userId,
+      content: props?.content,
+      emotionLevel: props?.emotionLevel,
+      accessType: props?.accessType,
+    });
   };
 
   return (

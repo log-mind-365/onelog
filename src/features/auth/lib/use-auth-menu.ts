@@ -1,20 +1,21 @@
 import { User, UserPlus } from "lucide-react";
-import { useModal } from "@/shared/store/use-modal";
+import { useRouter } from "next/navigation";
+import { ROUTES } from "@/shared/model/routes";
 
 export const useAuthMenu = () => {
-  const { openModal } = useModal();
+  const router = useRouter();
   return [
     {
-      id: "sign-in",
+      id: "sign_in",
       label: "로그인",
       icon: User,
-      action: () => openModal("sign-in"),
+      action: () => router.push(ROUTES.AUTH.SIGN_IN),
     },
     {
-      id: "sign-up",
+      id: "sign_up",
       label: "회원가입",
       icon: UserPlus,
-      action: () => openModal("sign-up"),
+      action: () => router.push(ROUTES.AUTH.SIGN_UP),
     },
   ];
 };

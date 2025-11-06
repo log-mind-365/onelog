@@ -19,11 +19,11 @@ export const ArticleLikeButton = ({
       variant="ghost"
       onClick={onClick}
       className={cn(
-        "gap-1 font-light text-xs transition-colors hover:text-red-500",
+        "gap-1 text-xs transition-colors hover:text-red-500",
         isLike && "text-red-500",
       )}
     >
-      <Heart className={cn("size-4", isLike && "fill-red-500")} />
+      <Heart className={cn(isLike && "fill-red-500")} />
       {likeCount ?? 0}
     </Button>
   );

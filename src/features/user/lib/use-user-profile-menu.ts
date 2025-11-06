@@ -22,7 +22,7 @@ export const useUserProfileMenu = () => {
       id: "profile",
       label: "프로필 페이지",
       icon: User,
-      action: () => router.push(ROUTES.USER.VIEW(me?.id || "")),
+      action: () => router.push(ROUTES.PROFILE.VIEW(me?.id || "")),
     },
     undefined,
     {

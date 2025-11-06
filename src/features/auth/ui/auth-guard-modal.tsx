@@ -11,9 +11,7 @@ import {
 import { useModal } from "@/shared/store/use-modal";
 
 export const AuthGuardModal = () => {
-  const { currentModal, openModal, closeModal } = useModal();
-
-  if (currentModal !== "auth-guard") return null;
+  const { openModal, closeModal } = useModal();
 
   return (
     <DialogContent>

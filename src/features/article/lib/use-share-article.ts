@@ -1,17 +1,13 @@
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
+import { isServer } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { TOAST_MESSAGE } from "@/shared/model/constants";
 
 export const useShareArticle = () => {
-  const queryClient = getQueryClient();
-  const router = useRouter();
+  const handleShareClick = async () => {
+    const fullURL = !isServer ? window.location.href : "";
+    await navigator.clipboard.writeText(fullURL);
+    toast.success(TOAST_MESSAGE.SHARE.CLIPBOARD);
+  };
 
-  return useMutation({
-    mutationFn: async () => {},
-    onSuccess: () => {},
-    onError: (error) => {
-      console.error(error);
-    },
-    onSettled: () => {},
-  });
+  return { onShareClick: handleShareClick };
 };
