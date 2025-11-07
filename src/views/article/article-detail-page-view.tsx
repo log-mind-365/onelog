@@ -37,7 +37,7 @@ export const ArticleDetailPageView = ({
   };
 
   return (
-    <PageContainer className="flex-col sm:flex-row">
+    <PageContainer className="flex flex-col gap-4">
       <ArticleDetailPageActionbar
         likeCount={article.likeCount}
         isLike={article.isLiked}
@@ -49,30 +49,28 @@ export const ArticleDetailPageView = ({
         onModify={() => null}
         onReport={() => null}
       />
-      <div className="flex w-full flex-col gap-8">
-        <div className="flex flex-col gap-2 rounded-lg border bg-card p-4">
-          <ArticleCardHeader
-            userId={article?.author?.id ?? ""}
-            userName={article?.author?.userName ?? ""}
-            avatarUrl={article?.author?.avatarUrl ?? ""}
-            email={article?.author?.email ?? ""}
-            emotionLevel={article.emotionLevel}
-            createdAt={article.createdAt}
-            isMe={userId === article?.author?.id}
-          />
-          <Separator />
-          <ArticleDetailContent content={article?.content} />
-        </div>
-
-        <Suspense fallback={<Spinner />}>
-          <ArticleCommentSection
-            articleId={id}
-            userId={userId}
-            userName={me?.userName}
-            userAvatar={me?.avatarUrl}
-          />
-        </Suspense>
+      <div className="flex flex-col gap-2 rounded-lg border bg-card p-4">
+        <ArticleCardHeader
+          userId={article?.author?.id ?? ""}
+          userName={article?.author?.userName ?? ""}
+          avatarUrl={article?.author?.avatarUrl ?? ""}
+          email={article?.author?.email ?? ""}
+          emotionLevel={article.emotionLevel}
+          createdAt={article.createdAt}
+          isMe={userId === article?.author?.id}
+        />
+        <Separator />
+        <ArticleDetailContent content={article?.content} />
       </div>
+
+      <Suspense fallback={<Spinner />}>
+        <ArticleCommentSection
+          articleId={id}
+          userId={userId}
+          userName={me?.userName}
+          userAvatar={me?.avatarUrl}
+        />
+      </Suspense>
     </PageContainer>
   );
 };

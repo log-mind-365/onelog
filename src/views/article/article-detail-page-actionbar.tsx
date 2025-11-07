@@ -32,25 +32,17 @@ export const ArticleDetailPageActionbar = ({
   onReport,
 }: ArticleActionbarProps) => {
   return (
-    <div className="top-8 flex size-full gap-2 rounded-lg border-1 bg-card p-2 sm:sticky sm:size-fit">
-      <div className="flex flex-row items-center gap-2 sm:flex-col">
-        <ArticleLikeButton
-          likeCount={likeCount}
-          isLike={isLike}
-          onClick={onLike}
-          orientation="vertical"
-        />
-        <ArticleCommentButton
-          commentCount={commentCount}
-          orientation="vertical"
-        />
-        <Separator orientation="vertical" className="sm:hidden" />
-        <Separator orientation="horizontal" className="hidden sm:flex" />
-        <ArticleAccessTypeButton value={accessType} />
-        <ShareArticleButton onClick={copyURL} />
-        <ArticleReportButton onClick={onReport} />
-        <ArticleOptionsDropdownMenu onDelete={onDelete} onModify={onModify} />
-      </div>
+    <div className="flex w-full justify-between rounded-lg border-1 bg-card p-2">
+      <ArticleLikeButton
+        likeCount={likeCount}
+        isLike={isLike}
+        onClick={onLike}
+      />
+      <ArticleCommentButton commentCount={commentCount} />
+      <ArticleAccessTypeButton value={accessType} />
+      <ShareArticleButton onClick={copyURL} />
+      <ArticleReportButton onClick={onReport} />
+      <ArticleOptionsDropdownMenu onDelete={onDelete} onModify={onModify} />
     </div>
   );
 };
