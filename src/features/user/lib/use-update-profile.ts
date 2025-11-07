@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { updateUserInfo } from "@/entities/user/api/server";
 import type { UserInfo } from "@/entities/user/model/types";
+import { useAuth } from "@/features/auth/model/store";
 import { deleteAvatar, uploadAvatar } from "@/shared/lib/supabase/storage";
 
 type UpdateProfileParams = {
@@ -14,6 +15,7 @@ type UpdateProfileParams = {
 
 export const useUpdateProfile = () => {
   const queryClient = useQueryClient();
+  const { setMe } = useAuth();
 
   return useMutation({
     mutationFn: async ({
@@ -46,7 +48,12 @@ export const useUpdateProfile = () => {
       });
     },
     onSuccess: (data: UserInfo) => {
+      // TanStack Query 캐시 무효화
       queryClient.invalidateQueries({ queryKey: ["user", data.id] });
+
+      // Zustand auth store 업데이트
+      setMe(data);
+
       toast.success("프로필이 업데이트되었습니다");
     },
     onError: (error: Error) => {
