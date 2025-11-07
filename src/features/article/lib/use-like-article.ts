@@ -31,7 +31,7 @@ export const useLikeArticle = () => {
         queryKey: ARTICLE_QUERY_KEY.PUBLIC,
       });
       await queryClient.cancelQueries({
-        queryKey: ARTICLE_QUERY_KEY.DETAIL(articleId),
+        queryKey: ARTICLE_QUERY_KEY.DETAIL(articleId, userId),
       });
 
       /**
@@ -44,7 +44,7 @@ export const useLikeArticle = () => {
         ARTICLE_QUERY_KEY.PUBLIC,
       );
       const previousDetailData = queryClient.getQueryData(
-        ARTICLE_QUERY_KEY.DETAIL(articleId),
+        ARTICLE_QUERY_KEY.DETAIL(articleId, userId),
       );
 
       // Optimistic Update - 무한 스크롤 목록
@@ -75,7 +75,7 @@ export const useLikeArticle = () => {
 
       // Optimistic Update - 상세 페이지
       queryClient.setQueryData<ArticleWithAuthorInfo>(
-        ARTICLE_QUERY_KEY.DETAIL(articleId),
+        ARTICLE_QUERY_KEY.DETAIL(articleId, userId),
         (old) => {
           if (!old) return old;
 
@@ -106,7 +106,7 @@ export const useLikeArticle = () => {
       }
       if (context?.previousDetailData) {
         queryClient.setQueryData(
-          ARTICLE_QUERY_KEY.DETAIL(variables.articleId),
+          ARTICLE_QUERY_KEY.DETAIL(variables.articleId, variables.userId),
           context.previousDetailData,
         );
       }
@@ -122,7 +122,7 @@ export const useLikeArticle = () => {
         queryKey: ARTICLE_QUERY_KEY.PUBLIC,
       });
       void queryClient.invalidateQueries({
-        queryKey: ARTICLE_QUERY_KEY.DETAIL(variables.articleId),
+        queryKey: ARTICLE_QUERY_KEY.DETAIL(variables.articleId, variables.userId),
       });
       void queryClient.invalidateQueries({
         queryKey: ARTICLE_QUERY_KEY.CHECK_LIKED(

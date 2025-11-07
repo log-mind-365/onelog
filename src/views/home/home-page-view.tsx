@@ -2,8 +2,8 @@
 
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { articleQueries } from "@/entities/article/api/queries";
-import { useAuth } from "@/features/auth/model/store";
 import { useLikeArticle } from "@/features/article/lib/use-like-article";
+import { useAuth } from "@/features/auth/model/store";
 import { PageContainer } from "@/shared/components/page-container";
 import { TransitionContainer } from "@/shared/components/transition-container";
 import { InfiniteArticleList } from "@/widgets/card/infinite-article-list";

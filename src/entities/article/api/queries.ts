@@ -19,7 +19,7 @@ export const articleQueries = {
     }),
   detail: (id: string, userId?: string | null) =>
     queryOptions({
-      queryKey: ARTICLE_QUERY_KEY.DETAIL(id),
+      queryKey: ARTICLE_QUERY_KEY.DETAIL(id, userId),
       queryFn: async () => getArticleDetail(id, userId),
     }),
   likeCount: (articleId: string) =>

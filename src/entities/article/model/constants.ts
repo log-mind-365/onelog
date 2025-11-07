@@ -84,7 +84,7 @@ export const ARTICLE_QUERY_KEY = {
     postType?: "journal" | "article",
     authorId?: string | null,
   ) => ["post", postType, authorId],
-  DETAIL: (postId?: string) => ["post", postId],
+  DETAIL: (postId: string, userId?: string | null) => ["post", postId, userId],
   LIKE_COUNT: (articleId: string) => ["article", "likeCount", articleId],
   CHECK_LIKED: (postId?: number, meId?: string | null) => [
     "post",

@@ -1,29 +1,34 @@
 "use client";
 
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { useModal } from "@/app/providers/modal-store";
 import { articleQueries } from "@/entities/article/api/queries";
 import { useLikeArticle } from "@/features/article/lib/use-like-article";
 import { PageContainer } from "@/shared/components/page-container";
 import { Separator } from "@/shared/components/ui/separator";
-import { useAuth } from "@/features/auth/model/store";
 import { ArticleDetailContent } from "@/views/article/article-detail-content";
 import { ArticleDetailPageSidebar } from "@/views/article/article-detail-page-sidebar";
 import { ArticleCardHeader } from "@/widgets/card/article-card-header";
 
 type ArticleDetailPageView = {
   id: string;
+  userId: string | null;
 };
 
-export const ArticleDetailPageView = ({ id }: ArticleDetailPageView) => {
-  const { me } = useAuth();
+export const ArticleDetailPageView = ({
+  id,
+  userId,
+}: ArticleDetailPageView) => {
   const { mutate: likeArticle } = useLikeArticle();
-  const { data: article } = useSuspenseQuery(
-    articleQueries.detail(id, me?.id ?? null),
-  );
+  const { openModal } = useModal();
+  const { data: article } = useSuspenseQuery(articleQueries.detail(id, userId));
 
   const handleLike = () => {
-    if (!me?.id) return;
-    likeArticle({ articleId: id, userId: me.id });
+    if (!userId) {
+      openModal("auth-guard");
+    } else {
+      likeArticle({ articleId: id, userId: userId });
+    }
   };
 
   return (
