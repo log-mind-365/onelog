@@ -35,7 +35,9 @@ export const ArticleCardContent = ({
     >
       <div className="flex flex-col gap-4">
         <div className="relative max-h-64 overflow-hidden">
-          <p className="line-clamp-6">{content}</p>
+          <p className="line-clamp-6 whitespace-pre-wrap break-words">
+            {content}
+          </p>
         </div>
 
         <div className="flex items-center justify-between">

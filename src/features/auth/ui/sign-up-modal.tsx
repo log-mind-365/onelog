@@ -31,7 +31,6 @@ export const SignUpModal = () => {
       email: "",
       userName: "",
       password: "",
-      passwordConfirmation: "",
     },
   });
 
@@ -70,12 +69,6 @@ export const SignUpModal = () => {
           error={errors.password}
           type="password"
           name="비밀번호"
-        />
-        <AuthFormField
-          register={register("passwordConfirmation")}
-          error={errors.passwordConfirmation}
-          type="password"
-          name="비밀번호 확인"
         />
         <DialogFooter className="sm:flex-col">
           <div className="flex items-center justify-end">

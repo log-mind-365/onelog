@@ -5,5 +5,5 @@ type ArticleDetailContentProps = {
 export const ArticleDetailContent = ({
   content,
 }: ArticleDetailContentProps) => {
-  return <>{content}</>;
+  return <p className="whitespace-pre-wrap break-words">{content}</p>;
 };
