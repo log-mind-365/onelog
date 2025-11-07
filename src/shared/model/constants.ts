@@ -96,6 +96,7 @@ export const QUERY_KEY = {
       authorId?: string | null,
     ) => ["post", postType, authorId],
     DETAIL: (postId?: string) => ["post", postId],
+    LIKE_COUNT: (articleId: string) => ["article", "likeCount", articleId],
     CHECK_LIKED: (postId?: number, meId?: string | null) => [
       "post",
       "isLiked",

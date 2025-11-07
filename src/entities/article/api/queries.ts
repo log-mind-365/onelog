@@ -11,7 +11,7 @@ import { QUERY_KEY } from "@/shared/model/constants";
 export const articleQueries = {
   infinite: (userId?: string | null) =>
     infiniteQueryOptions({
-      queryKey: [...QUERY_KEY.ARTICLE.PUBLIC],
+      queryKey: QUERY_KEY.ARTICLE.PUBLIC,
       queryFn: async ({ pageParam }): Promise<InfiniteArticleList> =>
         getInfinitePublicArticleList(pageParam, userId),
       initialPageParam: "",
@@ -19,12 +19,12 @@ export const articleQueries = {
     }),
   detail: (id: string, userId?: string | null) =>
     queryOptions({
-      queryKey: [...QUERY_KEY.ARTICLE.DETAIL(id), userId],
+      queryKey: QUERY_KEY.ARTICLE.DETAIL(id),
       queryFn: async () => getArticleDetail(id, userId),
     }),
   likeCount: (articleId: string) =>
     queryOptions({
-      queryKey: ["article", "likeCount", articleId],
+      queryKey: QUERY_KEY.ARTICLE.LIKE_COUNT(articleId),
       queryFn: async () => getArticleLikeCount(articleId),
     }),
   isLiked: (articleId: string, userId: string | null) =>
