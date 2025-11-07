@@ -1,21 +1,31 @@
 "use client";
 
-import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
+import type { InfiniteData } from "@tanstack/react-query";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
-import { articleQueries } from "@/entities/article/api/queries";
-import { useLikeArticle } from "@/features/article/lib/use-like-article";
+import type { InfiniteArticleList as InfiniteArticleListType } from "@/entities/article/model/types";
 import { ROUTES } from "@/shared/model/routes";
-import { useAuth } from "@/shared/store/use-auth";
 import { ArticleCard } from "@/widgets/card/article-card";
 
-export const InfiniteArticleList = () => {
-  const { me } = useAuth();
+type InfiniteArticleListProps = {
+  data: InfiniteData<InfiniteArticleListType>;
+  currentUserId: string | null;
+  onLike: (articleId: string, userId: string) => void;
+  onFetchNextPage: () => void;
+  hasNextPage: boolean;
+  isFetchingNextPage: boolean;
+};
+
+export const InfiniteArticleList = ({
+  data,
+  currentUserId,
+  onLike,
+  onFetchNextPage,
+  hasNextPage,
+  isFetchingNextPage,
+}: InfiniteArticleListProps) => {
   const router = useRouter();
-  const { mutate: likeArticle } = useLikeArticle();
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useSuspenseInfiniteQuery(articleQueries.infinite(me?.id ?? null));
 
   const allArticles = data?.pages.flatMap((page) => page.data) ?? [];
 
@@ -39,11 +49,11 @@ export const InfiniteArticleList = () => {
       hasNextPage &&
       !isFetchingNextPage
     ) {
-      void fetchNextPage();
+      onFetchNextPage();
     }
   }, [
     hasNextPage,
-    fetchNextPage,
+    onFetchNextPage,
     allArticles.length,
     isFetchingNextPage,
     articleVirtualizer.getVirtualItems(),
@@ -76,11 +86,11 @@ export const InfiniteArticleList = () => {
           likeCount,
           isLiked,
         } = article;
-        const isMe = me?.id === author?.id;
+        const isMe = currentUserId === author?.id;
 
         const handleLike = () => {
-          if (!me?.id) return;
-          likeArticle({ articleId: id, userId: me.id });
+          if (!currentUserId) return;
+          onLike(id, currentUserId);
         };
 
         return (
