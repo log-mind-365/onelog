@@ -41,7 +41,7 @@ export const ArticleDetailPageView = ({
       <ArticleDetailPageSidebar
         likeCount={article.likeCount}
         isLike={article.isLiked}
-        commentCount={0}
+        commentCount={article.commentCount}
         accessType={article.accessType}
         isPublic={article.accessType === "public"}
         onLike={handleLike}

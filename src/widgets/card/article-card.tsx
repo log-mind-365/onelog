@@ -14,6 +14,7 @@ type ArticleCardProps = {
   accessType: AccessType;
   likeCount: number;
   isLiked: boolean;
+  commentCount: number;
   onClick: () => void;
   onLike: () => void;
 };
@@ -30,6 +31,7 @@ export const ArticleCard = ({
   createdAt,
   likeCount,
   isLiked,
+  commentCount,
   onClick,
   onLike,
 }: ArticleCardProps) => {
@@ -51,6 +53,7 @@ export const ArticleCard = ({
         accessType={accessType}
         likeCount={likeCount}
         isLiked={isLiked}
+        commentCount={commentCount}
         onClick={onClick}
         onLike={onLike}
       />

@@ -7,6 +7,7 @@ export type ArticleWithAuthorInfo = Article & {
   author: UserInfo | null;
   likeCount: number;
   isLiked: boolean;
+  commentCount: number;
 };
 export type ArticleInsertSchema = typeof articles.$inferInsert;
 export type InfiniteArticleList = {

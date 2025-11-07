@@ -12,6 +12,7 @@ type ArticleCardContentProps = {
   accessType: AccessType;
   likeCount: number;
   isLiked: boolean;
+  commentCount: number;
   onClick: () => void;
   onLike: () => void;
 };
@@ -23,6 +24,7 @@ export const ArticleCardContent = ({
   isMe,
   likeCount,
   isLiked,
+  commentCount,
   onClick,
   onLike,
 }: ArticleCardContentProps) => {
@@ -45,7 +47,7 @@ export const ArticleCardContent = ({
               onLike();
             }}
           />
-          <ArticleCommentButton commentCount={0} />
+          <ArticleCommentButton commentCount={commentCount} />
           <ArticleAccessTypeButton value={accessType} />
           <ArticleReportButton onClick={() => null} />
         </div>

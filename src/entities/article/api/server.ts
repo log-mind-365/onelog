@@ -2,7 +2,7 @@
 
 import { and, count, desc, eq, getTableColumns, gt, sql } from "drizzle-orm";
 import { db } from "@/db";
-import { articleLikes, articles, userInfo } from "@/db/schema";
+import { articleLikes, articles, comments, userInfo } from "@/db/schema";
 import { PAGE_LIMIT } from "@/entities/article/model/constants";
 import type {
   Article,
@@ -20,6 +20,11 @@ export const getInfinitePublicArticleList = async (
       ...getTableColumns(articles),
       author: userInfo,
       likeCount: count(articleLikes.id).as("likeCount"),
+      commentCount: sql<number>`(
+        SELECT COUNT(*)::int
+        FROM ${comments}
+        WHERE ${comments.articleId} = ${articles.id}
+      )`,
       isLiked: userId
         ? sql<boolean>`EXISTS(
             SELECT 1 FROM ${articleLikes}
@@ -40,6 +45,7 @@ export const getInfinitePublicArticleList = async (
         ...row,
         author: row.author?.id ? row.author : null,
         likeCount: Number(row.likeCount) || 0,
+        commentCount: Number(row.commentCount) || 0,
       })),
     );
 
@@ -63,6 +69,11 @@ export const getArticleDetail = async (
       ...getTableColumns(articles),
       author: userInfo,
       likeCount: count(articleLikes.id).as("likeCount"),
+      commentCount: sql<number>`(
+        SELECT COUNT(*)::int
+        FROM ${comments}
+        WHERE ${comments.articleId} = ${articles.id}
+      )`,
       isLiked: userId
         ? sql<boolean>`EXISTS(
             SELECT 1 FROM ${articleLikes}
@@ -82,6 +93,7 @@ export const getArticleDetail = async (
         ...row,
         author: row.author?.id ? row.author : null,
         likeCount: Number(row.likeCount) || 0,
+        commentCount: Number(row.commentCount) || 0,
       };
     });
 };

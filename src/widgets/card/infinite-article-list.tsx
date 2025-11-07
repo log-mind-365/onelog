@@ -85,6 +85,7 @@ export const InfiniteArticleList = ({
           author,
           likeCount,
           isLiked,
+          commentCount,
         } = article;
         const isMe = currentUserId === author?.id;
 
@@ -107,6 +108,7 @@ export const InfiniteArticleList = ({
               emotionLevel={emotionLevel}
               likeCount={likeCount}
               isLiked={isLiked}
+              commentCount={commentCount}
               onClick={() => router.push(ROUTES.ARTICLE.VIEW(id))}
               onLike={handleLike}
             />
