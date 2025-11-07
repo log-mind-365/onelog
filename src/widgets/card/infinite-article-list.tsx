@@ -5,6 +5,7 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { articleQueries } from "@/entities/article/api/queries";
+import { useLikeArticle } from "@/features/article/lib/use-like-article";
 import { ROUTES } from "@/shared/model/routes";
 import { useAuth } from "@/shared/store/use-auth";
 import { ArticleCard } from "@/widgets/card/article-card";
@@ -12,8 +13,9 @@ import { ArticleCard } from "@/widgets/card/article-card";
 export const InfiniteArticleList = () => {
   const { me } = useAuth();
   const router = useRouter();
+  const { mutate: likeArticle } = useLikeArticle();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useSuspenseInfiniteQuery(articleQueries.infinite());
+    useSuspenseInfiniteQuery(articleQueries.infinite(me?.id ?? null));
 
   const allArticles = data?.pages.flatMap((page) => page.data) ?? [];
 
@@ -71,8 +73,16 @@ export const InfiniteArticleList = () => {
           userId,
           emotionLevel,
           author,
+          likeCount,
+          isLiked,
         } = article;
         const isMe = me?.id === author?.id;
+
+        const handleLike = () => {
+          if (!me?.id) return;
+          likeArticle({ articleId: id, userId: me.id });
+        };
+
         return (
           <li key={id}>
             <ArticleCard
@@ -85,7 +95,10 @@ export const InfiniteArticleList = () => {
               avatarUrl={author?.avatarUrl}
               email={author?.email}
               emotionLevel={emotionLevel}
+              likeCount={likeCount}
+              isLiked={isLiked}
               onClick={() => router.push(ROUTES.ARTICLE.VIEW(id))}
+              onLike={handleLike}
             />
           </li>
         );

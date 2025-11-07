@@ -12,7 +12,10 @@ type ArticleCardProps = {
   content: string;
   createdAt: Date;
   accessType: AccessType;
+  likeCount: number;
+  isLiked: boolean;
   onClick: () => void;
+  onLike: () => void;
 };
 
 export const ArticleCard = ({
@@ -25,10 +28,13 @@ export const ArticleCard = ({
   content,
   accessType,
   createdAt,
+  likeCount,
+  isLiked,
   onClick,
+  onLike,
 }: ArticleCardProps) => {
   return (
-    <article className="flex flex-col">
+    <article className="flex flex-col gap-2">
       <ArticleCardHeader
         userId={userId}
         userName={userName}
@@ -43,7 +49,10 @@ export const ArticleCard = ({
         isMe={isMe}
         content={content}
         accessType={accessType}
+        likeCount={likeCount}
+        isLiked={isLiked}
         onClick={onClick}
+        onLike={onLike}
       />
     </article>
   );

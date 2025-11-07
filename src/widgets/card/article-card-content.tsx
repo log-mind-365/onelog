@@ -10,7 +10,10 @@ type ArticleCardContentProps = {
   isMe: boolean;
   content: string;
   accessType: AccessType;
+  likeCount: number;
+  isLiked: boolean;
   onClick: () => void;
+  onLike: () => void;
 };
 
 export const ArticleCardContent = ({
@@ -18,7 +21,10 @@ export const ArticleCardContent = ({
   accessType,
   content,
   isMe,
+  likeCount,
+  isLiked,
   onClick,
+  onLike,
 }: ArticleCardContentProps) => {
   return (
     <Card
@@ -32,9 +38,12 @@ export const ArticleCardContent = ({
 
         <div className="flex items-center justify-between">
           <ArticleLikeButton
-            likeCount={0}
-            isLike={false}
-            onClick={() => null}
+            likeCount={likeCount}
+            isLike={isLiked}
+            onClick={(e) => {
+              e.stopPropagation();
+              onLike();
+            }}
           />
           <ArticleCommentButton commentCount={0} />
           <ArticleAccessTypeButton value={accessType} />
