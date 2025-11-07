@@ -31,7 +31,8 @@ const Page = () => {
       <Textarea
         value={content}
         onChange={handleValueChange}
-        className="h-full resize-none border-none shadow-none"
+        placeholder="오늘은 어떤 일이 있었나요?"
+        className="h-full resize-none border bg-card shadow-none"
       />
     </PageContainer>
   );
