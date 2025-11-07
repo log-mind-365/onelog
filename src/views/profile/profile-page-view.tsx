@@ -21,10 +21,8 @@ type ProfilePageViewProps = {
 export const ProfilePageView = ({ id }: ProfilePageViewProps) => {
   const { data: user } = useSuspenseQuery(userQueries.getUserInfo(id));
 
-  // 서버 컴포넌트에서 이미 user 존재 여부를 체크했으므로
-  // 여기서는 user가 항상 존재함을 보장받음
   if (!user) {
-    throw new Error("User should exist at this point");
+    return null;
   }
 
   const formatDate = (date: Date | string | null) => {
@@ -44,13 +42,13 @@ export const ProfilePageView = ({ id }: ProfilePageViewProps) => {
     >
       {/* Profile Header Card */}
       <Card className="shadow-none">
-        <CardContent className="flex gap-4">
+        <CardContent className="flex flex-col items-center gap-4">
           <UserAvatar
             avatarUrl={user.avatarUrl || undefined}
             fallback={user.userName}
-            size="lg"
+            size="xl"
           />
-          <div className="flex-1 space-y-1">
+          <div className="justify-items-center">
             <CardTitle className="text-2xl">{user.userName}</CardTitle>
             <CardDescription className="flex items-center gap-2">
               <Mail className="size-4" />

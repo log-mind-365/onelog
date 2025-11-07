@@ -110,10 +110,11 @@ export const SettingsProfilePageView = ({
     <PageContainer
       title="프로필 수정"
       description="프로필 정보를 수정할 수 있습니다"
+      className="flex flex-col gap-2"
     >
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-2">
         {/* Profile Photo Card */}
-        <Card>
+        <Card className="shadow-none">
           <CardHeader>
             <CardTitle>프로필 커버 이미지</CardTitle>
             <CardDescription>
@@ -139,14 +140,14 @@ export const SettingsProfilePageView = ({
                   type="button"
                   size="icon"
                   variant="secondary"
-                  className="absolute bottom-0 right-0 rounded-full shadow-md"
+                  className="absolute right-0 bottom-0 rounded-full shadow-md"
                   onClick={handleUploadClick}
                 >
                   <Camera className="size-4" />
                 </Button>
               </div>
               <div className="flex flex-col gap-2">
-                <p className="text-sm text-muted-foreground">
+                <p className="text-muted-foreground text-sm">
                   JPG, PNG 파일만 가능 (최대 5MB)
                 </p>
                 <div className="flex gap-2">
@@ -174,7 +175,7 @@ export const SettingsProfilePageView = ({
         </Card>
 
         {/* Profile Info Card */}
-        <Card>
+        <Card className="shadow-none">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <UserIcon className="size-5" />
