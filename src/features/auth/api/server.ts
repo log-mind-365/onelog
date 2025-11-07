@@ -58,3 +58,12 @@ export const signOut = async (): Promise<void> => {
     localStorage.removeItem("auth-storage");
   }
 };
+
+export const getCurrentUser = async (): Promise<User | null> => {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  return user;
+};
