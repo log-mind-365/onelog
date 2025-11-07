@@ -3,6 +3,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useAuthGuard } from "@/features/auth/lib/use-auth-guard";
+import { useAuth } from "@/features/auth/model/store";
 import { AuthMenuDropdown } from "@/features/auth/ui/auth-menu-dropdown";
 import { useToggleTheme } from "@/features/toggle-theme/lib/use-toggle-theme";
 import { ToggleThemeButton } from "@/features/toggle-theme/ui/toggle-theme-button";
@@ -17,7 +18,6 @@ import {
   TooltipTrigger,
 } from "@/shared/components/ui/tooltip";
 import { ROUTES } from "@/shared/model/routes";
-import { useAuth } from "@/features/auth/model/store";
 import { SIDEBAR_MENUS } from "@/views/home/types";
 
 export const HomePageSidebar = () => {
@@ -42,6 +42,9 @@ export const HomePageSidebar = () => {
   };
 
   const handleNavigate = (route: string) => {
+    if (route === ROUTES.HOME) {
+      return router.push(route);
+    }
     authGuard(() => router.push(route));
   };
 

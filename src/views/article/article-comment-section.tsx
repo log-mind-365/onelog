@@ -58,9 +58,7 @@ export const ArticleCommentSection = ({
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <h3 className="text-lg font-semibold">
-          댓글 {comments.length}
-        </h3>
+        <h3 className="font-semibold text-lg">댓글 {comments.length}</h3>
         <Separator />
       </div>
 

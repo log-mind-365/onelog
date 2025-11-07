@@ -50,7 +50,7 @@ export const ArticleDetailPageView = ({
         onReport={() => null}
       />
       <PageContainer className="gap-8">
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 rounded-lg border bg-card p-4">
           <ArticleCardHeader
             userId={article?.author?.id ?? ""}
             userName={article?.author?.userName ?? ""}
@@ -63,8 +63,6 @@ export const ArticleDetailPageView = ({
           <Separator />
           <ArticleDetailContent content={article?.content} />
         </div>
-
-        <Separator />
 
         <Suspense fallback={<Spinner />}>
           <ArticleCommentSection
