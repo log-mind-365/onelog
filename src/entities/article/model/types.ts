@@ -1,8 +1,13 @@
-import type { articles } from "@/db/schema";
+import type { articles, articleLikes } from "@/db/schema";
 import type { UserInfo } from "@/entities/user/model/types";
 
 export type Article = typeof articles.$inferSelect;
-export type ArticleWithAuthorInfo = Article & { author: UserInfo | null };
+export type ArticleLike = typeof articleLikes.$inferSelect;
+export type ArticleWithAuthorInfo = Article & {
+  author: UserInfo | null;
+  likeCount: number;
+  isLiked: boolean;
+};
 export type ArticleInsertSchema = typeof articles.$inferInsert;
 export type InfiniteArticleList = {
   data: ArticleWithAuthorInfo[];
