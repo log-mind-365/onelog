@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { ArticleUserInfo } from "@/entities/article/ui/article-user-info";
 import {
-  EMOTION_STATUS,
   EMOTION_PERCENT_COLORS,
+  EMOTION_STATUS,
 } from "@/entities/article/model/constants";
+import { ArticleUserInfo } from "@/entities/article/ui/article-user-info";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
 import { Button } from "@/shared/components/ui/button";
 import {
@@ -37,8 +37,8 @@ export const ArticleCardHeader = ({
   const percentage = emotionLevel;
   const colorClass = EMOTION_PERCENT_COLORS[emotionLevel];
   const label =
-    EMOTION_STATUS.find((emotion) => emotion.percent === emotionLevel)?.status ||
-    "알 수 없음";
+    EMOTION_STATUS.find((emotion) => emotion.percent === emotionLevel)
+      ?.status || "알 수 없음";
 
   return (
     <header className="flex items-center gap-4">

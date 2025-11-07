@@ -1,7 +1,6 @@
-"use client";
-
 import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import { useState } from "react";
+import type { CommentWithAuthor } from "@/entities/comment/model/types";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
 import { Button } from "@/shared/components/ui/button";
 import {
@@ -11,7 +10,6 @@ import {
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu";
 import { Textarea } from "@/shared/components/ui/textarea";
-import type { CommentWithAuthor } from "@/entities/comment/model/types";
 
 type CommentItemProps = {
   comment: CommentWithAuthor;
@@ -51,7 +49,7 @@ export const CommentItem = ({
       <div className="flex flex-1 flex-col gap-2">
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
-            <span className="text-sm font-semibold">
+            <span className="font-semibold text-sm">
               {comment.author?.userName}
             </span>
             <span className="text-muted-foreground text-xs">

@@ -47,7 +47,7 @@ export const CommentForm = ({
           onChange={(e) => setContent(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          className="min-h-[80px]"
+          className="min-h-[80px] bg-card"
         />
         <div className="flex justify-end">
           <Button size="sm" onClick={handleSubmit} disabled={!content.trim()}>

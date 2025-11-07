@@ -1,8 +1,6 @@
-"use client";
-
-import { Separator } from "@/shared/components/ui/separator";
 import type { CommentWithAuthor } from "@/entities/comment/model/types";
 import { CommentItem } from "@/entities/comment/ui/comment-item";
+import { Separator } from "@/shared/components/ui/separator";
 
 type CommentListProps = {
   comments: CommentWithAuthor[];
