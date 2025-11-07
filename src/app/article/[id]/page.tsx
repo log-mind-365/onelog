@@ -1,6 +1,7 @@
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { Suspense } from "react";
 import { articleQueries } from "@/entities/article/api/queries";
+import { commentQueries } from "@/entities/comment/api/queries";
 import { getCurrentUser } from "@/features/auth/api/server";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
 import { ArticleDetailPageView } from "@/views/article/article-detail-page-view";
@@ -13,12 +14,18 @@ const ArticlePage = async ({ params }: PageProps) => {
   const { id } = await params;
   const queryClient = getQueryClient();
   const user = await getCurrentUser();
-  await queryClient.prefetchQuery(articleQueries.detail(id, user?.id ?? null));
+  const userId = user?.id ?? null;
+
+  // 게시글과 댓글 동시 prefetch
+  await Promise.all([
+    queryClient.prefetchQuery(articleQueries.detail(id, userId)),
+    queryClient.prefetchQuery(commentQueries.list(id)),
+  ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <Suspense fallback={<p>loading...</p>}>
-        <ArticleDetailPageView id={id} userId={user?.id ?? null} />
+        <ArticleDetailPageView id={id} userId={userId} />
       </Suspense>
     </HydrationBoundary>
   );

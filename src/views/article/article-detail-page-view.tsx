@@ -1,11 +1,15 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useModal } from "@/app/providers/modal-store";
 import { articleQueries } from "@/entities/article/api/queries";
+import { useAuth } from "@/features/auth/model/store";
 import { useLikeArticle } from "@/features/article/lib/use-like-article";
 import { PageContainer } from "@/shared/components/page-container";
 import { Separator } from "@/shared/components/ui/separator";
+import { Spinner } from "@/shared/components/ui/spinner";
+import { ArticleCommentSection } from "@/views/article/article-comment-section";
 import { ArticleDetailContent } from "@/views/article/article-detail-content";
 import { ArticleDetailPageSidebar } from "@/views/article/article-detail-page-sidebar";
 import { ArticleCardHeader } from "@/widgets/card/article-card-header";
@@ -19,6 +23,7 @@ export const ArticleDetailPageView = ({
   id,
   userId,
 }: ArticleDetailPageView) => {
+  const { me } = useAuth();
   const { mutate: likeArticle } = useLikeArticle();
   const { openModal } = useModal();
   const { data: article } = useSuspenseQuery(articleQueries.detail(id, userId));
@@ -44,18 +49,31 @@ export const ArticleDetailPageView = ({
         onModify={() => null}
         onReport={() => null}
       />
-      <PageContainer className="gap-2">
-        <ArticleCardHeader
-          userId={article?.author?.id ?? ""}
-          userName={article?.author?.userName ?? ""}
-          avatarUrl={article?.author?.avatarUrl ?? ""}
-          email={article?.author?.email ?? ""}
-          emotionLevel={article.emotionLevel}
-          createdAt={article.createdAt}
-          isMe={false}
-        />
+      <PageContainer className="gap-8">
+        <div className="flex flex-col gap-2">
+          <ArticleCardHeader
+            userId={article?.author?.id ?? ""}
+            userName={article?.author?.userName ?? ""}
+            avatarUrl={article?.author?.avatarUrl ?? ""}
+            email={article?.author?.email ?? ""}
+            emotionLevel={article.emotionLevel}
+            createdAt={article.createdAt}
+            isMe={userId === article?.author?.id}
+          />
+          <Separator />
+          <ArticleDetailContent content={article?.content} />
+        </div>
+
         <Separator />
-        <ArticleDetailContent content={article?.content} />
+
+        <Suspense fallback={<Spinner />}>
+          <ArticleCommentSection
+            articleId={id}
+            userId={userId}
+            userName={me?.userName}
+            userAvatar={me?.avatarUrl}
+          />
+        </Suspense>
       </PageContainer>
     </>
   );
