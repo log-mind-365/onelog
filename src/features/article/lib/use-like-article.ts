@@ -1,8 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { toggleArticleLike } from "@/entities/article/api/server";
+import {
+  ARTICLE_QUERY_KEY,
+  ARTICLE_TOAST_MESSAGE,
+} from "@/entities/article/model/constants";
 import type { ArticleWithAuthorInfo } from "@/entities/article/model/types";
-import { QUERY_KEY, TOAST_MESSAGE } from "@/shared/model/constants";
 
 type UseLikeArticleParams = {
   articleId: string;
@@ -25,25 +28,30 @@ export const useLikeArticle = () => {
     onMutate: async ({ articleId, userId }) => {
       // 진행 중인 쿼리들을 취소
       await queryClient.cancelQueries({
-        queryKey: QUERY_KEY.ARTICLE.PUBLIC,
+        queryKey: ARTICLE_QUERY_KEY.PUBLIC,
       });
       await queryClient.cancelQueries({
-        queryKey: QUERY_KEY.ARTICLE.DETAIL(articleId),
+        queryKey: ARTICLE_QUERY_KEY.DETAIL(articleId),
       });
 
-      // 이전 데이터를 스냅샷으로 저장
+      /**
+       * 이전 데이터를 스냅샷으로 저장
+       * 필요한 이유 :
+       * - 서버 요청이 실패했을 때 원래 상태로 복구
+       * - onError에서 이 데이터를 사용해 롤백
+       */
       const previousInfiniteData = queryClient.getQueryData(
-        QUERY_KEY.ARTICLE.PUBLIC,
+        ARTICLE_QUERY_KEY.PUBLIC,
       );
       const previousDetailData = queryClient.getQueryData(
-        QUERY_KEY.ARTICLE.DETAIL(articleId),
+        ARTICLE_QUERY_KEY.DETAIL(articleId),
       );
 
       // Optimistic Update - 무한 스크롤 목록
       queryClient.setQueryData<{
         pages: Array<{ data: ArticleWithAuthorInfo[] }>;
         pageParams: unknown[];
-      }>(QUERY_KEY.ARTICLE.PUBLIC, (old) => {
+      }>(ARTICLE_QUERY_KEY.PUBLIC, (old) => {
         if (!old) return old;
 
         return {
@@ -67,7 +75,7 @@ export const useLikeArticle = () => {
 
       // Optimistic Update - 상세 페이지
       queryClient.setQueryData<ArticleWithAuthorInfo>(
-        QUERY_KEY.ARTICLE.DETAIL(articleId),
+        ARTICLE_QUERY_KEY.DETAIL(articleId),
         (old) => {
           if (!old) return old;
 
@@ -84,40 +92,40 @@ export const useLikeArticle = () => {
     onSuccess: (data) => {
       toast.success(
         data.isLiked
-          ? TOAST_MESSAGE.ARTICLE.LIKE.SUCCESS
-          : TOAST_MESSAGE.ARTICLE.LIKE.CANCEL,
+          ? ARTICLE_TOAST_MESSAGE.LIKE.SUCCESS
+          : ARTICLE_TOAST_MESSAGE.LIKE.CANCEL,
       );
     },
     onError: (error, variables, context) => {
       // 에러 발생 시 이전 데이터로 롤백
       if (context?.previousInfiniteData) {
         queryClient.setQueryData(
-          QUERY_KEY.ARTICLE.PUBLIC,
+          ARTICLE_QUERY_KEY.PUBLIC,
           context.previousInfiniteData,
         );
       }
       if (context?.previousDetailData) {
         queryClient.setQueryData(
-          QUERY_KEY.ARTICLE.DETAIL(variables.articleId),
+          ARTICLE_QUERY_KEY.DETAIL(variables.articleId),
           context.previousDetailData,
         );
       }
 
       console.error(error);
-      toast.error(TOAST_MESSAGE.ARTICLE.LIKE.EXCEPTION, {
+      toast.error(ARTICLE_TOAST_MESSAGE.LIKE.EXCEPTION, {
         description: error.message,
       });
     },
     onSettled: (data, error, variables) => {
       // 쿼리 무효화하여 최신 데이터 가져오기
       void queryClient.invalidateQueries({
-        queryKey: QUERY_KEY.ARTICLE.PUBLIC,
+        queryKey: ARTICLE_QUERY_KEY.PUBLIC,
       });
       void queryClient.invalidateQueries({
-        queryKey: QUERY_KEY.ARTICLE.DETAIL(variables.articleId),
+        queryKey: ARTICLE_QUERY_KEY.DETAIL(variables.articleId),
       });
       void queryClient.invalidateQueries({
-        queryKey: QUERY_KEY.ARTICLE.CHECK_LIKED(
+        queryKey: ARTICLE_QUERY_KEY.CHECK_LIKED(
           Number(variables.articleId),
           variables.userId,
         ),

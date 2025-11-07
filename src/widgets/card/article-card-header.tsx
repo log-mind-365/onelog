@@ -1,5 +1,9 @@
 import Link from "next/link";
 import { ArticleUserInfo } from "@/entities/article/ui/article-user-info";
+import {
+  EMOTION_STATUS,
+  EMOTION_PERCENT_COLORS,
+} from "@/entities/article/model/constants";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
 import { Button } from "@/shared/components/ui/button";
 import {
@@ -9,22 +13,6 @@ import {
 } from "@/shared/components/ui/hover-card";
 import { cn } from "@/shared/lib/utils";
 import { ROUTES } from "@/shared/model/routes";
-
-const emotionColors: Record<number, string> = {
-  0: "bg-gray-300",
-  25: "bg-blue-400",
-  50: "bg-green-400",
-  75: "bg-yellow-400",
-  100: "bg-red-400",
-};
-
-const emotionLabels: Record<number, string> = {
-  0: "매우 나쁨",
-  25: "나쁨",
-  50: "보통",
-  75: "좋음",
-  100: "매우 좋음",
-};
 
 type ArticleCardHeaderProps = {
   userId: string;
@@ -47,8 +35,10 @@ export const ArticleCardHeader = ({
   createdAt,
 }: ArticleCardHeaderProps) => {
   const percentage = emotionLevel;
-  const colorClass = emotionColors[emotionLevel];
-  const label = emotionLabels[emotionLevel];
+  const colorClass = EMOTION_PERCENT_COLORS[emotionLevel];
+  const label =
+    EMOTION_STATUS.find((emotion) => emotion.percent === emotionLevel)?.status ||
+    "알 수 없음";
 
   return (
     <header className="flex items-center gap-4">

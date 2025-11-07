@@ -2,9 +2,12 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { postArticle } from "@/entities/article/api/server";
+import {
+  ARTICLE_QUERY_KEY,
+  ARTICLE_TOAST_MESSAGE,
+} from "@/entities/article/model/constants";
 import type { ArticleInsertSchema } from "@/entities/article/model/types";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
-import { QUERY_KEY, TOAST_MESSAGE } from "@/shared/model/constants";
 import { ROUTES } from "@/shared/model/routes";
 
 export const useSubmitArticle = () => {
@@ -21,18 +24,18 @@ export const useSubmitArticle = () => {
       await postArticle({ userId, content, emotionLevel, accessType });
     },
     onSuccess: () => {
-      toast.success(TOAST_MESSAGE.ARTICLE.POST.SUCCESS);
+      toast.success(ARTICLE_TOAST_MESSAGE.POST.SUCCESS);
       router.push(ROUTES.HOME);
     },
     onError: (error) => {
       console.error(error);
-      toast.error(TOAST_MESSAGE.ARTICLE.POST.EXCEPTION, {
+      toast.error(ARTICLE_TOAST_MESSAGE.POST.EXCEPTION, {
         description: error.message,
       });
     },
     onSettled: () => {
       void queryClient.invalidateQueries({
-        queryKey: QUERY_KEY.ARTICLE.PUBLIC,
+        queryKey: ARTICLE_QUERY_KEY.PUBLIC,
       });
     },
   });

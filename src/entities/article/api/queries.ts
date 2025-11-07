@@ -5,13 +5,13 @@ import {
   getArticleLikeCount,
   getInfinitePublicArticleList,
 } from "@/entities/article/api/server";
+import { ARTICLE_QUERY_KEY } from "@/entities/article/model/constants";
 import type { InfiniteArticleList } from "@/entities/article/model/types";
-import { QUERY_KEY } from "@/shared/model/constants";
 
 export const articleQueries = {
   infinite: (userId?: string | null) =>
     infiniteQueryOptions({
-      queryKey: QUERY_KEY.ARTICLE.PUBLIC,
+      queryKey: ARTICLE_QUERY_KEY.PUBLIC,
       queryFn: async ({ pageParam }): Promise<InfiniteArticleList> =>
         getInfinitePublicArticleList(pageParam, userId),
       initialPageParam: "",
@@ -19,17 +19,17 @@ export const articleQueries = {
     }),
   detail: (id: string, userId?: string | null) =>
     queryOptions({
-      queryKey: QUERY_KEY.ARTICLE.DETAIL(id),
+      queryKey: ARTICLE_QUERY_KEY.DETAIL(id),
       queryFn: async () => getArticleDetail(id, userId),
     }),
   likeCount: (articleId: string) =>
     queryOptions({
-      queryKey: QUERY_KEY.ARTICLE.LIKE_COUNT(articleId),
+      queryKey: ARTICLE_QUERY_KEY.LIKE_COUNT(articleId),
       queryFn: async () => getArticleLikeCount(articleId),
     }),
   isLiked: (articleId: string, userId: string | null) =>
     queryOptions({
-      queryKey: QUERY_KEY.ARTICLE.CHECK_LIKED(Number(articleId), userId),
+      queryKey: ARTICLE_QUERY_KEY.CHECK_LIKED(Number(articleId), userId),
       queryFn: async () => checkUserLiked(articleId, userId),
       enabled: !!userId,
     }),
