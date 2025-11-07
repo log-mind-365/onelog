@@ -27,3 +27,18 @@ export const postUserInfo = async (
     .returning()
     .then((rows) => rows[0]);
 };
+
+export const updateUserInfo = async (
+  id: string,
+  params: Partial<Omit<UserInfo, "id" | "email" | "createdAt">>,
+): Promise<UserInfo> => {
+  return db
+    .update(userInfo)
+    .set({
+      ...params,
+      updatedAt: new Date(),
+    })
+    .where(eq(userInfo.id, id))
+    .returning()
+    .then((rows) => rows[0]);
+};
