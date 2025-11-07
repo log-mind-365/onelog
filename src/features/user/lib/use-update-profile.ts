@@ -1,9 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { updateUserInfo } from "@/entities/user/api/server";
+import {
+  deleteAvatar,
+  updateUserInfo,
+  uploadAvatar,
+} from "@/entities/user/api/server";
 import type { UserInfo } from "@/entities/user/model/types";
 import { useAuth } from "@/features/auth/model/store";
-import { deleteAvatar, uploadAvatar } from "@/shared/lib/supabase/storage";
 
 type UpdateProfileParams = {
   id: string;
@@ -33,7 +36,7 @@ export const useUpdateProfile = () => {
         }
 
         // 새 아바타 업로드
-        const { url, error } = await uploadAvatar(id, avatarFile);
+        const { url, error } = await uploadAvatar(avatarFile);
         if (error) {
           throw new Error(error);
         }

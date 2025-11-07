@@ -3,7 +3,10 @@
 import { and, count, desc, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { comments, userInfo } from "@/db/schema";
-import type { CommentInsertSchema, CommentWithAuthor } from "@/entities/comment/model/types";
+import type {
+  CommentInsertSchema,
+  CommentWithAuthor,
+} from "@/entities/comment/model/types";
 
 /**
  * 댓글 목록 조회 (작성자 정보 포함)
@@ -98,8 +101,7 @@ export const updateComment = async (
     })
     .where(eq(comments.id, commentId));
 
-  // 수정된 댓글과 작성자 정보 반환
-  const updatedComment = await db
+  return await db
     .select({
       id: comments.id,
       articleId: comments.articleId,
@@ -121,8 +123,6 @@ export const updateComment = async (
     .leftJoin(userInfo, eq(comments.userId, userInfo.id))
     .where(eq(comments.id, commentId))
     .then((rows) => rows[0]);
-
-  return updatedComment;
 };
 
 /**

@@ -80,6 +80,7 @@ export const SignUpModal = () => {
         <DialogFooter className="sm:flex-col">
           <div className="flex items-center justify-end">
             <Button
+              type="button"
               variant="link"
               size="sm"
               onClick={() => openModal("sign-in")}

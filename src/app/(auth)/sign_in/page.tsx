@@ -101,7 +101,7 @@ const SignInPage = () => {
           size="sm"
           onClick={() => router.push(ROUTES.AUTH.SIGN_UP)}
         >
-          회원가입 하러 가기
+          회원 가입하러 가기
         </Button>
       </div>
     </div>

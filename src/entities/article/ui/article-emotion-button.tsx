@@ -31,6 +31,13 @@ export const ArticleEmotionButton = ({
   dropdownMenuSide = "right",
   dropdownMenuAlign = "start",
 }: ArticleEmotionButtonProps) => {
+  const handleValueChange = (stringValue: string) => {
+    const numValue = Number(stringValue);
+    if (onValueChange && !Number.isNaN(numValue)) {
+      onValueChange(numValue as EmotionLevel);
+    }
+  };
+
   return (
     <Tooltip>
       <DropdownMenu>
@@ -45,7 +52,7 @@ export const ArticleEmotionButton = ({
         <DropdownMenuContent side={dropdownMenuSide} align={dropdownMenuAlign}>
           <DropdownMenuRadioGroup
             value={value?.toString()}
-            onValueChange={onValueChange}
+            onValueChange={handleValueChange}
           >
             {EMOTION_STATUS.map((emotion) => (
               <DropdownMenuRadioItem

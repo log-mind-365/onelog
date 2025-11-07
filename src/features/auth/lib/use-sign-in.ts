@@ -3,7 +3,10 @@ import { toast } from "sonner";
 import { signInToEntity } from "@/entities/user/lib/mappers";
 import type { UserInfo } from "@/entities/user/model/types";
 import { signIn } from "@/features/auth/api/server";
-import { AUTH_QUERY_KEY, AUTH_TOAST_MESSAGE } from "@/features/auth/model/constants";
+import {
+  AUTH_QUERY_KEY,
+  AUTH_TOAST_MESSAGE,
+} from "@/features/auth/model/constants";
 import { useAuth } from "@/features/auth/model/store";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
 import { ROUTES } from "@/shared/model/routes";

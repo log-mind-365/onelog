@@ -34,11 +34,7 @@ const SignUpPage = () => {
   });
 
   const handleSubmitSignUp = (data: SignUpFormData) => {
-    signUp({
-      email: data.email,
-      userName: data.userName,
-      password: data.password,
-    });
+    signUp(data);
   };
 
   return (

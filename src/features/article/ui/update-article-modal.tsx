@@ -1,9 +1,9 @@
 "use client";
 
 import type { FormEvent } from "react";
-import type { SubmitArticleDialogProps } from "@/app/_providers/modal-store";
 import { useModal } from "@/app/_providers/modal-store";
-import { useSubmitArticle } from "@/features/article/lib/use-submit-article";
+import type { UpdateArticleDialogProps } from "@/app/_providers/modal-store";
+import { useUpdateArticle } from "@/features/article/lib/use-update-article";
 import { Button } from "@/shared/components/ui/button";
 import {
   DialogContent,
@@ -13,20 +13,20 @@ import {
 } from "@/shared/components/ui/dialog";
 import { Spinner } from "@/shared/components/ui/spinner";
 
-export const SubmitArticleModal = () => {
+export const UpdateArticleModal = () => {
   const { props, closeModal } = useModal();
-  const { mutate: onSubmit, isPending } = useSubmitArticle();
+  const { mutate: onUpdate, isPending } = useUpdateArticle();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const submitProps = props as SubmitArticleDialogProps;
-    if (!submitProps?.userId) return;
-    onSubmit(
+    const updateProps = props as UpdateArticleDialogProps;
+    if (!updateProps?.id) return;
+    onUpdate(
       {
-        userId: submitProps.userId,
-        content: submitProps.content,
-        emotionLevel: submitProps.emotionLevel,
-        accessType: submitProps.accessType,
+        id: updateProps.id,
+        content: updateProps.content,
+        emotionLevel: updateProps.emotionLevel,
+        accessType: updateProps.accessType,
       },
       {
         onSuccess: () => closeModal(),
@@ -37,12 +37,12 @@ export const SubmitArticleModal = () => {
   return (
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>작성 완료</DialogTitle>
-        <DialogDescription>정말 게시하시겠습니까?</DialogDescription>
+        <DialogTitle>수정 완료</DialogTitle>
+        <DialogDescription>게시물을 수정하시겠습니까?</DialogDescription>
       </DialogHeader>
       <form onSubmit={handleSubmit} className="w-full space-y-4">
         <Button type="submit" disabled={isPending} className="w-full">
-          {isPending ? <Spinner /> : "작성하기"}
+          {isPending ? <Spinner /> : "수정하기"}
         </Button>
       </form>
     </DialogContent>

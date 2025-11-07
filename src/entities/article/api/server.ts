@@ -108,6 +108,18 @@ export const postArticle = async (
     .then((rows) => rows[0]);
 };
 
+export const updateArticle = async (
+  id: string,
+  params: Partial<ArticleInsertSchema>,
+): Promise<Article> => {
+  return db
+    .update(articles)
+    .set({ ...params, updatedAt: new Date() })
+    .where(eq(articles.id, id))
+    .returning()
+    .then((rows) => rows[0]);
+};
+
 export const deleteArticle = async (id: string) => {
   return db.delete(articles).where(eq(articles.id, id));
 };

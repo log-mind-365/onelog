@@ -122,7 +122,10 @@ export const useLikeArticle = () => {
         queryKey: ARTICLE_QUERY_KEY.PUBLIC,
       });
       void queryClient.invalidateQueries({
-        queryKey: ARTICLE_QUERY_KEY.DETAIL(variables.articleId, variables.userId),
+        queryKey: ARTICLE_QUERY_KEY.DETAIL(
+          variables.articleId,
+          variables.userId,
+        ),
       });
       void queryClient.invalidateQueries({
         queryKey: ARTICLE_QUERY_KEY.CHECK_LIKED(

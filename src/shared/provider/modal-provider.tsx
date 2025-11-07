@@ -2,6 +2,7 @@
 
 import { useModal } from "@/app/_providers/modal-store";
 import { SubmitArticleModal } from "@/features/article/ui/submit-article-modal";
+import { UpdateArticleModal } from "@/features/article/ui/update-article-modal";
 import { AuthGuardModal } from "@/features/auth/ui/auth-guard-modal";
 import { SignInModal } from "@/features/auth/ui/sign-in-modal";
 import { SignOutModal } from "@/features/auth/ui/sign-out-modal";
@@ -22,6 +23,7 @@ export const Modal = () => {
       {currentModal === "sign-in" && <SignInModal />}
       {currentModal === "sign-out" && <SignOutModal />}
       {currentModal === "submit-article" && <SubmitArticleModal />}
+      {currentModal === "update-article" && <UpdateArticleModal />}
       {currentModal === "auth-guard" && <AuthGuardModal />}
     </Dialog>
   );
