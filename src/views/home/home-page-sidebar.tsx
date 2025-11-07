@@ -8,7 +8,6 @@ import { AuthMenuDropdown } from "@/features/auth/ui/auth-menu-dropdown";
 import { useToggleTheme } from "@/features/toggle-theme/lib/use-toggle-theme";
 import { ToggleThemeButton } from "@/features/toggle-theme/ui/toggle-theme-button";
 import { UserProfileMenuDropdown } from "@/features/user/ui/user-profile-menu-dropdown";
-import { SidebarContainer } from "@/shared/components/sidebar-container";
 import { Button } from "@/shared/components/ui/button";
 import { Separator } from "@/shared/components/ui/separator";
 import {
@@ -49,7 +48,7 @@ export const HomePageSidebar = () => {
   };
 
   return (
-    <SidebarContainer>
+    <aside className="sticky top-2 ml-2 flex size-fit flex-col gap-2 rounded-lg border-1 bg-card p-2">
       <TooltipProvider delayDuration={0}>
         {SIDEBAR_MENUS.map((menu, index) => {
           if (!menu) {
@@ -91,6 +90,6 @@ export const HomePageSidebar = () => {
           <AuthMenuDropdown />
         )}
       </TooltipProvider>
-    </SidebarContainer>
+    </aside>
   );
 };

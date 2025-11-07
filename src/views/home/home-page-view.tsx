@@ -21,7 +21,7 @@ export const HomePageView = () => {
 
   return (
     <PageContainer
-      title="안녕하세요."
+      title="안녕하세요"
       description="오늘 사람들이 기록한 문장을 확인하세요."
     >
       <TransitionContainer.SlideIn type="spring">

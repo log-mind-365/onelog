@@ -8,7 +8,7 @@ export const SidebarContainer = ({
   return (
     <aside
       className={cn(
-        "sticky top-8 hidden h-fit w-auto flex-col gap-2 rounded-lg border-1 bg-card p-2 sm:flex",
+        "sticky top-8 flex size-fit flex-col gap-2 rounded-lg border-1 bg-card p-2",
         className,
       )}
     >

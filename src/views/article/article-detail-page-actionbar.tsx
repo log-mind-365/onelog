@@ -21,7 +21,7 @@ type ArticleActionbarProps = {
   onLike: () => void;
 };
 
-export const ArticleDetailPageSidebar = ({
+export const ArticleDetailPageActionbar = ({
   likeCount = 0,
   isLike = false,
   commentCount = 0,
@@ -32,7 +32,7 @@ export const ArticleDetailPageSidebar = ({
   onReport,
 }: ArticleActionbarProps) => {
   return (
-    <SidebarContainer>
+    <div className="top-8 flex size-full gap-2 rounded-lg border-1 bg-card p-2 sm:sticky sm:size-fit">
       <div className="flex flex-row items-center gap-2 sm:flex-col">
         <ArticleLikeButton
           likeCount={likeCount}
@@ -44,12 +44,13 @@ export const ArticleDetailPageSidebar = ({
           commentCount={commentCount}
           orientation="vertical"
         />
-        <Separator orientation="vertical" />
+        <Separator orientation="vertical" className="sm:hidden" />
+        <Separator orientation="horizontal" className="hidden sm:flex" />
         <ArticleAccessTypeButton value={accessType} />
         <ShareArticleButton onClick={copyURL} />
         <ArticleReportButton onClick={onReport} />
         <ArticleOptionsDropdownMenu onDelete={onDelete} onModify={onModify} />
       </div>
-    </SidebarContainer>
+    </div>
   );
 };

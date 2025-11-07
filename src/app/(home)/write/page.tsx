@@ -1,12 +1,13 @@
 "use client";
 
 import type { ChangeEvent } from "react";
+import { useAuth } from "@/features/auth/model/store";
 import { PageContainer } from "@/shared/components/page-container";
 import { Separator } from "@/shared/components/ui/separator";
 import { Textarea } from "@/shared/components/ui/textarea";
-import { useAuth } from "@/features/auth/model/store";
 import { useArticleFormStore } from "@/views/write/use-article-form-store";
 import { WritePageBodyHeader } from "@/views/write/write-page-body-header.widget";
+import { WritePageHeader } from "@/views/write/write-page-header.widget";
 
 const Page = () => {
   const { setContent } = useArticleFormStore();
@@ -19,7 +20,9 @@ const Page = () => {
   };
 
   return (
-    <PageContainer>
+    <div className="m-2 flex flex-col gap-4">
+      <WritePageHeader />
+
       <WritePageBodyHeader
         avatarUrl={me?.avatarUrl}
         userName={me?.userName}
@@ -32,9 +35,9 @@ const Page = () => {
         value={content}
         onChange={handleValueChange}
         placeholder="오늘은 어떤 일이 있었나요?"
-        className="h-full resize-none border bg-card shadow-none"
+        className="h-40 resize-none border bg-card shadow-none"
       />
-    </PageContainer>
+    </div>
   );
 };
 

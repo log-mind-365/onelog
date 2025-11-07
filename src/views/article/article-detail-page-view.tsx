@@ -11,7 +11,7 @@ import { Separator } from "@/shared/components/ui/separator";
 import { Spinner } from "@/shared/components/ui/spinner";
 import { ArticleCommentSection } from "@/views/article/article-comment-section";
 import { ArticleDetailContent } from "@/views/article/article-detail-content";
-import { ArticleDetailPageSidebar } from "@/views/article/article-detail-page-sidebar";
+import { ArticleDetailPageActionbar } from "@/views/article/article-detail-page-actionbar";
 import { ArticleCardHeader } from "@/widgets/card/article-card-header";
 
 type ArticleDetailPageView = {
@@ -37,8 +37,8 @@ export const ArticleDetailPageView = ({
   };
 
   return (
-    <>
-      <ArticleDetailPageSidebar
+    <PageContainer className="flex-col sm:flex-row">
+      <ArticleDetailPageActionbar
         likeCount={article.likeCount}
         isLike={article.isLiked}
         commentCount={article.commentCount}
@@ -49,7 +49,7 @@ export const ArticleDetailPageView = ({
         onModify={() => null}
         onReport={() => null}
       />
-      <PageContainer className="gap-8">
+      <div className="flex w-full flex-col gap-8">
         <div className="flex flex-col gap-2 rounded-lg border bg-card p-4">
           <ArticleCardHeader
             userId={article?.author?.id ?? ""}
@@ -72,7 +72,7 @@ export const ArticleDetailPageView = ({
             userAvatar={me?.avatarUrl}
           />
         </Suspense>
-      </PageContainer>
-    </>
+      </div>
+    </PageContainer>
   );
 };

@@ -1,6 +1,5 @@
 "use client";
 
-import { setContent } from "@tiptap/core";
 import { ArrowLeft, Check } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/app/_providers/modal-store";
@@ -30,7 +29,7 @@ export const WritePageHeader = () => {
     setAccessType(value as AccessType);
   };
   return (
-    <header className="flex w-full items-center justify-between px-2 sm:hidden">
+    <header className="flex w-full items-center justify-between rounded-lg border bg-card p-2">
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>

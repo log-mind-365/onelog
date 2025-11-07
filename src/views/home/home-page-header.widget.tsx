@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { useUserProfileMenu } from "@/features/user/lib/use-user-profile-menu";
+import { useAuth } from "@/features/auth/model/store";
 import { UserProfileMenuDropdown } from "@/features/user/ui/user-profile-menu-dropdown";
 import { HeaderContainer } from "@/shared/components/header-container";
 import { Button } from "@/shared/components/ui/button";
@@ -20,7 +20,6 @@ import {
 } from "@/shared/components/ui/sheet";
 import { cn } from "@/shared/lib/utils";
 import { ROUTES } from "@/shared/model/routes";
-import { useAuth } from "@/features/auth/model/store";
 import { HEADER_TOP_MENUS } from "@/views/home/home-page-header.model";
 
 export const HomePageHeader = () => {
@@ -46,13 +45,6 @@ export const HomePageHeader = () => {
 
   const handleThemeToggle = () => {
     setTheme(theme === "dark" ? "light" : "dark");
-  };
-
-  const handleProfileClick = () => {
-    if (me) {
-      router.push(ROUTES.PROFILE.VIEW(me.id));
-      setOpen(false);
-    }
   };
 
   return (

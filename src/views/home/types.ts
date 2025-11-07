@@ -1,4 +1,4 @@
-import { Home, PenSquare } from "lucide-react";
+import { Home, PenSquare, XIcon } from "lucide-react";
 import { ROUTES } from "@/shared/model/routes";
 
 type SIDEBAR_MENUS_TYPE = {
@@ -9,6 +9,12 @@ type SIDEBAR_MENUS_TYPE = {
 };
 
 export const SIDEBAR_MENUS: Partial<SIDEBAR_MENUS_TYPE[]> = [
+  {
+    label: "OneLog",
+    icon: XIcon,
+    path: ROUTES.HOME,
+  },
+  undefined,
   {
     label: "글쓰기",
     icon: PenSquare,

@@ -37,7 +37,11 @@ export const ProfilePageView = ({ id }: ProfilePageViewProps) => {
   };
 
   return (
-    <PageContainer title="프로필" description="사용자 정보를 확인하세요">
+    <PageContainer
+      title="프로필"
+      description="사용자 정보를 확인하세요"
+      className="m-4 flex flex-col gap-2"
+    >
       {/* Profile Header Card */}
       <Card className="shadow-none">
         <CardContent className="flex gap-4">

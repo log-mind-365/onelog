@@ -13,12 +13,7 @@ export const PageContainer = ({
   className,
   children,
 }: BodyProps) => (
-  <div
-    className={cn(
-      "flex h-[calc(100vh-8rem)] w-full flex-col gap-4 px-2 sm:my-8 sm:h-[calc(100vh-4rem)] sm:w-md md:w-lg lg:w-2xl",
-      className,
-    )}
-  >
+  <div className={cn("m-4", className)}>
     {title && (
       <div className="flex flex-col items-start justify-between">
         <h1 className="font-bold text-3xl">{title}</h1>
