@@ -46,7 +46,7 @@ export const ARTICLE_TOAST_MESSAGE = {
     EXCEPTION: "게시물 삭제에 실패했습니다.",
   },
   LIKE: {
-    SUCCESS: "좋아요를 눌렀습니다.",
+    SUCCESS: "좋아요한 글은 프로필에서 다시 볼 수 있어요.",
     CANCEL: "좋아요를 취소했습니다.",
     EXCEPTION: "좋아요 처리 중 오류가 발생했습니다.",
   },
