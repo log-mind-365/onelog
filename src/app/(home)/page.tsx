@@ -3,12 +3,20 @@ import { Suspense } from "react";
 import { articleQueries } from "@/entities/article/api/queries";
 import { PageContainer } from "@/shared/components/page-container";
 import { Spinner } from "@/shared/components/ui/spinner";
+import { createClient } from "@/shared/lib/supabase/server";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
 import { HomePageView } from "@/views/home/home-page-view";
 
-const HomePage = () => {
+const HomePage = async () => {
   const queryClient = getQueryClient();
-  void queryClient.prefetchInfiniteQuery(articleQueries.infinite());
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  void queryClient.prefetchInfiniteQuery(
+    articleQueries.infinite(user?.id ?? null),
+  );
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

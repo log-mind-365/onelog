@@ -10,12 +10,14 @@ import { cn } from "@/shared/lib/utils";
 interface Props {
   commentCount?: number;
   onClick?: () => void;
+  orientation?: "horizontal" | "vertical";
   isSide?: boolean;
 }
 
 export const ArticleCommentButton = ({
   isSide,
   onClick,
+  orientation = "horizontal",
   commentCount = 0,
 }: Props) => {
   return (
@@ -25,7 +27,8 @@ export const ArticleCommentButton = ({
           variant="ghost"
           onClick={onClick}
           className={cn(
-            "gap-1 text-xs transition-colors hover:text-blue-400",
+            "flex gap-1 text-xs transition-colors hover:text-blue-400",
+            orientation === "horizontal" && "flex-row",
             isSide && "max-lg:flex-col",
           )}
         >

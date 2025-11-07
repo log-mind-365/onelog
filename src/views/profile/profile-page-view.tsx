@@ -29,10 +29,11 @@ export const ProfilePageView = ({ id }: ProfilePageViewProps) => {
       day: "numeric",
     });
   };
+
   return (
     <PageContainer title="프로필" description="사용자 정보를 확인하세요">
       {/* Profile Header Card */}
-      <Card>
+      <Card className="shadow-none">
         <CardContent className="flex gap-4">
           <UserAvatar
             avatarUrl={user.avatarUrl || undefined}
@@ -50,7 +51,7 @@ export const ProfilePageView = ({ id }: ProfilePageViewProps) => {
       </Card>
 
       {/* About Me Card */}
-      <Card>
+      <Card className="shadow-none">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <User className="size-5" />
@@ -69,7 +70,7 @@ export const ProfilePageView = ({ id }: ProfilePageViewProps) => {
       </Card>
 
       {/* Account Info Card */}
-      <Card>
+      <Card className="shadow-none">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Calendar className="size-5" />
