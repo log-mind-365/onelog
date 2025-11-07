@@ -1,7 +1,6 @@
 "use client";
 
 import type { InfiniteData } from "@tanstack/react-query";
-import { useVirtualizer } from "@tanstack/react-virtual";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import type { InfiniteArticleList as InfiniteArticleListType } from "@/entities/article/model/types";
@@ -26,43 +25,38 @@ export const InfiniteArticleList = ({
   isFetchingNextPage,
 }: InfiniteArticleListProps) => {
   const router = useRouter();
+  const loadMoreRef = useRef<HTMLDivElement>(null);
 
   const allArticles = data?.pages.flatMap((page) => page.data) ?? [];
 
-  const parentRef = useRef<HTMLUListElement>(null);
-
-  const articleVirtualizer = useVirtualizer({
-    count: hasNextPage ? allArticles.length + 1 : allArticles.length,
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => 100,
-    overscan: 10,
-  });
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    const [lastItem] = [...articleVirtualizer.getVirtualItems()].reverse();
+    if (!hasNextPage || isFetchingNextPage) return;
 
-    if (!lastItem) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          onFetchNextPage();
+        }
+      },
+      { threshold: 0.1 },
+    );
 
-    if (
-      lastItem.index >= allArticles.length - 1 &&
-      hasNextPage &&
-      !isFetchingNextPage
-    ) {
-      onFetchNextPage();
+    const currentRef = loadMoreRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
-  }, [
-    hasNextPage,
-    onFetchNextPage,
-    allArticles.length,
-    isFetchingNextPage,
-    articleVirtualizer.getVirtualItems(),
-  ]);
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, [hasNextPage, isFetchingNextPage, onFetchNextPage]);
 
   if (allArticles.length === 0) {
     return (
       <div className="flex items-center justify-center py-12">
-        <p className="text-muted-foreground text-sm">
+        <p className="text-sm text-muted-foreground">
           아직 작성된 글이 없습니다.
         </p>
       </div>
@@ -70,11 +64,8 @@ export const InfiniteArticleList = ({
   }
 
   return (
-    <ul ref={parentRef} className="flex h-full flex-col gap-8">
-      {articleVirtualizer.getVirtualItems().map((virtualRow) => {
-        const article = allArticles[virtualRow.index];
-
-        if (!article) return null;
+    <div className="flex flex-col gap-8">
+      {allArticles.map((article) => {
         const {
           id,
           createdAt,
@@ -95,26 +86,38 @@ export const InfiniteArticleList = ({
         };
 
         return (
-          <li key={id}>
-            <ArticleCard
-              accessType={accessType}
-              content={content}
-              isMe={isMe}
-              createdAt={createdAt}
-              userId={userId}
-              userName={author?.userName}
-              avatarUrl={author?.avatarUrl}
-              email={author?.email}
-              emotionLevel={emotionLevel}
-              likeCount={likeCount}
-              isLiked={isLiked}
-              commentCount={commentCount}
-              onClick={() => router.push(ROUTES.ARTICLE.VIEW(id))}
-              onLike={handleLike}
-            />
-          </li>
+          <ArticleCard
+            key={id}
+            accessType={accessType}
+            content={content}
+            isMe={isMe}
+            createdAt={createdAt}
+            userId={userId}
+            userName={author?.userName}
+            avatarUrl={author?.avatarUrl}
+            email={author?.email}
+            emotionLevel={emotionLevel}
+            likeCount={likeCount}
+            isLiked={isLiked}
+            commentCount={commentCount}
+            onClick={() => router.push(ROUTES.ARTICLE.VIEW(id))}
+            onLike={handleLike}
+          />
         );
       })}
-    </ul>
+
+      {hasNextPage && (
+        <div
+          ref={loadMoreRef}
+          className="flex items-center justify-center py-8"
+        >
+          {isFetchingNextPage ? (
+            <p className="text-sm text-muted-foreground">로딩 중...</p>
+          ) : (
+            <p className="text-sm text-muted-foreground">더 보기</p>
+          )}
+        </div>
+      )}
+    </div>
   );
 };

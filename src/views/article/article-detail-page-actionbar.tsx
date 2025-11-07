@@ -33,14 +33,18 @@ export const ArticleDetailPageSidebar = ({
 }: ArticleActionbarProps) => {
   return (
     <SidebarContainer>
-      <div className="flex flex-col items-center gap-2">
+      <div className="flex flex-row items-center gap-2 sm:flex-col">
         <ArticleLikeButton
           likeCount={likeCount}
           isLike={isLike}
           onClick={onLike}
+          orientation="vertical"
         />
-        <ArticleCommentButton commentCount={commentCount} />
-        <Separator />
+        <ArticleCommentButton
+          commentCount={commentCount}
+          orientation="vertical"
+        />
+        <Separator orientation="vertical" />
         <ArticleAccessTypeButton value={accessType} />
         <ShareArticleButton onClick={copyURL} />
         <ArticleReportButton onClick={onReport} />
