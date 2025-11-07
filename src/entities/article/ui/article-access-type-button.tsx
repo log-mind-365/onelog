@@ -18,7 +18,7 @@ import { cn } from "@/shared/lib/utils";
 
 type AccessTypeButtonProps = {
   value?: AccessType;
-  onValueChange?: (value: AccessType) => void;
+  onValueChange?: (value: string) => void;
   tooltipSide?: PopoverContentProps["side"];
   dropdownMenuSide?: PopoverContentProps["side"];
   dropdownMenuAlign?: PopoverContentProps["align"];

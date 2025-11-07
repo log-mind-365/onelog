@@ -1,7 +1,9 @@
 "use client";
 
+import { setContent } from "@tiptap/core";
 import { ArrowLeft, Check } from "lucide-react";
 import { useRouter } from "next/navigation";
+import type { AccessType } from "@/entities/article/model/types";
 import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-type-button";
 import { ArticleEmotionButton } from "@/entities/article/ui/article-emotion-button";
 import { Button } from "@/shared/components/ui/button";
@@ -24,6 +26,9 @@ export const WritePageHeader = () => {
   const accessType = useArticleFormStore((state) => state.accessType);
   const emotionLevel = useArticleFormStore((state) => state.emotionLevel);
 
+  const handleAccessTypeChange = (value: string) => {
+    setAccessType(value as AccessType);
+  };
   return (
     <header className="flex w-full items-center justify-between px-2 sm:hidden">
       <TooltipProvider>
@@ -37,7 +42,7 @@ export const WritePageHeader = () => {
         </Tooltip>
         <ArticleAccessTypeButton
           value={accessType}
-          onValueChange={setAccessType}
+          onValueChange={handleAccessTypeChange}
           tooltipSide="bottom"
           dropdownMenuSide="bottom"
           dropdownMenuAlign="start"

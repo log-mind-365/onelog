@@ -2,6 +2,7 @@
 
 import { ArrowLeft, Check } from "lucide-react";
 import { useRouter } from "next/navigation";
+import type { AccessType } from "@/entities/article/model/types";
 import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-type-button";
 import { ArticleEmotionButton } from "@/entities/article/ui/article-emotion-button";
 import { SidebarContainer } from "@/shared/components/sidebar-container";
@@ -26,6 +27,9 @@ export const WritePageSidebar = () => {
   const accessType = useArticleFormStore((state) => state.accessType);
   const emotionLevel = useArticleFormStore((state) => state.emotionLevel);
 
+  const handleAccessTypeChange = (value: string) => {
+    setAccessType(value as AccessType);
+  };
   return (
     <SidebarContainer>
       <TooltipProvider>
@@ -40,7 +44,7 @@ export const WritePageSidebar = () => {
         <Separator />
         <ArticleAccessTypeButton
           value={accessType}
-          onValueChange={setAccessType}
+          onValueChange={handleAccessTypeChange}
         />
         <ArticleEmotionButton
           value={emotionLevel}

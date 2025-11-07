@@ -15,7 +15,7 @@ export const PageContainer = ({
 }: BodyProps) => (
   <div
     className={cn(
-      "flex h-[calc(100vh-5.2rem)] w-full flex-col gap-4 px-2 sm:my-8 sm:h-[calc(100vh-4rem)] sm:w-md md:w-lg lg:w-2xl",
+      "flex h-[calc(100vh-8rem)] w-full flex-col gap-4 px-2 sm:my-8 sm:h-[calc(100vh-4rem)] sm:w-md md:w-lg lg:w-2xl",
       className,
     )}
   >
