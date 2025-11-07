@@ -25,10 +25,14 @@ export const uploadFile = async (
       console.error("Upload error:", error);
 
       // RLS 에러 상세 안내
-      if (error.message.includes("row-level security") || error.message.includes("policy")) {
+      if (
+        error.message.includes("row-level security") ||
+        error.message.includes("policy")
+      ) {
         return {
           url: "",
-          error: "파일 업로드 권한이 없습니다. Supabase Dashboard에서 Storage > avatars > Policies 설정을 확인하세요."
+          error:
+            "파일 업로드 권한이 없습니다. Supabase Dashboard에서 Storage > avatars > Policies 설정을 확인하세요.",
         };
       }
 
@@ -101,7 +105,9 @@ export const extractPathFromUrl = (url: string): string | null => {
   try {
     const urlObj = new URL(url);
     const pathParts = urlObj.pathname.split("/");
-    const bucketIndex = pathParts.findIndex((part) => part === "avatars");
+    const bucketIndex = pathParts.findIndex(
+      (part) => part === STORAGE_BUCKETS.AVATARS,
+    );
     if (bucketIndex === -1) return null;
 
     return pathParts.slice(bucketIndex + 1).join("/");

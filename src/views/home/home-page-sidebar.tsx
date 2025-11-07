@@ -48,7 +48,7 @@ export const HomePageSidebar = () => {
   };
 
   return (
-    <aside className="sticky top-2 ml-2 flex size-fit flex-col gap-2 rounded-lg border-1 bg-card p-2">
+    <aside className="sticky top-4 ml-4 flex size-fit flex-col gap-2 rounded-lg border-1 bg-card p-2">
       <TooltipProvider delayDuration={0}>
         {SIDEBAR_MENUS.map((menu, index) => {
           if (!menu) {

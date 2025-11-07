@@ -8,14 +8,6 @@ export const EMOTION_STATUS = [
   { percent: 100, status: "매우 좋음" },
 ] as const;
 
-export const EMOTION_COLORS: Record<number, string> = {
-  1: "bg-blue-100 text-blue-600",
-  2: "bg-green-100 text-green-600",
-  3: "bg-yellow-100 text-yellow-600",
-  4: "bg-orange-100 text-orange-600",
-  5: "bg-red-100 text-red-600",
-};
-
 export const EMOTION_LABELS: Record<number, string> = {
   1: "매우 나쁨",
   2: "나쁨",
@@ -25,11 +17,11 @@ export const EMOTION_LABELS: Record<number, string> = {
 };
 
 export const EMOTION_PERCENT_COLORS: Record<number, string> = {
-  0: "bg-gray-300",
+  0: "bg-red-300",
   25: "bg-blue-400",
-  50: "bg-green-400",
-  75: "bg-yellow-400",
-  100: "bg-red-400",
+  50: "bg-yellow-400",
+  75: "bg-green-700",
+  100: "bg-green-400",
 };
 
 export const ARTICLE_TOAST_MESSAGE = {
