@@ -8,12 +8,14 @@ import type {
   UserInfoInsertSchema,
 } from "@/entities/user/model/types";
 
-export const getUserInfo = async (id: string): Promise<UserInfo> => {
-  return db
+export const getUserInfo = async (id: string): Promise<UserInfo | null> => {
+  const result = await db
     .select()
     .from(userInfo)
     .where(eq(userInfo.id, id))
     .then((rows) => rows[0]);
+
+  return result || null;
 };
 
 export const postUserInfo = async (

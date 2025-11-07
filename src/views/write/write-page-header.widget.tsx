@@ -3,9 +3,11 @@
 import { setContent } from "@tiptap/core";
 import { ArrowLeft, Check } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useModal } from "@/app/_providers/modal-store";
 import type { AccessType } from "@/entities/article/model/types";
 import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-type-button";
 import { ArticleEmotionButton } from "@/entities/article/ui/article-emotion-button";
+import { useAuth } from "@/features/auth/model/store";
 import { Button } from "@/shared/components/ui/button";
 import {
   Tooltip,
@@ -13,8 +15,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/shared/components/ui/tooltip";
-import { useAuth } from "@/features/auth/model/store";
-import { useModal } from "@/app/providers/modal-store";
 import { useArticleFormStore } from "@/views/write/use-article-form-store";
 
 export const WritePageHeader = () => {

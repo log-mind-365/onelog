@@ -1,8 +1,8 @@
 "use client";
 
 import type { PropsWithChildren } from "react";
+import { type ModalType, useModal } from "@/app/_providers/modal-store";
 import { Dialog } from "@/shared/components/ui/dialog";
-import { useModal, type ModalType } from "@/app/providers/modal-store";
 
 type ModalProps = PropsWithChildren & {
   type: ModalType;

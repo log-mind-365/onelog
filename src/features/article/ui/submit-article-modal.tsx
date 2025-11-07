@@ -1,6 +1,7 @@
 "use client";
 
 import type { FormEvent } from "react";
+import { useModal } from "@/app/_providers/modal-store";
 import { useSubmitArticle } from "@/features/article/lib/use-submit-article";
 import { Button } from "@/shared/components/ui/button";
 import {
@@ -10,7 +11,6 @@ import {
   DialogTitle,
 } from "@/shared/components/ui/dialog";
 import { Spinner } from "@/shared/components/ui/spinner";
-import { useModal } from "@/app/providers/modal-store";
 
 export const SubmitArticleModal = () => {
   const { props, closeModal } = useModal();

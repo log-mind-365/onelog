@@ -21,6 +21,12 @@ type ProfilePageViewProps = {
 export const ProfilePageView = ({ id }: ProfilePageViewProps) => {
   const { data: user } = useSuspenseQuery(userQueries.getUserInfo(id));
 
+  // 서버 컴포넌트에서 이미 user 존재 여부를 체크했으므로
+  // 여기서는 user가 항상 존재함을 보장받음
+  if (!user) {
+    throw new Error("User should exist at this point");
+  }
+
   const formatDate = (date: Date | string | null) => {
     if (!date) return "-";
     return new Date(date).toLocaleDateString("ko-KR", {

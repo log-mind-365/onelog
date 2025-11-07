@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useModal } from "@/app/_providers/modal-store";
 import { AuthFormField } from "@/entities/user/ui/auth-form-field";
 import { useSignUp } from "@/features/auth/lib/use-sign-up";
 import { signUpSchema } from "@/features/auth/model/schema";
@@ -15,7 +16,6 @@ import {
   DialogTitle,
 } from "@/shared/components/ui/dialog";
 import { Spinner } from "@/shared/components/ui/spinner";
-import { useModal } from "@/app/providers/modal-store";
 
 export const SignUpModal = () => {
   const { openModal } = useModal();

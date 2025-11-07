@@ -1,5 +1,6 @@
 "use client";
 
+import { useModal } from "@/app/_providers/modal-store";
 import { Button } from "@/shared/components/ui/button";
 import {
   DialogContent,
@@ -8,7 +9,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/shared/components/ui/dialog";
-import { useModal } from "@/app/providers/modal-store";
 
 export const AuthGuardModal = () => {
   const { openModal, closeModal } = useModal();

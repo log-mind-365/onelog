@@ -16,7 +16,6 @@ const ArticlePage = async ({ params }: PageProps) => {
   const user = await getCurrentUser();
   const userId = user?.id ?? null;
 
-  // 게시글과 댓글 동시 prefetch
   await Promise.all([
     queryClient.prefetchQuery(articleQueries.detail(id, userId)),
     queryClient.prefetchQuery(commentQueries.list(id)),

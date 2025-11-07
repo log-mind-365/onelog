@@ -2,9 +2,9 @@
 
 import { LogOut, User, UserCog } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { ROUTES } from "@/shared/model/routes";
+import { useModal } from "@/app/_providers/modal-store";
 import { useAuth } from "@/features/auth/model/store";
-import { useModal } from "@/app/providers/modal-store";
+import { ROUTES } from "@/shared/model/routes";
 
 export const useUserProfileMenu = () => {
   const router = useRouter();
