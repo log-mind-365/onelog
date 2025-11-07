@@ -3,10 +3,10 @@ import { toast } from "sonner";
 import { signInToEntity } from "@/entities/user/lib/mappers";
 import type { UserInfo } from "@/entities/user/model/types";
 import { signIn } from "@/features/auth/api/server";
+import { AUTH_QUERY_KEY, AUTH_TOAST_MESSAGE } from "@/features/auth/model/constants";
+import { useAuth } from "@/features/auth/model/store";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
-import { QUERY_KEY, TOAST_MESSAGE } from "@/shared/model/constants";
 import { ROUTES } from "@/shared/model/routes";
-import { useAuth } from "@/shared/store/use-auth";
 
 export const useSignIn = () => {
   const queryClient = getQueryClient();
@@ -26,17 +26,17 @@ export const useSignIn = () => {
     onSuccess: (data) => {
       setMe(data);
       window.location.href = ROUTES.HOME;
-      toast.success(TOAST_MESSAGE.AUTH.SIGN_IN.SUCCESS, {
-        description: TOAST_MESSAGE.AUTH.SIGN_IN.MESSAGE,
+      toast.success(AUTH_TOAST_MESSAGE.SIGN_IN.SUCCESS, {
+        description: AUTH_TOAST_MESSAGE.SIGN_IN.MESSAGE,
       });
     },
     onError: (error) => {
-      toast.error(TOAST_MESSAGE.AUTH.SIGN_IN.EXCEPTION, {
+      toast.error(AUTH_TOAST_MESSAGE.SIGN_IN.EXCEPTION, {
         description: error.message,
       });
     },
     onSettled: () => {
-      void queryClient.invalidateQueries({ queryKey: QUERY_KEY.AUTH.INFO });
+      void queryClient.invalidateQueries({ queryKey: AUTH_QUERY_KEY.INFO });
     },
   });
 };

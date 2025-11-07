@@ -4,7 +4,7 @@ import type { ChangeEvent } from "react";
 import { PageContainer } from "@/shared/components/page-container";
 import { Separator } from "@/shared/components/ui/separator";
 import { Textarea } from "@/shared/components/ui/textarea";
-import { useAuth } from "@/shared/store/use-auth";
+import { useAuth } from "@/features/auth/model/store";
 import { useArticleFormStore } from "@/views/write/use-article-form-store";
 import { WritePageBodyHeader } from "@/views/write/write-page-body-header.widget";
 

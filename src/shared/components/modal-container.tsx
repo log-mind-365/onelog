@@ -2,8 +2,7 @@
 
 import type { PropsWithChildren } from "react";
 import { Dialog } from "@/shared/components/ui/dialog";
-import type { ModalType } from "@/shared/model/types";
-import { useModal } from "@/shared/store/use-modal";
+import { useModal, type ModalType } from "@/app/providers/modal-store";
 
 type ModalProps = PropsWithChildren & {
   type: ModalType;

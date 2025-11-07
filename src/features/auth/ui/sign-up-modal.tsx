@@ -15,7 +15,7 @@ import {
   DialogTitle,
 } from "@/shared/components/ui/dialog";
 import { Spinner } from "@/shared/components/ui/spinner";
-import { useModal } from "@/shared/store/use-modal";
+import { useModal } from "@/app/providers/modal-store";
 
 export const SignUpModal = () => {
   const { openModal } = useModal();

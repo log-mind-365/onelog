@@ -5,7 +5,7 @@ import { articleQueries } from "@/entities/article/api/queries";
 import { useLikeArticle } from "@/features/article/lib/use-like-article";
 import { PageContainer } from "@/shared/components/page-container";
 import { Separator } from "@/shared/components/ui/separator";
-import { useAuth } from "@/shared/store/use-auth";
+import { useAuth } from "@/features/auth/model/store";
 import { ArticleDetailContent } from "@/views/article/article-detail-content";
 import { ArticleDetailPageSidebar } from "@/views/article/article-detail-page-sidebar";
 import { ArticleCardHeader } from "@/widgets/card/article-card-header";

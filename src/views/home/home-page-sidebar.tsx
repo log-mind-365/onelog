@@ -17,7 +17,7 @@ import {
   TooltipTrigger,
 } from "@/shared/components/ui/tooltip";
 import { ROUTES } from "@/shared/model/routes";
-import { useAuth } from "@/shared/store/use-auth";
+import { useAuth } from "@/features/auth/model/store";
 import { SIDEBAR_MENUS } from "@/views/home/types";
 
 export const HomePageSidebar = () => {

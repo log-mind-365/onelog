@@ -14,8 +14,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/shared/components/ui/tooltip";
-import { useAuth } from "@/shared/store/use-auth";
-import { useModal } from "@/shared/store/use-modal";
+import { useAuth } from "@/features/auth/model/store";
+import { useModal } from "@/app/providers/modal-store";
 import { useArticleFormStore } from "@/views/write/use-article-form-store";
 
 export const WritePageSidebar = () => {

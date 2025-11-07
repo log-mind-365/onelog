@@ -1,9 +1,24 @@
+"use client";
+
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
+import { articleQueries } from "@/entities/article/api/queries";
+import { useAuth } from "@/features/auth/model/store";
+import { useLikeArticle } from "@/features/article/lib/use-like-article";
 import { PageContainer } from "@/shared/components/page-container";
 import { TransitionContainer } from "@/shared/components/transition-container";
 import { InfiniteArticleList } from "@/widgets/card/infinite-article-list";
 import { FakeForm } from "@/widgets/form/fake-form.ui";
 
 export const HomePageView = () => {
+  const { me } = useAuth();
+  const { mutate: likeArticle } = useLikeArticle();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useSuspenseInfiniteQuery(articleQueries.infinite(me?.id ?? null));
+
+  const handleLike = (articleId: string, userId: string) => {
+    likeArticle({ articleId, userId });
+  };
+
   return (
     <PageContainer
       title="안녕하세요."
@@ -12,7 +27,14 @@ export const HomePageView = () => {
       <TransitionContainer.SlideIn type="spring">
         <FakeForm />
       </TransitionContainer.SlideIn>
-      <InfiniteArticleList />
+      <InfiniteArticleList
+        data={data}
+        currentUserId={me?.id ?? null}
+        onLike={handleLike}
+        onFetchNextPage={() => void fetchNextPage()}
+        hasNextPage={hasNextPage}
+        isFetchingNextPage={isFetchingNextPage}
+      />
     </PageContainer>
   );
 };

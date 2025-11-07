@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
 import { useAuthGuard } from "@/features/auth/lib/use-auth-guard";
 import { ROUTES } from "@/shared/model/routes";
-import { useAuth } from "@/shared/store/use-auth";
+import { useAuth } from "@/features/auth/model/store";
 
 export const FakeForm = () => {
   const router = useRouter();

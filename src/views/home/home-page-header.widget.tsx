@@ -20,7 +20,7 @@ import {
 } from "@/shared/components/ui/sheet";
 import { cn } from "@/shared/lib/utils";
 import { ROUTES } from "@/shared/model/routes";
-import { useAuth } from "@/shared/store/use-auth";
+import { useAuth } from "@/features/auth/model/store";
 import { HEADER_TOP_MENUS } from "@/views/home/home-page-header.model";
 
 export const HomePageHeader = () => {

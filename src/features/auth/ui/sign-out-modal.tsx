@@ -9,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/shared/components/ui/dialog";
-import { useModal } from "@/shared/store/use-modal";
+import { useModal } from "@/app/providers/modal-store";
 
 export const SignOutModal = () => {
   const { closeModal } = useModal();
