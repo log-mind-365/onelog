@@ -3,7 +3,6 @@
 import type { ChangeEvent } from "react";
 import { useAuth } from "@/features/auth/model/store";
 import { Input } from "@/shared/components/ui/input";
-import { Separator } from "@/shared/components/ui/separator";
 import { Textarea } from "@/shared/components/ui/textarea";
 import { useArticleFormStore } from "@/views/write/use-article-form-store";
 import { WritePageBodyHeader } from "@/views/write/write-page-body-header.widget";
@@ -35,19 +34,20 @@ const Page = () => {
         createdAt={me?.createdAt}
         emotionLevel={emotionLevel}
       />
-      <Separator />
-      <Input
-        value={title}
-        onChange={handleTitleChange}
-        placeholder="제목을 입력하세요"
-        className="border bg-card font-semibold text-lg shadow-none"
-      />
-      <Textarea
-        value={content}
-        onChange={handleContentChange}
-        placeholder="오늘은 어떤 일이 있었나요?"
-        className="h-40 resize-none border bg-card shadow-none"
-      />
+      <div className="flex flex-col rounded-lg border">
+        <Input
+          value={title}
+          onChange={handleTitleChange}
+          placeholder="제목을 입력하세요"
+          className="rounded-none border-0 pt-4 font-semibold text-lg shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+        />
+        <Textarea
+          value={content}
+          onChange={handleContentChange}
+          placeholder="오늘은 어떤 일이 있었나요?"
+          className="h-40 resize-none rounded-none border-0 text-sm shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+        />
+      </div>
     </div>
   );
 };

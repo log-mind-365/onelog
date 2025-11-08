@@ -12,10 +12,6 @@ export const ArticleUserInfo = ({
   email,
   createdAt,
 }: ArticleUserInfoProps) => {
-  const formattedDate = format(new Date(createdAt), "M월 d일 y년", {
-    locale: ko,
-  });
-  const formattedTime = format(new Date(createdAt), "HH:mm");
   return (
     <div className="flex flex-col">
       <div className="flex items-end gap-1">
@@ -25,7 +21,13 @@ export const ArticleUserInfo = ({
         </span>
       </div>
       <p className="text-muted-foreground text-sm">
-        {formattedDate} · {formattedTime}
+        {new Date(createdAt).toLocaleDateString("ko-KR", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        })}
       </p>
     </div>
   );

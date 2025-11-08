@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import { articleQueries } from "@/entities/article/api/queries";
 import { useAuth } from "@/features/auth/model/store";
 import { Input } from "@/shared/components/ui/input";
-import { Separator } from "@/shared/components/ui/separator";
 import { Textarea } from "@/shared/components/ui/textarea";
 import { ArticleEditPageHeader } from "@/views/article/article-edit-page-header.widget";
 import { useArticleFormStore } from "@/views/write/use-article-form-store";
@@ -61,19 +60,20 @@ export const ArticleEditPageView = ({
         createdAt={me?.createdAt}
         emotionLevel={emotionLevel}
       />
-      <Separator />
-      <Input
-        value={title}
-        onChange={handleTitleChange}
-        placeholder="제목을 입력하세요"
-        className="border bg-card font-semibold text-lg shadow-none"
-      />
-      <Textarea
-        value={content}
-        onChange={handleContentChange}
-        placeholder="오늘은 어떤 일이 있었나요?"
-        className="h-40 resize-none border bg-card shadow-none"
-      />
+      <div className="flex flex-col rounded-lg border bg-card">
+        <Input
+          value={title}
+          onChange={handleTitleChange}
+          placeholder="제목을 입력하세요"
+          className="border-0 rounded-t-lg font-semibold text-lg shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+        />
+        <Textarea
+          value={content}
+          onChange={handleContentChange}
+          placeholder="오늘은 어떤 일이 있었나요?"
+          className="h-40 resize-none border-0 rounded-b-lg shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+        />
+      </div>
     </div>
   );
 };
