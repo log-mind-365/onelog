@@ -5,11 +5,12 @@ import type { ChangeEvent } from "react";
 import { useEffect } from "react";
 import { articleQueries } from "@/entities/article/api/queries";
 import { useAuth } from "@/features/auth/model/store";
+import { Input } from "@/shared/components/ui/input";
 import { Separator } from "@/shared/components/ui/separator";
 import { Textarea } from "@/shared/components/ui/textarea";
+import { ArticleEditPageHeader } from "@/views/article/article-edit-page-header.widget";
 import { useArticleFormStore } from "@/views/write/use-article-form-store";
 import { WritePageBodyHeader } from "@/views/write/write-page-body-header.widget";
-import { ArticleEditPageHeader } from "@/views/article/article-edit-page-header.widget";
 
 type ArticleEditPageViewProps = {
   id: string;
@@ -21,14 +22,16 @@ export const ArticleEditPageView = ({
   userId,
 }: ArticleEditPageViewProps) => {
   const { data: article } = useSuspenseQuery(articleQueries.detail(id, userId));
-  const { setContent, setEmotionLevel, setAccessType, reset } =
+  const { setTitle, setContent, setEmotionLevel, setAccessType, reset } =
     useArticleFormStore();
+  const title = useArticleFormStore((state) => state.title);
   const emotionLevel = useArticleFormStore((state) => state.emotionLevel);
   const content = useArticleFormStore((state) => state.content);
   const { me } = useAuth();
 
   useEffect(() => {
     if (article) {
+      setTitle(article.title);
       setContent(article.content);
       setEmotionLevel(article.emotionLevel);
       setAccessType(article.accessType);
@@ -37,9 +40,13 @@ export const ArticleEditPageView = ({
     return () => {
       reset();
     };
-  }, [article, setContent, setEmotionLevel, setAccessType, reset]);
+  }, [article, setTitle, setContent, setEmotionLevel, setAccessType, reset]);
 
-  const handleValueChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
 
@@ -55,9 +62,15 @@ export const ArticleEditPageView = ({
         emotionLevel={emotionLevel}
       />
       <Separator />
+      <Input
+        value={title}
+        onChange={handleTitleChange}
+        placeholder="제목을 입력하세요"
+        className="border bg-card font-semibold text-lg shadow-none"
+      />
       <Textarea
         value={content}
-        onChange={handleValueChange}
+        onChange={handleContentChange}
         placeholder="오늘은 어떤 일이 있었나요?"
         className="h-40 resize-none border bg-card shadow-none"
       />

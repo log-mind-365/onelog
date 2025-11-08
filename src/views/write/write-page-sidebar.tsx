@@ -23,6 +23,7 @@ export const WritePageSidebar = () => {
   const { setAccessType, setEmotionLevel } = useArticleFormStore();
   const { openModal } = useModal();
   const { me } = useAuth();
+  const title = useArticleFormStore((state) => state.title);
   const content = useArticleFormStore((state) => state.content);
   const accessType = useArticleFormStore((state) => state.accessType);
   const emotionLevel = useArticleFormStore((state) => state.emotionLevel);
@@ -57,13 +58,14 @@ export const WritePageSidebar = () => {
               onClick={() =>
                 openModal("submit-article", {
                   userId: me?.id,
+                  title,
                   content,
                   accessType,
                   emotionLevel,
                 })
               }
               className="w-full"
-              disabled={!content.trim()}
+              disabled={!title.trim() || !content.trim()}
             >
               <Check />
             </Button>

@@ -24,6 +24,7 @@ export const UpdateArticleModal = () => {
     onUpdate(
       {
         id: updateProps.id,
+        title: updateProps.title,
         content: updateProps.content,
         emotionLevel: updateProps.emotionLevel,
         accessType: updateProps.accessType,

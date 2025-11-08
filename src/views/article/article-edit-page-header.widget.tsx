@@ -25,6 +25,7 @@ export const ArticleEditPageHeader = ({
   const router = useRouter();
   const { setAccessType, setEmotionLevel } = useArticleFormStore();
   const { openModal } = useModal();
+  const title = useArticleFormStore((state) => state.title);
   const content = useArticleFormStore((state) => state.content);
   const accessType = useArticleFormStore((state) => state.accessType);
   const emotionLevel = useArticleFormStore((state) => state.emotionLevel);
@@ -65,12 +66,13 @@ export const ArticleEditPageHeader = ({
                 onClick={() =>
                   openModal("update-article", {
                     id: articleId,
+                    title,
                     content,
                     accessType,
                     emotionLevel,
                   })
                 }
-                disabled={!content.trim()}
+                disabled={!title.trim() || !content.trim()}
               >
                 <Check />
               </Button>

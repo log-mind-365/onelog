@@ -11,6 +11,7 @@ import { ROUTES } from "@/shared/model/routes";
 
 type UpdateArticleParams = {
   id: string;
+  title: string;
   content: string;
   emotionLevel: number;
   accessType: "public" | "private";
@@ -23,11 +24,12 @@ export const useUpdateArticle = () => {
   return useMutation({
     mutationFn: async ({
       id,
+      title,
       content,
       emotionLevel,
       accessType,
     }: UpdateArticleParams): Promise<void> => {
-      await updateArticle(id, { content, emotionLevel, accessType });
+      await updateArticle(id, { title, content, emotionLevel, accessType });
     },
     onSuccess: (_, variables) => {
       toast.success(ARTICLE_TOAST_MESSAGE.UPDATE.SUCCESS);

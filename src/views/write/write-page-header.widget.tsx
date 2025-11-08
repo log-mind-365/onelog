@@ -21,6 +21,7 @@ export const WritePageHeader = () => {
   const { me } = useAuth();
   const { setAccessType, setEmotionLevel } = useArticleFormStore();
   const { openModal } = useModal();
+  const title = useArticleFormStore((state) => state.title);
   const content = useArticleFormStore((state) => state.content);
   const accessType = useArticleFormStore((state) => state.accessType);
   const emotionLevel = useArticleFormStore((state) => state.emotionLevel);
@@ -59,13 +60,14 @@ export const WritePageHeader = () => {
               <Button
                 onClick={() =>
                   openModal("submit-article", {
+                    title,
                     content,
                     accessType,
                     emotionLevel,
                     userId: me?.id,
                   })
                 }
-                disabled={!content.trim()}
+                disabled={!title.trim() || !content.trim()}
               >
                 <Check />
               </Button>

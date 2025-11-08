@@ -16,12 +16,13 @@ export const useSubmitArticle = () => {
 
   return useMutation({
     mutationFn: async ({
+      title,
       content,
       emotionLevel,
       accessType,
       userId,
     }: ArticleInsertSchema): Promise<void> => {
-      await postArticle({ userId, content, emotionLevel, accessType });
+      await postArticle({ userId, title, content, emotionLevel, accessType });
     },
     onSuccess: () => {
       toast.success(ARTICLE_TOAST_MESSAGE.POST.SUCCESS);

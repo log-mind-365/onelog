@@ -24,6 +24,7 @@ export const SubmitArticleModal = () => {
     onSubmit(
       {
         userId: submitProps.userId,
+        title: submitProps.title,
         content: submitProps.content,
         emotionLevel: submitProps.emotionLevel,
         accessType: submitProps.accessType,

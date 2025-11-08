@@ -2,7 +2,7 @@
 
 import type { ChangeEvent } from "react";
 import { useAuth } from "@/features/auth/model/store";
-import { PageContainer } from "@/shared/components/page-container";
+import { Input } from "@/shared/components/ui/input";
 import { Separator } from "@/shared/components/ui/separator";
 import { Textarea } from "@/shared/components/ui/textarea";
 import { useArticleFormStore } from "@/views/write/use-article-form-store";
@@ -10,17 +10,22 @@ import { WritePageBodyHeader } from "@/views/write/write-page-body-header.widget
 import { WritePageHeader } from "@/views/write/write-page-header.widget";
 
 const Page = () => {
-  const { setContent } = useArticleFormStore();
+  const { setTitle, setContent } = useArticleFormStore();
+  const title = useArticleFormStore((state) => state.title);
   const emotionLevel = useArticleFormStore((state) => state.emotionLevel);
   const content = useArticleFormStore((state) => state.content);
   const { me } = useAuth();
 
-  const handleValueChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
 
   return (
-    <div className="m-2 flex flex-col gap-4">
+    <div className="m-4 flex flex-col gap-4">
       <WritePageHeader />
 
       <WritePageBodyHeader
@@ -31,9 +36,15 @@ const Page = () => {
         emotionLevel={emotionLevel}
       />
       <Separator />
+      <Input
+        value={title}
+        onChange={handleTitleChange}
+        placeholder="제목을 입력하세요"
+        className="border bg-card font-semibold text-lg shadow-none"
+      />
       <Textarea
         value={content}
-        onChange={handleValueChange}
+        onChange={handleContentChange}
         placeholder="오늘은 어떤 일이 있었나요?"
         className="h-40 resize-none border bg-card shadow-none"
       />

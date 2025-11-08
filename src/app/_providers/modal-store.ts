@@ -17,6 +17,7 @@ export type ModalProps =
 
 export type SubmitArticleDialogProps = {
   userId?: string;
+  title: string;
   content: string;
   emotionLevel: EmotionLevel;
   accessType: AccessType;
@@ -24,6 +25,7 @@ export type SubmitArticleDialogProps = {
 
 export type UpdateArticleDialogProps = {
   id: string;
+  title: string;
   content: string;
   emotionLevel: EmotionLevel;
   accessType: AccessType;
