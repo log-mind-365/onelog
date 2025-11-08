@@ -1,6 +1,6 @@
 {
-  "id": "b51de1fe-b04c-4709-9f73-199a3fab13a4",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "2a5e7639-57ab-49d7-9358-e4cb34977485",
+  "prevId": "b51de1fe-b04c-4709-9f73-199a3fab13a4",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -75,7 +75,35 @@
         }
       },
       "uniqueConstraints": {},
-      "policies": {},
+      "policies": {
+        "anyone can select article likes": {
+          "name": "anyone can select article likes",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": [
+            "public"
+          ],
+          "using": "true"
+        },
+        "authenticated can insert article likes": {
+          "name": "authenticated can insert article likes",
+          "as": "PERMISSIVE",
+          "for": "INSERT",
+          "to": [
+            "authenticated"
+          ],
+          "withCheck": "user_id = auth.uid()"
+        },
+        "authenticated can delete own article likes": {
+          "name": "authenticated can delete own article likes",
+          "as": "PERMISSIVE",
+          "for": "DELETE",
+          "to": [
+            "authenticated"
+          ],
+          "using": "user_id = auth.uid()"
+        }
+      },
       "checkConstraints": {},
       "isRLSEnabled": false
     },
@@ -157,14 +185,23 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {
-        "authenticated can view all articles": {
-          "name": "authenticated can view all articles",
+        "anyone can select public articles": {
+          "name": "anyone can select public articles",
           "as": "PERMISSIVE",
           "for": "SELECT",
           "to": [
             "public"
           ],
-          "using": "true"
+          "using": "access_type = 'public'"
+        },
+        "authenticated can select own articles": {
+          "name": "authenticated can select own articles",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": [
+            "authenticated"
+          ],
+          "using": "user_id = auth.uid()"
         },
         "authenticated can insert articles": {
           "name": "authenticated can insert articles",
@@ -173,26 +210,26 @@
           "to": [
             "authenticated"
           ],
-          "withCheck": "true"
+          "withCheck": "user_id = auth.uid()"
         },
-        "authenticated can update articles": {
-          "name": "authenticated can update articles",
+        "authenticated can update own articles": {
+          "name": "authenticated can update own articles",
           "as": "PERMISSIVE",
           "for": "UPDATE",
           "to": [
             "authenticated"
           ],
-          "using": "id = auth.uid()",
-          "withCheck": "id = auth.uid()"
+          "using": "user_id = auth.uid()",
+          "withCheck": "user_id = auth.uid()"
         },
-        "authenticated can delete articles": {
-          "name": "authenticated can delete articles",
+        "authenticated can delete own articles": {
+          "name": "authenticated can delete own articles",
           "as": "PERMISSIVE",
           "for": "DELETE",
           "to": [
             "authenticated"
           ],
-          "using": "id = auth.uid()"
+          "using": "user_id = auth.uid()"
         }
       },
       "checkConstraints": {},
@@ -274,7 +311,45 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "policies": {},
+      "policies": {
+        "anyone can select comments": {
+          "name": "anyone can select comments",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": [
+            "public"
+          ],
+          "using": "true"
+        },
+        "authenticated can insert comments": {
+          "name": "authenticated can insert comments",
+          "as": "PERMISSIVE",
+          "for": "INSERT",
+          "to": [
+            "authenticated"
+          ],
+          "withCheck": "user_id = auth.uid()"
+        },
+        "authenticated can update own comments": {
+          "name": "authenticated can update own comments",
+          "as": "PERMISSIVE",
+          "for": "UPDATE",
+          "to": [
+            "authenticated"
+          ],
+          "using": "user_id = auth.uid()",
+          "withCheck": "user_id = auth.uid()"
+        },
+        "authenticated can delete own comments": {
+          "name": "authenticated can delete own comments",
+          "as": "PERMISSIVE",
+          "for": "DELETE",
+          "to": [
+            "authenticated"
+          ],
+          "using": "user_id = auth.uid()"
+        }
+      },
       "checkConstraints": {},
       "isRLSEnabled": false
     },
@@ -347,17 +422,26 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {
-        "authenticated can view all user_info": {
-          "name": "authenticated can view all user_info",
+        "authenticated can select profiles": {
+          "name": "authenticated can select profiles",
           "as": "PERMISSIVE",
           "for": "SELECT",
           "to": [
-            "authenticated"
+            "public"
           ],
           "using": "true"
         },
-        "authenticated can update user_info": {
-          "name": "authenticated can update user_info",
+        "authenticated can insert own profiles": {
+          "name": "authenticated can insert own profiles",
+          "as": "PERMISSIVE",
+          "for": "INSERT",
+          "to": [
+            "authenticated"
+          ],
+          "withCheck": "id = auth.uid()"
+        },
+        "authenticated can update own profiles": {
+          "name": "authenticated can update own profiles",
           "as": "PERMISSIVE",
           "for": "UPDATE",
           "to": [
@@ -365,6 +449,15 @@
           ],
           "using": "id = auth.uid()",
           "withCheck": "id = auth.uid()"
+        },
+        "authenticated can delete own profiles": {
+          "name": "authenticated can delete own profiles",
+          "as": "PERMISSIVE",
+          "for": "DELETE",
+          "to": [
+            "authenticated"
+          ],
+          "using": "id = auth.uid()"
         }
       },
       "checkConstraints": {},
@@ -446,7 +539,26 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "policies": {},
+      "policies": {
+        "authenticated can select own reports": {
+          "name": "authenticated can select own reports",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": [
+            "authenticated"
+          ],
+          "using": "reporter_id = auth.uid()"
+        },
+        "authenticated can insert reports": {
+          "name": "authenticated can insert reports",
+          "as": "PERMISSIVE",
+          "for": "INSERT",
+          "to": [
+            "authenticated"
+          ],
+          "withCheck": "reporter_id = auth.uid()"
+        }
+      },
       "checkConstraints": {},
       "isRLSEnabled": false
     }

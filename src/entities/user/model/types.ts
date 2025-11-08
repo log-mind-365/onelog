@@ -1,4 +1,4 @@
-import type { userInfo } from "@/db/schema";
+import type { profiles } from "@/db/schemas/profiles";
 
-export type UserInfo = typeof userInfo.$inferSelect;
-export type UserInfoInsertSchema = typeof userInfo.$inferInsert;
+export type UserInfo = typeof profiles.$inferSelect;
+export type UserInfoInsertSchema = typeof profiles.$inferInsert;

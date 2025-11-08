@@ -2,7 +2,10 @@
 
 import { and, count, desc, eq, getTableColumns, gt, sql } from "drizzle-orm";
 import { db } from "@/db";
-import { articleLikes, articles, comments, userInfo } from "@/db/schema";
+import { articleLikes } from "@/db/schemas/article-likes";
+import { articles } from "@/db/schemas/articles";
+import { comments } from "@/db/schemas/comments";
+import { profiles } from "@/db/schemas/profiles";
 import { PAGE_LIMIT } from "@/entities/article/model/constants";
 import type {
   Article,
@@ -18,7 +21,7 @@ export const getInfinitePublicArticleList = async (
   const result = await db
     .select({
       ...getTableColumns(articles),
-      author: userInfo,
+      author: profiles,
       likeCount: count(articleLikes.id).as("likeCount"),
       commentCount: sql<number>`(
         SELECT COUNT(*)::int
@@ -34,10 +37,10 @@ export const getInfinitePublicArticleList = async (
         : sql<boolean>`false`,
     })
     .from(articles)
-    .leftJoin(userInfo, eq(articles.userId, userInfo.id))
+    .leftJoin(profiles, eq(articles.userId, profiles.id))
     .leftJoin(articleLikes, eq(articles.id, articleLikes.articleId))
     .where(pageParam ? gt(articles.id, pageParam) : undefined)
-    .groupBy(articles.id, userInfo.id)
+    .groupBy(articles.id, profiles.id)
     .limit(PAGE_LIMIT)
     .orderBy(desc(articles.createdAt))
     .then((rows) =>
@@ -67,7 +70,7 @@ export const getArticleDetail = async (
   return db
     .select({
       ...getTableColumns(articles),
-      author: userInfo,
+      author: profiles,
       likeCount: count(articleLikes.id).as("likeCount"),
       commentCount: sql<number>`(
         SELECT COUNT(*)::int
@@ -84,9 +87,9 @@ export const getArticleDetail = async (
     })
     .from(articles)
     .where(eq(articles.id, id))
-    .leftJoin(userInfo, eq(articles.userId, userInfo.id))
+    .leftJoin(profiles, eq(articles.userId, profiles.id))
     .leftJoin(articleLikes, eq(articles.id, articleLikes.articleId))
-    .groupBy(articles.id, userInfo.id)
+    .groupBy(articles.id, profiles.id)
     .then((rows) => {
       const [row] = rows;
       return {

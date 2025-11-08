@@ -1,4 +1,5 @@
-import type { articles, articleLikes } from "@/db/schema";
+import type { articles } from "@/db/schemas/articles";
+import type { articleLikes } from "@/db/schemas/article-likes";
 import type { UserInfo } from "@/entities/user/model/types";
 
 export type Article = typeof articles.$inferSelect;

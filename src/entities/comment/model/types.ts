@@ -1,4 +1,4 @@
-import type { comments } from "@/db/schema";
+import type { comments } from "@/db/schemas/comments";
 import type { UserInfo } from "@/entities/user/model/types";
 
 export type Comment = typeof comments.$inferSelect;

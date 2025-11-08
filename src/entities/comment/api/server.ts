@@ -2,7 +2,8 @@
 
 import { and, count, desc, eq } from "drizzle-orm";
 import { db } from "@/db";
-import { comments, userInfo } from "@/db/schema";
+import { comments } from "@/db/schemas/comments";
+import { profiles } from "@/db/schemas/profiles";
 import type {
   CommentInsertSchema,
   CommentWithAuthor,
@@ -23,17 +24,17 @@ export const getComments = async (
       createdAt: comments.createdAt,
       updatedAt: comments.updatedAt,
       author: {
-        id: userInfo.id,
-        email: userInfo.email,
-        userName: userInfo.userName,
-        avatarUrl: userInfo.avatarUrl,
-        aboutMe: userInfo.aboutMe,
-        createdAt: userInfo.createdAt,
-        updatedAt: userInfo.updatedAt,
+        id: profiles.id,
+        email: profiles.email,
+        userName: profiles.userName,
+        avatarUrl: profiles.avatarUrl,
+        aboutMe: profiles.aboutMe,
+        createdAt: profiles.createdAt,
+        updatedAt: profiles.updatedAt,
       },
     })
     .from(comments)
-    .leftJoin(userInfo, eq(comments.userId, userInfo.id))
+    .leftJoin(profiles, eq(comments.userId, profiles.id))
     .where(eq(comments.articleId, articleId))
     .orderBy(desc(comments.createdAt));
 };
@@ -69,17 +70,17 @@ export const postComment = async (
       createdAt: comments.createdAt,
       updatedAt: comments.updatedAt,
       author: {
-        id: userInfo.id,
-        email: userInfo.email,
-        userName: userInfo.userName,
-        avatarUrl: userInfo.avatarUrl,
-        aboutMe: userInfo.aboutMe,
-        createdAt: userInfo.createdAt,
-        updatedAt: userInfo.updatedAt,
+        id: profiles.id,
+        email: profiles.email,
+        userName: profiles.userName,
+        avatarUrl: profiles.avatarUrl,
+        aboutMe: profiles.aboutMe,
+        createdAt: profiles.createdAt,
+        updatedAt: profiles.updatedAt,
       },
     })
     .from(comments)
-    .leftJoin(userInfo, eq(comments.userId, userInfo.id))
+    .leftJoin(profiles, eq(comments.userId, profiles.id))
     .where(eq(comments.id, comment.id))
     .then((rows) => rows[0]);
 
@@ -110,17 +111,17 @@ export const updateComment = async (
       createdAt: comments.createdAt,
       updatedAt: comments.updatedAt,
       author: {
-        id: userInfo.id,
-        email: userInfo.email,
-        userName: userInfo.userName,
-        avatarUrl: userInfo.avatarUrl,
-        aboutMe: userInfo.aboutMe,
-        createdAt: userInfo.createdAt,
-        updatedAt: userInfo.updatedAt,
+        id: profiles.id,
+        email: profiles.email,
+        userName: profiles.userName,
+        avatarUrl: profiles.avatarUrl,
+        aboutMe: profiles.aboutMe,
+        createdAt: profiles.createdAt,
+        updatedAt: profiles.updatedAt,
       },
     })
     .from(comments)
-    .leftJoin(userInfo, eq(comments.userId, userInfo.id))
+    .leftJoin(profiles, eq(comments.userId, profiles.id))
     .where(eq(comments.id, commentId))
     .then((rows) => rows[0]);
 };

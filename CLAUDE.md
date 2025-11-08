@@ -35,8 +35,8 @@ bun format             # Format code with Biome
 # Database
 bun db:generate        # Generate Drizzle migrations
 bun db:migrate         # Run migrations
-bun db:push            # Push schema changes directly to DB
-bun db:pull            # Pull schema from DB
+bun db:push            # Push schemas changes directly to DB
+bun db:pull            # Pull schemas from DB
 bun db:seed            # Seed database with initial data
 ```
 

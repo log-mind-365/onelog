@@ -2,7 +2,7 @@
 
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
-import { userInfo } from "@/db/schema";
+import { profiles } from "@/db/schemas/profiles";
 import type {
   UserInfo,
   UserInfoInsertSchema,
@@ -16,8 +16,8 @@ const STORAGE_BUCKETS = {
 export const getUserInfo = async (id: string): Promise<UserInfo | null> => {
   const result = await db
     .select()
-    .from(userInfo)
-    .where(eq(userInfo.id, id))
+    .from(profiles)
+    .where(eq(profiles.id, id))
     .then((rows) => rows[0]);
 
   return result || null;
@@ -27,7 +27,7 @@ export const postUserInfo = async (
   params: UserInfoInsertSchema,
 ): Promise<UserInfo> => {
   return db
-    .insert(userInfo)
+    .insert(profiles)
     .values(params)
     .returning()
     .then((rows) => rows[0]);
@@ -38,12 +38,12 @@ export const updateUserInfo = async (
   params: Partial<Omit<UserInfo, "id" | "email" | "createdAt">>,
 ): Promise<UserInfo> => {
   return db
-    .update(userInfo)
+    .update(profiles)
     .set({
       ...params,
       updatedAt: new Date(),
     })
-    .where(eq(userInfo.id, id))
+    .where(eq(profiles.id, id))
     .returning()
     .then((rows) => rows[0]);
 };
