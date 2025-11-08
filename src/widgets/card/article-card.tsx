@@ -9,6 +9,7 @@ type ArticleCardProps = {
   email?: string;
   emotionLevel: number;
   isMe: boolean;
+  title: string;
   content: string;
   createdAt: Date;
   accessType: AccessType;
@@ -26,6 +27,7 @@ export const ArticleCard = ({
   email,
   emotionLevel,
   isMe,
+  title,
   content,
   accessType,
   createdAt,
@@ -49,6 +51,7 @@ export const ArticleCard = ({
       <ArticleCardContent
         userId={userId}
         isMe={isMe}
+        title={title}
         content={content}
         accessType={accessType}
         likeCount={likeCount}

@@ -69,6 +69,7 @@ export const InfiniteArticleList = ({
         const {
           id,
           createdAt,
+          title,
           content,
           accessType,
           userId,
@@ -89,6 +90,7 @@ export const InfiniteArticleList = ({
           <ArticleCard
             key={id}
             accessType={accessType}
+            title={title}
             content={content}
             isMe={isMe}
             createdAt={createdAt}

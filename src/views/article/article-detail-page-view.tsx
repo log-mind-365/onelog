@@ -71,7 +71,10 @@ export const ArticleDetailPageView = ({
           isMe={userId === article?.author?.id}
         />
         <Separator />
-        <ArticleDetailContent content={article?.content} />
+        <ArticleDetailContent
+          title={article?.title}
+          content={article?.content}
+        />
       </div>
 
       <Suspense fallback={<Spinner />}>

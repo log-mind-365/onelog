@@ -8,6 +8,7 @@ import { Card } from "@/shared/components/ui/card";
 type ArticleCardContentProps = {
   userId: string;
   isMe: boolean;
+  title: string;
   content: string;
   accessType: AccessType;
   likeCount: number;
@@ -20,6 +21,7 @@ type ArticleCardContentProps = {
 export const ArticleCardContent = ({
   userId,
   accessType,
+  title,
   content,
   isMe,
   likeCount,
@@ -35,7 +37,8 @@ export const ArticleCardContent = ({
     >
       <div className="flex flex-col gap-4">
         <div className="relative max-h-64 overflow-hidden">
-          <p className="line-clamp-6 whitespace-pre-wrap break-words">
+          <h2 className="mb-2 text-xl font-semibold line-clamp-2">{title}</h2>
+          <p className="line-clamp-4 whitespace-pre-wrap break-words">
             {content}
           </p>
         </div>
