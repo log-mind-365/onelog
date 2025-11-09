@@ -1,6 +1,6 @@
 import type { AccessType } from "@/entities/article/model/types";
-import { ArticleCardFooter } from "@/entities/article/ui/article-card-footer";
 import { ArticleContent } from "@/entities/article/ui/article-content";
+import { ArticleFooter } from "@/entities/article/ui/article-footer";
 import { ArticleHeader } from "@/entities/article/ui/article-header";
 import { Card, CardContent, CardFooter } from "@/shared/components/ui/card";
 
@@ -57,7 +57,7 @@ export const ArticleCard = ({
           <ArticleContent title={title} content={content} />
         </CardContent>
         <CardFooter>
-          <ArticleCardFooter
+          <ArticleFooter
             isLiked={isLiked}
             likeCount={likeCount}
             onLike={onLike}

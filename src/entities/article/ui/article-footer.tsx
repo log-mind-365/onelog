@@ -6,7 +6,7 @@ import { ArticleLikeButton } from "@/entities/article/ui/article-like-button";
 import { ArticleReportButton } from "@/entities/article/ui/article-report-button";
 import { cn } from "@/shared/lib/utils";
 
-type ArticleCardFooterProps = ComponentProps<"div"> & {
+type ArticleFooterProps = ComponentProps<"div"> & {
   isLiked: boolean;
   likeCount: number;
   onLike: () => void;
@@ -15,7 +15,7 @@ type ArticleCardFooterProps = ComponentProps<"div"> & {
   onReport: (e: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-export const ArticleCardFooter = ({
+export const ArticleFooter = ({
   isLiked,
   likeCount,
   onLike,
@@ -23,7 +23,7 @@ export const ArticleCardFooter = ({
   accessType,
   onReport,
   className,
-}: ArticleCardFooterProps) => {
+}: ArticleFooterProps) => {
   return (
     <footer className={cn("flex w-full justify-between", className)}>
       <ArticleLikeButton

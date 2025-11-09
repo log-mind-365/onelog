@@ -15,9 +15,9 @@ import { ROUTES } from "@/shared/model/routes";
 
 type ArticleCardHeaderProps = ComponentProps<"div"> & {
   userId: string;
-  userName?: string;
-  avatarUrl?: string | null;
-  email?: string;
+  userName: string;
+  avatarUrl: string | null;
+  email: string;
   emotionLevel: number;
   isMe: boolean;
   createdAt: Date;

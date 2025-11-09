@@ -37,7 +37,7 @@ export const ProfilePageView = ({ id }: ProfilePageViewProps) => {
   return (
     <PageContainer title="프로필" description="사용자 정보를 확인하세요">
       {/* Profile Header Card */}
-      <Card className="shadow-none">
+      <Card>
         <CardContent className="flex flex-col items-center gap-4">
           <UserAvatar
             avatarUrl={user.avatarUrl || undefined}
@@ -55,7 +55,7 @@ export const ProfilePageView = ({ id }: ProfilePageViewProps) => {
       </Card>
 
       {/* About Me Card */}
-      <Card className="shadow-none">
+      <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <User className="size-5" />
@@ -74,7 +74,7 @@ export const ProfilePageView = ({ id }: ProfilePageViewProps) => {
       </Card>
 
       {/* Account Info Card */}
-      <Card className="shadow-none">
+      <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Calendar className="size-5" />

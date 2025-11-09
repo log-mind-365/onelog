@@ -50,7 +50,7 @@ export const HomePageSidebar = () => {
   const LogoIcon = APP_LOGO.icon;
 
   return (
-    <aside className="sticky top-4 ml-4 flex size-fit flex-col gap-2 rounded-lg border-1 bg-card p-2">
+    <aside className="sticky top-4 ml-4 flex size-fit flex-col gap-2 rounded-lg border-1 bg-card p-2 shadow-sm">
       <TooltipProvider delayDuration={0}>
         {/* App Logo - Static */}
         <Tooltip>

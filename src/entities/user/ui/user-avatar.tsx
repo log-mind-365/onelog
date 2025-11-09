@@ -14,7 +14,7 @@ type UserAvatarProps = {
   size?: "sm" | "md" | "lg" | "xl";
 };
 
-const userAvatarVariants = cva("border-1 bg-card", {
+const userAvatarVariants = cva("border-1 bg-card shadow-sm", {
   variants: {
     size: {
       sm: "size-8",

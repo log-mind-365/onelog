@@ -7,13 +7,12 @@ import { CommentList } from "@/entities/comment/ui/comment-list";
 import { useDeleteComment } from "@/features/comment/lib/use-delete-comment";
 import { usePostComment } from "@/features/comment/lib/use-post-comment";
 import { useUpdateComment } from "@/features/comment/lib/use-update-comment";
-import { Separator } from "@/shared/components/ui/separator";
 
 type ArticleCommentSectionProps = {
   articleId: string;
   userId: string | null;
-  userName?: string;
-  userAvatar?: string | null;
+  userName: string;
+  userAvatar: string | null;
 };
 
 export const ArticleCommentSection = ({

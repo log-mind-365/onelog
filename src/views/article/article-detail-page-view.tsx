@@ -5,18 +5,14 @@ import { useRouter } from "next/navigation";
 import { Suspense } from "react";
 import { useModal } from "@/app/_providers/modal-store";
 import { articleQueries } from "@/entities/article/api/queries";
-import { ArticleHeader } from "@/entities/article/ui/article-header";
 import { useLikeArticle } from "@/features/article/lib/use-like-article";
 import { useAuth } from "@/features/auth/model/store";
 import { PageContainer } from "@/shared/components/page-container";
-import { Card } from "@/shared/components/ui/card";
-import { Separator } from "@/shared/components/ui/separator";
 import { Spinner } from "@/shared/components/ui/spinner";
 import { ROUTES } from "@/shared/model/routes";
 import { ArticleCommentSection } from "@/views/article/article-comment-section";
-import { ArticleDetailContent } from "@/views/article/article-detail-content";
 import { ArticleDetailPageActionbar } from "@/views/article/article-detail-page-actionbar";
-import { ArticleCard } from "@/widgets/card/article-card";
+import { ArticleDetail } from "@/widgets/detail/article-detail";
 
 type ArticleDetailPageView = {
   id: string;
@@ -74,7 +70,7 @@ export const ArticleDetailPageView = ({
         onModify={handleModify}
         onReport={handleReport}
       />
-      <ArticleCard
+      <ArticleDetail
         userId={article?.author?.id ?? ""}
         userName={article?.author?.userName ?? ""}
         avatarUrl={article?.author?.avatarUrl ?? ""}
@@ -84,32 +80,15 @@ export const ArticleDetailPageView = ({
         title={article?.title}
         content={article?.content}
         createdAt={article.createdAt}
-        accessType={article.accessType}
-        likeCount={article.likeCount}
-        isLiked={article.isLiked}
-        commentCount={article.commentCount}
         onClick={() => router.push(ROUTES.ARTICLE.VIEW(id))}
-        onLike={handleLike}
-        onReport={handleReport}
       />
-      {/*<ArticleHeader*/}
-      {/*  userId={article?.author?.id ?? ""}*/}
-      {/*  userName={article?.author?.userName ?? ""}*/}
-      {/*  avatarUrl={article?.author?.avatarUrl ?? ""}*/}
-      {/*  email={article?.author?.email ?? ""}*/}
-      {/*  emotionLevel={article.emotionLevel}*/}
-      {/*  createdAt={article.createdAt}*/}
-      {/*  isMe={userId === article?.author?.id}*/}
-      {/*/>*/}
-      {/*<Separator />*/}
-      {/*<ArticleDetailContent title={article?.title} content={article?.content} />*/}
 
       <Suspense fallback={<Spinner />}>
         <ArticleCommentSection
           articleId={id}
           userId={userId}
-          userName={me?.userName}
-          userAvatar={me?.avatarUrl}
+          userName={me?.userName ?? ""}
+          userAvatar={me?.avatarUrl ?? ""}
         />
       </Suspense>
     </PageContainer>
