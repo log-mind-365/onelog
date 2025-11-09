@@ -27,25 +27,25 @@ const Page = () => {
     <div className="m-4 flex flex-col gap-4">
       <WritePageHeader />
 
-      <WritePageBodyHeader
-        avatarUrl={me?.avatarUrl}
-        userName={me?.userName}
-        email={me?.email}
-        createdAt={me?.createdAt}
-        emotionLevel={emotionLevel}
-      />
-      <div className="flex flex-col rounded-lg border">
+      <div className="flex flex-col gap-4 rounded-lg border bg-card p-2">
+        <WritePageBodyHeader
+          avatarUrl={me?.avatarUrl}
+          userName={me?.userName}
+          email={me?.email}
+          createdAt={me?.createdAt}
+          emotionLevel={emotionLevel}
+        />
         <Input
           value={title}
           onChange={handleTitleChange}
           placeholder="제목을 입력하세요"
-          className="rounded-none border-0 pt-4 font-semibold text-lg shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="rounded-none border-0 pt-4 font-semibold text-lg shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 dark:bg-transparent"
         />
         <Textarea
           value={content}
           onChange={handleContentChange}
           placeholder="오늘은 어떤 일이 있었나요?"
-          className="h-40 resize-none rounded-none border-0 text-sm shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="max-h-40 min-h-20 resize-none rounded-none border-0 text-sm shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 dark:bg-transparent"
         />
       </div>
     </div>
