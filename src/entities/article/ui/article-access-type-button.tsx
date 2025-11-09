@@ -19,7 +19,6 @@ import { cn } from "@/shared/lib/utils";
 type AccessTypeButtonProps = {
   value?: AccessType;
   onValueChange?: (value: string) => void;
-  tooltipSide?: PopoverContentProps["side"];
   dropdownMenuSide?: PopoverContentProps["side"];
   dropdownMenuAlign?: PopoverContentProps["align"];
 };
@@ -27,7 +26,6 @@ type AccessTypeButtonProps = {
 export const ArticleAccessTypeButton = ({
   value,
   onValueChange,
-  tooltipSide = "right",
   dropdownMenuSide = "right",
   dropdownMenuAlign = "start",
 }: AccessTypeButtonProps) => {
@@ -59,7 +57,7 @@ export const ArticleAccessTypeButton = ({
           </DropdownMenuRadioGroup>
         </DropdownMenuContent>
       </DropdownMenu>
-      <TooltipContent side={tooltipSide}>공개 여부</TooltipContent>
+      <TooltipContent>공개 여부</TooltipContent>
     </Tooltip>
   );
 };
