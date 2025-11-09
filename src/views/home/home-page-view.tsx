@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  useSuspenseInfiniteQuery,
-  useSuspenseQuery,
-} from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import type { MouseEvent } from "react";
 import { useModal } from "@/app/_providers/modal-store";
 import { articleQueries } from "@/entities/article/api/queries";

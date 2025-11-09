@@ -87,10 +87,10 @@ function RenderEmotionBlock({ shouldRender, index }: RenderEmotionBlockProps) {
       break;
   }
   return (
-    <div className="flex h-[24px] items-end overflow-hidden">
+    <div className="flex h-4 items-end overflow-hidden">
       <div
         className={cn(
-          "h-[20%] w-3 rounded-[4px] bg-zinc-400 opacity-25 shadow-sm transition-all dark:bg-zinc-300",
+          "h-[20%] w-2 rounded-[4px] bg-zinc-400 opacity-25 shadow-sm transition-all dark:bg-zinc-300",
           height,
           opacity,
         )}
