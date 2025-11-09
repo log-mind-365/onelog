@@ -156,7 +156,7 @@ const handleReport = (articleId, reporterId) => (e) => {
 
 **이벤트 핸들러**:
 ```typescript
-// src/views/article/article-detail-page-view.tsx
+// src/views/article/article-article-detail-page-view.tsx
 const handleReport = (e) => {
   e.stopPropagation();
   if (!userId) {
