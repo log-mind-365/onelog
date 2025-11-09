@@ -27,7 +27,7 @@ export const useSignIn = () => {
       const result = await signIn({ email, password });
       const user = await getUserInfo(result.id);
 
-      return signInToEntity(user);
+      return user ? user : signInToEntity(result);
     },
     onSuccess: (data) => {
       setMe(data);
