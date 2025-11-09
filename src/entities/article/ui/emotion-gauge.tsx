@@ -89,7 +89,7 @@ function RenderEmotionBlock({ shouldRender, index }: RenderEmotionBlockProps) {
     <div className="flex h-full items-end overflow-hidden">
       <div
         className={cn(
-          "size-full h-2 rounded-full bg-zinc-300 p-1 shadow-sm transition-all dark:bg-zinc-400",
+          "size-full h-2 rounded-full bg-zinc-400 p-1 shadow-sm transition-all dark:bg-zinc-300",
           sizeString!,
           blockOpacity!,
         )}

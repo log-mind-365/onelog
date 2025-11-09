@@ -16,6 +16,7 @@ import { ROUTES } from "@/shared/model/routes";
 import { ArticleCommentSection } from "@/views/article/article-comment-section";
 import { ArticleDetailContent } from "@/views/article/article-detail-content";
 import { ArticleDetailPageActionbar } from "@/views/article/article-detail-page-actionbar";
+import { ArticleCard } from "@/widgets/card/article-card";
 
 type ArticleDetailPageView = {
   id: string;
@@ -73,22 +74,35 @@ export const ArticleDetailPageView = ({
         onModify={handleModify}
         onReport={handleReport}
       />
-      <Card className="">
-        <ArticleHeader
-          userId={article?.author?.id ?? ""}
-          userName={article?.author?.userName ?? ""}
-          avatarUrl={article?.author?.avatarUrl ?? ""}
-          email={article?.author?.email ?? ""}
-          emotionLevel={article.emotionLevel}
-          createdAt={article.createdAt}
-          isMe={userId === article?.author?.id}
-        />
-        <Separator />
-        <ArticleDetailContent
-          title={article?.title}
-          content={article?.content}
-        />
-      </Card>
+      <ArticleCard
+        userId={article?.author?.id ?? ""}
+        userName={article?.author?.userName ?? ""}
+        avatarUrl={article?.author?.avatarUrl ?? ""}
+        email={article?.author?.email ?? ""}
+        emotionLevel={article.emotionLevel}
+        isMe={userId === article?.author?.id}
+        title={article?.title}
+        content={article?.content}
+        createdAt={article.createdAt}
+        accessType={article.accessType}
+        likeCount={article.likeCount}
+        isLiked={article.isLiked}
+        commentCount={article.commentCount}
+        onClick={() => router.push(ROUTES.ARTICLE.VIEW(id))}
+        onLike={handleLike}
+        onReport={handleReport}
+      />
+      {/*<ArticleHeader*/}
+      {/*  userId={article?.author?.id ?? ""}*/}
+      {/*  userName={article?.author?.userName ?? ""}*/}
+      {/*  avatarUrl={article?.author?.avatarUrl ?? ""}*/}
+      {/*  email={article?.author?.email ?? ""}*/}
+      {/*  emotionLevel={article.emotionLevel}*/}
+      {/*  createdAt={article.createdAt}*/}
+      {/*  isMe={userId === article?.author?.id}*/}
+      {/*/>*/}
+      {/*<Separator />*/}
+      {/*<ArticleDetailContent title={article?.title} content={article?.content} />*/}
 
       <Suspense fallback={<Spinner />}>
         <ArticleCommentSection

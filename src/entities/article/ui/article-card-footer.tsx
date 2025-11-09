@@ -1,11 +1,12 @@
+import type { ComponentProps } from "react";
 import type { AccessType } from "@/entities/article/model/types";
 import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-type-button";
 import { ArticleCommentButton } from "@/entities/article/ui/article-comment-button";
 import { ArticleLikeButton } from "@/entities/article/ui/article-like-button";
 import { ArticleReportButton } from "@/entities/article/ui/article-report-button";
-import { CardFooter } from "@/shared/components/ui/card";
+import { cn } from "@/shared/lib/utils";
 
-type ArticleCardFooterProps = {
+type ArticleCardFooterProps = ComponentProps<"div"> & {
   isLiked: boolean;
   likeCount: number;
   onLike: () => void;
@@ -21,9 +22,10 @@ export const ArticleCardFooter = ({
   commentCount,
   accessType,
   onReport,
+  className,
 }: ArticleCardFooterProps) => {
   return (
-    <CardFooter className="flex justify-between">
+    <footer className={cn("flex w-full justify-between", className)}>
       <ArticleLikeButton
         likeCount={likeCount}
         isLike={isLiked}
@@ -40,6 +42,6 @@ export const ArticleCardFooter = ({
           onReport(e);
         }}
       />
-    </CardFooter>
+    </footer>
   );
 };

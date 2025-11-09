@@ -1,13 +1,10 @@
 import Link from "next/link";
-import {
-  EMOTION_PERCENT_COLORS,
-  EMOTION_STATUS,
-} from "@/entities/article/model/constants";
+import type { ComponentProps } from "react";
+import { EMOTION_STATUS } from "@/entities/article/model/constants";
 import { ArticleUserInfo } from "@/entities/article/ui/article-user-info";
 import EmotionGauge from "@/entities/article/ui/emotion-gauge";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
 import { Button } from "@/shared/components/ui/button";
-import { CardHeader } from "@/shared/components/ui/card";
 import {
   HoverCard,
   HoverCardContent,
@@ -16,7 +13,7 @@ import {
 import { cn } from "@/shared/lib/utils";
 import { ROUTES } from "@/shared/model/routes";
 
-type ArticleCardHeaderProps = {
+type ArticleCardHeaderProps = ComponentProps<"div"> & {
   userId: string;
   userName?: string;
   avatarUrl?: string | null;
@@ -35,13 +32,14 @@ export const ArticleHeader = ({
   emotionLevel,
   isMe,
   createdAt,
+  className,
 }: ArticleCardHeaderProps) => {
   const label =
     EMOTION_STATUS.find((emotion) => emotion.percent === emotionLevel)
       ?.status || "알 수 없음";
 
   return (
-    <CardHeader className="flex items-end justify-between gap-4">
+    <header className={cn("flex items-end justify-between", className)}>
       <div className="flex gap-4">
         <HoverCard>
           <HoverCardTrigger asChild>
@@ -90,6 +88,6 @@ export const ArticleHeader = ({
         />
       </div>
       <EmotionGauge emotionLevel={emotionLevel} label={label} />
-    </CardHeader>
+    </header>
   );
 };
