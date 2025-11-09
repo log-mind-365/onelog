@@ -1,6 +1,6 @@
 "use server";
 
-import { and, count, desc, eq, getTableColumns, gt, sql } from "drizzle-orm";
+import { and, count, desc, eq, getTableColumns, gt, or, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { articleLikes } from "@/db/schemas/article-likes";
 import { articles } from "@/db/schemas/articles";
@@ -40,7 +40,16 @@ export const getInfinitePublicArticleList = async (
     .from(articles)
     .leftJoin(profiles, eq(articles.userId, profiles.id))
     .leftJoin(articleLikes, eq(articles.id, articleLikes.articleId))
-    .where(pageParam ? gt(articles.id, pageParam) : undefined)
+    .where(
+      and(
+        pageParam ? gt(articles.id, pageParam) : undefined,
+        // public이거나 자신의 게시물만 조회
+        or(
+          eq(articles.accessType, "public"),
+          userId ? eq(articles.userId, userId) : undefined,
+        ),
+      ),
+    )
     .groupBy(articles.id, profiles.id)
     .limit(PAGE_LIMIT)
     .orderBy(desc(articles.createdAt))
@@ -87,7 +96,16 @@ export const getArticleDetail = async (
         : sql<boolean>`false`,
     })
     .from(articles)
-    .where(eq(articles.id, id))
+    .where(
+      and(
+        eq(articles.id, id),
+        // public이거나 자신의 게시물만 조회
+        or(
+          eq(articles.accessType, "public"),
+          userId ? eq(articles.userId, userId) : undefined,
+        ),
+      ),
+    )
     .leftJoin(profiles, eq(articles.userId, profiles.id))
     .leftJoin(articleLikes, eq(articles.id, articleLikes.articleId))
     .groupBy(articles.id, profiles.id)
