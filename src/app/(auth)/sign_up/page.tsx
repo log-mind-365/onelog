@@ -41,7 +41,7 @@ const SignUpPage = () => {
     <div className="flex w-sm flex-col gap-4">
       <form onSubmit={handleSubmit(handleSubmitSignUp)}>
         <FieldSet>
-          <FieldLegend>회원가입</FieldLegend>
+          <FieldLegend className="!text-xl font-semibold">회원가입</FieldLegend>
           <FieldDescription>
             정보를 입력하여 계정을 생성하세요.
           </FieldDescription>

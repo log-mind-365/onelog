@@ -56,25 +56,23 @@ export const ArticleCommentSection = ({
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-8 rounded-lg border bg-card p-4">
       <div className="flex flex-col gap-2">
         <h3 className="font-semibold text-lg">댓글 {comments.length}</h3>
-        <Separator />
+        {userId ? (
+          <CommentForm
+            currentUserName={userName}
+            currentUserAvatar={userAvatar}
+            onSubmit={handlePostComment}
+          />
+        ) : (
+          <div className="flex items-center justify-center rounded-lg border border-dashed py-8">
+            <p className="text-muted-foreground text-sm">
+              댓글을 작성하려면 로그인이 필요합니다.
+            </p>
+          </div>
+        )}
       </div>
-
-      {userId ? (
-        <CommentForm
-          currentUserName={userName}
-          currentUserAvatar={userAvatar}
-          onSubmit={handlePostComment}
-        />
-      ) : (
-        <div className="flex items-center justify-center rounded-lg border border-dashed py-8">
-          <p className="text-muted-foreground text-sm">
-            댓글을 작성하려면 로그인이 필요합니다.
-          </p>
-        </div>
-      )}
 
       <CommentList
         comments={comments}

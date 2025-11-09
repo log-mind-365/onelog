@@ -40,7 +40,7 @@ export const HomePageView = () => {
       title="안녕하세요"
       description="오늘 사람들이 기록한 문장을 확인하세요."
     >
-      <TransitionContainer.SlideIn type="spring">
+      <TransitionContainer.SlideIn type="spring" className="mb-6">
         <FakeForm />
       </TransitionContainer.SlideIn>
       <InfiniteArticleList

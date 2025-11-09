@@ -40,7 +40,7 @@ const SignInPage = () => {
     <div className="flex w-sm flex-col gap-4">
       <form onSubmit={handleSubmit(handleSubmitSignIn)}>
         <FieldSet>
-          <FieldLegend>로그인</FieldLegend>
+          <FieldLegend className="!text-xl font-semibold">로그인</FieldLegend>
           <FieldDescription>
             가입 정보를 입력하여 로그인 하세요.
           </FieldDescription>
@@ -101,7 +101,7 @@ const SignInPage = () => {
           size="sm"
           onClick={() => router.push(ROUTES.AUTH.SIGN_UP)}
         >
-          회원 가입하러 가기
+          가입하러 가기
         </Button>
       </div>
     </div>
