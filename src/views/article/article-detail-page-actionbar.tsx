@@ -1,48 +1,87 @@
-import type { AccessType } from "@/entities/article/model/types";
+"use client";
+
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { useModal } from "@/app/_providers/modal-store";
+import { articleQueries } from "@/entities/article/api/queries";
 import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-type-button";
 import { ArticleCommentButton } from "@/entities/article/ui/article-comment-button";
 import { ArticleLikeButton } from "@/entities/article/ui/article-like-button";
 import { ArticleOptionsDropdownMenu } from "@/entities/article/ui/article-option-button";
 import { ArticleReportButton } from "@/entities/article/ui/article-report-button";
+import { useLikeArticle } from "@/features/article/lib/use-like-article";
 import { ShareArticleButton } from "@/features/article/ui/share-article-button";
-import { SidebarContainer } from "@/shared/components/sidebar-container";
-import { Separator } from "@/shared/components/ui/separator";
 import { copyURL } from "@/shared/lib/utils";
+import { ROUTES } from "@/shared/model/routes";
 
 type ArticleActionbarProps = {
-  likeCount: number;
-  isLike: boolean;
-  commentCount: number;
-  accessType: AccessType;
-  isPublic: boolean;
-  onDelete: () => void;
-  onModify: () => void;
-  onReport: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  onLike: () => void;
+  userId: string | null;
+  articleId: string;
 };
 
 export const ArticleDetailPageActionbar = ({
-  likeCount = 0,
-  isLike = false,
-  commentCount = 0,
-  accessType,
-  onDelete,
-  onLike,
-  onModify,
-  onReport,
+  articleId,
+  userId,
 }: ArticleActionbarProps) => {
+  const router = useRouter();
+  const { data: article } = useSuspenseQuery(
+    articleQueries.detail(articleId, userId),
+  );
+  const { mutate: likeArticle } = useLikeArticle();
+  const { openModal } = useModal();
+
+  const handleLike = () => {
+    if (!userId) {
+      openModal("auth-guard");
+    } else {
+      likeArticle({ articleId, userId });
+    }
+  };
+
+  const handleModify = () => {
+    if (!userId) {
+      openModal("auth-guard");
+    } else if (userId === article?.author?.id) {
+      router.push(ROUTES.ARTICLE.EDIT(articleId));
+    }
+  };
+
+  const handleReport = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    if (!userId) {
+      openModal("auth-guard");
+    } else {
+      openModal("report-article", {
+        articleId,
+        reporterId: userId,
+      });
+    }
+  };
+
+  const handleDelete = () => {
+    if (!userId) {
+      openModal("auth-guard");
+    } else if (userId === article?.author?.id) {
+      // openModal("delete-article", {
+      //   articleId,
+      // });
+    }
+  };
   return (
-    <div className="flex w-full justify-between rounded-lg border-1 bg-card p-2">
+    <div className="flex w-full justify-between rounded-lg border-1 bg-card p-2 shadow-sm">
       <ArticleLikeButton
-        likeCount={likeCount}
-        isLike={isLike}
-        onClick={onLike}
+        likeCount={article.likeCount}
+        isLike={article.isLiked}
+        onClick={handleLike}
       />
-      <ArticleCommentButton commentCount={commentCount} />
-      <ArticleAccessTypeButton value={accessType} />
+      <ArticleCommentButton commentCount={article.commentCount} />
+      <ArticleAccessTypeButton value={article.accessType} />
       <ShareArticleButton onClick={copyURL} />
-      <ArticleReportButton onClick={onReport} />
-      <ArticleOptionsDropdownMenu onDelete={onDelete} onModify={onModify} />
+      <ArticleReportButton onClick={handleReport} />
+      <ArticleOptionsDropdownMenu
+        onDelete={handleDelete}
+        onModify={handleModify}
+      />
     </div>
   );
 };
