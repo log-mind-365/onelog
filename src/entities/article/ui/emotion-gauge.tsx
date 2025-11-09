@@ -44,7 +44,7 @@ export default function EmotionGauge({
             key={index}
             index={index}
             onClick={onClick}
-            shouldRender={shouldRender}
+            shouldRender={!!shouldRender}
           />
         ))}
       </div>
@@ -54,44 +54,45 @@ export default function EmotionGauge({
 }
 
 type RenderEmotionBlockProps = ComponentProps<"div"> & {
-  shouldRender: number;
+  shouldRender: boolean;
   index: number;
 };
 
 function RenderEmotionBlock({ shouldRender, index }: RenderEmotionBlockProps) {
-  let blockOpacity: string;
-  let sizeString: string;
+  let opacity: string = "";
+  let height: string = "";
 
   switch (index) {
     case 0:
-      blockOpacity = "opacity-40";
+      opacity = shouldRender ? "opacity-40" : "";
+      height = shouldRender ? "h-[20%]" : "";
       break;
     case 1:
-      blockOpacity = "opacity-55";
-      sizeString = shouldRender ? "h-[12px]" : "";
+      opacity = shouldRender ? "opacity-55" : "";
+      height = shouldRender ? "h-[40%]" : "";
       break;
     case 2:
-      blockOpacity = "opacity-70";
-      sizeString = shouldRender ? "h-[16px]" : "";
+      opacity = shouldRender ? "opacity-70" : "";
+      height = shouldRender ? "h-[60%]" : "";
       break;
     case 3:
-      blockOpacity = "opacity-85";
-      sizeString = shouldRender ? "h-[20px]" : "";
+      opacity = shouldRender ? "opacity-85" : "";
+      height = shouldRender ? "h-[80%]" : "";
       break;
     case 4:
-      blockOpacity = "opacity-100";
-      sizeString = shouldRender ? "h-[24px]" : "";
+      opacity = shouldRender ? "opacity-100" : "";
+      height = shouldRender ? "h-full" : "";
       break;
     default:
       break;
   }
   return (
-    <div className="flex h-full items-end overflow-hidden">
+    <div className="flex h-[24px] items-end overflow-hidden">
       <div
         className={cn(
-          "size-full h-2 rounded-full bg-zinc-400 p-1 shadow-sm transition-all dark:bg-zinc-300",
-          sizeString!,
-          blockOpacity!,
+          "h-[20%] w-3 rounded-[4px] bg-zinc-400 opacity-25 shadow-sm transition-all dark:bg-zinc-300",
+          height,
+          opacity,
         )}
       />
       <div className="w-px" />

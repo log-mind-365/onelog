@@ -6,9 +6,9 @@ import { Card, CardContent, CardFooter } from "@/shared/components/ui/card";
 
 type ArticleCardProps = {
   userId: string;
-  userName?: string;
-  avatarUrl?: string | null;
-  email?: string;
+  userName: string;
+  avatarUrl: string | null;
+  email: string;
   emotionLevel: number;
   isMe: boolean;
   title: string;
@@ -52,7 +52,7 @@ export const ArticleCard = ({
         isMe={isMe}
         createdAt={createdAt}
       />
-      <Card onClick={onClick} className="cursor-pointer select-none">
+      <Card onClick={onClick} className="cursor-pointer select-none pb-4">
         <CardContent>
           <ArticleContent title={title} content={content} />
         </CardContent>
