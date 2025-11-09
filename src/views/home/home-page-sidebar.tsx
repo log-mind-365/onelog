@@ -17,7 +17,7 @@ import {
   TooltipTrigger,
 } from "@/shared/components/ui/tooltip";
 import { ROUTES } from "@/shared/model/routes";
-import { SIDEBAR_MENUS } from "@/views/home/types";
+import { APP_LOGO, SIDEBAR_MENUS } from "@/views/home/types";
 
 export const HomePageSidebar = () => {
   const { me, isAuthenticated } = useAuth();
@@ -47,9 +47,26 @@ export const HomePageSidebar = () => {
     authGuard(() => router.push(route));
   };
 
+  const LogoIcon = APP_LOGO.icon;
+
   return (
     <aside className="sticky top-4 ml-4 flex size-fit flex-col gap-2 rounded-lg border-1 bg-card p-2">
       <TooltipProvider delayDuration={0}>
+        {/* App Logo - Static */}
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button variant="ghost" onClick={() => router.push(APP_LOGO.path)}>
+              <LogoIcon />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side="right">
+            <p>{APP_LOGO.label}</p>
+          </TooltipContent>
+        </Tooltip>
+
+        <Separator />
+
+        {/* Navigation Menus */}
         {SIDEBAR_MENUS.map((menu, index) => {
           if (!menu) {
             // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>

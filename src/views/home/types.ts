@@ -8,13 +8,13 @@ type SIDEBAR_MENUS_TYPE = {
   action?: () => void;
 };
 
+export const APP_LOGO = {
+  label: "OneLog",
+  icon: XIcon,
+  path: ROUTES.HOME,
+};
+
 export const SIDEBAR_MENUS: Partial<SIDEBAR_MENUS_TYPE[]> = [
-  {
-    label: "OneLog",
-    icon: XIcon,
-    path: ROUTES.HOME,
-  },
-  undefined,
   {
     label: "글쓰기",
     icon: PenSquare,
