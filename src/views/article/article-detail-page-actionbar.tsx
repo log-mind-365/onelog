@@ -9,6 +9,7 @@ import { ArticleCommentButton } from "@/entities/article/ui/article-comment-butt
 import { ArticleLikeButton } from "@/entities/article/ui/article-like-button";
 import { ArticleOptionsDropdownMenu } from "@/entities/article/ui/article-option-button";
 import { ArticleReportButton } from "@/entities/article/ui/article-report-button";
+import { useDeleteArticle } from "@/features/article/lib/use-delete-article";
 import { useLikeArticle } from "@/features/article/lib/use-like-article";
 import { ShareArticleButton } from "@/features/article/ui/share-article-button";
 import { copyURL } from "@/shared/lib/utils";
@@ -28,6 +29,7 @@ export const ArticleDetailPageActionbar = ({
     articleQueries.detail(articleId, userId),
   );
   const { mutate: likeArticle } = useLikeArticle();
+  const { mutate: deleteArticle } = useDeleteArticle();
   const { openModal } = useModal();
 
   const handleLike = () => {
@@ -62,9 +64,13 @@ export const ArticleDetailPageActionbar = ({
     if (!userId) {
       openModal("auth-guard");
     } else if (userId === article?.author?.id) {
-      // openModal("delete-article", {
-      //   articleId,
-      // });
+      const confirmed = window.confirm(
+        "정말로 이 게시글을 삭제하시겠습니까?\n삭제된 게시글은 복구할 수 없습니다.",
+      );
+
+      if (confirmed) {
+        deleteArticle({ articleId });
+      }
     }
   };
   return (
