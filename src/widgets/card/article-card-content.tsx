@@ -16,6 +16,7 @@ type ArticleCardContentProps = {
   commentCount: number;
   onClick: () => void;
   onLike: () => void;
+  onReport: (e: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 export const ArticleCardContent = ({
@@ -29,6 +30,7 @@ export const ArticleCardContent = ({
   commentCount,
   onClick,
   onLike,
+  onReport,
 }: ArticleCardContentProps) => {
   return (
     <Card
@@ -54,7 +56,12 @@ export const ArticleCardContent = ({
           />
           <ArticleCommentButton commentCount={commentCount} />
           <ArticleAccessTypeButton value={accessType} />
-          <ArticleReportButton onClick={() => null} />
+          <ArticleReportButton
+            onClick={(e) => {
+              e.stopPropagation();
+              onReport(e);
+            }}
+          />
         </div>
       </div>
     </Card>

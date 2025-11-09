@@ -11,6 +11,10 @@ type InfiniteArticleListProps = {
   data: InfiniteData<InfiniteArticleListType>;
   currentUserId: string | null;
   onLike: (articleId: string, userId: string) => void;
+  onReport: (
+    articleId: string,
+    reporterId: string,
+  ) => (e: React.MouseEvent<HTMLButtonElement>) => void;
   onFetchNextPage: () => void;
   hasNextPage: boolean;
   isFetchingNextPage: boolean;
@@ -20,6 +24,7 @@ export const InfiniteArticleList = ({
   data,
   currentUserId,
   onLike,
+  onReport,
   onFetchNextPage,
   hasNextPage,
   isFetchingNextPage,
@@ -86,6 +91,11 @@ export const InfiniteArticleList = ({
           onLike(id, currentUserId);
         };
 
+        const handleReport = (e: React.MouseEvent<HTMLButtonElement>) => {
+          if (!currentUserId) return;
+          onReport(id, currentUserId)(e);
+        };
+
         return (
           <ArticleCard
             key={id}
@@ -104,6 +114,7 @@ export const InfiniteArticleList = ({
             commentCount={commentCount}
             onClick={() => router.push(ROUTES.ARTICLE.VIEW(id))}
             onLike={handleLike}
+            onReport={handleReport}
           />
         );
       })}

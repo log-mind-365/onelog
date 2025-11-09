@@ -1,6 +1,7 @@
 "use client";
 
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
+import { useModal } from "@/app/_providers/modal-store";
 import { articleQueries } from "@/entities/article/api/queries";
 import { useLikeArticle } from "@/features/article/lib/use-like-article";
 import { useAuth } from "@/features/auth/model/store";
@@ -11,6 +12,7 @@ import { FakeForm } from "@/widgets/form/fake-form.ui";
 
 export const HomePageView = () => {
   const { me } = useAuth();
+  const { openModal } = useModal();
   const { mutate: likeArticle } = useLikeArticle();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useSuspenseInfiniteQuery(articleQueries.infinite(me?.id ?? null));
@@ -18,6 +20,20 @@ export const HomePageView = () => {
   const handleLike = (articleId: string, userId: string) => {
     likeArticle({ articleId, userId });
   };
+
+  const handleReport =
+    (articleId: string, reporterId: string) =>
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+      if (!reporterId) {
+        openModal("auth-guard");
+      } else {
+        openModal("report-article", {
+          articleId,
+          reporterId,
+        });
+      }
+    };
 
   return (
     <PageContainer
@@ -31,6 +47,7 @@ export const HomePageView = () => {
         data={data}
         currentUserId={me?.id ?? null}
         onLike={handleLike}
+        onReport={handleReport}
         onFetchNextPage={() => void fetchNextPage()}
         hasNextPage={hasNextPage}
         isFetchingNextPage={isFetchingNextPage}

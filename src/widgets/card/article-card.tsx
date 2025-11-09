@@ -18,6 +18,7 @@ type ArticleCardProps = {
   commentCount: number;
   onClick: () => void;
   onLike: () => void;
+  onReport: (e: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 export const ArticleCard = ({
@@ -36,6 +37,7 @@ export const ArticleCard = ({
   commentCount,
   onClick,
   onLike,
+  onReport,
 }: ArticleCardProps) => {
   return (
     <article className="flex flex-col gap-2">
@@ -59,6 +61,7 @@ export const ArticleCard = ({
         commentCount={commentCount}
         onClick={onClick}
         onLike={onLike}
+        onReport={onReport}
       />
     </article>
   );
