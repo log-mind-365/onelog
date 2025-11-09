@@ -43,7 +43,6 @@ export const WritePageHeader = () => {
         <ArticleAccessTypeButton
           value={accessType}
           onValueChange={handleAccessTypeChange}
-          tooltipSide="bottom"
           dropdownMenuSide="bottom"
           dropdownMenuAlign="start"
         />

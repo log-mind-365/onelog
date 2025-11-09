@@ -6,6 +6,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/shared/components/ui/tooltip";
 
 type ArticleOptionsDropdownMenuProps = {
   onModify: () => void;
@@ -17,22 +22,27 @@ export const ArticleOptionsDropdownMenu = ({
   onDelete,
 }: ArticleOptionsDropdownMenuProps) => {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="h-auto p-2">
-          <MoreVertical className="h-4 w-4 md:h-6 md:w-6" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuItem onClick={onModify} className="cursor-pointer gap-2">
-          <Edit2 className="h-4 w-4" />
-          수정하기
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={onDelete} className="cursor-pointer gap-2">
-          <Trash2 className="h-4 w-4" />
-          삭제하기
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <Tooltip>
+      <DropdownMenu>
+        <TooltipTrigger asChild>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-auto p-2">
+              <MoreVertical className="h-4 w-4 md:h-6 md:w-6" />
+            </Button>
+          </DropdownMenuTrigger>
+        </TooltipTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem onClick={onModify} className="cursor-pointer gap-2">
+            <Edit2 className="h-4 w-4" />
+            수정하기
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={onDelete} className="cursor-pointer gap-2">
+            <Trash2 className="h-4 w-4" />
+            삭제하기
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <TooltipContent>옵션</TooltipContent>
+    </Tooltip>
   );
 };
