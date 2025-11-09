@@ -39,7 +39,7 @@ export const ArticleHeader = ({
       ?.status || "알 수 없음";
 
   return (
-    <header className={cn("flex items-end justify-between", className)}>
+    <header className={cn("flex items-start justify-between", className)}>
       <div className="flex gap-4">
         <HoverCard>
           <HoverCardTrigger asChild>
