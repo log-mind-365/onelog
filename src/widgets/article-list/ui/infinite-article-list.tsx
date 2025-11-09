@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import type { InfiniteArticleList as InfiniteArticleListType } from "@/entities/article/model/types";
 import { ROUTES } from "@/shared/model/routes";
-import { ArticleCard } from "@/widgets/card/article-card";
+import { ArticleCard } from "@/widgets/article-card/ui/article-card";
 
 type InfiniteArticleListProps = {
   data: InfiniteData<InfiniteArticleListType>;
