@@ -2,19 +2,19 @@ import { UserAvatar } from "@/entities/user/ui/user-avatar";
 import { Button } from "@/shared/components/ui/button";
 
 type UserDetailInfoProps = {
-  isMe: boolean;
   userName: string;
   email: string;
   aboutMe: string;
   avatarUrl: string | null;
+  onProfile: () => void;
 };
 
 export const UserDetailInfo = ({
-  isMe,
   userName,
   aboutMe,
   email,
   avatarUrl,
+  onProfile,
 }: UserDetailInfoProps) => {
   return (
     <div className="flex w-full flex-row justify-between rounded-lg bg-background p-4">
@@ -27,7 +27,12 @@ export const UserDetailInfo = ({
         </div>
       </div>
       <div className="flex flex-col items-stretch justify-evenly">
-        <Button variant="outline" size="sm" className="bg-card">
+        <Button
+          variant="outline"
+          size="sm"
+          className="bg-card"
+          onClick={onProfile}
+        >
           프로필 페이지
         </Button>
       </div>

@@ -13,6 +13,7 @@ import {
   CardHeader,
 } from "@/shared/components/ui/card";
 import { Separator } from "@/shared/components/ui/separator";
+import { ROUTES } from "@/shared/model/routes";
 
 type ArticleDetailPageContentProps = {
   userId: string | null;
@@ -23,9 +24,14 @@ export const ArticleDetailPageContent = ({
   userId,
   articleId,
 }: ArticleDetailPageContentProps) => {
+  const router = useRouter();
   const { data: article } = useSuspenseQuery(
     articleQueries.detail(articleId, userId),
   );
+
+  const handleNavigateToProfile = () => {
+    router.push(ROUTES.PROFILE.VIEW(article.author?.id ?? ""));
+  };
 
   return (
     <Card>
@@ -46,11 +52,11 @@ export const ArticleDetailPageContent = ({
       </CardContent>
       <CardFooter>
         <UserDetailInfo
-          isMe={userId === article.author?.id}
           userName={article.author?.userName ?? ""}
           email={article.author?.email ?? ""}
           aboutMe={article.author?.aboutMe ?? ""}
           avatarUrl={article.author?.avatarUrl ?? null}
+          onProfile={handleNavigateToProfile}
         />
       </CardFooter>
     </Card>

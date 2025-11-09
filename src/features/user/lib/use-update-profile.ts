@@ -32,14 +32,18 @@ export const useUpdateProfile = () => {
       let avatarUrl = currentAvatarUrl;
 
       if (avatarFile) {
-        if (currentAvatarUrl) {
-          await deleteAvatar(id, currentAvatarUrl);
-        }
-
         const url = await uploadAvatar(avatarFile);
-        if (url) {
-          avatarUrl = url;
+        if (!url) {
+          throw new Error("아바타 업로드에 실패했습니다");
         }
+        if (currentAvatarUrl) {
+          try {
+            await deleteAvatar(id, currentAvatarUrl);
+          } catch (e) {
+            console.error(e);
+          }
+        }
+        avatarUrl = url;
       }
       return updateUserInfo(id, {
         userName,
