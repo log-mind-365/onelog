@@ -1,8 +1,12 @@
 import type { PropsWithChildren } from "react";
-import { AuthPageLayout } from "@/views/auth/auth-page-layout";
+import { TransitionContainer } from "@/shared/components/transition-container";
 
 const AuthLayout = ({ children }: PropsWithChildren) => {
-  return <AuthPageLayout>{children}</AuthPageLayout>;
+  return (
+    <TransitionContainer.FadeIn className="flex h-[calc(100vh-4rem)] items-center justify-center px-4">
+      {children}
+    </TransitionContainer.FadeIn>
+  );
 };
 
 export default AuthLayout;
