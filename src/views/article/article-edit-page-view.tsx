@@ -65,13 +65,13 @@ export const ArticleEditPageView = ({
           value={title}
           onChange={handleTitleChange}
           placeholder="제목을 입력하세요"
-          className="border-0 rounded-t-lg font-semibold text-lg shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="rounded-t-lg border-0 font-semibold text-lg shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
         />
         <Textarea
           value={content}
           onChange={handleContentChange}
           placeholder="오늘은 어떤 일이 있었나요?"
-          className="h-40 resize-none border-0 rounded-b-lg shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="h-40 resize-none rounded-b-lg border-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
         />
       </div>
     </div>

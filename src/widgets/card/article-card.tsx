@@ -1,6 +1,8 @@
 import type { AccessType } from "@/entities/article/model/types";
-import { ArticleCardContent } from "@/widgets/card/article-card-content";
-import { ArticleCardHeader } from "@/widgets/card/article-card-header";
+import { ArticleCardContent } from "@/entities/article/ui/article-card-content";
+import { ArticleCardFooter } from "@/entities/article/ui/article-card-footer";
+import { ArticleHeader } from "@/entities/article/ui/article-header";
+import { Card } from "@/shared/components/ui/card";
 
 type ArticleCardProps = {
   userId: string;
@@ -40,8 +42,11 @@ export const ArticleCard = ({
   onReport,
 }: ArticleCardProps) => {
   return (
-    <article className="flex flex-col gap-2">
-      <ArticleCardHeader
+    <Card
+      onClick={onClick}
+      className="cursor-pointer py-4 shadow-none transition-shadow hover:shadow-lg"
+    >
+      <ArticleHeader
         userId={userId}
         userName={userName}
         avatarUrl={avatarUrl}
@@ -50,19 +55,15 @@ export const ArticleCard = ({
         isMe={isMe}
         createdAt={createdAt}
       />
-      <ArticleCardContent
-        userId={userId}
-        isMe={isMe}
-        title={title}
-        content={content}
-        accessType={accessType}
-        likeCount={likeCount}
+      <ArticleCardContent title={title} content={content} />
+      <ArticleCardFooter
         isLiked={isLiked}
-        commentCount={commentCount}
-        onClick={onClick}
+        likeCount={likeCount}
         onLike={onLike}
+        commentCount={commentCount}
+        accessType={accessType}
         onReport={onReport}
       />
-    </article>
+    </Card>
   );
 };

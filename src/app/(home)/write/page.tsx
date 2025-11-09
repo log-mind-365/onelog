@@ -2,6 +2,7 @@
 
 import type { ChangeEvent } from "react";
 import { useAuth } from "@/features/auth/model/store";
+import { PageContainer } from "@/shared/components/page-container";
 import { Input } from "@/shared/components/ui/input";
 import { Textarea } from "@/shared/components/ui/textarea";
 import { useArticleFormStore } from "@/views/write/use-article-form-store";
@@ -24,9 +25,8 @@ const Page = () => {
   };
 
   return (
-    <div className="m-4 flex flex-col gap-4">
+    <PageContainer title="게시글 작성" description="오늘은 어떤 일이 있었나요?">
       <WritePageHeader />
-
       <div className="flex flex-col gap-4 rounded-lg border bg-card p-2">
         <WritePageBodyHeader
           avatarUrl={me?.avatarUrl}
@@ -48,7 +48,7 @@ const Page = () => {
           className="max-h-40 min-h-20 resize-none rounded-none border-0 text-sm shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 dark:bg-transparent"
         />
       </div>
-    </div>
+    </PageContainer>
   );
 };
 

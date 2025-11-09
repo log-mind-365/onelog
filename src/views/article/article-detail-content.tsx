@@ -1,3 +1,5 @@
+import { CardContent } from "@/shared/components/ui/card";
+
 type ArticleDetailContentProps = {
   title: string;
   content: string;
@@ -8,9 +10,9 @@ export const ArticleDetailContent = ({
   content,
 }: ArticleDetailContentProps) => {
   return (
-    <div className="flex flex-col gap-4">
-      <h1 className="text-2xl font-bold">{title}</h1>
+    <CardContent className="flex flex-col gap-4">
+      <h1 className="font-bold text-2xl">{title}</h1>
       <p className="whitespace-pre-wrap break-words">{content}</p>
-    </div>
+    </CardContent>
   );
 };

@@ -61,7 +61,7 @@ export const InfiniteArticleList = ({
   if (allArticles.length === 0) {
     return (
       <div className="flex items-center justify-center py-12">
-        <p className="text-sm text-muted-foreground">
+        <p className="text-muted-foreground text-sm">
           아직 작성된 글이 없습니다.
         </p>
       </div>
@@ -125,9 +125,9 @@ export const InfiniteArticleList = ({
           className="flex items-center justify-center py-8"
         >
           {isFetchingNextPage ? (
-            <p className="text-sm text-muted-foreground">로딩 중...</p>
+            <p className="text-muted-foreground text-sm">로딩 중...</p>
           ) : (
-            <p className="text-sm text-muted-foreground">더 보기</p>
+            <p className="text-muted-foreground text-sm">더 보기</p>
           )}
         </div>
       )}

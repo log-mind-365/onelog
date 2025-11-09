@@ -5,16 +5,17 @@ import { useRouter } from "next/navigation";
 import { Suspense } from "react";
 import { useModal } from "@/app/_providers/modal-store";
 import { articleQueries } from "@/entities/article/api/queries";
+import { ArticleHeader } from "@/entities/article/ui/article-header";
 import { useLikeArticle } from "@/features/article/lib/use-like-article";
 import { useAuth } from "@/features/auth/model/store";
 import { PageContainer } from "@/shared/components/page-container";
+import { Card } from "@/shared/components/ui/card";
 import { Separator } from "@/shared/components/ui/separator";
 import { Spinner } from "@/shared/components/ui/spinner";
 import { ROUTES } from "@/shared/model/routes";
 import { ArticleCommentSection } from "@/views/article/article-comment-section";
 import { ArticleDetailContent } from "@/views/article/article-detail-content";
 import { ArticleDetailPageActionbar } from "@/views/article/article-detail-page-actionbar";
-import { ArticleCardHeader } from "@/widgets/card/article-card-header";
 
 type ArticleDetailPageView = {
   id: string;
@@ -60,7 +61,7 @@ export const ArticleDetailPageView = ({
   };
 
   return (
-    <PageContainer className="flex flex-col gap-4">
+    <PageContainer>
       <ArticleDetailPageActionbar
         likeCount={article.likeCount}
         isLike={article.isLiked}
@@ -72,8 +73,8 @@ export const ArticleDetailPageView = ({
         onModify={handleModify}
         onReport={handleReport}
       />
-      <div className="flex flex-col gap-2 rounded-lg border bg-card p-4">
-        <ArticleCardHeader
+      <Card className="">
+        <ArticleHeader
           userId={article?.author?.id ?? ""}
           userName={article?.author?.userName ?? ""}
           avatarUrl={article?.author?.avatarUrl ?? ""}
@@ -87,7 +88,7 @@ export const ArticleDetailPageView = ({
           title={article?.title}
           content={article?.content}
         />
-      </div>
+      </Card>
 
       <Suspense fallback={<Spinner />}>
         <ArticleCommentSection

@@ -110,7 +110,6 @@ export const SettingsProfilePageView = ({
     <PageContainer
       title="프로필 수정"
       description="프로필 정보를 수정할 수 있습니다"
-      className="flex flex-col gap-2"
     >
       <form onSubmit={handleSubmit} className="flex flex-col gap-2">
         {/* Profile Photo Card */}

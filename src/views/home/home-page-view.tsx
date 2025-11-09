@@ -39,10 +39,12 @@ export const HomePageView = () => {
     <PageContainer
       title="안녕하세요"
       description="오늘 사람들이 기록한 문장을 확인하세요."
+      banner={
+        <TransitionContainer.SlideIn type="spring" className="w-full">
+          <FakeForm />
+        </TransitionContainer.SlideIn>
+      }
     >
-      <TransitionContainer.SlideIn type="spring" className="mb-6">
-        <FakeForm />
-      </TransitionContainer.SlideIn>
       <InfiniteArticleList
         data={data}
         currentUserId={me?.id ?? null}
