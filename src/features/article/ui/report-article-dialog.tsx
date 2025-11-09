@@ -11,6 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/shared/components/ui/dialog";
+import { Label } from "@/shared/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -68,31 +69,36 @@ export const ReportArticleDialog = () => {
       </DialogHeader>
       <form onSubmit={handleSubmit} className="w-full space-y-4">
         <div className="space-y-2">
-          <label className="text-sm font-medium">신고 유형</label>
-          <Select
-            value={reportType}
-            onValueChange={(value) =>
-              setReportType(
-                value as "spam" | "inappropriate" | "harassment" | "other",
-              )
-            }
-          >
-            <SelectTrigger>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {REPORT_TYPES.map((type) => (
-                <SelectItem key={type.value} value={type.value}>
-                  {type.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <Label htmlFor="report-type" className="font-medium text-sm">
+            신고 유형
+            <Select
+              value={reportType}
+              onValueChange={(value) =>
+                setReportType(
+                  value as "spam" | "inappropriate" | "harassment" | "other",
+                )
+              }
+            >
+              <SelectTrigger id="report-type">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {REPORT_TYPES.map((type) => (
+                  <SelectItem key={type.value} value={type.value}>
+                    {type.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </Label>
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">상세 사유 (선택)</label>
+          <label htmlFor="reason" className="font-medium text-sm">
+            상세 사유 (선택)
+          </label>
           <Textarea
+            id="reason"
             value={reason}
             onChange={(e) => setReason(e.target.value)}
             placeholder="신고 사유를 자세히 적어주세요..."
