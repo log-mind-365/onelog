@@ -17,7 +17,7 @@ export const articleQueries = {
       initialPageParam: "",
       getNextPageParam: (lastPage) => lastPage.nextId ?? undefined,
     }),
-  detail: (id: string, userId?: string | null) =>
+  detail: (id: string, userId: string | null) =>
     queryOptions({
       queryKey: ARTICLE_QUERY_KEY.DETAIL(id, userId),
       queryFn: async () => getArticleDetail(id, userId),
