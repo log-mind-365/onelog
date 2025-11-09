@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react";
 import { TransitionContainer } from "@/shared/components/transition-container";
-import { HomePageSidebar } from "@/views/home/home-page-sidebar";
+import { HomePageSidebar } from "@/widgets/home-page-sidebar/ui/home-page-sidebar";
 
 const Template = ({ children }: PropsWithChildren) => {
   return (
