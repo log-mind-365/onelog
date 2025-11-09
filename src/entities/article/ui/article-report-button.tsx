@@ -2,7 +2,7 @@ import { Flag } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 
 interface Props {
-  onClick: () => void;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export function ArticleReportButton({ onClick }: Props) {

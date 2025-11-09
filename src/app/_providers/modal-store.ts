@@ -7,12 +7,14 @@ export type ModalType =
   | "auth-guard"
   | "submit-article"
   | "update-article"
+  | "report-article"
   | "sign-out"
   | null;
 
 export type ModalProps =
   | SubmitArticleDialogProps
   | UpdateArticleDialogProps
+  | ReportArticleDialogProps
   | null;
 
 export type SubmitArticleDialogProps = {
@@ -29,6 +31,11 @@ export type UpdateArticleDialogProps = {
   content: string;
   emotionLevel: EmotionLevel;
   accessType: AccessType;
+};
+
+export type ReportArticleDialogProps = {
+  articleId: string;
+  reporterId: string;
 };
 
 type ModalStore = {

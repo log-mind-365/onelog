@@ -6,6 +6,8 @@ import { articleLikes } from "@/db/schemas/article-likes";
 import { articles } from "@/db/schemas/articles";
 import { comments } from "@/db/schemas/comments";
 import { profiles } from "@/db/schemas/profiles";
+import { reports } from "@/db/schemas/reports";
+import type { reportTypes } from "@/db/schemas/reports";
 import { PAGE_LIMIT } from "@/entities/article/model/constants";
 import type {
   Article,
@@ -201,4 +203,36 @@ export const checkUserLiked = async (
     .then((rows) => rows[0]);
 
   return !!result;
+};
+
+// 신고 관련 함수들
+export const reportArticle = async (params: {
+  articleId: string;
+  reporterId: string;
+  reportType: "spam" | "inappropriate" | "harassment" | "other";
+  reason?: string;
+}): Promise<void> => {
+  // 이미 신고했는지 확인
+  const existingReport = await db
+    .select()
+    .from(reports)
+    .where(
+      and(
+        eq(reports.articleId, params.articleId),
+        eq(reports.reporterId, params.reporterId),
+      ),
+    )
+    .then((rows) => rows[0]);
+
+  if (existingReport) {
+    throw new Error("이미 신고한 게시물입니다.");
+  }
+
+  // 신고 추가
+  await db.insert(reports).values({
+    articleId: params.articleId,
+    reporterId: params.reporterId,
+    reportType: params.reportType,
+    reason: params.reason,
+  });
 };

@@ -1,6 +1,7 @@
 "use client";
 
 import { useModal } from "@/app/_providers/modal-store";
+import { ReportArticleDialog } from "@/features/article/ui/report-article-dialog";
 import { SubmitArticleModal } from "@/features/article/ui/submit-article-modal";
 import { UpdateArticleModal } from "@/features/article/ui/update-article-modal";
 import { AuthGuardModal } from "@/features/auth/ui/auth-guard-modal";
@@ -24,6 +25,7 @@ export const Modal = () => {
       {currentModal === "sign-out" && <SignOutModal />}
       {currentModal === "submit-article" && <SubmitArticleModal />}
       {currentModal === "update-article" && <UpdateArticleModal />}
+      {currentModal === "report-article" && <ReportArticleDialog />}
       {currentModal === "auth-guard" && <AuthGuardModal />}
     </Dialog>
   );
