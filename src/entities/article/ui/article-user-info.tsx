@@ -1,10 +1,7 @@
-import { format } from "date-fns";
-import { ko } from "date-fns/locale";
-
 type ArticleUserInfoProps = {
   userName: string;
   email: string;
-  createdAt: Date;
+  createdAt?: Date;
 };
 
 export const ArticleUserInfo = ({
@@ -21,13 +18,19 @@ export const ArticleUserInfo = ({
         </span>
       </div>
       <p className="text-muted-foreground text-sm">
-        {new Date(createdAt).toLocaleDateString("ko-KR", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-        })}
+        {createdAt
+          ? new Date(createdAt).toLocaleDateString("ko-KR", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            })
+          : new Date(Date.now()).toLocaleDateString("ko-KR", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
       </p>
     </div>
   );

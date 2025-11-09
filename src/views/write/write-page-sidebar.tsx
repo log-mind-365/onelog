@@ -16,17 +16,17 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/shared/components/ui/tooltip";
-import { useArticleFormStore } from "@/views/write/use-article-form-store";
+import { useDraft } from "@/views/write/use-draft";
 
 export const WritePageSidebar = () => {
   const router = useRouter();
-  const { setAccessType, setEmotionLevel } = useArticleFormStore();
+  const { setAccessType, setEmotionLevel } = useDraft();
   const { openModal } = useModal();
   const { me } = useAuth();
-  const title = useArticleFormStore((state) => state.title);
-  const content = useArticleFormStore((state) => state.content);
-  const accessType = useArticleFormStore((state) => state.accessType);
-  const emotionLevel = useArticleFormStore((state) => state.emotionLevel);
+  const title = useDraft((state) => state.title);
+  const content = useDraft((state) => state.content);
+  const accessType = useDraft((state) => state.accessType);
+  const emotionLevel = useDraft((state) => state.emotionLevel);
 
   const handleAccessTypeChange = (value: string) => {
     setAccessType(value as AccessType);

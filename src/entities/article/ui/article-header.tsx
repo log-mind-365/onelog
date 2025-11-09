@@ -20,7 +20,7 @@ type ArticleCardHeaderProps = ComponentProps<"div"> & {
   email: string;
   emotionLevel: number;
   isMe: boolean;
-  createdAt: Date;
+  createdAt?: Date;
   onClick?: () => void;
 };
 

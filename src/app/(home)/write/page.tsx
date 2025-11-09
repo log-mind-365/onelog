@@ -1,19 +1,18 @@
 "use client";
 
 import type { ChangeEvent } from "react";
+import { ArticleHeader } from "@/entities/article/ui/article-header";
+import { ArticleForm } from "@/features/article/ui/article-form";
 import { useAuth } from "@/features/auth/model/store";
 import { PageContainer } from "@/shared/components/page-container";
-import { Input } from "@/shared/components/ui/input";
-import { Textarea } from "@/shared/components/ui/textarea";
-import { useArticleFormStore } from "@/views/write/use-article-form-store";
-import { WritePageBodyHeader } from "@/views/write/write-page-body-header.widget";
+import { useDraft } from "@/views/write/use-draft";
 import { WritePageHeader } from "@/views/write/write-page-header.widget";
 
 const Page = () => {
-  const { setTitle, setContent } = useArticleFormStore();
-  const title = useArticleFormStore((state) => state.title);
-  const emotionLevel = useArticleFormStore((state) => state.emotionLevel);
-  const content = useArticleFormStore((state) => state.content);
+  const { setTitle, setContent } = useDraft();
+  const title = useDraft((state) => state.title);
+  const emotionLevel = useDraft((state) => state.emotionLevel);
+  const content = useDraft((state) => state.content);
   const { me } = useAuth();
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -28,24 +27,19 @@ const Page = () => {
     <PageContainer title="게시글 작성" description="오늘은 어떤 일이 있었나요?">
       <WritePageHeader />
       <div className="flex flex-col gap-4 rounded-lg border bg-card p-2">
-        <WritePageBodyHeader
-          avatarUrl={me?.avatarUrl}
-          userName={me?.userName}
-          email={me?.email}
-          createdAt={me?.createdAt}
+        <ArticleHeader
+          userId={me?.id ?? ""}
+          userName={me?.userName ?? ""}
+          avatarUrl={me?.avatarUrl ?? ""}
+          email={me?.email ?? ""}
           emotionLevel={emotionLevel}
+          isMe={true}
         />
-        <Input
-          value={title}
-          onChange={handleTitleChange}
-          placeholder="제목을 입력하세요"
-          className="rounded-none border-0 pt-4 font-semibold text-lg shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 dark:bg-transparent"
-        />
-        <Textarea
-          value={content}
-          onChange={handleContentChange}
-          placeholder="오늘은 어떤 일이 있었나요?"
-          className="max-h-40 min-h-20 resize-none rounded-none border-0 text-sm shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 dark:bg-transparent"
+        <ArticleForm
+          title={title}
+          content={content}
+          onContentChange={handleContentChange}
+          onTitleChange={handleTitleChange}
         />
       </div>
     </PageContainer>

@@ -5,10 +5,11 @@ import type { ChangeEvent } from "react";
 import { useEffect } from "react";
 import { articleQueries } from "@/entities/article/api/queries";
 import { useAuth } from "@/features/auth/model/store";
+import { PageContainer } from "@/shared/components/page-container";
 import { Input } from "@/shared/components/ui/input";
 import { Textarea } from "@/shared/components/ui/textarea";
 import { ArticleEditPageHeader } from "@/views/article/article-edit-page-header.widget";
-import { useArticleFormStore } from "@/views/write/use-article-form-store";
+import { useDraft } from "@/views/write/use-draft";
 import { WritePageBodyHeader } from "@/views/write/write-page-body-header.widget";
 
 type ArticleEditPageViewProps = {
@@ -22,10 +23,10 @@ export const ArticleEditPageView = ({
 }: ArticleEditPageViewProps) => {
   const { data: article } = useSuspenseQuery(articleQueries.detail(id, userId));
   const { setTitle, setContent, setEmotionLevel, setAccessType, reset } =
-    useArticleFormStore();
-  const title = useArticleFormStore((state) => state.title);
-  const emotionLevel = useArticleFormStore((state) => state.emotionLevel);
-  const content = useArticleFormStore((state) => state.content);
+    useDraft();
+  const title = useDraft((state) => state.title);
+  const emotionLevel = useDraft((state) => state.emotionLevel);
+  const content = useDraft((state) => state.content);
   const { me } = useAuth();
 
   useEffect(() => {
@@ -50,7 +51,7 @@ export const ArticleEditPageView = ({
   };
 
   return (
-    <div className="m-2 flex flex-col gap-4">
+    <PageContainer>
       <ArticleEditPageHeader articleId={id} />
 
       <WritePageBodyHeader
@@ -60,12 +61,12 @@ export const ArticleEditPageView = ({
         createdAt={me?.createdAt}
         emotionLevel={emotionLevel}
       />
-      <div className="flex flex-col rounded-lg border bg-card">
+      <div className="flex flex-col rounded-lg border bg-card p-4">
         <Input
           value={title}
           onChange={handleTitleChange}
           placeholder="제목을 입력하세요"
-          className="rounded-t-lg border-0 font-semibold text-lg shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="!text-lg rounded-t-lg border-0 font-semibold shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
         />
         <Textarea
           value={content}
@@ -74,6 +75,6 @@ export const ArticleEditPageView = ({
           className="h-40 resize-none rounded-b-lg border-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
         />
       </div>
-    </div>
+    </PageContainer>
   );
 };
