@@ -14,8 +14,8 @@ export const ArticleDetailPageView = ({
 }: ArticleDetailPageView) => {
   return (
     <PageContainer>
-      <ArticleDetailPageActionbar userId={userId ?? null} articleId={id} />
-      <ArticleDetailPageContent userId={userId ?? null} articleId={id} />
+      <ArticleDetailPageActionbar userId={userId} articleId={id} />
+      <ArticleDetailPageContent userId={userId} articleId={id} />
       <ArticleCommentSection articleId={id} userId={userId} />
     </PageContainer>
   );

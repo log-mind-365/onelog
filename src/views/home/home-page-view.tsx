@@ -1,6 +1,10 @@
 "use client";
 
-import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
+import {
+  useSuspenseInfiniteQuery,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
+import type { MouseEvent } from "react";
 import { useModal } from "@/app/_providers/modal-store";
 import { articleQueries } from "@/entities/article/api/queries";
 import { useLikeArticle } from "@/features/article/lib/use-like-article";
@@ -23,7 +27,7 @@ export const HomePageView = () => {
 
   const handleReport =
     (articleId: string, reporterId: string) =>
-    (e: React.MouseEvent<HTMLButtonElement>) => {
+    (e: MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
       if (!reporterId) {
         openModal("auth-guard");

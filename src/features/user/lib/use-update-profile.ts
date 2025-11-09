@@ -5,6 +5,7 @@ import {
   updateUserInfo,
   uploadAvatar,
 } from "@/entities/user/api/server";
+import { USER_QUERY_KEY } from "@/entities/user/model/constants";
 import type { UserInfo } from "@/entities/user/model/types";
 import { useAuth } from "@/features/auth/model/store";
 
@@ -32,18 +33,14 @@ export const useUpdateProfile = () => {
 
       if (avatarFile) {
         if (currentAvatarUrl) {
-          await deleteAvatar(currentAvatarUrl);
+          await deleteAvatar(id, currentAvatarUrl);
         }
 
-        // 새 아바타 업로드
-        const { url, error } = await uploadAvatar(avatarFile);
-        if (error) {
-          throw new Error(error);
+        const url = await uploadAvatar(avatarFile);
+        if (url) {
+          avatarUrl = url;
         }
-        avatarUrl = url;
       }
-
-      // DB 업데이트
       return updateUserInfo(id, {
         userName,
         aboutMe,
@@ -51,12 +48,10 @@ export const useUpdateProfile = () => {
       });
     },
     onSuccess: (data: UserInfo) => {
-      // TanStack Query 캐시 무효화
-      queryClient.invalidateQueries({ queryKey: ["user", data.id] });
-
-      // Zustand auth store 업데이트
+      void queryClient.invalidateQueries({
+        queryKey: USER_QUERY_KEY.INFO(data.id),
+      });
       setMe(data);
-
       toast.success("프로필이 업데이트되었습니다");
     },
     onError: (error: Error) => {

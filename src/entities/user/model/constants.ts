@@ -11,5 +11,5 @@ export const USER_TOAST_MESSAGE = {
 };
 
 export const USER_QUERY_KEY = {
-  INFO: (userId: string) => ["user", "info", userId],
+  INFO: (userId: string | null) => ["user", "info", userId],
 };

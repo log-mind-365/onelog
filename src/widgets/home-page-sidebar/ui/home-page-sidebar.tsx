@@ -1,7 +1,9 @@
 "use client";
 
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { userQueries } from "@/entities/user/api/queries";
 import { useAuthGuard } from "@/features/auth/lib/use-auth-guard";
 import { useAuth } from "@/features/auth/model/store";
 import { AuthMenuDropdown } from "@/features/auth/ui/auth-menu-dropdown";

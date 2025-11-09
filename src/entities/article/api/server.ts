@@ -7,7 +7,6 @@ import { articles } from "@/db/schemas/articles";
 import { comments } from "@/db/schemas/comments";
 import { profiles } from "@/db/schemas/profiles";
 import { reports } from "@/db/schemas/reports";
-import type { reportTypes } from "@/db/schemas/reports";
 import { PAGE_LIMIT } from "@/entities/article/model/constants";
 import type {
   Article,
@@ -17,8 +16,8 @@ import type {
 } from "@/entities/article/model/types";
 
 export const getInfinitePublicArticleList = async (
-  pageParam?: string,
-  userId?: string | null,
+  pageParam: string,
+  userId: string | null,
 ): Promise<InfiniteArticleList> => {
   const result = await db
     .select({
