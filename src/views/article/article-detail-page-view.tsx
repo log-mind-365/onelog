@@ -47,6 +47,18 @@ export const ArticleDetailPageView = ({
     }
   };
 
+  const handleReport = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    if (!userId) {
+      openModal("auth-guard");
+    } else {
+      openModal("report-article", {
+        articleId: id,
+        reporterId: userId,
+      });
+    }
+  };
+
   return (
     <PageContainer className="flex flex-col gap-4">
       <ArticleDetailPageActionbar
@@ -58,7 +70,7 @@ export const ArticleDetailPageView = ({
         onLike={handleLike}
         onDelete={() => null}
         onModify={handleModify}
-        onReport={() => null}
+        onReport={handleReport}
       />
       <div className="flex flex-col gap-2 rounded-lg border bg-card p-4">
         <ArticleCardHeader

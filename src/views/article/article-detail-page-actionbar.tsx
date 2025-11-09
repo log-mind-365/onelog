@@ -17,7 +17,7 @@ type ArticleActionbarProps = {
   isPublic: boolean;
   onDelete: () => void;
   onModify: () => void;
-  onReport: () => void;
+  onReport: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onLike: () => void;
 };
 
