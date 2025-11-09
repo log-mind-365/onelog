@@ -12,6 +12,7 @@ type PageProps = {
 
 const Page = async ({ params }: PageProps) => {
   const { id } = await params;
+  const queryClient = getQueryClient();
 
   // UUID 형식 검증 (정규식)
   const UUID_REGEX =
@@ -26,7 +27,6 @@ const Page = async ({ params }: PageProps) => {
     notFound();
   }
 
-  const queryClient = getQueryClient();
   await queryClient.prefetchQuery(userQueries.getUserInfo(id));
 
   return (
