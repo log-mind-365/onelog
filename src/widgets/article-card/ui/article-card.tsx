@@ -1,3 +1,4 @@
+import type { MouseEvent } from "react";
 import type { AccessType } from "@/entities/article/model/types";
 import { ArticleContent } from "@/entities/article/ui/article-content";
 import { ArticleFooter } from "@/entities/article/ui/article-footer";
@@ -20,7 +21,7 @@ type ArticleCardProps = {
   commentCount: number;
   onClick: () => void;
   onLike: () => void;
-  onReport: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onReport: (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
 export const ArticleCard = ({

@@ -17,7 +17,10 @@ import {
   TooltipTrigger,
 } from "@/shared/components/ui/tooltip";
 import { ROUTES } from "@/shared/model/routes";
-import { APP_LOGO, SIDEBAR_MENUS } from "@/views/home/types";
+import {
+  APP_LOGO,
+  SIDEBAR_MENUS,
+} from "@/widgets/home-page-sidebar/model/constants";
 
 export const HomePageSidebar = () => {
   const { me, isAuthenticated } = useAuth();
