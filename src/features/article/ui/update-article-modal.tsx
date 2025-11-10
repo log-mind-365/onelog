@@ -1,8 +1,8 @@
 "use client";
 
 import type { FormEvent } from "react";
-import { useModal } from "@/app/_providers/modal-store";
-import type { UpdateArticleDialogProps } from "@/app/_providers/modal-store";
+import type { UpdateArticleDialogProps } from "@/app/_store/modal-store";
+import { useModal } from "@/app/_store/modal-store";
 import { useUpdateArticle } from "@/features/article/lib/use-update-article";
 import { Button } from "@/shared/components/ui/button";
 import {

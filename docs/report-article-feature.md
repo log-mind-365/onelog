@@ -248,7 +248,7 @@ type ReportArticleDialogProps = {
 
 ```tsx
 import { ArticleReportButton } from "@/entities/article/ui/article-report-button";
-import { useModal } from "@/app/_providers/modal-store";
+import { useModal } from "@/app/_store/modal-store";
 
 const MyComponent = () => {
   const { openModal } = useModal();

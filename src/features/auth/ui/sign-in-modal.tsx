@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useModal } from "@/app/_providers/modal-store";
+import { useModal } from "@/app/_store/modal-store";
 import { AuthFormField } from "@/entities/user/ui/auth-form-field";
 import { useSignIn } from "@/features/auth/lib/use-sign-in";
 import { signInSchema } from "@/features/auth/model/schema";

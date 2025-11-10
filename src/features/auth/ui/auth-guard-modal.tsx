@@ -1,6 +1,6 @@
 "use client";
 
-import { useModal } from "@/app/_providers/modal-store";
+import { useModal } from "@/app/_store/modal-store";
 import { Button } from "@/shared/components/ui/button";
 import {
   DialogContent,

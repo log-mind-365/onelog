@@ -2,7 +2,7 @@
 
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import type { MouseEvent } from "react";
-import { useModal } from "@/app/_providers/modal-store";
+import { useModal } from "@/app/_store/modal-store";
 import { articleQueries } from "@/entities/article/api/queries";
 import { useLikeArticle } from "@/features/article/lib/use-like-article";
 import { useAuth } from "@/features/auth/model/store";

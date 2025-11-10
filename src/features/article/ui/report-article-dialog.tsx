@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import type { ReportArticleDialogProps } from "@/app/_providers/modal-store";
-import { useModal } from "@/app/_providers/modal-store";
+import type { ReportArticleDialogProps } from "@/app/_store/modal-store";
+import { useModal } from "@/app/_store/modal-store";
 import { useReportArticle } from "@/features/article/lib/use-report-article";
 import { Button } from "@/shared/components/ui/button";
 import {

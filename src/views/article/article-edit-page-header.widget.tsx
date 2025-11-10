@@ -2,7 +2,7 @@
 
 import { ArrowLeft, Check } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useModal } from "@/app/_providers/modal-store";
+import { useModal } from "@/app/_store/modal-store";
 import type { AccessType } from "@/entities/article/model/types";
 import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-type-button";
 import { ArticleEmotionButton } from "@/entities/article/ui/article-emotion-button";

@@ -1,8 +1,8 @@
 "use client";
 
 import type { FormEvent } from "react";
-import type { SubmitArticleDialogProps } from "@/app/_providers/modal-store";
-import { useModal } from "@/app/_providers/modal-store";
+import type { SubmitArticleDialogProps } from "@/app/_store/modal-store";
+import { useModal } from "@/app/_store/modal-store";
 import { useSubmitArticle } from "@/features/article/lib/use-submit-article";
 import { Button } from "@/shared/components/ui/button";
 import {

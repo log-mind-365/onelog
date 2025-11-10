@@ -1,4 +1,4 @@
-import { useModal } from "@/app/_providers/modal-store";
+import { useModal } from "@/app/_store/modal-store";
 import { useAuth } from "@/features/auth/model/store";
 
 export const useAuthGuard = () => {

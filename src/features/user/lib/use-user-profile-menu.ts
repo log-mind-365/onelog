@@ -2,7 +2,7 @@
 
 import { LogOut, User, UserCog } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useModal } from "@/app/_providers/modal-store";
+import { useModal } from "@/app/_store/modal-store";
 import { useAuth } from "@/features/auth/model/store";
 import { ROUTES } from "@/shared/model/routes";
 
