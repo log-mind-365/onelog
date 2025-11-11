@@ -31,12 +31,10 @@ const Page = () => {
       <Card>
         <CardHeader>
           <ArticleHeader
-            userId={me?.id ?? ""}
             userName={me?.userName ?? ""}
             avatarUrl={me?.avatarUrl ?? ""}
             email={me?.email ?? ""}
             emotionLevel={emotionLevel}
-            isMe={true}
           />
         </CardHeader>
         <Separator />

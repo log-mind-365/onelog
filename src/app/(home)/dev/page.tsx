@@ -140,11 +140,11 @@ export default function DevComponentsPage() {
               <CardTitle>All Levels</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-wrap gap-8">
-              <EmotionGauge emotionLevel={0} label="매우 나쁨" />
-              <EmotionGauge emotionLevel={25} label="나쁨" />
-              <EmotionGauge emotionLevel={50} label="보통" />
-              <EmotionGauge emotionLevel={75} label="좋음" />
-              <EmotionGauge emotionLevel={100} label="매우 좋음" />
+              <EmotionGauge emotionLevel={0} />
+              <EmotionGauge emotionLevel={25} />
+              <EmotionGauge emotionLevel={50} />
+              <EmotionGauge emotionLevel={75} />
+              <EmotionGauge emotionLevel={100} />
             </CardContent>
           </Card>
         </section>
@@ -352,7 +352,7 @@ export default function DevComponentsPage() {
                     <p className="text-muted-foreground text-xs">2시간 전</p>
                   </div>
                 </div>
-                <EmotionGauge emotionLevel={75} label="좋음" />
+                <EmotionGauge emotionLevel={75} />
               </div>
               <CardTitle className="text-xl">오늘은 좋은 일이 있었어요</CardTitle>
             </CardHeader>
