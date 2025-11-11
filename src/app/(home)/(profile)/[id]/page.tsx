@@ -1,8 +1,10 @@
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { followQueries } from "@/entities/follow/api/queries";
 import { userQueries } from "@/entities/user/api/queries";
 import { getUserInfo } from "@/entities/user/api/server";
+import { getCurrentUser } from "@/features/auth/api/server";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
 import { ProfilePageView } from "@/views/profile/profile-page-view";
 
@@ -21,18 +23,29 @@ const Page = async ({ params }: PageProps) => {
     notFound();
   }
 
+  const currentUser = await getCurrentUser();
+
   // 사용자 존재 여부 확인
-  const user = await getUserInfo(id);
-  if (!user) {
+  const profileUser = await getUserInfo(id);
+  if (!profileUser) {
     notFound();
   }
 
-  await queryClient.prefetchQuery(userQueries.getUserInfo(id));
+  await Promise.all([
+    queryClient.prefetchQuery(userQueries.getUserInfo(id)),
+    queryClient.prefetchQuery(followQueries.stats(id)),
+    queryClient.prefetchQuery(
+      followQueries.isFollowing(currentUser?.id ?? null, id),
+    ),
+  ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <Suspense fallback={<p>loading...</p>}>
-        <ProfilePageView id={id} />
+        <ProfilePageView
+          profileUserId={id}
+          currentUserId={currentUser?.id ?? null}
+        />
       </Suspense>
     </HydrationBoundary>
   );

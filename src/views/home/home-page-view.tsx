@@ -16,7 +16,7 @@ export const HomePageView = () => {
   const { openModal } = useModal();
   const { mutate: likeArticle } = useLikeArticle();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useSuspenseInfiniteQuery(articleQueries.infinite(me?.id ?? null));
+    useSuspenseInfiniteQuery(articleQueries.list(me?.id ?? null));
 
   const handleLike = (articleId: string, userId: string) => {
     likeArticle({ articleId, userId });

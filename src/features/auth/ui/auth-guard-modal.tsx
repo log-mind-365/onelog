@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useModal } from "@/app/_store/modal-store";
 import { Button } from "@/shared/components/ui/button";
 import {
@@ -9,9 +10,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/shared/components/ui/dialog";
+import { ROUTES } from "@/shared/model/routes";
 
 export const AuthGuardModal = () => {
-  const { openModal, closeModal } = useModal();
+  const { closeModal } = useModal();
+  const router = useRouter();
 
   return (
     <DialogContent>
@@ -25,7 +28,9 @@ export const AuthGuardModal = () => {
         <Button variant="secondary" onClick={closeModal}>
           취소
         </Button>
-        <Button onClick={() => openModal("sign-in")}>로그인 하러가기</Button>
+        <Button onClick={() => router.push(ROUTES.AUTH.SIGN_IN)}>
+          로그인 하러가기
+        </Button>
       </DialogFooter>
     </DialogContent>
   );

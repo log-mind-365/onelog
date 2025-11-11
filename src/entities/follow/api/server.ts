@@ -4,6 +4,7 @@ import { and, count, desc, eq, getTableColumns, gt } from "drizzle-orm";
 import { db } from "@/db";
 import { profiles } from "@/db/schemas/profiles";
 import { userFollows } from "@/db/schemas/user-follows";
+import type { FollowInsertSchema } from "@/entities/follow/model/types";
 import { FOLLOWER_PAGE_LIMIT } from "@/entities/user/model/constants";
 
 export const getFollowerCount = async (userId: string): Promise<number> => {
@@ -49,7 +50,6 @@ export const getFollowStats = async (userId: string) => {
   return {
     followerCount,
     followingCount,
-    isFollowing: await checkIsFollowing(userId, userId),
   };
 };
 
@@ -125,8 +125,8 @@ export const getFollowing = async (pageParam: string, userId: string) => {
   };
 };
 
-export const toggleFollow = async (followerId: string, followingId: string) => {
-  if (followerId === followingId) {
+export const toggleFollow = async (params: FollowInsertSchema) => {
+  if (params.followerId === params.followingId) {
     throw new Error("자기 자신을 팔로우할 수 없습니다.");
   }
 
@@ -135,24 +135,24 @@ export const toggleFollow = async (followerId: string, followingId: string) => {
     .from(userFollows)
     .where(
       and(
-        eq(userFollows.followingId, followingId),
-        eq(userFollows.followerId, followerId),
+        eq(userFollows.followingId, params.followingId),
+        eq(userFollows.followerId, params.followerId),
       ),
     )
     .then((rows) => rows[0]);
 
   if (!existingFollow) {
     await db.insert(userFollows).values({
-      followerId,
-      followingId,
+      followerId: params.followerId,
+      followingId: params.followingId,
     });
   } else {
     await db
       .delete(userFollows)
       .where(
         and(
-          eq(userFollows.followingId, followingId),
-          eq(userFollows.followerId, followerId),
+          eq(userFollows.followingId, params.followingId),
+          eq(userFollows.followerId, params.followerId),
         ),
       );
   }

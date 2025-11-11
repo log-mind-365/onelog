@@ -34,7 +34,7 @@ export const followQueries = {
       queryKey: FOLLOW_QUERY_KEY.FOLLOWING_COUNT(userId),
       queryFn: () => getFollowingCount(userId),
     }),
-  isFollowing: (followerId: string, followingId: string) =>
+  isFollowing: (followerId: string | null, followingId: string) =>
     queryOptions({
       queryKey: FOLLOW_QUERY_KEY.IS_FOLLOWING(followerId, followingId),
       queryFn: () => checkIsFollowing(followerId, followingId),
