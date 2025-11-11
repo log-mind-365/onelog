@@ -22,6 +22,13 @@
       "when": 1762697141048,
       "tag": "0004_recreate_policies",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1762827493015,
+      "tag": "0003_gifted_kree",
+      "breakpoints": true
     }
   ]
 }

@@ -12,7 +12,9 @@ import { authenticatedRole, authUsers } from "drizzle-orm/supabase";
 export const profiles = pgTable(
   "profiles",
   {
-    id: uuid("id").primaryKey().notNull(),
+    id: uuid("id")
+      .primaryKey()
+      .references(() => authUsers.id, { onDelete: "cascade" }),
     email: text("email").notNull(),
     userName: text("user_name").notNull(),
     avatarUrl: text("avatar_url"),
@@ -20,12 +22,7 @@ export const profiles = pgTable(
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
   },
-  (table) => [
-    foreignKey({
-      columns: [table.id],
-      foreignColumns: [authUsers.id],
-      name: "user_info_id_fk",
-    }).onDelete("cascade"),
+  (t) => [
     pgPolicy("authenticated can select profiles", {
       for: "select",
       to: "public",
