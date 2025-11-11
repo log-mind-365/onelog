@@ -873,7 +873,7 @@ import Link from "next/link";
 import { followQueries } from "@/entities/follow/api/queries";
 import { FollowButton } from "@/entities/follow/ui/follow-button";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
-import { UserBaseInfo } from "@/entities/user/ui/user-base-info";
+import { SummaryUserInfo } from "@/entities/user/ui/user-base-info";
 import { useAuth } from "@/features/auth/model/store";
 import { useFollowUser } from "@/features/follow/lib/use-follow-user";
 import {
@@ -939,7 +939,7 @@ const FollowingItem = ({
           fallback={followingUser.userName}
           size="md"
         />
-        <UserBaseInfo
+        <SummaryUserInfo
           userName={followingUser.userName}
           email={followingUser.email}
         />

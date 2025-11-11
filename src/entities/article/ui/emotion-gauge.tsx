@@ -1,19 +1,21 @@
 import type { ComponentProps } from "react";
+import { EMOTION_STATUS } from "@/entities/article/model/constants";
 import type { EmotionLevel } from "@/entities/article/model/types";
 import { cn } from "@/shared/lib/utils";
 
 type EmotionGaugeProps = ComponentProps<"div"> & {
   emotionLevel: EmotionLevel;
   size?: number;
-  label: string;
 };
 
 export default function EmotionGauge({
   emotionLevel,
   className,
   onClick,
-  label,
 }: EmotionGaugeProps) {
+  const label =
+    EMOTION_STATUS.find((emotion) => emotion.percent === emotionLevel)
+      ?.status || "알 수 없음";
   let emotionBlock = [0, 0, 0, 0, 0];
 
   switch (emotionLevel) {

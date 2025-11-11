@@ -102,6 +102,7 @@ export const InfiniteArticleList = ({
             accessType={accessType}
             title={title}
             content={content}
+            aboutMe={author?.aboutMe ?? ""}
             isMe={isMe}
             createdAt={createdAt}
             userId={userId}

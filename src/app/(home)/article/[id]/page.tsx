@@ -1,6 +1,7 @@
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { articleQueries } from "@/entities/article/api/queries";
 import { commentQueries } from "@/entities/comment/api/queries";
+import { followQueries } from "@/entities/follow/api/queries";
 import { getCurrentUser } from "@/features/auth/api/server";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
 import { ArticleDetailPageView } from "@/views/article/article-detail-page-view";
@@ -15,10 +16,14 @@ const ArticlePage = async ({ params }: PageProps) => {
   const user = await getCurrentUser();
   const userId = user?.id ?? null;
 
-  await Promise.all([
-    queryClient.prefetchQuery(articleQueries.detail(id, userId)),
+  const [article] = await Promise.all([
+    queryClient.fetchQuery(articleQueries.detail(id, userId)),
     queryClient.prefetchQuery(commentQueries.list(id)),
   ]);
+
+  await queryClient.prefetchQuery(
+    followQueries.isFollowing(userId, article.author?.id ?? ""),
+  );
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

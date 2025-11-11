@@ -155,7 +155,7 @@ src/entities/
     │   └── mappers.ts        # Supabase User → UserInfo 변환
     └── ui/
         ├── user-avatar.tsx
-        ├── user-base-info.tsx
+        ├── summary-user-info.tsx
         ├── user-detail-info.tsx
         └── auth-form-field.tsx
 ```
