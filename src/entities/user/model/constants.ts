@@ -1,3 +1,5 @@
+export const FOLLOWER_PAGE_LIMIT = 10;
+
 export const USER_TOAST_MESSAGE = {
   EDIT: {
     SUCCESS: "정보 수정에 성공했습니다.",

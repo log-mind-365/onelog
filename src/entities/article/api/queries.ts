@@ -9,7 +9,7 @@ import { ARTICLE_QUERY_KEY } from "@/entities/article/model/constants";
 import type { InfiniteArticleList } from "@/entities/article/model/types";
 
 export const articleQueries = {
-  infinite: (userId: string | null) =>
+  list: (userId: string | null) =>
     infiniteQueryOptions({
       queryKey: ARTICLE_QUERY_KEY.PUBLIC,
       queryFn: async ({ pageParam }): Promise<InfiniteArticleList> =>

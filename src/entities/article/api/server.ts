@@ -1,13 +1,22 @@
 "use server";
 
-import { and, count, desc, eq, getTableColumns, gt, or, sql } from "drizzle-orm";
+import {
+  and,
+  count,
+  desc,
+  eq,
+  getTableColumns,
+  gt,
+  or,
+  sql,
+} from "drizzle-orm";
 import { db } from "@/db";
 import { articleLikes } from "@/db/schemas/article-likes";
 import { articles } from "@/db/schemas/articles";
 import { comments } from "@/db/schemas/comments";
 import { profiles } from "@/db/schemas/profiles";
 import { reports } from "@/db/schemas/reports";
-import { PAGE_LIMIT } from "@/entities/article/model/constants";
+import { ARTICLE_PAGE_LIMIT } from "@/entities/article/model/constants";
 import type {
   Article,
   ArticleInsertSchema,
@@ -51,7 +60,7 @@ export const getInfinitePublicArticleList = async (
       ),
     )
     .groupBy(articles.id, profiles.id)
-    .limit(PAGE_LIMIT)
+    .limit(ARTICLE_PAGE_LIMIT)
     .orderBy(desc(articles.createdAt))
     .then((rows) =>
       rows.map((row) => ({
@@ -63,7 +72,9 @@ export const getInfinitePublicArticleList = async (
     );
 
   const nextId =
-    result.length === PAGE_LIMIT ? result[PAGE_LIMIT - 1].id : undefined;
+    result.length === ARTICLE_PAGE_LIMIT
+      ? result[ARTICLE_PAGE_LIMIT - 1].id
+      : undefined;
   const previousId = result.length > 0 ? result[0].id : undefined;
 
   return {

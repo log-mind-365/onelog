@@ -1,4 +1,4 @@
-export const PAGE_LIMIT = 10;
+export const ARTICLE_PAGE_LIMIT = 10;
 
 export const EMOTION_STATUS = [
   { percent: 0, status: "매우 나쁨" },
