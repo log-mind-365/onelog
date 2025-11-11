@@ -71,7 +71,7 @@ Next.js 16 App Router를 사용한 라우팅 레이어
 src/app/
 ├── (home)/                    # 메인 페이지 Route Group
 │   ├── page.tsx              # 홈 피드 (//)
-│   ├── template.tsx          # 공통 레이아웃 (사이드바)
+│   ├── layout.tsx          # 공통 레이아웃 (사이드바)
 │   ├── write/
 │   │   └── page.tsx          # 게시글 작성 (/write)
 │   ├── article/
@@ -103,7 +103,7 @@ src/app/
 - Route Groups: `(home)`, `(auth)`, `(profile)`로 레이아웃 분리
 - Dynamic Routes: `[id]` 패턴 사용
 - Server Components: 데이터 프리페칭
-- Template: 페이지 전환 시 애니메이션용
+- Layout: 페이지 전환 시 애니메이션용
 
 ---
 

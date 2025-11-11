@@ -70,11 +70,14 @@ export const ArticleHeader = ({
                       </Button>
                     </>
                   ) : (
-                    <Button size="sm" asChild>
-                      <Link href={ROUTES.PROFILE.VIEW(userId)}>
-                        프로필 페이지
-                      </Link>
-                    </Button>
+                    <>
+                      {/*<FollowButton onFollow={} isFollowing={} isMe={}/>*/}
+                      <Button size="sm" asChild>
+                        <Link href={ROUTES.PROFILE.VIEW(userId)}>
+                          프로필 페이지
+                        </Link>
+                      </Button>
+                    </>
                   )}
                 </div>
               </div>

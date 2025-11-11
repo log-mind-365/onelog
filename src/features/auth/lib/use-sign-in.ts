@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { getUserInfo } from "@/entities/user/api/server";
 import { signInToEntity } from "@/entities/user/lib/mappers";
 import type { UserInfo } from "@/entities/user/model/types";
 import { signIn } from "@/features/auth/api/server";
@@ -24,8 +25,8 @@ export const useSignIn = () => {
       password: string;
     }): Promise<UserInfo> => {
       const result = await signIn({ email, password });
-
-      return signInToEntity(result);
+      const profile = await getUserInfo(result.id);
+      return profile ? profile : signInToEntity(result);
     },
     onSuccess: (data) => {
       setMe(data);

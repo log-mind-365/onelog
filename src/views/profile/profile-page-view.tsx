@@ -69,7 +69,7 @@ export const ProfilePageView = ({
             fallback={user.userName}
             size="xl"
           />
-          <div className="flex flex-col items-center gap-2">
+          <div className="flex flex-col items-center gap-1">
             <CardTitle className="text-2xl">{user.userName}</CardTitle>
             <FollowStats
               followerCount={stats?.followerCount ?? 0}

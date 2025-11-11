@@ -1,10 +1,7 @@
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import { Suspense } from "react";
 import { articleQueries } from "@/entities/article/api/queries";
 import { commentQueries } from "@/entities/comment/api/queries";
 import { getCurrentUser } from "@/features/auth/api/server";
-import { PageContainer } from "@/shared/components/page-container";
-import { Spinner } from "@/shared/components/ui/spinner";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
 import { ArticleDetailPageView } from "@/views/article/article-detail-page-view";
 
@@ -25,15 +22,7 @@ const ArticlePage = async ({ params }: PageProps) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense
-        fallback={
-          <PageContainer>
-            <Spinner />
-          </PageContainer>
-        }
-      >
-        <ArticleDetailPageView id={id} userId={userId} />
-      </Suspense>
+      <ArticleDetailPageView id={id} userId={userId} />
     </HydrationBoundary>
   );
 };

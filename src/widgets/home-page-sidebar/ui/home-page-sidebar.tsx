@@ -1,9 +1,7 @@
 "use client";
 
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { userQueries } from "@/entities/user/api/queries";
+import { Suspense, useEffect, useState } from "react";
 import { useAuthGuard } from "@/features/auth/lib/use-auth-guard";
 import { useAuth } from "@/features/auth/model/store";
 import { AuthMenuDropdown } from "@/features/auth/ui/auth-menu-dropdown";
@@ -12,6 +10,7 @@ import { ToggleThemeButton } from "@/features/toggle-theme/ui/toggle-theme-butto
 import { UserProfileMenuDropdown } from "@/features/user/ui/user-profile-menu-dropdown";
 import { Button } from "@/shared/components/ui/button";
 import { Separator } from "@/shared/components/ui/separator";
+import { Spinner } from "@/shared/components/ui/spinner";
 import {
   Tooltip,
   TooltipContent,
