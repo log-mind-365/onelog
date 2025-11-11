@@ -5,7 +5,14 @@ import { useRouter } from "next/navigation";
 import { articleQueries } from "@/entities/article/api/queries";
 import { ArticleContent } from "@/entities/article/ui/article-content";
 import { ArticleHeader } from "@/entities/article/ui/article-header";
-import { UserDetailInfo } from "@/entities/user/ui/user-detail-info";
+import { followQueries } from "@/entities/follow/api/queries";
+import { FollowButton } from "@/entities/follow/ui/follow-button";
+import {
+  UserInfoBase,
+  UserInfoBaseActions,
+} from "@/entities/user/ui/user-info-base";
+import { useFollow } from "@/features/follow/lib/use-follow";
+import { ProfileNavigationButtons } from "@/features/profile/ui/profile-navigation-buttons";
 import {
   Card,
   CardContent,
@@ -28,21 +35,36 @@ export const ArticleDetailPageContent = ({
   const { data: article } = useSuspenseQuery(
     articleQueries.detail(articleId, userId),
   );
+  const { mutate: follow, isPending: isPendingFollow } = useFollow();
+  const { data: isFollowing } = useSuspenseQuery(
+    followQueries.isFollowing(userId, article.userId),
+  );
 
   const handleNavigateToProfile = () => {
-    router.push(ROUTES.PROFILE.VIEW(article.author?.id ?? ""));
+    router.push(ROUTES.PROFILE.VIEW(article.userId));
+  };
+
+  const handleNavigateToEditProfile = () => {
+    if (article.userId === userId) {
+      router.push(ROUTES.ARTICLE.EDIT(articleId));
+    }
+    return null;
+  };
+
+  const handleFollow = () => {
+    if (!userId || userId === article.userId) return null;
+
+    follow({ followerId: userId, followingId: article.userId });
   };
 
   return (
     <Card>
       <CardHeader>
         <ArticleHeader
-          userId={article.author?.id ?? ""}
           userName={article.author?.userName ?? ""}
           avatarUrl={article.author?.avatarUrl ?? null}
           email={article.author?.email ?? ""}
           emotionLevel={article.emotionLevel}
-          isMe={article.author?.id === userId}
           createdAt={article.createdAt}
         />
       </CardHeader>
@@ -51,13 +73,27 @@ export const ArticleDetailPageContent = ({
         <ArticleContent title={article?.title} content={article?.content} />
       </CardContent>
       <CardFooter>
-        <UserDetailInfo
+        <UserInfoBase
           userName={article.author?.userName ?? ""}
           email={article.author?.email ?? ""}
           aboutMe={article.author?.aboutMe ?? ""}
           avatarUrl={article.author?.avatarUrl ?? null}
-          onProfile={handleNavigateToProfile}
-        />
+          className="rounded-lg bg-background shadow-md"
+        >
+          <UserInfoBaseActions>
+            <FollowButton
+              onFollow={handleFollow}
+              isFollowing={isFollowing}
+              isMe={userId === article.userId}
+              isPending={isPendingFollow}
+            />
+            <ProfileNavigationButtons
+              isMe={article.userId === userId}
+              onViewProfile={handleNavigateToProfile}
+              onEditProfile={handleNavigateToEditProfile}
+            />
+          </UserInfoBaseActions>
+        </UserInfoBase>
       </CardFooter>
     </Card>
   );

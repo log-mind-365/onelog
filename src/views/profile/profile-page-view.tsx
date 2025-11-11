@@ -9,7 +9,7 @@ import { FollowStats } from "@/entities/follow/ui/follow-stats";
 import { userQueries } from "@/entities/user/api/queries";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
 import { useFollow } from "@/features/follow/lib/use-follow";
-import { ProfileEditButton } from "@/features/user/ui/profile-edit-button";
+import { ProfileNavigationButtons } from "@/features/profile/ui/profile-navigation-buttons";
 import { PageContainer } from "@/shared/components/page-container";
 import {
   Card,
@@ -88,9 +88,10 @@ export const ProfilePageView = ({
             onFollow={handleFollow}
             isPending={isFollowPending}
           />
-          <ProfileEditButton
+          <ProfileNavigationButtons
             isMe={profileUserId === currentUserId}
-            onNavigate={() => router.push(ROUTES.SETTINGS.PROFILE)}
+            onViewProfile={() => null}
+            onEditProfile={() => router.push(ROUTES.SETTINGS.PROFILE)}
           />
         </CardFooter>
       </Card>

@@ -6,7 +6,7 @@ import { redirect, useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { userQueries } from "@/entities/user/api/queries";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
-import { useUpdateProfile } from "@/features/user/lib/use-update-profile";
+import { useUpdateProfile } from "@/features/profile/lib/use-update-profile";
 import { PageContainer } from "@/shared/components/page-container";
 import { Button } from "@/shared/components/ui/button";
 import {

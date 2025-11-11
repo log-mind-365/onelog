@@ -1,7 +1,7 @@
 "use client";
 
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
-import { useUserProfileMenu } from "@/features/user/lib/use-user-profile-menu";
+import { useUserProfileMenu } from "@/features/profile/lib/use-user-profile-menu";
 import { Button } from "@/shared/components/ui/button";
 import {
   DropdownMenu,
