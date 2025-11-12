@@ -7,16 +7,23 @@ export const APP_LOGO = {
   path: ROUTES.HOME,
 };
 
-export const SIDEBAR_MENUS: Partial<Record<string, any>[]> = [
+export const SIDEBAR_MENUS: (
+  | {
+      label: string;
+      icon: any;
+      path: string;
+    }
+  | undefined
+)[] = [
   {
     label: "글쓰기",
     icon: PenSquare,
     path: ROUTES.ARTICLE.NEW,
   },
+  undefined, // Separator
   {
     label: "홈",
     icon: Home,
     path: ROUTES.HOME,
   },
-  undefined,
 ];

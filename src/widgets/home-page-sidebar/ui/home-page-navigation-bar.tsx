@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useAuthGuard } from "@/features/auth/lib/use-auth-guard";
@@ -21,12 +22,13 @@ import {
   APP_LOGO,
   SIDEBAR_MENUS,
 } from "@/widgets/home-page-sidebar/model/constants";
+import { MobileNavigationMenu } from "@/widgets/home-page-sidebar/ui/mobile-navigation-menu";
 
-export const HomePageSidebar = () => {
+export const HomePageNavigationBar = () => {
   const { me, isAuthenticated } = useAuth();
   const { theme, onThemeToggle } = useToggleTheme();
-  const pathname = usePathname();
   const router = useRouter();
+  const pathname = usePathname();
   const { authGuard } = useAuthGuard();
   const [mounted, setMounted] = useState(false);
 
@@ -53,63 +55,81 @@ export const HomePageSidebar = () => {
   const LogoIcon = APP_LOGO.icon;
 
   return (
-    <aside className="sticky top-4 ml-4 flex size-fit flex-col gap-2 rounded-lg border-1 bg-card p-2 shadow-sm">
-      <TooltipProvider delayDuration={0}>
-        {/* App Logo - Static */}
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="ghost" onClick={() => router.push(APP_LOGO.path)}>
-              <LogoIcon />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent side="right">
-            <p>{APP_LOGO.label}</p>
-          </TooltipContent>
-        </Tooltip>
+    <>
+      {/* Mobile Header */}
+      <header className="fixed top-0 right-0 left-0 z-50 m-2 flex items-center justify-between rounded-md border bg-card px-4 py-2 shadow-sm sm:hidden">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => router.push(APP_LOGO.path)}
+        >
+          <Image src="/brand_logo.svg" alt="logo icon" width={24} height={24} />
+        </Button>
+        <MobileNavigationMenu />
+      </header>
 
-        <Separator />
+      {/* Desktop Sidebar */}
+      <aside className="sticky top-4 ml-4 hidden size-fit flex-col gap-2 rounded-lg border-1 bg-card p-2 shadow-sm sm:flex">
+        <TooltipProvider delayDuration={0}>
+          {/* App Logo */}
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                onClick={() => router.push(APP_LOGO.path)}
+              >
+                <LogoIcon />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent side="right">
+              <p>{APP_LOGO.label}</p>
+            </TooltipContent>
+          </Tooltip>
 
-        {/* Navigation Menus */}
-        {SIDEBAR_MENUS.map((menu, index) => {
-          if (!menu) {
-            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-            return <Separator key={index} />;
-          }
+          <Separator />
 
-          const Icon = menu.icon;
-          const active = isActive(menu.path);
+          {/* Navigation Menus */}
+          {SIDEBAR_MENUS.map((menu, index) => {
+            if (!menu) {
+              // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+              return <Separator key={index} />;
+            }
 
-          return (
-            <Tooltip key={menu.label}>
-              <TooltipTrigger asChild>
-                <Button
-                  variant={active ? "default" : "ghost"}
-                  onClick={() => handleNavigate(menu.path!)}
-                >
-                  <Icon />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent side="right">
-                <p>{menu.label}</p>
-              </TooltipContent>
-            </Tooltip>
-          );
-        })}
+            const Icon = menu.icon;
+            const active = isActive(menu.path);
 
-        <ToggleThemeButton onThemeToggle={onThemeToggle} theme={theme} />
+            return (
+              <Tooltip key={menu.label}>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant={active ? "default" : "ghost"}
+                    onClick={() => handleNavigate(menu.path!)}
+                  >
+                    <Icon />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="right">
+                  <p>{menu.label}</p>
+                </TooltipContent>
+              </Tooltip>
+            );
+          })}
 
-        <Separator />
+          <ToggleThemeButton onThemeToggle={onThemeToggle} theme={theme} />
 
-        {/* Auth / Profile Button */}
-        {isAuthenticated ? (
-          <UserProfileMenuDropdown
-            userName={me?.userName || ""}
-            avatarUrl={me?.avatarUrl || undefined}
-          />
-        ) : (
-          <AuthMenuDropdown />
-        )}
-      </TooltipProvider>
-    </aside>
+          <Separator />
+
+          {/* Auth / Profile Button */}
+          {isAuthenticated ? (
+            <UserProfileMenuDropdown
+              userName={me?.userName || ""}
+              avatarUrl={me?.avatarUrl || undefined}
+            />
+          ) : (
+            <AuthMenuDropdown />
+          )}
+        </TooltipProvider>
+      </aside>
+    </>
   );
 };
