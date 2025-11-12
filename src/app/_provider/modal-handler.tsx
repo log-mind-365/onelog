@@ -1,6 +1,5 @@
 "use client";
 
-import type { PropsWithChildren } from "react";
 import { useModal } from "@/app/_store/modal-store";
 import { ReportArticleDialog } from "@/features/article/ui/report-article-dialog";
 import { SubmitArticleModal } from "@/features/article/ui/submit-article-modal";

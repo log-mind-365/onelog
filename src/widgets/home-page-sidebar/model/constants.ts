@@ -20,7 +20,6 @@ export const SIDEBAR_MENUS: (
     icon: PenSquare,
     path: ROUTES.ARTICLE.NEW,
   },
-  undefined, // Separator
   {
     label: "홈",
     icon: Home,

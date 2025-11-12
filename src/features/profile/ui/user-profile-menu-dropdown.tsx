@@ -19,7 +19,7 @@ import {
 
 type UserProfileMenuDropdownProps = {
   userName: string;
-  avatarUrl?: string;
+  avatarUrl: string | null;
 };
 
 export const UserProfileMenuDropdown = ({
