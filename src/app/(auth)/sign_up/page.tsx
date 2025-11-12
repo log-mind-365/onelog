@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useSignUp } from "@/features/auth/lib/use-sign-up";
 import { signUpSchema } from "@/features/auth/model/schema";
@@ -23,6 +24,7 @@ import { ROUTES } from "@/shared/model/routes";
 const SignUpPage = () => {
   const router = useRouter();
   const { mutate: signUp, isPending } = useSignUp();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { control, handleSubmit } = useForm<SignUpFormData>({
     resolver: zodResolver(signUpSchema),
     mode: "onBlur",
@@ -34,8 +36,17 @@ const SignUpPage = () => {
   });
 
   const handleSubmitSignUp = (data: SignUpFormData) => {
-    signUp(data);
+    setIsSubmitting(true);
+    signUp(data, {
+      onSuccess: () => router.replace(ROUTES.HOME),
+      onError: (error) => {
+        console.error(error);
+        setIsSubmitting(false);
+      },
+    });
   };
+
+  const isLoading = isSubmitting || isPending;
 
   return (
     <div className="flex w-sm flex-col gap-4">
@@ -108,8 +119,8 @@ const SignUpPage = () => {
                 </Field>
               )}
             />
-            <Button type="submit" disabled={isPending} className="w-full">
-              {isPending ? <Spinner /> : "회원가입"}
+            <Button type="submit" disabled={isLoading} className="w-full">
+              {isLoading ? <Spinner /> : "회원가입"}
             </Button>
           </FieldGroup>
         </FieldSet>

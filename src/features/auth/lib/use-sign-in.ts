@@ -10,7 +10,6 @@ import {
 } from "@/features/auth/model/constants";
 import { useAuth } from "@/features/auth/model/store";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
-import { ROUTES } from "@/shared/model/routes";
 
 export const useSignIn = () => {
   const queryClient = getQueryClient();
@@ -30,7 +29,6 @@ export const useSignIn = () => {
     },
     onSuccess: (data) => {
       setMe(data);
-      window.location.href = ROUTES.HOME;
       toast.success(AUTH_TOAST_MESSAGE.SIGN_IN.SUCCESS, {
         description: AUTH_TOAST_MESSAGE.SIGN_IN.MESSAGE,
       });

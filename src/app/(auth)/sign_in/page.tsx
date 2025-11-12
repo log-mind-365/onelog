@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useSignIn } from "@/features/auth/lib/use-sign-in";
 import { signInSchema } from "@/features/auth/model/schema";
@@ -23,6 +24,7 @@ import { ROUTES } from "@/shared/model/routes";
 const SignInPage = () => {
   const router = useRouter();
   const { mutate: signIn, isPending } = useSignIn();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { control, handleSubmit } = useForm<SignInFormData>({
     resolver: zodResolver(signInSchema),
     mode: "onBlur",
@@ -33,8 +35,19 @@ const SignInPage = () => {
   });
 
   const handleSubmitSignIn = (data: SignInFormData) => {
-    signIn(data);
+    setIsSubmitting(true);
+    signIn(data, {
+      onSuccess: () => {
+        router.replace(ROUTES.HOME);
+      },
+      onError: (error) => {
+        console.error(error);
+        setIsSubmitting(false);
+      },
+    });
   };
+
+  const isLoading = isSubmitting || isPending;
 
   return (
     <div className="flex w-sm flex-col gap-4">
@@ -89,8 +102,8 @@ const SignInPage = () => {
                 </Field>
               )}
             />
-            <Button type="submit" disabled={isPending} className="w-full">
-              {isPending ? <Spinner /> : "로그인"}
+            <Button type="submit" disabled={isLoading} className="w-full">
+              {isLoading ? <Spinner /> : "로그인"}
             </Button>
           </FieldGroup>
         </FieldSet>
