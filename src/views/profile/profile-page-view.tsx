@@ -13,6 +13,7 @@ import { ProfileNavigationButtons } from "@/features/profile/ui/profile-navigati
 import { PageContainer } from "@/shared/components/page-container";
 import {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
@@ -72,28 +73,32 @@ export const ProfilePageView = ({
           />
           <div className="flex flex-col items-center gap-1">
             <CardTitle className="text-2xl">{user.userName}</CardTitle>
-            <FollowStats
-              followerCount={stats?.followerCount ?? 0}
-              followingCount={stats?.followingCount ?? 0}
-            />
-            <CardDescription className="flex items-center gap-2">
-              <Mail className="size-4" />
-              {user.email}
+            <CardDescription className="flex flex-col items-center text-muted-foreground text-sm">
+              <FollowStats
+                followerCount={stats?.followerCount ?? 0}
+                followingCount={stats?.followingCount ?? 0}
+              />
+              <div className="flex gap-2">
+                <Mail className="size-4" />
+                {user.email}
+              </div>
             </CardDescription>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-center">
-          <FollowButton
-            isFollowing={isFollowing}
-            isMe={profileUserId === currentUserId}
-            onFollow={handleFollow}
-            isPending={isFollowPending}
-          />
-          <ProfileNavigationButtons
-            isMe={profileUserId === currentUserId}
-            onViewProfile={() => null}
-            onEditProfile={() => router.push(ROUTES.SETTINGS.PROFILE)}
-          />
+        <CardFooter className="justify-center">
+          <CardAction className="flex items-center gap-2">
+            <FollowButton
+              isFollowing={isFollowing}
+              isMe={profileUserId === currentUserId}
+              onFollow={handleFollow}
+              isPending={isFollowPending}
+            />
+            <ProfileNavigationButtons
+              isMe={profileUserId === currentUserId}
+              onViewProfile={() => null}
+              onEditProfile={() => router.push(ROUTES.SETTINGS.PROFILE)}
+            />
+          </CardAction>
         </CardFooter>
       </Card>
 

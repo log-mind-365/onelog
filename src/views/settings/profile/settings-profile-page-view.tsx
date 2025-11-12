@@ -25,9 +25,7 @@ type SettingsProfilePageViewProps = {
   id: string;
 };
 
-export const SettingsProfilePageView = ({
-  id,
-}: SettingsProfilePageViewProps) => {
+export const SettingsProfilePageView = ({ id }: SettingsProfilePageViewProps) => {
   const { data: me } = useSuspenseQuery(userQueries.getUserInfo(id));
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);

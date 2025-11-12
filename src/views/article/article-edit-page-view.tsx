@@ -18,10 +18,7 @@ type ArticleEditPageViewProps = {
   userId: string | null;
 };
 
-export const ArticleEditPageView = ({
-  id,
-  userId,
-}: ArticleEditPageViewProps) => {
+export const ArticleEditPageView = ({ id, userId }: ArticleEditPageViewProps) => {
   const { data: article } = useSuspenseQuery(articleQueries.detail(id, userId));
   const { setTitle, setContent, setEmotionLevel, setAccessType, reset } =
     useDraft();

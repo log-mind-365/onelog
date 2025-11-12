@@ -1,15 +1,10 @@
 "use client";
 
-import type { TooltipContentProps } from "@radix-ui/react-tooltip";
 import { Moon, Sun } from "lucide-react";
+import type { ComponentProps } from "react";
 import { Button } from "@/shared/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/shared/components/ui/tooltip";
 
-type ToggleThemeButton = TooltipContentProps & {
+type ToggleThemeButton = ComponentProps<"button"> & {
   onThemeToggle: () => void;
   theme?: string;
 };
@@ -17,18 +12,16 @@ type ToggleThemeButton = TooltipContentProps & {
 export const ToggleThemeButton = ({
   onThemeToggle,
   theme,
-  side = "right",
+  className,
 }: ToggleThemeButton) => {
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Button variant="ghost" onClick={onThemeToggle}>
-          {theme === "dark" ? <Moon /> : <Sun />}
-        </Button>
-      </TooltipTrigger>
-      <TooltipContent side={side}>
-        <p>테마 변경</p>
-      </TooltipContent>
-    </Tooltip>
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={onThemeToggle}
+      className={className}
+    >
+      {theme === "dark" ? <Moon /> : <Sun />}
+    </Button>
   );
 };

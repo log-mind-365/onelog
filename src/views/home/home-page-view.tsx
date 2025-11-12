@@ -1,41 +1,12 @@
 "use client";
 
-import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
-import type { MouseEvent } from "react";
-import { useModal } from "@/app/_store/modal-store";
-import { articleQueries } from "@/entities/article/api/queries";
-import { useLikeArticle } from "@/features/article/lib/use-like-article";
-import { useAuth } from "@/features/auth/model/store";
+import { Suspense } from "react";
 import { PageContainer } from "@/shared/components/page-container";
 import { TransitionContainer } from "@/shared/components/transition-container";
 import { InfiniteArticleList } from "@/widgets/article-list/ui/infinite-article-list";
 import { FakeForm } from "@/widgets/fake-form/ui/fake-form";
 
 export const HomePageView = () => {
-  const { me } = useAuth();
-  const { openModal } = useModal();
-  const { mutate: likeArticle } = useLikeArticle();
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useSuspenseInfiniteQuery(articleQueries.list(me?.id ?? null));
-
-  const handleLike = (articleId: string, userId: string) => {
-    likeArticle({ articleId, userId });
-  };
-
-  const handleReport =
-    (articleId: string, reporterId: string) =>
-    (e: MouseEvent<HTMLButtonElement>) => {
-      e.stopPropagation();
-      if (!reporterId) {
-        openModal("auth-guard");
-      } else {
-        openModal("report-article", {
-          articleId,
-          reporterId,
-        });
-      }
-    };
-
   return (
     <PageContainer
       title="안녕하세요"
@@ -46,15 +17,9 @@ export const HomePageView = () => {
         </TransitionContainer.SlideIn>
       }
     >
-      <InfiniteArticleList
-        data={data}
-        currentUserId={me?.id ?? null}
-        onLike={handleLike}
-        onReport={handleReport}
-        onFetchNextPage={() => void fetchNextPage()}
-        hasNextPage={hasNextPage}
-        isFetchingNextPage={isFetchingNextPage}
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <InfiniteArticleList />
+      </Suspense>
     </PageContainer>
   );
 };

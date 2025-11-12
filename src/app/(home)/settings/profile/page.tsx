@@ -1,6 +1,5 @@
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { redirect } from "next/navigation";
-import { Suspense } from "react";
 import { userQueries } from "@/entities/user/api/queries";
 import { getCurrentUser } from "@/features/auth/api/server";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
@@ -19,9 +18,7 @@ const Page = async () => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<p>loading...</p>}>
-        <SettingsProfilePageView id={user?.id} />
-      </Suspense>
+      <SettingsProfilePageView id={user?.id} />
     </HydrationBoundary>
   );
 };

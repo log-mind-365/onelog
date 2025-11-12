@@ -8,10 +8,7 @@ type ArticleDetailPageView = {
   userId: string | null;
 };
 
-export const ArticleDetailPageView = ({
-  id,
-  userId,
-}: ArticleDetailPageView) => {
+export const ArticleDetailPageView = ({ id, userId }: ArticleDetailPageView) => {
   return (
     <PageContainer>
       <ArticleDetailPageActionbar userId={userId} articleId={id} />

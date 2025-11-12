@@ -11,7 +11,7 @@ import { SignOutModal } from "@/features/auth/ui/sign-out-modal";
 import { SignUpModal } from "@/features/auth/ui/sign-up-modal";
 import { Dialog } from "@/shared/components/ui/dialog";
 
-export const ModalProvider = () => {
+export const ModalHandler = () => {
   const { currentModal, closeModal } = useModal();
 
   if (currentModal === null) return null;
