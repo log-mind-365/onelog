@@ -24,6 +24,9 @@ const ArticlePage = async ({ params }: PageProps) => {
   await queryClient.prefetchQuery(
     followQueries.isFollowing(userId, article.author?.id ?? ""),
   );
+  await queryClient.prefetchQuery(
+    followQueries.stats(article.author?.id ?? ""),
+  );
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

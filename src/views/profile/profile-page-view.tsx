@@ -8,7 +8,7 @@ import { FollowButton } from "@/entities/follow/ui/follow-button";
 import { FollowStats } from "@/entities/follow/ui/follow-stats";
 import { userQueries } from "@/entities/user/api/queries";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
-import { useFollow } from "@/features/follow/lib/use-follow";
+import { useFollowToggle } from "@/features/follow/lib/use-follow-toggle";
 import { ProfileNavigationButtons } from "@/features/profile/ui/profile-navigation-buttons";
 import { PageContainer } from "@/shared/components/page-container";
 import {
@@ -39,7 +39,8 @@ export const ProfilePageView = ({
   const { data: isFollowing } = useSuspenseQuery(
     followQueries.isFollowing(currentUserId, profileUserId),
   );
-  const { mutate: toggleFollow, isPending: isFollowPending } = useFollow();
+  const { mutate: toggleFollow, isPending: isFollowPending } =
+    useFollowToggle();
 
   if (!user) {
     return null;

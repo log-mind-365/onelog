@@ -11,7 +11,7 @@ import {
   UserInfoBase,
   UserInfoBaseActions,
 } from "@/entities/user/ui/user-info-base";
-import { useFollow } from "@/features/follow/lib/use-follow";
+import { useFollowToggle } from "@/features/follow/lib/use-follow-toggle";
 import { ProfileNavigationButtons } from "@/features/profile/ui/profile-navigation-buttons";
 import {
   Card,
@@ -35,7 +35,9 @@ export const ArticleDetailPageContent = ({
   const { data: article } = useSuspenseQuery(
     articleQueries.detail(articleId, userId),
   );
-  const { mutate: follow, isPending: isPendingFollow } = useFollow();
+  useSuspenseQuery(followQueries.stats(article.userId));
+  const { mutate: followToggle, isPending: isPendingFollow } =
+    useFollowToggle();
   const { data: isFollowing } = useSuspenseQuery(
     followQueries.isFollowing(userId, article.userId),
   );
@@ -54,7 +56,7 @@ export const ArticleDetailPageContent = ({
   const handleFollow = () => {
     if (!userId || userId === article.userId) return null;
 
-    follow({ followerId: userId, followingId: article.userId });
+    followToggle({ followerId: userId, followingId: article.userId });
   };
 
   return (

@@ -61,7 +61,7 @@ export const postComment = async (
   const [comment] = await db.insert(comments).values(data).returning();
 
   // 작성자 정보와 함께 반환
-  const commentWithAuthor = await db
+  return await db
     .select({
       id: comments.id,
       articleId: comments.articleId,
@@ -83,8 +83,6 @@ export const postComment = async (
     .leftJoin(profiles, eq(comments.userId, profiles.id))
     .where(eq(comments.id, comment.id))
     .then((rows) => rows[0]);
-
-  return commentWithAuthor;
 };
 
 /**

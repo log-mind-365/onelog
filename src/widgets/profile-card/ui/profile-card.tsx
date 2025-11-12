@@ -6,7 +6,7 @@ import {
   UserInfoBase,
   UserInfoBaseActions,
 } from "@/entities/user/ui/user-info-base";
-import { useFollow } from "@/features/follow/lib/use-follow";
+import { useFollowToggle } from "@/features/follow/lib/use-follow-toggle";
 import { ProfileNavigationButtons } from "@/features/profile/ui/profile-navigation-buttons";
 import { ROUTES } from "@/shared/model/routes";
 
@@ -33,7 +33,8 @@ export const ProfileCard = ({
   const { data: isFollowing } = useSuspenseQuery(
     followQueries.isFollowing(currentUserId, userId),
   );
-  const { mutate: toggleFollow, isPending: isPendingFollow } = useFollow();
+  const { mutate: toggleFollow, isPending: isPendingFollow } =
+    useFollowToggle();
 
   const handleFollow = () => {
     if (!currentUserId || currentUserId === userId) return null;

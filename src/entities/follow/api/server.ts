@@ -4,7 +4,10 @@ import { and, count, desc, eq, getTableColumns, gt } from "drizzle-orm";
 import { db } from "@/db";
 import { profiles } from "@/db/schemas/profiles";
 import { userFollows } from "@/db/schemas/user-follows";
-import type { FollowInsertSchema } from "@/entities/follow/model/types";
+import type {
+  FollowInsertSchema,
+  FollowStats,
+} from "@/entities/follow/model/types";
 import { FOLLOWER_PAGE_LIMIT } from "@/entities/user/model/constants";
 
 export const getFollowerCount = async (userId: string): Promise<number> => {
@@ -26,7 +29,7 @@ export const getFollowingCount = async (userId: string): Promise<number> => {
 export const checkIsFollowing = async (
   followerId: string | null,
   followingId: string,
-) => {
+): Promise<boolean> => {
   if (!followerId) return false;
   if (followerId === followingId) return false;
   return db
@@ -41,7 +44,7 @@ export const checkIsFollowing = async (
     .then((rows) => rows.length > 0);
 };
 
-export const getFollowStats = async (userId: string) => {
+export const getFollowStats = async (userId: string): Promise<FollowStats> => {
   const [followerCount, followingCount] = await Promise.all([
     getFollowerCount(userId),
     getFollowingCount(userId),
@@ -146,6 +149,7 @@ export const toggleFollow = async (params: FollowInsertSchema) => {
       followerId: params.followerId,
       followingId: params.followingId,
     });
+    return { isFollowed: true };
   } else {
     await db
       .delete(userFollows)
@@ -155,5 +159,6 @@ export const toggleFollow = async (params: FollowInsertSchema) => {
           eq(userFollows.followerId, params.followerId),
         ),
       );
+    return { isFollowed: false };
   }
 };
