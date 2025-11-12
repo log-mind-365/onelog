@@ -1,5 +1,6 @@
 "use client";
 
+import type { PropsWithChildren } from "react";
 import { useModal } from "@/app/_store/modal-store";
 import { ReportArticleDialog } from "@/features/article/ui/report-article-dialog";
 import { SubmitArticleModal } from "@/features/article/ui/submit-article-modal";
@@ -10,7 +11,7 @@ import { SignOutModal } from "@/features/auth/ui/sign-out-modal";
 import { SignUpModal } from "@/features/auth/ui/sign-up-modal";
 import { Dialog } from "@/shared/components/ui/dialog";
 
-export const Modal = () => {
+export const ModalProvider = () => {
   const { currentModal, closeModal } = useModal();
 
   if (currentModal === null) return null;

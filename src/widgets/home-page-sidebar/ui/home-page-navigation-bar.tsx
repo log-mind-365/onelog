@@ -1,16 +1,15 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthGuard } from "@/features/auth/lib/use-auth-guard";
 import { useAuth } from "@/features/auth/model/store";
 import { AuthMenuDropdown } from "@/features/auth/ui/auth-menu-dropdown";
+import { UserProfileMenuDropdown } from "@/features/profile/ui/user-profile-menu-dropdown";
 import { useToggleTheme } from "@/features/toggle-theme/lib/use-toggle-theme";
 import { ToggleThemeButton } from "@/features/toggle-theme/ui/toggle-theme-button";
-import { UserProfileMenuDropdown } from "@/features/profile/ui/user-profile-menu-dropdown";
 import { Button } from "@/shared/components/ui/button";
 import { Separator } from "@/shared/components/ui/separator";
-import { Spinner } from "@/shared/components/ui/spinner";
 import {
   Tooltip,
   TooltipContent,

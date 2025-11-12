@@ -1,38 +1,42 @@
 "use client";
 
-import type { InfiniteData } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
-import type { InfiniteArticleList as InfiniteArticleListType } from "@/entities/article/model/types";
+import { type MouseEvent, useEffect, useRef } from "react";
+import { useModal } from "@/app/_store/modal-store";
+import { articleQueries } from "@/entities/article/api/queries";
+import { useLikeArticle } from "@/features/article/lib/use-like-article";
+import { useAuth } from "@/features/auth/model/store";
 import { ROUTES } from "@/shared/model/routes";
 import { ArticleCard } from "@/widgets/article-card/ui/article-card";
 
-type InfiniteArticleListProps = {
-  data: InfiniteData<InfiniteArticleListType>;
-  currentUserId: string | null;
-  onLike: (articleId: string, userId: string) => void;
-  onReport: (
-    articleId: string,
-    reporterId: string,
-  ) => (e: React.MouseEvent<HTMLButtonElement>) => void;
-  onFetchNextPage: () => void;
-  hasNextPage: boolean;
-  isFetchingNextPage: boolean;
-};
-
-export const InfiniteArticleList = ({
-  data,
-  currentUserId,
-  onLike,
-  onReport,
-  onFetchNextPage,
-  hasNextPage,
-  isFetchingNextPage,
-}: InfiniteArticleListProps) => {
+export const InfiniteArticleList = () => {
   const router = useRouter();
+  const { me } = useAuth();
+  const { openModal } = useModal();
+  const { mutate: likeArticle } = useLikeArticle();
+  const currentUserId = me?.id || null;
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useSuspenseInfiniteQuery(articleQueries.list(currentUserId ?? null));
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
   const allArticles = data?.pages.flatMap((page) => page.data) ?? [];
+
+  const handleLike = (articleId: string, userId: string) => {
+    if (!currentUserId) return null;
+    likeArticle({ articleId, userId });
+  };
+
+  const handleReport = (articleId: string) => {
+    if (!currentUserId) {
+      openModal("auth-guard");
+    } else {
+      openModal("report-article", {
+        articleId,
+        reporterId: currentUserId,
+      });
+    }
+  };
 
   useEffect(() => {
     if (!hasNextPage || isFetchingNextPage) return;
@@ -40,7 +44,7 @@ export const InfiniteArticleList = ({
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting) {
-          onFetchNextPage();
+          fetchNextPage();
         }
       },
       { threshold: 0.1 },
@@ -56,7 +60,7 @@ export const InfiniteArticleList = ({
         observer.unobserve(currentRef);
       }
     };
-  }, [hasNextPage, isFetchingNextPage, onFetchNextPage]);
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   if (allArticles.length === 0) {
     return (
@@ -86,16 +90,11 @@ export const InfiniteArticleList = ({
         } = article;
         const isMe = currentUserId === author?.id;
 
-        const handleLike = () => {
-          if (!currentUserId) return;
-          onLike(id, currentUserId);
+        const onLike = () => handleLike(id, userId);
+        const onReport = (e: MouseEvent<HTMLButtonElement>) => {
+          e.stopPropagation();
+          handleReport(id);
         };
-
-        const handleReport = (e: React.MouseEvent<HTMLButtonElement>) => {
-          if (!currentUserId) return;
-          onReport(id, currentUserId)(e);
-        };
-
         return (
           <ArticleCard
             key={id}
@@ -114,8 +113,8 @@ export const InfiniteArticleList = ({
             isLiked={isLiked}
             commentCount={commentCount}
             onClick={() => router.push(ROUTES.ARTICLE.VIEW(id))}
-            onLike={handleLike}
-            onReport={handleReport}
+            onLike={onLike}
+            onReport={onReport}
           />
         );
       })}

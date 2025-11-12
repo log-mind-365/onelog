@@ -6,7 +6,7 @@ import {
   desc,
   eq,
   getTableColumns,
-  gt,
+  lt,
   or,
   sql,
 } from "drizzle-orm";
@@ -51,7 +51,7 @@ export const getInfinitePublicArticleList = async (
     .leftJoin(articleLikes, eq(articles.id, articleLikes.articleId))
     .where(
       and(
-        pageParam ? gt(articles.id, pageParam) : undefined,
+        pageParam ? lt(articles.createdAt, new Date(pageParam)) : undefined,
         // public이거나 자신의 게시물만 조회
         or(
           eq(articles.accessType, "public"),
@@ -73,9 +73,9 @@ export const getInfinitePublicArticleList = async (
 
   const nextId =
     result.length === ARTICLE_PAGE_LIMIT
-      ? result[ARTICLE_PAGE_LIMIT - 1].id
+      ? result[ARTICLE_PAGE_LIMIT - 1].createdAt.toISOString()
       : undefined;
-  const previousId = result.length > 0 ? result[0].id : undefined;
+  const previousId = result.length > 0 ? result[0].createdAt.toISOString() : undefined;
 
   return {
     nextId,
