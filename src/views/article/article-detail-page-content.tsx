@@ -40,7 +40,7 @@ export const ArticleDetailPageContent = ({
   const { data: article } = useSuspenseQuery(
     articleQueries.detail(articleId, currentUserId),
   );
-  const { viewMode, isFollowing } = useArticleViewMode(
+  const { viewMode } = useArticleViewMode(
     article.author?.id ?? "",
     currentUserId,
   );
@@ -52,7 +52,7 @@ export const ArticleDetailPageContent = ({
     aboutMe = null,
     avatarUrl = null,
   } = article.author ?? {};
-  const { title = "", content = "", emotionLevel } = article;
+  const { title = "", content = "", emotionLevel, isFollowing } = article;
 
   return (
     <Card>
@@ -79,6 +79,7 @@ export const ArticleDetailPageContent = ({
           <UserInfoCardActions className="sm:flex-col">
             <ArticleAuthorProfileActionBar
               viewMode={viewMode}
+              articleId={articleId}
               authorId={id}
               currentUserId={currentUserId}
               isFollowing={isFollowing}

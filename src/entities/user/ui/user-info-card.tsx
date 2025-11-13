@@ -71,7 +71,7 @@ const UserInfoCardName = ({
   ...props
 }: UserInfoNameProps) => {
   return (
-    <h1 className={cn("font-bold text-sm sm:text-lg", className)} {...props}>
+    <h1 className={cn("font-bold text-lg", className)} {...props}>
       {userName}
     </h1>
   );
@@ -87,10 +87,7 @@ const UserInfoCardEmail = ({
   ...props
 }: UserInfoEmailProps) => {
   return (
-    <p
-      className={cn("text-muted-foreground text-xs sm:text-sm", className)}
-      {...props}
-    >
+    <p className={cn("text-muted-foreground text-sm", className)} {...props}>
       {email}
     </p>
   );
@@ -106,7 +103,7 @@ const UserInfoCardAboutMe = ({
   ...props
 }: UserInfoAboutMeProps) => {
   return (
-    <p className={cn("text-xs sm:text-sm", className)} {...props}>
+    <p className={cn("text-sm", className)} {...props}>
       {aboutMe}
     </p>
   );

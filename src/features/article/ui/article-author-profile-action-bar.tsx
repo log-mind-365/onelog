@@ -4,6 +4,7 @@ import { ArticleVisitorActions } from "@/features/article/ui/article-visitor-act
 
 type ArticleAuthorProfileActionBarProps = {
   viewMode: ArticleViewMode;
+  articleId: string;
   authorId: string;
   currentUserId: string | null;
   isFollowing: boolean;
@@ -11,6 +12,7 @@ type ArticleAuthorProfileActionBarProps = {
 
 export const ArticleAuthorProfileActionBar = ({
   viewMode,
+  articleId,
   authorId,
   currentUserId,
   isFollowing,
@@ -19,6 +21,7 @@ export const ArticleAuthorProfileActionBar = ({
     case "viewer":
       return (
         <ArticleVisitorActions
+          articleId={articleId}
           authorId={authorId}
           currentUserId={currentUserId}
           isFollowing={isFollowing}

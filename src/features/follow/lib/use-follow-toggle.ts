@@ -12,8 +12,9 @@ import type {
 } from "@/entities/follow/model/types";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
 
-export const useFollowToggle = () => {
+export const useFollowToggle = (articleId?: string) => {
   const queryClient = getQueryClient();
+
   return useMutation({
     mutationFn: (params: FollowInsertSchema) => toggleFollow(params),
     onMutate: async (params: FollowInsertSchema) => {
@@ -58,6 +59,7 @@ export const useFollowToggle = () => {
 
       const queryKeys = [
         ARTICLE_QUERY_KEY.PUBLIC,
+        articleId ? ARTICLE_QUERY_KEY.DETAIL(articleId, followerId) : undefined,
         FOLLOW_QUERY_KEY.STATS(followingId),
         FOLLOW_QUERY_KEY.IS_FOLLOWING(followerId, followingId),
       ];

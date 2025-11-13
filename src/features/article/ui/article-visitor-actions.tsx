@@ -6,17 +6,19 @@ import { Spinner } from "@/shared/components/ui/spinner";
 import { ROUTES } from "@/shared/model/routes";
 
 type ArticleVisitorActionsProps = {
+  articleId: string;
   authorId: string;
   currentUserId: string | null;
   isFollowing: boolean;
 };
 
 export const ArticleVisitorActions = ({
+  articleId,
   authorId,
   currentUserId,
   isFollowing,
 }: ArticleVisitorActionsProps) => {
-  const { mutate: toggleFollow, isPending } = useFollowToggle();
+  const { mutate: toggleFollow, isPending } = useFollowToggle(articleId);
   const authGuard = useAuthGuard();
 
   const handleFollowToggle = () => {
