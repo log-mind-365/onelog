@@ -9,7 +9,7 @@ import { ROUTES } from "@/shared/model/routes";
 export const FakeForm = () => {
   const router = useRouter();
   const { me } = useAuth();
-  const { authGuard } = useAuthGuard();
+  const authGuard = useAuthGuard();
 
   const handlePostClick = () => {
     authGuard(() => router.push(ROUTES.ARTICLE.NEW));

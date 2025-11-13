@@ -14,7 +14,7 @@ export const HomePageNavigationBar = () => {
   const { theme, onThemeToggle } = useToggleTheme();
   const router = useRouter();
   const pathname = usePathname();
-  const { authGuard } = useAuthGuard();
+  const authGuard = useAuthGuard();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

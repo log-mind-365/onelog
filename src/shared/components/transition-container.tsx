@@ -22,7 +22,11 @@ const DIRECTION_VARIANTS = {
   down: [{ y: -100 }, { y: 0 }],
 };
 
-const FadeIn = ({ duration = 0.3, className, children }: FadeInProps) => {
+const FadeInTransition = ({
+  duration = 0.3,
+  className,
+  children,
+}: FadeInProps) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -35,7 +39,7 @@ const FadeIn = ({ duration = 0.3, className, children }: FadeInProps) => {
   );
 };
 
-const SlideIn = ({
+const SlideInTransition = ({
   duration = 0.3,
   direction = "down",
   type = "tween",
@@ -56,4 +60,4 @@ const SlideIn = ({
   );
 };
 
-export const TransitionContainer = { FadeIn, SlideIn };
+export { SlideInTransition, FadeInTransition };
