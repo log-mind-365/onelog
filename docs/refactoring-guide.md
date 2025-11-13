@@ -75,11 +75,11 @@ export { MyComponent };
 
 ### 현재 문제점
 
-**파일**: `src/entities/user/ui/user-info-base.tsx`
+**파일**: `src/entities/user/ui/user-info-card.tsx`
 
 ```tsx
 // ❌ 현재: 레이아웃이 고정되어 있어 재사용이 어려움
-export const UserInfoBase = ({
+export const UserInfoCard = ({
   userName,
   aboutMe,
   email,
@@ -242,11 +242,11 @@ export { UserInfo };
 
 #### 2단계: 사용 예제
 
-**예제 1: ArticleCard Popover (기존 UserInfoBase 대체)**
+**예제 1: ArticleCard Popover (기존 UserInfoCard 대체)**
 
 ```tsx
 // Before: 레이아웃 고정
-<UserInfoBase
+<UserInfoCard
   userName={userName}
   email={email}
   aboutMe={aboutMe}
@@ -256,7 +256,7 @@ export { UserInfo };
     <FollowButton {...} />
     <ProfileNavigationButtons {...} />
   </UserInfoBaseActions>
-</UserInfoBase>
+</UserInfoCard>
 
 // After: 유연한 레이아웃
 <UserInfo className="w-full items-center p-4">
@@ -323,7 +323,7 @@ export { UserInfo };
 **1. UserInfoBase를 사용하는 모든 파일 찾기:**
 
 ```bash
-grep -r "UserInfoBase" src/
+grep -r "UserInfoCard" src/
 ```
 
 **2. 파일별 수정:**
@@ -336,7 +336,7 @@ grep -r "UserInfoBase" src/
 
 ```tsx
 // Before
-import { UserInfoBase, UserInfoBaseActions } from "@/entities/user/ui/user-info-base";
+import { UserInfoCard, UserInfoBaseActions } from "@/entities/user/ui/user-info-base";
 
 // After
 import { UserInfo } from "@/entities/user/ui/user-info";
@@ -345,12 +345,12 @@ import { UserInfo } from "@/entities/user/ui/user-info";
 **4. 기존 UserInfoBase는 deprecated 표시:**
 
 ```tsx
-// src/entities/user/ui/user-info-base.tsx
+// src/entities/user/ui/user-info-card.tsx
 /**
  * @deprecated Use UserInfo compound pattern instead
  * @see src/entities/user/ui/user-info.tsx
  */
-export const UserInfoBase = ({ ... }) => { ... };
+export const UserInfoCard = ({ ... }) => { ... };
 ```
 
 ---
@@ -1720,7 +1720,7 @@ grep -r "ArticleHeader" src/ --include="*.tsx"
 - [ ] `src/widgets/profile-card/ui/profile-card.tsx` 수정
 - [ ] `src/views/profile/profile-page-view.tsx`에서 활용
 - [ ] 모든 사용처 테스트
-- [ ] `user-info-base.tsx`를 deprecated 표시
+- [ ] `user-info-card.tsx`를 deprecated 표시
 
 ### Phase 2: EmotionGauge 간소화
 
