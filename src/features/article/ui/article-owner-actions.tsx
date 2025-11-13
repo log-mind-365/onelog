@@ -2,16 +2,16 @@ import Link from "next/link";
 import { Button } from "@/shared/components/ui/button";
 import { ROUTES } from "@/shared/model/routes";
 
-type ProfileSummaryOwnerActionsProps = {
+type ArticleOwnerActionsProps = {
   currentUserId: string;
 };
 
-export const ProfileOwnerActions = ({
+export const ArticleOwnerActions = ({
   currentUserId,
-}: ProfileSummaryOwnerActionsProps) => {
+}: ArticleOwnerActionsProps) => {
   return (
     <>
-      <Button asChild>
+      <Button variant="outline" asChild>
         <Link href={ROUTES.SETTINGS.PROFILE}>프로필 수정</Link>
       </Button>
       <Button asChild>

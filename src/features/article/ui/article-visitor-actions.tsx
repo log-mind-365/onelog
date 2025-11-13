@@ -5,24 +5,24 @@ import { Button } from "@/shared/components/ui/button";
 import { Spinner } from "@/shared/components/ui/spinner";
 import { ROUTES } from "@/shared/model/routes";
 
-type ProfilerSummaryVisitorActionsProps = {
-  profileUserId: string;
+type ArticleVisitorActionsProps = {
+  authorId: string;
   currentUserId: string | null;
   isFollowing: boolean;
 };
 
-export const ProfileVisitorActions = ({
-  profileUserId,
+export const ArticleVisitorActions = ({
+  authorId,
   currentUserId,
   isFollowing,
-}: ProfilerSummaryVisitorActionsProps) => {
+}: ArticleVisitorActionsProps) => {
   const { mutate: toggleFollow, isPending } = useFollowToggle();
   const authGuard = useAuthGuard();
 
   const handleFollowToggle = () => {
     authGuard(() =>
       toggleFollow({
-        followingId: profileUserId,
+        followingId: authorId,
         followerId: currentUserId ?? "",
       }),
     );
@@ -30,11 +30,15 @@ export const ProfileVisitorActions = ({
 
   return (
     <>
-      <Button onClick={handleFollowToggle} disabled={isPending}>
+      <Button
+        variant="outline"
+        onClick={handleFollowToggle}
+        disabled={isPending}
+      >
         {isPending ? <Spinner /> : isFollowing ? "언팔로우" : "팔로우"}
       </Button>
       <Button asChild>
-        <Link href={ROUTES.PROFILE.VIEW(profileUserId)}>프로필 페이지</Link>
+        <Link href={ROUTES.PROFILE.VIEW(authorId)}>프로필 페이지</Link>
       </Button>
     </>
   );
