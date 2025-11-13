@@ -104,7 +104,6 @@ export const InfiniteArticleList = () => {
             aboutMe={author?.aboutMe ?? ""}
             isMe={isMe}
             createdAt={createdAt}
-            userId={userId}
             userName={author?.userName ?? ""}
             avatarUrl={author?.avatarUrl ?? null}
             email={author?.email ?? ""}

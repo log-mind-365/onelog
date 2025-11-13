@@ -27,7 +27,6 @@ import {
 } from "@/shared/components/ui/hover-card";
 
 type ArticleCardProps = {
-  userId: string;
   userName: string;
   avatarUrl: string | null;
   email: string;
@@ -47,7 +46,6 @@ type ArticleCardProps = {
 };
 
 export const ArticleCard = ({
-  userId,
   userName,
   avatarUrl,
   email,
@@ -75,14 +73,14 @@ export const ArticleCard = ({
             </button>
           </HoverCardTrigger>
           <HoverCardContent>
-            <UserInfoCard>
+            <UserInfoCard className="flex-col">
               <UserInfoCardAvatar userName={userName} avatarUrl={avatarUrl} />
               <UserInfoCardContent>
                 <UserInfoCardName userName={userName} />
                 <UserInfoCardEmail email={email} />
                 <UserInfoCardAboutMe aboutMe={aboutMe} />
               </UserInfoCardContent>
-              <UserInfoCardActions>
+              <UserInfoCardActions className="flex-row">
                 <FollowButton
                   isFollowing={false}
                   isPending={false}
