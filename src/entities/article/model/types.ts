@@ -18,3 +18,4 @@ export type InfiniteArticleList = {
 };
 export type AccessType = typeof articles.$inferSelect.accessType;
 export type EmotionLevel = typeof articles.$inferSelect.emotionLevel;
+export type ArticleViewMode = "viewer" | "author";
