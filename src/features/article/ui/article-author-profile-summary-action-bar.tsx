@@ -2,19 +2,19 @@ import type { ArticleViewMode } from "@/entities/article/model/types";
 import { ProfileSummaryOwnerActions } from "@/features/article/ui/profile-summary-owner-actions";
 import { ProfileSummaryVisitorActions } from "@/features/article/ui/profile-summary-visitor-actions";
 
-type ArticleDetailAuthorProfileActionBarProps = {
+type ArticleAuthorProfileSummaryActionBarProps = {
   viewMode: ArticleViewMode;
   profileUserId: string;
   currentUserId: string | null;
   isFollowing: boolean;
 };
 
-export const ProfileSummaryActionBar = ({
+export const ArticleAuthorProfileSummaryActionBar = ({
   viewMode,
   profileUserId,
   currentUserId,
   isFollowing,
-}: ArticleDetailAuthorProfileActionBarProps) => {
+}: ArticleAuthorProfileSummaryActionBarProps) => {
   switch (viewMode) {
     case "viewer":
       return (

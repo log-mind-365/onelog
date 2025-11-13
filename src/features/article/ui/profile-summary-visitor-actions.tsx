@@ -8,7 +8,7 @@ import { ROUTES } from "@/shared/model/routes";
 type ProfilerSummaryVisitorActionsProps = {
   profileUserId: string;
   currentUserId: string | null;
-  isFollowing?: boolean;
+  isFollowing: boolean;
 };
 
 export const ProfileSummaryVisitorActions = ({
