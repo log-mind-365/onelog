@@ -8,13 +8,7 @@ const UserInfoCard = ({
   ...props
 }: ComponentProps<"div">) => {
   return (
-    <div
-      className={cn(
-        "flex w-full gap-4 p-4",
-        className,
-      )}
-      {...props}
-    >
+    <div className={cn("flex w-full gap-4 p-4", className)} {...props}>
       {children}
     </div>
   );
@@ -59,7 +53,7 @@ const UserInfoCardDetails = ({
 }: ComponentProps<"div">) => {
   return (
     <div
-      className={cn("flex flex-1 flex-col justify-center gap-2", className)}
+      className={cn("flex flex-1 flex-col justify-center", className)}
       {...props}
     >
       {children}

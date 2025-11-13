@@ -34,11 +34,11 @@ export const ArticleVisitorActions = ({
         variant="outline"
         onClick={handleFollowToggle}
         disabled={isPending}
-        className="bg-card"
+        className="flex-1 bg-card"
       >
         {isPending ? <Spinner /> : isFollowing ? "언팔로우" : "팔로우"}
       </Button>
-      <Button asChild>
+      <Button className="flex-1" asChild>
         <Link href={ROUTES.PROFILE.VIEW(authorId)}>프로필 페이지</Link>
       </Button>
     </>

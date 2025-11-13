@@ -17,6 +17,7 @@ import {
   UserInfoCardActions,
   UserInfoCardAvatar,
   UserInfoCardContent,
+  UserInfoCardDetails,
   UserInfoCardEmail,
   UserInfoCardName,
 } from "@/entities/user/ui/user-info-card";
@@ -82,12 +83,18 @@ export const ArticleCard = ({
             </Button>
           </HoverCardTrigger>
           <HoverCardContent asChild>
-            <UserInfoCard className="flex-col">
-              <UserInfoCardAvatar userName={userName} avatarUrl={avatarUrl} />
-              <UserInfoCardContent className="flex-col">
-                <UserInfoCardName userName={userName} />
-                <UserInfoCardEmail email={email} />
-                <UserInfoCardAboutMe aboutMe={aboutMe} />
+            <UserInfoCard className="flex-col items-center">
+              <UserInfoCardContent className="itmes-center flex-1 flex-col">
+                <UserInfoCardAvatar
+                  userName={userName}
+                  avatarUrl={avatarUrl}
+                  className="flex justify-center"
+                />
+                <UserInfoCardDetails className="flex flex-col items-center">
+                  <UserInfoCardName userName={userName} />
+                  <UserInfoCardEmail email={email} />
+                  <UserInfoCardAboutMe aboutMe={aboutMe} />
+                </UserInfoCardDetails>
               </UserInfoCardContent>
               <UserInfoCardActions className="flex-row">
                 <ArticleAuthorProfileActionBar

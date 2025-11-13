@@ -11,10 +11,10 @@ export const ArticleOwnerActions = ({
 }: ArticleOwnerActionsProps) => {
   return (
     <>
-      <Button variant="outline" asChild>
+      <Button variant="outline" className="flex-1 bg-card" asChild>
         <Link href={ROUTES.SETTINGS.PROFILE}>프로필 수정</Link>
       </Button>
-      <Button asChild>
+      <Button className="flex-1" asChild>
         <Link href={ROUTES.PROFILE.VIEW(currentUserId)}>프로필 페이지</Link>
       </Button>
     </>

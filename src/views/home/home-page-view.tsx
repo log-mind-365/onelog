@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { PageContainer } from "@/shared/components/page-container";
 import { SlideInTransition } from "@/shared/components/transition-container";
 import { InfiniteArticleList } from "@/widgets/article-list/ui/infinite-article-list";
@@ -17,7 +18,9 @@ export const HomePageView = ({ currentUserId }: HomePageProps) => {
         </SlideInTransition>
       }
     >
-      <InfiniteArticleList currentUserId={currentUserId} />
+      <Suspense fallback={<p>loading...</p>}>
+        <InfiniteArticleList currentUserId={currentUserId} />
+      </Suspense>
     </PageContainer>
   );
 };

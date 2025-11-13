@@ -76,7 +76,7 @@ export const ArticleDetailPageContent = ({
               <UserInfoCardAboutMe aboutMe={aboutMe ?? ""} />
             </UserInfoCardDetails>
           </UserInfoCardContent>
-          <UserInfoCardActions className="flex-row sm:flex-col">
+          <UserInfoCardActions className="sm:flex-col">
             <ArticleAuthorProfileActionBar
               viewMode={viewMode}
               authorId={id}

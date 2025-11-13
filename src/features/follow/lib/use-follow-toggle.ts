@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { ARTICLE_QUERY_KEY } from "@/entities/article/model/constants";
 import { toggleFollow } from "@/entities/follow/api/server";
 import {
   FOLLOW_QUERY_KEY,
@@ -56,6 +57,7 @@ export const useFollowToggle = () => {
       const { isFollowed } = data;
 
       const queryKeys = [
+        ARTICLE_QUERY_KEY.PUBLIC,
         FOLLOW_QUERY_KEY.STATS(followingId),
         FOLLOW_QUERY_KEY.IS_FOLLOWING(followerId, followingId),
       ];
