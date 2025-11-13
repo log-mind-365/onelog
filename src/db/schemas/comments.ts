@@ -1,5 +1,12 @@
 import { sql } from "drizzle-orm";
-import { pgPolicy, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import {
+  index,
+  pgPolicy,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+} from "drizzle-orm/pg-core";
 import { authenticatedRole, authUsers } from "drizzle-orm/supabase";
 import { articles } from "@/db/schemas/articles";
 
@@ -39,5 +46,8 @@ export const comments = pgTable(
       to: authenticatedRole,
       using: sql`user_id = auth.uid()`,
     }),
+    // Performance indexes
+    index("idx_comments_article_id").on(t.articleId),
+    index("idx_comments_user_id").on(t.userId),
   ],
 );

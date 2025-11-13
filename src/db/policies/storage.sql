@@ -29,16 +29,14 @@ USING (
   AND (storage.foldername(NAME))[1] = auth.uid()::text
 );
 
-CREATE
-policy "authenticated can upsert own avatars"
+CREATE policy "authenticated can upsert own avatars"
 ON storage.objects
-FOR
-UPDATE
-    to authenticated
-    USING (
+FOR UPDATE
+TO authenticated
+USING (
     bucket_id = 'avatars'
     AND (storage.foldername(NAME))[1] = auth.uid()::text
-    )
+)
 WITH CHECK (
     bucket_id = 'avatars'
     AND (storage.foldername(NAME))[1] = auth.uid()::text

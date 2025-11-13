@@ -1,5 +1,6 @@
 import { sql } from "drizzle-orm";
 import {
+  index,
   integer,
   pgEnum,
   pgPolicy,
@@ -53,5 +54,12 @@ export const articles = pgTable(
       to: authenticatedRole,
       using: sql`user_id = auth.uid()`,
     }),
+    // Performance indexes
+    index("idx_articles_user_id").on(t.userId),
+    index("idx_articles_created_at").on(t.createdAt.desc()),
+    index("idx_articles_access_type_created_at").on(
+      t.accessType,
+      t.createdAt.desc(),
+    ),
   ],
 );

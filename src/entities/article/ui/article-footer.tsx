@@ -35,7 +35,7 @@ export const ArticleFooter = ({
         }}
       />
       <ArticleCommentButton commentCount={commentCount} />
-      <ArticleAccessTypeButton value={accessType} />
+      <ArticleAccessTypeButton value={accessType} readOnly />
       <ArticleReportButton
         onClick={(e) => {
           e.stopPropagation();
