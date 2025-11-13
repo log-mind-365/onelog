@@ -18,7 +18,7 @@ export type ModalProps =
   | null;
 
 export type SubmitArticleDialogProps = {
-  userId?: string;
+  authorId?: string;
   title: string;
   content: string;
   emotionLevel: EmotionLevel;
