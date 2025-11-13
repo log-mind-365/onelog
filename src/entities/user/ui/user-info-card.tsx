@@ -10,7 +10,7 @@ const UserInfoCard = ({
   return (
     <div
       className={cn(
-        "flex w-full flex-row items-center justify-between gap-4 p-4",
+        "flex w-full gap-4 p-4",
         className,
       )}
       {...props}
@@ -46,7 +46,22 @@ const UserInfoCardContent = ({
   ...props
 }: ComponentProps<"div">) => {
   return (
-    <div className={cn("flex flex-1 flex-col", className)} {...props}>
+    <div className={cn("flex flex-1 gap-4", className)} {...props}>
+      {children}
+    </div>
+  );
+};
+
+const UserInfoCardDetails = ({
+  className,
+  children,
+  ...props
+}: ComponentProps<"div">) => {
+  return (
+    <div
+      className={cn("flex flex-1 flex-col justify-center gap-2", className)}
+      {...props}
+    >
       {children}
     </div>
   );
@@ -109,7 +124,7 @@ const UserInfoCardActions = ({
   ...props
 }: ComponentProps<"div">) => {
   return (
-    <div className={cn("flex flex-col gap-2", className)} {...props}>
+    <div className={cn("flex gap-2", className)} {...props}>
       {children}
     </div>
   );
@@ -119,6 +134,7 @@ export {
   UserInfoCard,
   UserInfoCardAvatar,
   UserInfoCardContent,
+  UserInfoCardDetails,
   UserInfoCardName,
   UserInfoCardEmail,
   UserInfoCardAboutMe,

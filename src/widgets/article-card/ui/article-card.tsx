@@ -84,7 +84,7 @@ export const ArticleCard = ({
           <HoverCardContent asChild>
             <UserInfoCard className="flex-col">
               <UserInfoCardAvatar userName={userName} avatarUrl={avatarUrl} />
-              <UserInfoCardContent>
+              <UserInfoCardContent className="flex-col">
                 <UserInfoCardName userName={userName} />
                 <UserInfoCardEmail email={email} />
                 <UserInfoCardAboutMe aboutMe={aboutMe} />

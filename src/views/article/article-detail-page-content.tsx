@@ -15,6 +15,7 @@ import {
   UserInfoCardActions,
   UserInfoCardAvatar,
   UserInfoCardContent,
+  UserInfoCardDetails,
   UserInfoCardEmail,
   UserInfoCardName,
 } from "@/entities/user/ui/user-info-card";
@@ -66,14 +67,16 @@ export const ArticleDetailPageContent = ({
         <ArticleContent title={title} content={content} />
       </CardContent>
       <CardFooter>
-        <UserInfoCard className="rounded-lg bg-background shadow-md">
-          <UserInfoCardAvatar userName={userName} avatarUrl={avatarUrl} />
-          <UserInfoCardContent>
-            <UserInfoCardName userName={userName} />
-            <UserInfoCardEmail email={email} />
-            <UserInfoCardAboutMe aboutMe={aboutMe ?? ""} />
+        <UserInfoCard className="flex-col rounded-lg bg-background shadow-md sm:flex-row sm:items-center">
+          <UserInfoCardContent className="flex-row">
+            <UserInfoCardAvatar userName={userName} avatarUrl={avatarUrl} />
+            <UserInfoCardDetails>
+              <UserInfoCardName userName={userName} />
+              <UserInfoCardEmail email={email} />
+              <UserInfoCardAboutMe aboutMe={aboutMe ?? ""} />
+            </UserInfoCardDetails>
           </UserInfoCardContent>
-          <UserInfoCardActions>
+          <UserInfoCardActions className="flex-row sm:flex-col">
             <ArticleAuthorProfileActionBar
               viewMode={viewMode}
               authorId={id}
