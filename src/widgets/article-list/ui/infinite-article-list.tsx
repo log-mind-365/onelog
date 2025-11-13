@@ -6,16 +6,17 @@ import { type MouseEvent, useEffect, useRef } from "react";
 import { useModal } from "@/app/_store/modal-store";
 import { articleQueries } from "@/entities/article/api/queries";
 import { useLikeArticle } from "@/features/article/lib/use-like-article";
-import { useAuth } from "@/features/auth/model/store";
 import { ROUTES } from "@/shared/model/routes";
 import { ArticleCard } from "@/widgets/article-card/ui/article-card";
 
-export const InfiniteArticleList = () => {
+type InfiniteArticleListProps = { currentUserId: string | null };
+
+export const InfiniteArticleList = ({
+  currentUserId,
+}: InfiniteArticleListProps) => {
   const router = useRouter();
-  const { me } = useAuth();
   const { openModal } = useModal();
   const { mutate: likeArticle } = useLikeArticle();
-  const currentUserId = me?.id || null;
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useSuspenseInfiniteQuery(articleQueries.list(currentUserId ?? null));
   const loadMoreRef = useRef<HTMLDivElement>(null);
@@ -85,10 +86,11 @@ export const InfiniteArticleList = () => {
           emotionLevel,
           author,
           likeCount,
+          isFollowing,
           isLiked,
           commentCount,
         } = article;
-        const isMe = currentUserId === author?.id;
+        const viewMode = userId === currentUserId ? "author" : "viewer";
 
         const onLike = () => handleLike(id, userId);
         const onReport = (e: MouseEvent<HTMLButtonElement>) => {
@@ -102,13 +104,16 @@ export const InfiniteArticleList = () => {
             title={title}
             content={content}
             aboutMe={author?.aboutMe ?? ""}
-            isMe={isMe}
             createdAt={createdAt}
             userName={author?.userName ?? ""}
             avatarUrl={author?.avatarUrl ?? null}
             email={author?.email ?? ""}
             emotionLevel={emotionLevel}
+            authorId={userId}
+            currentUserId={currentUserId}
             likeCount={likeCount}
+            viewMode={viewMode}
+            isFollowing={isFollowing}
             isLiked={isLiked}
             commentCount={commentCount}
             onClick={() => router.push(ROUTES.ARTICLE.VIEW(id))}

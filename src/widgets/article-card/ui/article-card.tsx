@@ -1,5 +1,8 @@
 import type { MouseEvent } from "react";
-import type { AccessType } from "@/entities/article/model/types";
+import type {
+  AccessType,
+  ArticleViewMode,
+} from "@/entities/article/model/types";
 import { ArticleContent } from "@/entities/article/ui/article-content";
 import { ArticleFooter } from "@/entities/article/ui/article-footer";
 import {
@@ -8,7 +11,6 @@ import {
   ArticleHeaderEmotionGauge,
   ArticleHeaderUserInfo,
 } from "@/entities/article/ui/article-header";
-import { FollowButton } from "@/entities/follow/ui/follow-button";
 import {
   UserInfoCard,
   UserInfoCardAboutMe,
@@ -18,7 +20,8 @@ import {
   UserInfoCardEmail,
   UserInfoCardName,
 } from "@/entities/user/ui/user-info-card";
-import { ProfileNavigationButtons } from "@/features/profile/ui/profile-navigation-buttons";
+import { ArticleAuthorProfileActionBar } from "@/features/article/ui/article-author-profile-action-bar";
+import { Button } from "@/shared/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/shared/components/ui/card";
 import {
   HoverCard,
@@ -32,13 +35,16 @@ type ArticleCardProps = {
   email: string;
   aboutMe: string;
   emotionLevel: number;
-  isMe: boolean;
   title: string;
   content: string;
   createdAt: Date;
   accessType: AccessType;
   likeCount: number;
+  authorId: string;
+  currentUserId: string | null;
   isLiked: boolean;
+  viewMode: ArticleViewMode;
+  isFollowing: boolean;
   commentCount: number;
   onClick: () => void;
   onLike: () => void;
@@ -50,11 +56,14 @@ export const ArticleCard = ({
   avatarUrl,
   email,
   aboutMe,
+  isFollowing,
   emotionLevel,
-  isMe,
   title,
+  authorId,
+  currentUserId,
   content,
   accessType,
+  viewMode,
   createdAt,
   likeCount,
   isLiked,
@@ -66,13 +75,13 @@ export const ArticleCard = ({
   return (
     <div className="flex flex-col gap-2">
       <ArticleHeader>
-        <HoverCard>
+        <HoverCard openDelay={0}>
           <HoverCardTrigger asChild>
-            <button type="button">
+            <Button asChild variant="ghost" size="icon">
               <ArticleHeaderAvatar userName={userName} avatarUrl={avatarUrl} />
-            </button>
+            </Button>
           </HoverCardTrigger>
-          <HoverCardContent>
+          <HoverCardContent asChild>
             <UserInfoCard className="flex-col">
               <UserInfoCardAvatar userName={userName} avatarUrl={avatarUrl} />
               <UserInfoCardContent>
@@ -81,14 +90,11 @@ export const ArticleCard = ({
                 <UserInfoCardAboutMe aboutMe={aboutMe} />
               </UserInfoCardContent>
               <UserInfoCardActions className="flex-row">
-                <FollowButton
-                  isFollowing={false}
-                  isPending={false}
-                  onFollow={() => null}
-                />
-                <ProfileNavigationButtons
-                  isMe={isMe}
-                  onViewProfile={() => null}
+                <ArticleAuthorProfileActionBar
+                  viewMode={viewMode}
+                  authorId={authorId}
+                  currentUserId={currentUserId}
+                  isFollowing={isFollowing}
                 />
               </UserInfoCardActions>
             </UserInfoCard>
