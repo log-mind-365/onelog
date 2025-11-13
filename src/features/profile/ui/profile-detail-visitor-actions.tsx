@@ -1,22 +1,21 @@
-import { useState } from "react";
 import { useAuthGuard } from "@/features/auth/lib/use-auth-guard";
 import { useFollowToggle } from "@/features/follow/lib/use-follow-toggle";
-import { useProfileViewMode } from "@/features/profile/lib/use-profile-view-mode";
 import { Button } from "@/shared/components/ui/button";
 import { Spinner } from "@/shared/components/ui/spinner";
 
 type VisitorActionsProps = {
   profileUserId: string;
   currentUserId: string | null;
+  isFollowing?: boolean;
 };
 
 export const VisitorActions = ({
   profileUserId,
   currentUserId,
+  isFollowing,
 }: VisitorActionsProps) => {
   const { mutate: toggleFollow, isPending } = useFollowToggle();
   const { authGuard } = useAuthGuard();
-  const { isFollowing } = useProfileViewMode(profileUserId, currentUserId);
 
   const handleFollowToggle = () => {
     authGuard(() =>
