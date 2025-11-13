@@ -21,6 +21,7 @@ export const articleQueries = {
     queryOptions({
       queryKey: ARTICLE_QUERY_KEY.DETAIL(id, userId),
       queryFn: async () => getArticleDetail(id, userId),
+      enabled: !!id,
     }),
   likeCount: (articleId: string) =>
     queryOptions({
