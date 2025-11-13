@@ -14,18 +14,9 @@ type PageProps = {
 const Page = async ({ params }: PageProps) => {
   const { id } = await params;
   const queryClient = getQueryClient();
-
-  // UUID 형식 검증 (정규식)
-  const UUID_REGEX =
-    /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-  if (!UUID_REGEX.test(id)) {
-    notFound();
-  }
-
   const currentUser = await getCurrentUser();
-
-  // 사용자 존재 여부 확인
   const profileUser = await getUserInfo(id);
+
   if (!profileUser) {
     notFound();
   }
