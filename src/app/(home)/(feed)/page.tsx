@@ -16,7 +16,7 @@ const HomePage = async () => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <HomePageView />
+      <HomePageView currentUserId={user?.id ?? null} />
     </HydrationBoundary>
   );
 };

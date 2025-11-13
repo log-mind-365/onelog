@@ -3,7 +3,10 @@ import { SlideInTransition } from "@/shared/components/transition-container";
 import { InfiniteArticleList } from "@/widgets/article-list/ui/infinite-article-list";
 import { FakeForm } from "@/widgets/fake-form/ui/fake-form";
 
-export const HomePageView = () => {
+type HomePageProps = {
+  currentUserId: string | null;
+};
+export const HomePageView = ({ currentUserId }: HomePageProps) => {
   return (
     <PageContainer
       title="안녕하세요"
@@ -14,7 +17,7 @@ export const HomePageView = () => {
         </SlideInTransition>
       }
     >
-      <InfiniteArticleList />
+      <InfiniteArticleList currentUserId={currentUserId} />
     </PageContainer>
   );
 };
