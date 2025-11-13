@@ -1,25 +1,24 @@
 import type { ComponentProps } from "react";
-import { forwardRef } from "react";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
 import { cn } from "@/shared/lib/utils";
 
-const UserInfoBaseRoot = forwardRef<HTMLDivElement, ComponentProps<"div">>(
-  ({ className, children, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        className={cn(
-          "flex w-full flex-row items-center justify-between gap-4 p-4",
-          className,
-        )}
-        {...props}
-      >
-        {children}
-      </div>
-    );
-  }
-);
-UserInfoBaseRoot.displayName = "UserInfoBase";
+const UserInfoCard = ({
+  className,
+  children,
+  ...props
+}: ComponentProps<"div">) => {
+  return (
+    <div
+      className={cn(
+        "flex w-full flex-row items-center justify-between gap-4 p-4",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};
 
 type UserInfoAvatarProps = ComponentProps<"div"> & {
   userName: string;
@@ -27,92 +26,101 @@ type UserInfoAvatarProps = ComponentProps<"div"> & {
   size?: "sm" | "md" | "lg" | "xl";
 };
 
-const UserInfoAvatar = forwardRef<HTMLDivElement, UserInfoAvatarProps>(
-  ({ userName, avatarUrl, size = "xl", className, ...props }, ref) => {
-    return (
-      <div ref={ref} className={className} {...props}>
-        <UserAvatar fallback={userName} avatarUrl={avatarUrl} size={size} />
-      </div>
-    );
-  }
-);
-UserInfoAvatar.displayName = "UserInfoAvatar";
+const UserInfoCardAvatar = ({
+  userName,
+  avatarUrl,
+  size = "xl",
+  className,
+  ...props
+}: UserInfoAvatarProps) => {
+  return (
+    <div className={className} {...props}>
+      <UserAvatar fallback={userName} avatarUrl={avatarUrl} size={size} />
+    </div>
+  );
+};
 
-const UserInfoContent = forwardRef<HTMLDivElement, ComponentProps<"div">>(
-  ({ className, children, ...props }, ref) => {
-    return (
-      <div ref={ref} className={cn("flex flex-1 flex-col", className)} {...props}>
-        {children}
-      </div>
-    );
-  }
-);
-UserInfoContent.displayName = "UserInfoContent";
+const UserInfoCardContent = ({
+  className,
+  children,
+  ...props
+}: ComponentProps<"div">) => {
+  return (
+    <div className={cn("flex flex-1 flex-col", className)} {...props}>
+      {children}
+    </div>
+  );
+};
 
 type UserInfoNameProps = ComponentProps<"h1"> & {
   userName: string;
 };
 
-const UserInfoName = forwardRef<HTMLHeadingElement, UserInfoNameProps>(
-  ({ userName, className, ...props }, ref) => {
-    return (
-      <h1 ref={ref} className={cn("font-bold text-sm sm:text-lg", className)} {...props}>
-        {userName}
-      </h1>
-    );
-  }
-);
-UserInfoName.displayName = "UserInfoName";
+const UserInfoCardName = ({
+  userName,
+  className,
+  ...props
+}: UserInfoNameProps) => {
+  return (
+    <h1 className={cn("font-bold text-sm sm:text-lg", className)} {...props}>
+      {userName}
+    </h1>
+  );
+};
 
 type UserInfoEmailProps = ComponentProps<"p"> & {
   email: string;
 };
 
-const UserInfoEmail = forwardRef<HTMLParagraphElement, UserInfoEmailProps>(
-  ({ email, className, ...props }, ref) => {
-    return (
-      <p ref={ref} className={cn("text-muted-foreground text-xs sm:text-sm", className)} {...props}>
-        {email}
-      </p>
-    );
-  }
-);
-UserInfoEmail.displayName = "UserInfoEmail";
+const UserInfoCardEmail = ({
+  email,
+  className,
+  ...props
+}: UserInfoEmailProps) => {
+  return (
+    <p
+      className={cn("text-muted-foreground text-xs sm:text-sm", className)}
+      {...props}
+    >
+      {email}
+    </p>
+  );
+};
 
 type UserInfoAboutMeProps = ComponentProps<"p"> & {
   aboutMe: string;
 };
 
-const UserInfoAboutMe = forwardRef<HTMLParagraphElement, UserInfoAboutMeProps>(
-  ({ aboutMe, className, ...props }, ref) => {
-    return (
-      <p ref={ref} className={cn("text-xs sm:text-sm", className)} {...props}>
-        {aboutMe}
-      </p>
-    );
-  }
-);
-UserInfoAboutMe.displayName = "UserInfoAboutMe";
+const UserInfoCardAboutMe = ({
+  aboutMe,
+  className,
+  ...props
+}: UserInfoAboutMeProps) => {
+  return (
+    <p className={cn("text-xs sm:text-sm", className)} {...props}>
+      {aboutMe}
+    </p>
+  );
+};
 
-const UserInfoActions = forwardRef<HTMLDivElement, ComponentProps<"div">>(
-  ({ className, children, ...props }, ref) => {
-    return (
-      <div ref={ref} className={cn("flex flex-col gap-2", className)} {...props}>
-        {children}
-      </div>
-    );
-  }
-);
-UserInfoActions.displayName = "UserInfoActions";
+const UserInfoCardActions = ({
+  className,
+  children,
+  ...props
+}: ComponentProps<"div">) => {
+  return (
+    <div className={cn("flex flex-col gap-2", className)} {...props}>
+      {children}
+    </div>
+  );
+};
 
-export const UserInfoBase = Object.assign(UserInfoBaseRoot, {
-  Avatar: UserInfoAvatar,
-  Content: UserInfoContent,
-  Name: UserInfoName,
-  Email: UserInfoEmail,
-  AboutMe: UserInfoAboutMe,
-  Actions: UserInfoActions,
-});
-
-// 하위 호환성을 위한 별칭
-export const UserInfoBaseActions = UserInfoActions;
+export {
+  UserInfoCard,
+  UserInfoCardAvatar,
+  UserInfoCardContent,
+  UserInfoCardName,
+  UserInfoCardEmail,
+  UserInfoCardAboutMe,
+  UserInfoCardActions,
+};

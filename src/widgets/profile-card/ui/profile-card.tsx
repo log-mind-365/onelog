@@ -3,9 +3,9 @@ import { useRouter } from "next/navigation";
 import { followQueries } from "@/entities/follow/api/queries";
 import { FollowButton } from "@/entities/follow/ui/follow-button";
 import {
-  UserInfoBase,
   UserInfoBaseActions,
-} from "@/entities/user/ui/user-info-base";
+  UserInfoCard,
+} from "@/entities/user/ui/user-info-card";
 import { useFollowToggle } from "@/features/follow/lib/use-follow-toggle";
 import { ProfileNavigationButtons } from "@/features/profile/ui/profile-navigation-buttons";
 import { ROUTES } from "@/shared/model/routes";
@@ -42,7 +42,7 @@ export const ProfileCard = ({
   };
 
   return (
-    <UserInfoBase
+    <UserInfoCard
       userName={userName}
       email={email}
       aboutMe={aboutMe}
@@ -62,6 +62,6 @@ export const ProfileCard = ({
           onEditProfile={() => router.push(ROUTES.PROFILE.VIEW(userId))}
         />
       </UserInfoBaseActions>
-    </UserInfoBase>
+    </UserInfoCard>
   );
 };
