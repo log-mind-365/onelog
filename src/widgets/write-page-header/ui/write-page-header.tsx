@@ -1,12 +1,8 @@
-"use client";
-
-import { ArrowLeft, Check } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useModal } from "@/app/_store/modal-store";
-import type { AccessType } from "@/entities/article/model/types";
+import { Check } from "lucide-react";
+import type { ModalProps, ModalType } from "@/app/_store/modal-store";
+import type { AccessType, EmotionLevel } from "@/entities/article/model/types";
 import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-type-button";
 import { ArticleEmotionButton } from "@/entities/article/ui/article-emotion-button";
-import { useAuth } from "@/features/auth/model/store";
 import { Button } from "@/shared/components/ui/button";
 import {
   Tooltip,
@@ -14,41 +10,40 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/shared/components/ui/tooltip";
-import { useDraft } from "@/views/write/use-draft";
 
-export const WritePageHeader = () => {
-  const router = useRouter();
-  const { me } = useAuth();
-  const { setAccessType, setEmotionLevel } = useDraft();
-  const { openModal } = useModal();
-  const title = useDraft((state) => state.title);
-  const content = useDraft((state) => state.content);
-  const accessType = useDraft((state) => state.accessType);
-  const emotionLevel = useDraft((state) => state.emotionLevel);
+type WritePageHeaderProps = {
+  accessType: AccessType;
+  onAccessTypeChange: (value: string) => void;
+  emotionLevel: EmotionLevel;
+  onEmotionLevelChange: (value: EmotionLevel) => void;
+  openModal: (modalId: ModalType, modalProps?: ModalProps) => void;
+  title: string;
+  content: string;
+  authorId: string;
+};
 
-  const handleAccessTypeChange = (value: string) => {
-    setAccessType(value as AccessType);
-  };
+export const WritePageHeader = ({
+  accessType,
+  onAccessTypeChange,
+  emotionLevel,
+  onEmotionLevelChange,
+  openModal,
+  title,
+  content,
+  authorId,
+}: WritePageHeaderProps) => {
   return (
     <header className="flex w-full items-center justify-between rounded-lg border bg-card p-2">
       <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="ghost" onClick={() => router.back()}>
-              <ArrowLeft />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent side="right">뒤로 가기</TooltipContent>
-        </Tooltip>
         <ArticleAccessTypeButton
           value={accessType}
-          onValueChange={handleAccessTypeChange}
+          onValueChange={onAccessTypeChange}
           dropdownMenuSide="bottom"
           dropdownMenuAlign="start"
         />
         <ArticleEmotionButton
           value={emotionLevel}
-          onValueChange={setEmotionLevel}
+          onValueChange={onEmotionLevelChange}
           tooltipSide="bottom"
           dropdownMenuSide="bottom"
           dropdownMenuAlign="start"
@@ -63,7 +58,7 @@ export const WritePageHeader = () => {
                     content,
                     accessType,
                     emotionLevel,
-                    userId: me?.id,
+                    authorId,
                   })
                 }
                 disabled={!title.trim() || !content.trim()}
