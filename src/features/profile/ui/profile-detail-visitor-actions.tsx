@@ -3,19 +3,19 @@ import { useFollowToggle } from "@/features/follow/lib/use-follow-toggle";
 import { Button } from "@/shared/components/ui/button";
 import { Spinner } from "@/shared/components/ui/spinner";
 
-type VisitorActionsProps = {
+type ProfileDetailVisitorActionsProps = {
   profileUserId: string;
   currentUserId: string | null;
   isFollowing?: boolean;
 };
 
-export const VisitorActions = ({
+export const ProfileDetailVisitorActions = ({
   profileUserId,
   currentUserId,
   isFollowing,
-}: VisitorActionsProps) => {
+}: ProfileDetailVisitorActionsProps) => {
   const { mutate: toggleFollow, isPending } = useFollowToggle();
-  const { authGuard } = useAuthGuard();
+  const authGuard = useAuthGuard();
 
   const handleFollowToggle = () => {
     authGuard(() =>
@@ -26,15 +26,9 @@ export const VisitorActions = ({
     );
   };
 
-  return isFollowing ? (
+  return (
     <Button onClick={handleFollowToggle} disabled={isPending}>
-      {isPending ? <Spinner /> : null}
-      언팔로우
-    </Button>
-  ) : (
-    <Button onClick={handleFollowToggle} disabled={isPending}>
-      {isPending ? <Spinner /> : null}
-      팔로우
+      {isPending ? <Spinner /> : isFollowing ? "언팔로우" : "팔로우"}
     </Button>
   );
 };

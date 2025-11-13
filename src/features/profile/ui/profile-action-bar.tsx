@@ -1,24 +1,27 @@
-import type { ViewMode } from "@/features/profile/model/types";
+import type { ProfileViewMode } from "@/entities/user/model/types";
 import { OwnerActions } from "@/features/profile/ui/owner-actions";
-import { VisitorActions } from "@/features/profile/ui/visitor-actions";
+import { ProfileDetailVisitorActions } from "@/features/profile/ui/profile-detail-visitor-actions";
 
-type VisitorActionsProps = {
-  viewMode: ViewMode;
+type ProfileActionBarProps = {
+  viewMode: ProfileViewMode;
   profileUserId: string;
   currentUserId: string | null;
+  isFollowing?: boolean;
 };
 
 export const ProfileActionBar = ({
   viewMode,
   profileUserId,
   currentUserId,
-}: VisitorActionsProps) => {
+  isFollowing,
+}: ProfileActionBarProps) => {
   switch (viewMode) {
     case "visitor":
       return (
-        <VisitorActions
+        <ProfileDetailVisitorActions
           profileUserId={profileUserId}
           currentUserId={currentUserId}
+          isFollowing={isFollowing}
         />
       );
     case "owner":

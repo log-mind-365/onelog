@@ -2,12 +2,10 @@
 
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Calendar, Mail, User } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { followQueries } from "@/entities/follow/api/queries";
 import { FollowStats } from "@/entities/follow/ui/follow-stats";
 import { userQueries } from "@/entities/user/api/queries";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
-import { useFollowToggle } from "@/features/follow/lib/use-follow-toggle";
 import { useProfileViewMode } from "@/features/profile/lib/use-profile-view-mode";
 import { ProfileActionBar } from "@/features/profile/ui/profile-action-bar";
 import { PageContainer } from "@/shared/components/page-container";
@@ -31,7 +29,10 @@ export const ProfilePageView = ({
   profileUserId,
   currentUserId,
 }: ProfilePageViewProps) => {
-  const { viewMode } = useProfileViewMode(profileUserId, currentUserId);
+  const { viewMode, isFollowing } = useProfileViewMode(
+    profileUserId,
+    currentUserId,
+  );
   const { data: user } = useSuspenseQuery(
     userQueries.getUserInfo(profileUserId),
   );
@@ -76,6 +77,7 @@ export const ProfilePageView = ({
               viewMode={viewMode}
               profileUserId={profileUserId}
               currentUserId={currentUserId}
+              isFollowing={isFollowing}
             />
           </CardAction>
         </CardFooter>
