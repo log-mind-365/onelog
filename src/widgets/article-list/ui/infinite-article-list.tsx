@@ -100,6 +100,7 @@ export const InfiniteArticleList = ({
         return (
           <ArticleCard
             key={id}
+            articleId={id}
             accessType={accessType}
             title={title}
             content={content}

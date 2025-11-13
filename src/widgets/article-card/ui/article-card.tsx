@@ -31,6 +31,7 @@ import {
 } from "@/shared/components/ui/hover-card";
 
 type ArticleCardProps = {
+  articleId: string;
   userName: string;
   avatarUrl: string | null;
   email: string;
@@ -53,6 +54,7 @@ type ArticleCardProps = {
 };
 
 export const ArticleCard = ({
+  articleId,
   userName,
   avatarUrl,
   email,
@@ -99,6 +101,7 @@ export const ArticleCard = ({
               <UserInfoCardActions className="flex-row">
                 <ArticleAuthorProfileActionBar
                   viewMode={viewMode}
+                  articleId={articleId}
                   authorId={authorId}
                   currentUserId={currentUserId}
                   isFollowing={isFollowing}
