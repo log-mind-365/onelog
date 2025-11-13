@@ -4,16 +4,25 @@ import { ArticleDetailPageActionbar } from "@/views/article/article-detail-page-
 import { ArticleDetailPageContent } from "@/views/article/article-detail-page-content";
 
 type ArticleDetailPageView = {
-  id: string;
-  userId: string | null;
+  articleId: string;
+  currentUserId: string | null;
 };
 
-export const ArticleDetailPageView = ({ id, userId }: ArticleDetailPageView) => {
+export const ArticleDetailPageView = ({
+  articleId,
+  currentUserId,
+}: ArticleDetailPageView) => {
   return (
     <PageContainer>
-      <ArticleDetailPageActionbar userId={userId} articleId={id} />
-      <ArticleDetailPageContent userId={userId} articleId={id} />
-      <ArticleCommentSection articleId={id} userId={userId} />
+      <ArticleDetailPageActionbar
+        currentUserId={currentUserId}
+        articleId={articleId}
+      />
+      <ArticleDetailPageContent
+        currentUserId={currentUserId}
+        articleId={articleId}
+      />
+      <ArticleCommentSection articleId={articleId} userId={currentUserId} />
     </PageContainer>
   );
 };

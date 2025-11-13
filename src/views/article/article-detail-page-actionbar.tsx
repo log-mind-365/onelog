@@ -16,54 +16,54 @@ import { copyURL } from "@/shared/lib/utils";
 import { ROUTES } from "@/shared/model/routes";
 
 type ArticleActionbarProps = {
-  userId: string | null;
+  currentUserId: string | null;
   articleId: string;
 };
 
 export const ArticleDetailPageActionbar = ({
   articleId,
-  userId,
+  currentUserId,
 }: ArticleActionbarProps) => {
   const router = useRouter();
   const { data: article } = useSuspenseQuery(
-    articleQueries.detail(articleId, userId),
+    articleQueries.detail(articleId, currentUserId),
   );
   const { mutate: likeArticle } = useLikeArticle();
   const { mutate: deleteArticle } = useDeleteArticle();
   const { openModal } = useModal();
 
   const handleLike = () => {
-    if (!userId) {
+    if (!currentUserId) {
       openModal("auth-guard");
     } else {
-      likeArticle({ articleId, userId });
+      likeArticle({ articleId, userId: currentUserId });
     }
   };
 
   const handleModify = () => {
-    if (!userId) {
+    if (!currentUserId) {
       openModal("auth-guard");
-    } else if (userId === article?.author?.id) {
+    } else if (currentUserId === article?.author?.id) {
       router.push(ROUTES.ARTICLE.EDIT(articleId));
     }
   };
 
   const handleReport = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    if (!userId) {
+    if (!currentUserId) {
       openModal("auth-guard");
     } else {
       openModal("report-article", {
         articleId,
-        reporterId: userId,
+        reporterId: currentUserId,
       });
     }
   };
 
   const handleDelete = () => {
-    if (!userId) {
+    if (!currentUserId) {
       openModal("auth-guard");
-    } else if (userId === article?.author?.id) {
+    } else if (currentUserId === article?.author?.id) {
       const confirmed = window.confirm(
         "정말로 이 게시글을 삭제하시겠습니까?\n삭제된 게시글은 복구할 수 없습니다.",
       );

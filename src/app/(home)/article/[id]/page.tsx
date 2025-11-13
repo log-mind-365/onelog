@@ -14,15 +14,15 @@ const ArticlePage = async ({ params }: PageProps) => {
   const { id } = await params;
   const queryClient = getQueryClient();
   const user = await getCurrentUser();
-  const userId = user?.id ?? null;
+  const currentUserId = user?.id ?? null;
 
   const [article] = await Promise.all([
-    queryClient.fetchQuery(articleQueries.detail(id, userId)),
+    queryClient.fetchQuery(articleQueries.detail(id, currentUserId)),
     queryClient.prefetchQuery(commentQueries.list(id)),
   ]);
 
   await queryClient.prefetchQuery(
-    followQueries.isFollowing(userId, article.author?.id ?? ""),
+    followQueries.isFollowing(currentUserId, article.author?.id ?? ""),
   );
   await queryClient.prefetchQuery(
     followQueries.stats(article.author?.id ?? ""),
@@ -30,7 +30,7 @@ const ArticlePage = async ({ params }: PageProps) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ArticleDetailPageView id={id} userId={userId} />
+      <ArticleDetailPageView articleId={id} currentUserId={currentUserId} />
     </HydrationBoundary>
   );
 };
