@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { postArticle } from "@/entities/article/api/server";
 import {
@@ -8,25 +7,16 @@ import {
 } from "@/entities/article/model/constants";
 import type { ArticleInsertSchema } from "@/entities/article/model/types";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
-import { ROUTES } from "@/shared/model/routes";
 
 export const useSubmitArticle = () => {
   const queryClient = getQueryClient();
-  const router = useRouter();
 
   return useMutation({
-    mutationFn: async ({
-      title,
-      content,
-      emotionLevel,
-      accessType,
-      userId,
-    }: ArticleInsertSchema): Promise<void> => {
-      await postArticle({ userId, title, content, emotionLevel, accessType });
+    mutationFn: async (params: ArticleInsertSchema): Promise<void> => {
+      await postArticle(params);
     },
     onSuccess: () => {
       toast.success(ARTICLE_TOAST_MESSAGE.POST.SUCCESS);
-      router.push(ROUTES.HOME);
     },
     onError: (error) => {
       console.error(error);
