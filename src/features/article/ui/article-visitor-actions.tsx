@@ -11,7 +11,7 @@ type ProfilerSummaryVisitorActionsProps = {
   isFollowing: boolean;
 };
 
-export const ProfileSummaryVisitorActions = ({
+export const ProfileVisitorActions = ({
   profileUserId,
   currentUserId,
   isFollowing,

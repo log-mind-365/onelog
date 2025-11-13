@@ -6,7 +6,7 @@ type ProfileSummaryOwnerActionsProps = {
   currentUserId: string;
 };
 
-export const ProfileSummaryOwnerActions = ({
+export const ProfileOwnerActions = ({
   currentUserId,
 }: ProfileSummaryOwnerActionsProps) => {
   return (
