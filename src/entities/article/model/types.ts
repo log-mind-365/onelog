@@ -8,6 +8,7 @@ export type ArticleWithAuthorInfo = Article & {
   author: UserInfo | null;
   likeCount: number;
   isLiked: boolean;
+  isFollowing: boolean;
   commentCount: number;
 };
 export type ArticleInsertSchema = typeof articles.$inferInsert;

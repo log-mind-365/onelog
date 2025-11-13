@@ -16,6 +16,7 @@ import { articles } from "@/db/schemas/articles";
 import { comments } from "@/db/schemas/comments";
 import { profiles } from "@/db/schemas/profiles";
 import { reports } from "@/db/schemas/reports";
+import { userFollows } from "@/db/schemas/user-follows";
 import { ARTICLE_PAGE_LIMIT } from "@/entities/article/model/constants";
 import type {
   Article,
@@ -26,7 +27,7 @@ import type {
 
 export const getInfinitePublicArticleList = async (
   pageParam: string,
-  userId: string | null,
+  currentUserId: string | null,
 ): Promise<InfiniteArticleList> => {
   const result = await db
     .select({
@@ -38,12 +39,21 @@ export const getInfinitePublicArticleList = async (
         FROM ${comments}
         WHERE ${comments.articleId} = ${articles.id}
       )`,
-      isLiked: userId
-        ? sql<boolean>`EXISTS(
-            SELECT 1 FROM ${articleLikes}
-            WHERE ${articleLikes.articleId} = ${articles.id}
-            AND ${articleLikes.userId} = ${userId}
-          )`
+      isLiked: currentUserId
+        ? sql<boolean>`
+            EXISTS(
+                SELECT 1 FROM ${articleLikes}
+                WHERE ${articleLikes.articleId} = ${articles.id}
+                AND ${articleLikes.userId} = ${currentUserId}
+            )`
+        : sql<boolean>`false`,
+      isFollowing: currentUserId
+        ? sql<boolean>`
+            EXISTS(
+                SELECT 1 FROM ${userFollows}
+                WHERE ${userFollows.followerId} = ${currentUserId}
+                AND ${userFollows.followingId} = ${articles.userId}
+            )`
         : sql<boolean>`false`,
     })
     .from(articles)
@@ -55,7 +65,7 @@ export const getInfinitePublicArticleList = async (
         // public이거나 자신의 게시물만 조회
         or(
           eq(articles.accessType, "public"),
-          userId ? eq(articles.userId, userId) : undefined,
+          currentUserId ? eq(articles.userId, currentUserId) : undefined,
         ),
       ),
     )
@@ -75,7 +85,8 @@ export const getInfinitePublicArticleList = async (
     result.length === ARTICLE_PAGE_LIMIT
       ? result[ARTICLE_PAGE_LIMIT - 1].createdAt.toISOString()
       : undefined;
-  const previousId = result.length > 0 ? result[0].createdAt.toISOString() : undefined;
+  const previousId =
+    result.length > 0 ? result[0].createdAt.toISOString() : undefined;
 
   return {
     nextId,
@@ -86,7 +97,7 @@ export const getInfinitePublicArticleList = async (
 
 export const getArticleDetail = async (
   id: string,
-  userId?: string | null,
+  currentUserId?: string | null,
 ): Promise<ArticleWithAuthorInfo> => {
   return db
     .select({
@@ -98,12 +109,20 @@ export const getArticleDetail = async (
         FROM ${comments}
         WHERE ${comments.articleId} = ${articles.id}
       )`,
-      isLiked: userId
+      isLiked: currentUserId
         ? sql<boolean>`EXISTS(
             SELECT 1 FROM ${articleLikes}
             WHERE ${articleLikes.articleId} = ${articles.id}
-            AND ${articleLikes.userId} = ${userId}
+            AND ${articleLikes.userId} = ${currentUserId}
           )`
+        : sql<boolean>`false`,
+      isFollowing: currentUserId
+        ? sql<boolean>`
+            EXISTS(
+                SELECT 1 FROM ${userFollows}
+                WHERE ${userFollows.followerId} = ${currentUserId}
+                AND ${userFollows.followingId} = ${articles.userId}
+            )`
         : sql<boolean>`false`,
     })
     .from(articles)
@@ -113,7 +132,7 @@ export const getArticleDetail = async (
         // public이거나 자신의 게시물만 조회
         or(
           eq(articles.accessType, "public"),
-          userId ? eq(articles.userId, userId) : undefined,
+          currentUserId ? eq(articles.userId, currentUserId) : undefined,
         ),
       ),
     )
@@ -160,7 +179,7 @@ export const deleteArticle = async (id: string) => {
 // 좋아요 관련 함수들
 export const toggleArticleLike = async (
   articleId: string,
-  userId: string,
+  currentUserId: string,
 ): Promise<{ isLiked: boolean; likeCount: number }> => {
   // 현재 좋아요 상태 확인
   const existingLike = await db
@@ -169,7 +188,7 @@ export const toggleArticleLike = async (
     .where(
       and(
         eq(articleLikes.articleId, articleId),
-        eq(articleLikes.userId, userId),
+        eq(articleLikes.userId, currentUserId),
       ),
     )
     .then((rows) => rows[0]);
@@ -181,14 +200,14 @@ export const toggleArticleLike = async (
       .where(
         and(
           eq(articleLikes.articleId, articleId),
-          eq(articleLikes.userId, userId),
+          eq(articleLikes.userId, currentUserId),
         ),
       );
   } else {
     // 좋아요 추가
     await db.insert(articleLikes).values({
       articleId,
-      userId,
+      userId: currentUserId,
     });
   }
 
