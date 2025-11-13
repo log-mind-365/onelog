@@ -16,6 +16,11 @@ export const AuthGuardModal = () => {
   const { closeModal } = useModal();
   const router = useRouter();
 
+  const handleViewSignIn = () => {
+    router.push(ROUTES.AUTH.SIGN_IN);
+    closeModal();
+  };
+
   return (
     <DialogContent>
       <DialogHeader>
@@ -28,9 +33,7 @@ export const AuthGuardModal = () => {
         <Button variant="secondary" onClick={closeModal}>
           취소
         </Button>
-        <Button onClick={() => router.push(ROUTES.AUTH.SIGN_IN)}>
-          로그인 하러가기
-        </Button>
+        <Button onClick={handleViewSignIn}>로그인 하러가기</Button>
       </DialogFooter>
     </DialogContent>
   );

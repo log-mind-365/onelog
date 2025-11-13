@@ -34,6 +34,7 @@ export const ArticleVisitorActions = ({
         variant="outline"
         onClick={handleFollowToggle}
         disabled={isPending}
+        className="bg-card"
       >
         {isPending ? <Spinner /> : isFollowing ? "언팔로우" : "팔로우"}
       </Button>

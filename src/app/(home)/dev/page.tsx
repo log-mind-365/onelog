@@ -1,15 +1,24 @@
 "use client";
 
-import { Heart, MessageCircle, Share2, Eye, EyeOff, Mail } from "lucide-react";
-import { Button } from "@/shared/components/ui/button";
-import { Badge } from "@/shared/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/components/ui/card";
-import { Input } from "@/shared/components/ui/input";
-import { Textarea } from "@/shared/components/ui/textarea";
-import { Progress } from "@/shared/components/ui/progress";
-import { Avatar, AvatarFallback, AvatarImage } from "@/shared/components/ui/avatar";
-import { Separator } from "@/shared/components/ui/separator";
+import { Eye, Heart, MessageCircle, Share2 } from "lucide-react";
 import EmotionGauge from "@/entities/article/ui/emotion-gauge";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/shared/components/ui/avatar";
+import { Badge } from "@/shared/components/ui/badge";
+import { Button } from "@/shared/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/shared/components/ui/card";
+import { Input } from "@/shared/components/ui/input";
+import { Progress } from "@/shared/components/ui/progress";
+import { Separator } from "@/shared/components/ui/separator";
+import { Textarea } from "@/shared/components/ui/textarea";
 
 export default function DevComponentsPage() {
   return (
@@ -18,7 +27,9 @@ export default function DevComponentsPage() {
         {/* 헤더 */}
         <div className="space-y-2">
           <h1 className="font-bold text-4xl">컴포넌트 프리뷰</h1>
-          <p className="text-muted-foreground">OneLog 프로젝트의 모든 UI 컴포넌트를 한눈에 확인할 수 있습니다.</p>
+          <p className="text-muted-foreground">
+            OneLog 프로젝트의 모든 UI 컴포넌트를 한눈에 확인할 수 있습니다.
+          </p>
         </div>
 
         <Separator />
@@ -27,7 +38,9 @@ export default function DevComponentsPage() {
         <section className="space-y-6">
           <div>
             <h2 className="mb-2 font-semibold text-2xl">Buttons</h2>
-            <p className="text-muted-foreground text-sm">다양한 버튼 variants와 sizes</p>
+            <p className="text-muted-foreground text-sm">
+              다양한 버튼 variants와 sizes
+            </p>
           </div>
 
           <Card>
@@ -87,7 +100,9 @@ export default function DevComponentsPage() {
             </CardHeader>
             <CardContent className="flex flex-wrap gap-3">
               <Button disabled>Disabled</Button>
-              <Button variant="outline" disabled>Disabled Outline</Button>
+              <Button variant="outline" disabled>
+                Disabled Outline
+              </Button>
             </CardContent>
           </Card>
         </section>
@@ -98,7 +113,9 @@ export default function DevComponentsPage() {
         <section className="space-y-6">
           <div>
             <h2 className="mb-2 font-semibold text-2xl">Badges</h2>
-            <p className="text-muted-foreground text-sm">상태 표시용 배지 컴포넌트</p>
+            <p className="text-muted-foreground text-sm">
+              상태 표시용 배지 컴포넌트
+            </p>
           </div>
 
           <Card>
@@ -132,7 +149,9 @@ export default function DevComponentsPage() {
         <section className="space-y-6">
           <div>
             <h2 className="mb-2 font-semibold text-2xl">Emotion Gauge</h2>
-            <p className="text-muted-foreground text-sm">감정 레벨 시각화 컴포넌트</p>
+            <p className="text-muted-foreground text-sm">
+              감정 레벨 시각화 컴포넌트
+            </p>
           </div>
 
           <Card>
@@ -235,7 +254,9 @@ export default function DevComponentsPage() {
         <section className="space-y-6">
           <div>
             <h2 className="mb-2 font-semibold text-2xl">Avatars</h2>
-            <p className="text-muted-foreground text-sm">사용자 아바타 컴포넌트</p>
+            <p className="text-muted-foreground text-sm">
+              사용자 아바타 컴포넌트
+            </p>
           </div>
 
           <Card>
@@ -280,7 +301,9 @@ export default function DevComponentsPage() {
         <section className="space-y-6">
           <div>
             <h2 className="mb-2 font-semibold text-2xl">Cards</h2>
-            <p className="text-muted-foreground text-sm">카드 레이아웃 컴포넌트</p>
+            <p className="text-muted-foreground text-sm">
+              카드 레이아웃 컴포넌트
+            </p>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
@@ -335,8 +358,12 @@ export default function DevComponentsPage() {
         {/* 8. Article Card Example */}
         <section className="space-y-6">
           <div>
-            <h2 className="mb-2 font-semibold text-2xl">Article Card Preview</h2>
-            <p className="text-muted-foreground text-sm">실제 게시글 카드 프리뷰</p>
+            <h2 className="mb-2 font-semibold text-2xl">
+              Article Card Preview
+            </h2>
+            <p className="text-muted-foreground text-sm">
+              실제 게시글 카드 프리뷰
+            </p>
           </div>
 
           <Card>
@@ -354,12 +381,15 @@ export default function DevComponentsPage() {
                 </div>
                 <EmotionGauge emotionLevel={75} />
               </div>
-              <CardTitle className="text-xl">오늘은 좋은 일이 있었어요</CardTitle>
+              <CardTitle className="text-xl">
+                오늘은 좋은 일이 있었어요
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-muted-foreground text-sm leading-relaxed">
-                오늘 오랜만에 친구를 만났어요. 함께 카페에 가서 이야기를 나누다 보니 시간 가는 줄 몰랐네요.
-                역시 좋은 사람들과 함께하는 시간은 언제나 즐겁습니다.
+                오늘 오랜만에 친구를 만났어요. 함께 카페에 가서 이야기를 나누다
+                보니 시간 가는 줄 몰랐네요. 역시 좋은 사람들과 함께하는 시간은
+                언제나 즐겁습니다.
               </p>
               <Separator />
               <div className="flex items-center gap-4">
@@ -388,7 +418,9 @@ export default function DevComponentsPage() {
         <section className="space-y-6">
           <div>
             <h2 className="mb-2 font-semibold text-2xl">Color Palette</h2>
-            <p className="text-muted-foreground text-sm">프로젝트에서 사용하는 색상</p>
+            <p className="text-muted-foreground text-sm">
+              프로젝트에서 사용하는 색상
+            </p>
           </div>
 
           <div className="grid gap-4 md:grid-cols-3">
@@ -399,7 +431,9 @@ export default function DevComponentsPage() {
               <CardContent>
                 <div className="space-y-2">
                   <div className="h-12 rounded-md bg-primary" />
-                  <p className="text-muted-foreground text-xs">주요 액션 색상</p>
+                  <p className="text-muted-foreground text-xs">
+                    주요 액션 색상
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -423,7 +457,9 @@ export default function DevComponentsPage() {
               <CardContent>
                 <div className="space-y-2">
                   <div className="h-12 rounded-md bg-destructive" />
-                  <p className="text-muted-foreground text-xs">위험 액션 색상</p>
+                  <p className="text-muted-foreground text-xs">
+                    위험 액션 색상
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -479,23 +515,33 @@ export default function DevComponentsPage() {
             <CardContent className="space-y-4 pt-6">
               <div>
                 <h1 className="font-bold text-4xl">Heading 1</h1>
-                <p className="text-muted-foreground text-sm">font-bold text-4xl</p>
+                <p className="text-muted-foreground text-sm">
+                  font-bold text-4xl
+                </p>
               </div>
               <div>
                 <h2 className="font-semibold text-3xl">Heading 2</h2>
-                <p className="text-muted-foreground text-sm">font-semibold text-3xl</p>
+                <p className="text-muted-foreground text-sm">
+                  font-semibold text-3xl
+                </p>
               </div>
               <div>
                 <h3 className="font-semibold text-2xl">Heading 3</h3>
-                <p className="text-muted-foreground text-sm">font-semibold text-2xl</p>
+                <p className="text-muted-foreground text-sm">
+                  font-semibold text-2xl
+                </p>
               </div>
               <div>
                 <h4 className="font-semibold text-xl">Heading 4</h4>
-                <p className="text-muted-foreground text-sm">font-semibold text-xl</p>
+                <p className="text-muted-foreground text-sm">
+                  font-semibold text-xl
+                </p>
               </div>
               <div>
                 <p className="font-medium text-base">Body Text (Medium)</p>
-                <p className="text-muted-foreground text-sm">font-medium text-base</p>
+                <p className="text-muted-foreground text-sm">
+                  font-medium text-base
+                </p>
               </div>
               <div>
                 <p className="text-base">Body Text (Regular)</p>
@@ -511,7 +557,9 @@ export default function DevComponentsPage() {
               </div>
               <div>
                 <p className="text-muted-foreground">Muted Text</p>
-                <p className="text-muted-foreground text-xs">text-muted-foreground</p>
+                <p className="text-muted-foreground text-xs">
+                  text-muted-foreground
+                </p>
               </div>
             </CardContent>
           </Card>

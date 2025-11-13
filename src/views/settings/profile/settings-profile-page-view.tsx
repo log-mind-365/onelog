@@ -22,11 +22,13 @@ import { Textarea } from "@/shared/components/ui/textarea";
 import { ROUTES } from "@/shared/model/routes";
 
 type SettingsProfilePageViewProps = {
-  id: string;
+  currentUserId: string;
 };
 
-export const SettingsProfilePageView = ({ id }: SettingsProfilePageViewProps) => {
-  const { data: me } = useSuspenseQuery(userQueries.getUserInfo(id));
+export const SettingsProfilePageView = ({
+  currentUserId,
+}: SettingsProfilePageViewProps) => {
+  const { data: me } = useSuspenseQuery(userQueries.getUserInfo(currentUserId));
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -111,7 +113,7 @@ export const SettingsProfilePageView = ({ id }: SettingsProfilePageViewProps) =>
     >
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         {/* Profile Photo Card */}
-        <Card className="shadow-none">
+        <Card>
           <CardHeader>
             <CardTitle>프로필 커버 이미지</CardTitle>
             <CardDescription>
@@ -172,7 +174,7 @@ export const SettingsProfilePageView = ({ id }: SettingsProfilePageViewProps) =>
         </Card>
 
         {/* Profile Info Card */}
-        <Card className="shadow-none">
+        <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <UserIcon className="size-5" />
@@ -236,12 +238,13 @@ export const SettingsProfilePageView = ({ id }: SettingsProfilePageViewProps) =>
             variant="outline"
             onClick={handleCancel}
             disabled={isPending}
+            className="bg-card"
           >
-            <X className="mr-2 size-4" />
+            <X />
             취소
           </Button>
           <Button type="submit" disabled={isPending}>
-            <Save className="mr-2 size-4" />
+            <Save />
             {isPending ? "저장 중..." : "저장"}
           </Button>
         </div>

@@ -18,7 +18,7 @@ const Page = async () => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <SettingsProfilePageView id={user?.id} />
+      <SettingsProfilePageView currentUserId={user?.id} />
     </HydrationBoundary>
   );
 };
