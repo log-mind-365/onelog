@@ -1,9 +1,11 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
 import type { SubmitArticleDialogProps } from "@/app/_store/modal-store";
 import { useModal } from "@/app/_store/modal-store";
-import { useSubmitArticle } from "@/features/article/lib/use-submit-article";
+import { useSubmitArticle } from "@/features/write-article/lib/use-submit-article";
+import { useDraft } from "@/features/write-article/model/use-draft";
 import { Button } from "@/shared/components/ui/button";
 import {
   DialogContent,
@@ -12,25 +14,32 @@ import {
   DialogTitle,
 } from "@/shared/components/ui/dialog";
 import { Spinner } from "@/shared/components/ui/spinner";
+import { ROUTES } from "@/shared/model/routes";
 
 export const SubmitArticleModal = () => {
   const { props, closeModal } = useModal();
   const { mutate: onSubmit, isPending } = useSubmitArticle();
+  const { reset } = useDraft();
+  const router = useRouter();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const submitProps = props as SubmitArticleDialogProps;
-    if (!submitProps?.userId) return;
+    if (!submitProps?.authorId) return;
     onSubmit(
       {
-        userId: submitProps.userId,
+        userId: submitProps.authorId,
         title: submitProps.title,
         content: submitProps.content,
         emotionLevel: submitProps.emotionLevel,
         accessType: submitProps.accessType,
       },
       {
-        onSuccess: () => closeModal(),
+        onSuccess: () => {
+          closeModal();
+          reset();
+          router.replace(ROUTES.HOME);
+        },
       },
     );
   };
