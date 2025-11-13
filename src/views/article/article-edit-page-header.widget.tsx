@@ -6,6 +6,7 @@ import { useModal } from "@/app/_store/modal-store";
 import type { AccessType } from "@/entities/article/model/types";
 import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-type-button";
 import { ArticleEmotionButton } from "@/entities/article/ui/article-emotion-button";
+import { useDraft } from "@/features/write-article/model/use-draft";
 import { Button } from "@/shared/components/ui/button";
 import {
   Tooltip,
@@ -13,7 +14,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/shared/components/ui/tooltip";
-import { useDraft } from "@/views/write/use-draft";
 
 type ArticleEditPageHeaderProps = {
   articleId: string;
