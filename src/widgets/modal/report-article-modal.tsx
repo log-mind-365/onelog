@@ -29,7 +29,7 @@ const REPORT_TYPES = [
   { value: "other", label: "기타" },
 ] as const;
 
-export const ReportArticleDialog = () => {
+export const ReportArticleModal = () => {
   const { props, closeModal } = useModal();
   const { mutate: onReport, isPending } = useReportArticle();
   const [reportType, setReportType] = useState<

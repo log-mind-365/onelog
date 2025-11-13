@@ -19,7 +19,7 @@ import {
   UserInfoCardName,
 } from "@/entities/user/ui/user-info-card";
 import { useArticleViewMode } from "@/features/article/lib/use-article-view-mode";
-import { ArticleAuthorProfileSummaryActionBar } from "@/features/article/ui/article-author-profile-summary-action-bar";
+import { ArticleAuthorProfileActionBar } from "@/features/article/ui/article-author-profile-action-bar";
 import {
   Card,
   CardContent,
@@ -74,9 +74,9 @@ export const ArticleDetailPageContent = ({
             <UserInfoCardAboutMe aboutMe={aboutMe ?? ""} />
           </UserInfoCardContent>
           <UserInfoCardActions>
-            <ArticleAuthorProfileSummaryActionBar
+            <ArticleAuthorProfileActionBar
               viewMode={viewMode}
-              profileUserId={id}
+              authorId={id}
               currentUserId={currentUserId}
               isFollowing={isFollowing}
             />
