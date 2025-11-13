@@ -4,12 +4,12 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { Calendar, Mail, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { followQueries } from "@/entities/follow/api/queries";
-import { FollowButton } from "@/entities/follow/ui/follow-button";
 import { FollowStats } from "@/entities/follow/ui/follow-stats";
 import { userQueries } from "@/entities/user/api/queries";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
 import { useFollowToggle } from "@/features/follow/lib/use-follow-toggle";
-import { ProfileNavigationButtons } from "@/features/profile/ui/profile-navigation-buttons";
+import { useProfileViewMode } from "@/features/profile/lib/use-profile-view-mode";
+import { ProfileActionBar } from "@/features/profile/ui/profile-action-bar";
 import { PageContainer } from "@/shared/components/page-container";
 import {
   Card,
@@ -21,7 +21,6 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card";
 import { Separator } from "@/shared/components/ui/separator";
-import { ROUTES } from "@/shared/model/routes";
 
 type ProfilePageViewProps = {
   profileUserId: string;
@@ -32,20 +31,11 @@ export const ProfilePageView = ({
   profileUserId,
   currentUserId,
 }: ProfilePageViewProps) => {
-  const router = useRouter();
+  const { viewMode } = useProfileViewMode(profileUserId, currentUserId);
   const { data: user } = useSuspenseQuery(
     userQueries.getUserInfo(profileUserId),
   );
   const { data: stats } = useSuspenseQuery(followQueries.stats(profileUserId));
-  const { data: isFollowing } = useSuspenseQuery(
-    followQueries.isFollowing(currentUserId, profileUserId),
-  );
-  const { mutate: toggleFollow, isPending: isFollowPending } =
-    useFollowToggle();
-
-  if (!user) {
-    return null;
-  }
 
   const formatDate = (date: Date | string | null) => {
     if (!date) return "-";
@@ -56,23 +46,18 @@ export const ProfilePageView = ({
     });
   };
 
-  const handleFollow = () => {
-    if (!currentUserId || currentUserId === user.id) return null;
-    toggleFollow({ followerId: currentUserId, followingId: user.id });
-  };
-
   return (
     <PageContainer title="프로필" description="사용자 정보를 확인하세요">
       {/* Profile Header Card */}
       <Card>
         <CardContent className="flex flex-col items-center gap-4">
           <UserAvatar
-            avatarUrl={user.avatarUrl || undefined}
-            fallback={user.userName}
+            avatarUrl={user?.avatarUrl ?? null}
+            fallback={user?.userName ?? "U"}
             size="xl"
           />
           <div className="flex flex-col items-center gap-1">
-            <CardTitle className="text-2xl">{user.userName}</CardTitle>
+            <CardTitle className="text-2xl">{user?.userName ?? ""}</CardTitle>
             <CardDescription className="flex flex-col items-center text-muted-foreground text-sm">
               <FollowStats
                 followerCount={stats?.followerCount ?? 0}
@@ -80,23 +65,17 @@ export const ProfilePageView = ({
               />
               <div className="flex gap-2">
                 <Mail className="size-4" />
-                {user.email}
+                {user?.email ?? ""}
               </div>
             </CardDescription>
           </div>
         </CardContent>
         <CardFooter className="justify-center">
           <CardAction className="flex items-center gap-2">
-            <FollowButton
-              isFollowing={isFollowing}
-              isMe={profileUserId === currentUserId}
-              onFollow={handleFollow}
-              isPending={isFollowPending}
-            />
-            <ProfileNavigationButtons
-              isMe={profileUserId === currentUserId}
-              onViewProfile={() => null}
-              onEditProfile={() => router.push(ROUTES.SETTINGS.PROFILE)}
+            <ProfileActionBar
+              viewMode={viewMode}
+              profileUserId={profileUserId}
+              currentUserId={currentUserId}
             />
           </CardAction>
         </CardFooter>
@@ -111,7 +90,7 @@ export const ProfilePageView = ({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {user.aboutMe ? (
+          {user?.aboutMe ? (
             <p className="text-sm leading-relaxed">{user.aboutMe}</p>
           ) : (
             <p className="text-muted-foreground text-sm">
@@ -132,12 +111,16 @@ export const ProfilePageView = ({
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between text-sm">
             <span className="text-muted-foreground">가입일</span>
-            <span className="font-medium">{formatDate(user.createdAt)}</span>
+            <span className="font-medium">
+              {formatDate(user?.createdAt ?? "")}
+            </span>
           </div>
           <Separator />
           <div className="flex items-center justify-between text-sm">
             <span className="text-muted-foreground">마지막 업데이트</span>
-            <span className="font-medium">{formatDate(user.updatedAt)}</span>
+            <span className="font-medium">
+              {formatDate(user?.updatedAt ?? "")}
+            </span>
           </div>
         </CardContent>
       </Card>

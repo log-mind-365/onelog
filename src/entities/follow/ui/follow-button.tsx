@@ -4,17 +4,14 @@ import { Spinner } from "@/shared/components/ui/spinner";
 type FollowButtonProps = {
   onFollow: () => void;
   isFollowing: boolean;
-  isPending?: boolean;
-  isMe: boolean;
+  isPending: boolean;
 };
 
 export const FollowButton = ({
   onFollow,
   isFollowing,
   isPending,
-  isMe,
 }: FollowButtonProps) => {
-  if (isMe) return null;
   return isFollowing ? (
     <Button onClick={onFollow} disabled={isPending}>
       {isPending ? <Spinner /> : null}
