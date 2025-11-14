@@ -23,12 +23,10 @@ export const ArticleDetailPageView = ({
         currentUserId={currentUserId}
         articleId={articleId}
       />
-      <Suspense fallback={<div>Loading...</div>}>
-        <ArticleCommentSection
-          articleId={articleId}
-          currentUserId={currentUserId}
-        />
-      </Suspense>
+      <ArticleCommentSection
+        articleId={articleId}
+        currentUserId={currentUserId}
+      />
     </PageContainer>
   );
 };
