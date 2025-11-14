@@ -1,5 +1,6 @@
 import { sql } from "drizzle-orm";
 import {
+  index,
   integer,
   pgPolicy,
   pgTable,
@@ -38,5 +39,7 @@ export const articleLikes = pgTable(
       to: authenticatedRole,
       using: sql`user_id = auth.uid()`,
     }),
+    // Performance index for aggregating likes by article
+    index("idx_article_likes_article_id").on(table.articleId),
   ],
 );

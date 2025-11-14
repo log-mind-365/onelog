@@ -1,5 +1,6 @@
 import { sql } from "drizzle-orm";
 import {
+  index,
   pgPolicy,
   pgTable,
   primaryKey,
@@ -34,5 +35,11 @@ export const userFollows = pgTable(
       to: "authenticated",
       using: sql`follower_id = auth.uid()`,
     }),
+    // Performance indexes for EXISTS subqueries
+    index("idx_user_follows_follower_following").on(
+      t.followerId,
+      t.followingId,
+    ),
+    index("idx_user_follows_following").on(t.followingId),
   ],
 );

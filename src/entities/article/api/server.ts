@@ -97,6 +97,9 @@ export const getInfinitePublicArticleList = async (
   pageParam: number | undefined,
   currentUserId: string | null,
 ): Promise<InfiniteArticleList> => {
+  console.time("[DB] getInfinitePublicArticleList");
+
+  // Optimize: Skip expensive subqueries for non-authenticated users
   const result = await db
     .select({
       ...getTableColumns(articles),
@@ -145,6 +148,8 @@ export const getInfinitePublicArticleList = async (
       })),
     );
 
+  console.timeEnd("[DB] getInfinitePublicArticleList");
+
   const nextId =
     result.length === ARTICLE_PAGE_LIMIT
       ? result[ARTICLE_PAGE_LIMIT - 1].id
@@ -162,7 +167,9 @@ export const getArticleDetail = async (
   id: number,
   currentUserId?: string | null,
 ): Promise<ArticleWithAuthorInfo> => {
-  return db
+  console.time("[DB] getArticleDetail");
+
+  const result = await db
     .select({
       ...getTableColumns(articles),
       author: profiles,
@@ -211,6 +218,9 @@ export const getArticleDetail = async (
         commentCount: Number(row.commentCount) || 0,
       };
     });
+
+  console.timeEnd("[DB] getArticleDetail");
+  return result;
 };
 
 export const postArticle = async (

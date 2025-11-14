@@ -15,7 +15,9 @@ import type {
 export const getComments = async (
   articleId: number,
 ): Promise<CommentWithAuthor[]> => {
-  return db
+  console.time("[DB] getComments");
+
+  const result = await db
     .select({
       id: comments.id,
       articleId: comments.articleId,
@@ -37,6 +39,9 @@ export const getComments = async (
     .leftJoin(profiles, eq(comments.userId, profiles.id))
     .where(eq(comments.articleId, articleId))
     .orderBy(desc(comments.createdAt));
+
+  console.timeEnd("[DB] getComments");
+  return result;
 };
 
 /**

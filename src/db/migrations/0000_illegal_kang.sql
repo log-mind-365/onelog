@@ -1,7 +1,6 @@
 CREATE TYPE "public"."access_types" AS ENUM('public', 'private');--> statement-breakpoint
 CREATE TYPE "public"."report_types" AS ENUM('spam', 'inappropriate', 'harassment', 'other');--> statement-breakpoint
 CREATE TABLE "article_likes" (
-	"id" serial NOT NULL,
 	"article_id" integer NOT NULL,
 	"user_id" uuid NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
@@ -69,11 +68,14 @@ ALTER TABLE "profiles" ADD CONSTRAINT "profiles_id_users_id_fk" FOREIGN KEY ("id
 ALTER TABLE "reports" ADD CONSTRAINT "reports_article_id_articles_id_fk" FOREIGN KEY ("article_id") REFERENCES "public"."articles"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "reports" ADD CONSTRAINT "reports_reporter_id_users_id_fk" FOREIGN KEY ("reporter_id") REFERENCES "auth"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "user_follows" ADD CONSTRAINT "user_follows_follower_id_users_id_fk" FOREIGN KEY ("follower_id") REFERENCES "auth"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+CREATE INDEX "idx_article_likes_article_id" ON "article_likes" USING btree ("article_id");--> statement-breakpoint
 CREATE INDEX "idx_articles_user_id" ON "articles" USING btree ("user_id");--> statement-breakpoint
 CREATE INDEX "idx_articles_created_at" ON "articles" USING btree ("created_at" DESC NULLS LAST);--> statement-breakpoint
 CREATE INDEX "idx_articles_access_type_created_at" ON "articles" USING btree ("access_type","created_at" DESC NULLS LAST);--> statement-breakpoint
 CREATE INDEX "idx_comments_article_id" ON "comments" USING btree ("article_id");--> statement-breakpoint
 CREATE INDEX "idx_comments_user_id" ON "comments" USING btree ("user_id");--> statement-breakpoint
+CREATE INDEX "idx_user_follows_follower_following" ON "user_follows" USING btree ("follower_id","following_id");--> statement-breakpoint
+CREATE INDEX "idx_user_follows_following" ON "user_follows" USING btree ("following_id");--> statement-breakpoint
 CREATE POLICY "anyone can select article likes" ON "article_likes" AS PERMISSIVE FOR SELECT TO public USING (true);--> statement-breakpoint
 CREATE POLICY "authenticated can insert article likes" ON "article_likes" AS PERMISSIVE FOR INSERT TO "authenticated" WITH CHECK (user_id = auth.uid());--> statement-breakpoint
 CREATE POLICY "authenticated can delete own article likes" ON "article_likes" AS PERMISSIVE FOR DELETE TO "authenticated" USING (user_id = auth.uid());--> statement-breakpoint

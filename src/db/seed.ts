@@ -13,7 +13,7 @@ const main = async () => {
   console.log("🌱 Starting database seeding...");
 
   try {
-    const userId = "bcd756c9-3732-490d-86ed-3814e8be9a29";
+    const userId = "724ed4ff-5a02-475d-af11-1c2b8ce8b3aa";
 
     const articleTemplates = [
       {
@@ -246,7 +246,7 @@ const main = async () => {
 
       articlesData.push({
         userId,
-        title: i + template.title + suffix,
+        title: template.title + suffix,
         content: template.content,
         emotionLevel: template.emotionLevel,
         accessType: template.accessType,

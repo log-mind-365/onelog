@@ -1,5 +1,5 @@
 {
-  "id": "236790b4-4a1a-41e5-8fa5-ef49cae02e11",
+  "id": "63be15c5-5e5c-4ac5-a488-9effd641b423",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -8,12 +8,6 @@
       "name": "article_likes",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": false,
-          "notNull": true
-        },
         "article_id": {
           "name": "article_id",
           "type": "integer",
@@ -34,7 +28,23 @@
           "default": "now()"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "idx_article_likes_article_id": {
+          "name": "idx_article_likes_article_id",
+          "columns": [
+            {
+              "expression": "article_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
       "foreignKeys": {
         "article_likes_article_id_articles_id_fk": {
           "name": "article_likes_article_id_articles_id_fk",
@@ -665,7 +675,44 @@
           "default": "now()"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "idx_user_follows_follower_following": {
+          "name": "idx_user_follows_follower_following",
+          "columns": [
+            {
+              "expression": "follower_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "following_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "idx_user_follows_following": {
+          "name": "idx_user_follows_following",
+          "columns": [
+            {
+              "expression": "following_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
       "foreignKeys": {
         "user_follows_follower_id_users_id_fk": {
           "name": "user_follows_follower_id_users_id_fk",
