@@ -117,7 +117,10 @@ export const ArticleCard = ({
         />
         <ArticleHeaderEmotionGauge emotionLevel={emotionLevel} />
       </ArticleHeader>
-      <Card onClick={onClick} className="cursor-pointer select-none pb-4">
+      <Card
+        onClick={onClick}
+        className="cursor-pointer select-none pb-4 transition-shadow duration-200 ease-in-out hover:shadow-lg"
+      >
         <CardContent>
           <ArticleContent title={title} content={content} />
         </CardContent>

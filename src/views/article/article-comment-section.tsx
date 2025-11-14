@@ -12,12 +12,12 @@ import { Card, CardContent, CardHeader } from "@/shared/components/ui/card";
 
 type ArticleCommentSectionProps = {
   articleId: number;
-  userId: string | null;
+  currentUserId: string | null;
 };
 
 export const ArticleCommentSection = ({
   articleId,
-  userId,
+  currentUserId,
 }: ArticleCommentSectionProps) => {
   const { data: comments } = useSuspenseQuery(commentQueries.list(articleId));
   const { me } = useAuth();
@@ -26,11 +26,11 @@ export const ArticleCommentSection = ({
   const { mutate: deleteComment } = useDeleteComment();
 
   const handlePostComment = (content: string) => {
-    if (!userId) return;
+    if (!currentUserId) return;
 
     postComment({
       articleId,
-      userId,
+      userId: currentUserId,
       content,
     });
   };
@@ -44,12 +44,12 @@ export const ArticleCommentSection = ({
   };
 
   const handleDeleteComment = (commentId: number) => {
-    if (!userId) return;
+    if (!currentUserId) return;
 
     deleteComment({
       commentId,
       articleId,
-      userId,
+      userId: currentUserId,
     });
   };
 
@@ -58,7 +58,7 @@ export const ArticleCommentSection = ({
       <CardHeader>
         <div className="flex flex-col gap-2">
           <h3 className="font-semibold text-lg">댓글 {comments.length}</h3>
-          {userId ? (
+          {currentUserId ? (
             <CommentForm
               currentUserName={me?.userName ?? ""}
               currentUserAvatar={me?.avatarUrl ?? null}
@@ -77,7 +77,7 @@ export const ArticleCommentSection = ({
       <CardContent>
         <CommentList
           comments={comments}
-          currentUserId={userId}
+          currentUserId={currentUserId}
           onUpdate={handleUpdateComment}
           onDelete={handleDeleteComment}
         />
