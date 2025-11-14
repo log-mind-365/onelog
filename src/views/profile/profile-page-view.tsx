@@ -1,6 +1,6 @@
 "use client";
 
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { Calendar, Mail, User } from "lucide-react";
 import { followQueries } from "@/entities/follow/api/queries";
 import { FollowStats } from "@/entities/follow/ui/follow-stats";
@@ -36,7 +36,7 @@ export const ProfilePageView = ({
   const { data: user } = useSuspenseQuery(
     userQueries.getUserInfo(profileUserId),
   );
-  const { data: stats } = useSuspenseQuery(followQueries.stats(profileUserId));
+  const { data: stats } = useQuery(followQueries.stats(profileUserId));
 
   const formatDate = (date: Date | string | null) => {
     if (!date) return "-";

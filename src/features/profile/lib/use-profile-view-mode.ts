@@ -1,4 +1,4 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { followQueries } from "@/entities/follow/api/queries";
 import type { ProfileViewMode } from "@/entities/user/model/types";
 
@@ -10,7 +10,7 @@ export const useProfileViewMode = (
   isFollowing: boolean;
   currentUserId: string | null;
 } => {
-  const { data: isFollowing } = useSuspenseQuery(
+  const { data: isFollowing } = useQuery(
     followQueries.isFollowing(currentUserId, profileUserId),
   );
 
@@ -18,7 +18,7 @@ export const useProfileViewMode = (
 
   return {
     viewMode: isOwnProfile ? "owner" : "visitor",
-    isFollowing,
+    isFollowing: isFollowing ?? false,
     currentUserId,
   };
 };

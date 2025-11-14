@@ -1,6 +1,5 @@
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
-import { followQueries } from "@/entities/follow/api/queries";
 import { userQueries } from "@/entities/user/api/queries";
 import { getCurrentUser } from "@/features/auth/api/server";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
@@ -22,13 +21,6 @@ const Page = async ({ params }: PageProps) => {
   if (!profileUser) {
     notFound();
   }
-
-  await Promise.all([
-    queryClient.prefetchQuery(followQueries.stats(id)),
-    queryClient.prefetchQuery(
-      followQueries.isFollowing(currentUser?.id ?? null, id),
-    ),
-  ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
