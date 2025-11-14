@@ -1,8 +1,10 @@
 import { sql } from "drizzle-orm";
 import {
   index,
+  integer,
   pgPolicy,
   pgTable,
+  serial,
   text,
   timestamp,
   uuid,
@@ -13,8 +15,8 @@ import { articles } from "@/db/schemas/articles";
 export const comments = pgTable(
   "comments",
   {
-    id: uuid("id").primaryKey().defaultRandom(),
-    articleId: uuid("article_id")
+    id: serial("id").primaryKey(),
+    articleId: integer("article_id")
       .notNull()
       .references(() => articles.id, { onDelete: "cascade" }),
     userId: uuid("user_id")

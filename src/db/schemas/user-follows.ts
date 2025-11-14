@@ -11,7 +11,6 @@ import { authUsers } from "drizzle-orm/supabase";
 export const userFollows = pgTable(
   "user_follows",
   {
-    id: uuid("id").defaultRandom().notNull(),
     followerId: uuid("follower_id")
       .notNull()
       .references(() => authUsers.id, { onDelete: "cascade" }),

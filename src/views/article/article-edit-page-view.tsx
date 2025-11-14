@@ -21,7 +21,7 @@ import { Separator } from "@/shared/components/ui/separator";
 import { WritePageHeader } from "@/widgets/write-page-header/ui/write-page-header";
 
 type ArticleEditPageViewProps = {
-  id: string;
+  id: number;
   userId: string | null;
 };
 

@@ -31,7 +31,7 @@ import {
 } from "@/shared/components/ui/hover-card";
 
 type ArticleCardProps = {
-  articleId: string;
+  articleId: number;
   userName: string;
   avatarUrl: string | null;
   email: string;

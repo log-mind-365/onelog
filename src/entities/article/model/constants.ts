@@ -1,28 +1,12 @@
 export const ARTICLE_PAGE_LIMIT = 10;
 
 export const EMOTION_STATUS = [
-  { percent: 0, status: "매우 나쁨" },
-  { percent: 25, status: "나쁨" },
-  { percent: 50, status: "보통" },
-  { percent: 75, status: "좋음" },
-  { percent: 100, status: "매우 좋음" },
+  { level: 1, status: "매우 나쁨" },
+  { level: 2, status: "나쁨" },
+  { level: 3, status: "보통" },
+  { level: 4, status: "좋음" },
+  { level: 5, status: "매우 좋음" },
 ] as const;
-
-export const EMOTION_LABELS: Record<number, string> = {
-  1: "매우 나쁨",
-  2: "나쁨",
-  3: "보통",
-  4: "좋음",
-  5: "매우 좋음",
-};
-
-export const EMOTION_PERCENT_COLORS: Record<number, string> = {
-  0: "bg-red-300",
-  25: "bg-blue-400",
-  50: "bg-yellow-400",
-  75: "bg-green-700",
-  100: "bg-green-400",
-};
 
 export const ARTICLE_TOAST_MESSAGE = {
   POST: {
@@ -44,23 +28,9 @@ export const ARTICLE_TOAST_MESSAGE = {
   },
 };
 
-export const COMMENT_TOAST_MESSAGE = {
-  DELETE: {
-    SUCCESS: "댓글 삭제에 성공했습니다.",
-    EXCEPTION: "댓글 삭제에 실패했습니다.",
-  },
-  POST: {
-    SUCCESS: "댓글 생성에 성공했습니다.",
-    EXCEPTION: "댓글 생성에 실패했습니다.",
-  },
-  UPDATE: {
-    SUCCESS: "댓글 수정에 성공했습니다.",
-    EXCEPTION: "댓글 수정에 실패했습니다.",
-  },
-};
-
 export const ARTICLE_QUERY_KEY = {
-  PUBLIC: ["all_post"],
+  PUBLIC: (currentUserId: string | null) => ["all_post", currentUserId],
+  PRIVATE: (currentUserId: string | null) => ["my_post", currentUserId],
   LIKED: (authorId?: string | null, meId?: string | null) => [
     "post",
     "liked",
@@ -76,16 +46,16 @@ export const ARTICLE_QUERY_KEY = {
     postType?: "journal" | "article",
     authorId?: string | null,
   ) => ["post", postType, authorId],
-  DETAIL: (postId: string, currentUserId?: string | null) => [
+  DETAIL: (articleId: number, currentUserId?: string | null) => [
     "post",
-    postId,
+    articleId,
     currentUserId,
   ],
-  LIKE_COUNT: (articleId: string) => ["article", "likeCount", articleId],
-  CHECK_LIKED: (postId?: number, meId?: string | null) => [
+  LIKE_COUNT: (articleId: number) => ["article", "likeCount", articleId],
+  CHECK_LIKED: (articleId?: number, meId?: string | null) => [
     "post",
     "isLiked",
-    postId,
+    articleId,
     meId,
   ],
 

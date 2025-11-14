@@ -1,6 +1,6 @@
 {
-  "id": "236790b4-4a1a-41e5-8fa5-ef49cae02e11",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "fe43918b-2389-4f31-9559-e1405f1538a7",
+  "prevId": "236790b4-4a1a-41e5-8fa5-ef49cae02e11",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -8,12 +8,6 @@
       "name": "article_likes",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": false,
-          "notNull": true
-        },
         "article_id": {
           "name": "article_id",
           "type": "integer",

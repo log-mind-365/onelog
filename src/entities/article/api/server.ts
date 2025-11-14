@@ -25,15 +25,15 @@ import type {
   InfiniteArticleList,
 } from "@/entities/article/model/types";
 
-export const getInfinitePublicArticleList = async (
-  pageParam: string,
+export const getInfinitePrivateArticleList = async (
+  pageParam: number,
   currentUserId: string | null,
-): Promise<InfiniteArticleList> => {
+) => {
   const result = await db
     .select({
       ...getTableColumns(articles),
       author: profiles,
-      likeCount: count(articleLikes.id).as("likeCount"),
+      likeCount: count(articleLikes.articleId).as("likeCount"),
       commentCount: sql<number>`(
         SELECT COUNT(*)::int
         FROM ${comments}
@@ -61,8 +61,7 @@ export const getInfinitePublicArticleList = async (
     .leftJoin(articleLikes, eq(articles.id, articleLikes.articleId))
     .where(
       and(
-        pageParam ? lt(articles.createdAt, new Date(pageParam)) : undefined,
-        // public이거나 자신의 게시물만 조회
+        pageParam ? lt(articles.id, pageParam) : undefined,
         or(
           eq(articles.accessType, "public"),
           currentUserId ? eq(articles.userId, currentUserId) : undefined,
@@ -83,10 +82,74 @@ export const getInfinitePublicArticleList = async (
 
   const nextId =
     result.length === ARTICLE_PAGE_LIMIT
-      ? result[ARTICLE_PAGE_LIMIT - 1].createdAt.toISOString()
+      ? result[ARTICLE_PAGE_LIMIT - 1].id
       : undefined;
-  const previousId =
-    result.length > 0 ? result[0].createdAt.toISOString() : undefined;
+  const previousId = result.length > 0 ? result[0].id : undefined;
+
+  return {
+    nextId,
+    previousId,
+    data: result,
+  };
+};
+
+export const getInfinitePublicArticleList = async (
+  pageParam: number | undefined,
+  currentUserId: string | null,
+): Promise<InfiniteArticleList> => {
+  const result = await db
+    .select({
+      ...getTableColumns(articles),
+      author: profiles,
+      likeCount: count(articleLikes.articleId).as("likeCount"),
+      commentCount: sql<number>`(
+        SELECT COUNT(*)::int
+        FROM ${comments}
+        WHERE ${comments.articleId} = ${articles.id}
+      )`,
+      isLiked: currentUserId
+        ? sql<boolean>`
+            EXISTS(
+                SELECT 1 FROM ${articleLikes}
+                WHERE ${articleLikes.articleId} = ${articles.id}
+                AND ${articleLikes.userId} = ${currentUserId}
+            )`
+        : sql<boolean>`false`,
+      isFollowing: currentUserId
+        ? sql<boolean>`
+            EXISTS(
+                SELECT 1 FROM ${userFollows}
+                WHERE ${userFollows.followerId} = ${currentUserId}
+                AND ${userFollows.followingId} = ${articles.userId}
+            )`
+        : sql<boolean>`false`,
+    })
+    .from(articles)
+    .leftJoin(profiles, eq(articles.userId, profiles.id))
+    .leftJoin(articleLikes, eq(articles.id, articleLikes.articleId))
+    .where(
+      and(
+        pageParam ? lt(articles.id, pageParam) : undefined,
+        eq(articles.accessType, "public"),
+      ),
+    )
+    .groupBy(articles.id, profiles.id)
+    .limit(ARTICLE_PAGE_LIMIT)
+    .orderBy(desc(articles.createdAt), desc(articles.id))
+    .then((rows) =>
+      rows.map((row) => ({
+        ...row,
+        author: row.author?.id ? row.author : null,
+        likeCount: Number(row.likeCount) || 0,
+        commentCount: Number(row.commentCount) || 0,
+      })),
+    );
+
+  const nextId =
+    result.length === ARTICLE_PAGE_LIMIT
+      ? result[ARTICLE_PAGE_LIMIT - 1].id
+      : undefined;
+  const previousId = result.length > 0 ? result[0].id : undefined;
 
   return {
     nextId,
@@ -96,14 +159,14 @@ export const getInfinitePublicArticleList = async (
 };
 
 export const getArticleDetail = async (
-  id: string,
+  id: number,
   currentUserId?: string | null,
 ): Promise<ArticleWithAuthorInfo> => {
   return db
     .select({
       ...getTableColumns(articles),
       author: profiles,
-      likeCount: count(articleLikes.id).as("likeCount"),
+      likeCount: count(articleLikes.articleId).as("likeCount"),
       commentCount: sql<number>`(
         SELECT COUNT(*)::int
         FROM ${comments}
@@ -161,7 +224,7 @@ export const postArticle = async (
 };
 
 export const updateArticle = async (
-  id: string,
+  id: number,
   params: Partial<ArticleInsertSchema>,
 ): Promise<Article> => {
   return db
@@ -172,13 +235,13 @@ export const updateArticle = async (
     .then((rows) => rows[0]);
 };
 
-export const deleteArticle = async (id: string) => {
+export const deleteArticle = async (id: number) => {
   return db.delete(articles).where(eq(articles.id, id));
 };
 
 // 좋아요 관련 함수들
 export const toggleArticleLike = async (
-  articleId: string,
+  articleId: number,
   currentUserId: string,
 ): Promise<{ isLiked: boolean; likeCount: number }> => {
   // 현재 좋아요 상태 확인
@@ -221,7 +284,7 @@ export const toggleArticleLike = async (
 };
 
 export const getArticleLikeCount = async (
-  articleId: string,
+  articleId: number,
 ): Promise<number> => {
   const result = await db
     .select({ count: count() })
@@ -233,7 +296,7 @@ export const getArticleLikeCount = async (
 };
 
 export const checkUserLiked = async (
-  articleId: string,
+  articleId: number,
   userId: string | null,
 ): Promise<boolean> => {
   if (!userId) return false;
@@ -254,7 +317,7 @@ export const checkUserLiked = async (
 
 // 신고 관련 함수들
 export const reportArticle = async (params: {
-  articleId: string;
+  articleId: number;
   reporterId: string;
   reportType: "spam" | "inappropriate" | "harassment" | "other";
   reason?: string;

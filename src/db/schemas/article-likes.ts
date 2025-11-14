@@ -1,5 +1,6 @@
 import { sql } from "drizzle-orm";
 import {
+  integer,
   pgPolicy,
   pgTable,
   primaryKey,
@@ -12,8 +13,7 @@ import { articles } from "@/db/schemas/articles";
 export const articleLikes = pgTable(
   "article_likes",
   {
-    id: uuid("id").defaultRandom().notNull(),
-    articleId: uuid("article_id")
+    articleId: integer("article_id")
       .notNull()
       .references(() => articles.id, { onDelete: "cascade" }),
     userId: uuid("user_id")

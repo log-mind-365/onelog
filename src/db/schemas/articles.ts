@@ -5,6 +5,7 @@ import {
   pgEnum,
   pgPolicy,
   pgTable,
+  serial,
   text,
   timestamp,
   uuid,
@@ -16,7 +17,7 @@ export const accessTypes = pgEnum("access_types", ["public", "private"]);
 export const articles = pgTable(
   "articles",
   {
-    id: uuid("id").primaryKey().defaultRandom(),
+    id: serial("id").primaryKey(),
     userId: uuid("user_id")
       .notNull()
       .references(() => authUsers.id),

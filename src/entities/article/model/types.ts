@@ -14,8 +14,8 @@ export type ArticleWithAuthorInfo = Article & {
 export type ArticleInsertSchema = typeof articles.$inferInsert;
 export type InfiniteArticleList = {
   data: ArticleWithAuthorInfo[];
-  previousId?: string;
-  nextId?: string;
+  previousId?: number;
+  nextId?: number;
 };
 export type AccessType = typeof articles.$inferSelect.accessType;
 export type EmotionLevel = typeof articles.$inferSelect.emotionLevel;

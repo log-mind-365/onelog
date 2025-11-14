@@ -6,7 +6,8 @@ import { ARTICLE_QUERY_KEY } from "@/entities/article/model/constants";
 import { ROUTES } from "@/shared/model/routes";
 
 type UseDeleteArticleParams = {
-  articleId: string;
+  articleId: number;
+  currentUserId: string;
 };
 
 export const useDeleteArticle = () => {
@@ -14,15 +15,17 @@ export const useDeleteArticle = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ articleId }: UseDeleteArticleParams): Promise<void> => {
+    mutationFn: async ({
+      articleId,
+    }: UseDeleteArticleParams): Promise<void> => {
       await deleteArticle(articleId);
     },
-    onSuccess: () => {
+    onSuccess: (data, variables) => {
       toast.success("게시글이 삭제되었습니다.");
 
       // 게시글 목록 쿼리 무효화
       void queryClient.invalidateQueries({
-        queryKey: ARTICLE_QUERY_KEY.PUBLIC,
+        queryKey: ARTICLE_QUERY_KEY.PUBLIC(variables.currentUserId),
       });
 
       // 홈으로 리다이렉트

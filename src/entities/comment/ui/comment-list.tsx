@@ -5,8 +5,8 @@ import { Separator } from "@/shared/components/ui/separator";
 type CommentListProps = {
   comments: CommentWithAuthor[];
   currentUserId: string | null;
-  onUpdate: (commentId: string, content: string) => void;
-  onDelete: (commentId: string) => void;
+  onUpdate: (commentId: number, content: string) => void;
+  onDelete: (commentId: number) => void;
 };
 
 export const CommentList = ({

@@ -14,8 +14,8 @@ import { Textarea } from "@/shared/components/ui/textarea";
 type CommentItemProps = {
   comment: CommentWithAuthor;
   isAuthor: boolean;
-  onUpdate: (commentId: string, content: string) => void;
-  onDelete: (commentId: string) => void;
+  onUpdate: (commentId: number, content: string) => void;
+  onDelete: (commentId: number) => void;
 };
 
 export const CommentItem = ({

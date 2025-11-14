@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { type MouseEvent, useEffect, useRef } from "react";
 import { useModal } from "@/app/_store/modal-store";
 import { articleQueries } from "@/entities/article/api/queries";
-import { useLikeArticle } from "@/features/article/lib/use-like-article";
+import { useLikeArticle } from "@/features/like-article/lib/use-like-article";
 import { ROUTES } from "@/shared/model/routes";
 import { ArticleCard } from "@/widgets/article-card/ui/article-card";
 
@@ -18,17 +18,17 @@ export const InfiniteArticleList = ({
   const { openModal } = useModal();
   const { mutate: likeArticle } = useLikeArticle();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useSuspenseInfiniteQuery(articleQueries.list(currentUserId ?? null));
+    useSuspenseInfiniteQuery(articleQueries.publicList(currentUserId ?? null));
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
   const allArticles = data?.pages.flatMap((page) => page.data) ?? [];
 
-  const handleLike = (articleId: string, userId: string) => {
+  const handleLike = (articleId: number) => {
     if (!currentUserId) return null;
-    likeArticle({ articleId, userId });
+    likeArticle({ articleId, currentUserId });
   };
 
-  const handleReport = (articleId: string) => {
+  const handleReport = (articleId: number) => {
     if (!currentUserId) {
       openModal("auth-guard");
     } else {
@@ -92,7 +92,7 @@ export const InfiniteArticleList = ({
         } = article;
         const viewMode = userId === currentUserId ? "author" : "viewer";
 
-        const onLike = () => handleLike(id, userId);
+        const onLike = () => handleLike(id);
         const onReport = (e: MouseEvent<HTMLButtonElement>) => {
           e.stopPropagation();
           handleReport(id);

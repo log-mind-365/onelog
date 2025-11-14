@@ -26,7 +26,7 @@ export type SubmitArticleDialogProps = {
 };
 
 export type UpdateArticleDialogProps = {
-  id: string;
+  id: number;
   title: string;
   content: string;
   emotionLevel: EmotionLevel;
@@ -34,7 +34,7 @@ export type UpdateArticleDialogProps = {
 };
 
 export type ReportArticleDialogProps = {
-  articleId: string;
+  articleId: number;
   reporterId: string;
 };
 

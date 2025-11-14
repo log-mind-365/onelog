@@ -10,14 +10,14 @@ import { ArticleLikeButton } from "@/entities/article/ui/article-like-button";
 import { ArticleOptionsDropdownMenu } from "@/entities/article/ui/article-option-button";
 import { ArticleReportButton } from "@/entities/article/ui/article-report-button";
 import { useDeleteArticle } from "@/features/article/lib/use-delete-article";
-import { useLikeArticle } from "@/features/article/lib/use-like-article";
 import { ShareArticleButton } from "@/features/article/ui/share-article-button";
+import { useLikeArticle } from "@/features/like-article/lib/use-like-article";
 import { copyURL } from "@/shared/lib/utils";
 import { ROUTES } from "@/shared/model/routes";
 
 type ArticleActionbarProps = {
   currentUserId: string | null;
-  articleId: string;
+  articleId: number;
 };
 
 export const ArticleDetailPageActionbar = ({
@@ -36,7 +36,7 @@ export const ArticleDetailPageActionbar = ({
     if (!currentUserId) {
       openModal("auth-guard");
     } else {
-      likeArticle({ articleId, userId: currentUserId });
+      likeArticle({ articleId, currentUserId });
     }
   };
 
@@ -69,7 +69,7 @@ export const ArticleDetailPageActionbar = ({
       );
 
       if (confirmed) {
-        deleteArticle({ articleId });
+        deleteArticle({ articleId, currentUserId });
       }
     }
   };

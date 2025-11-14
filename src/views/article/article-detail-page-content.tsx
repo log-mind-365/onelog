@@ -30,7 +30,7 @@ import {
 
 type ArticleDetailPageContentProps = {
   currentUserId: string | null;
-  articleId: string;
+  articleId: number;
 };
 
 export const ArticleDetailPageContent = ({

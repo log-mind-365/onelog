@@ -6,7 +6,7 @@ import { Spinner } from "@/shared/components/ui/spinner";
 import { ROUTES } from "@/shared/model/routes";
 
 type ArticleVisitorActionsProps = {
-  articleId: string;
+  articleId: number;
   authorId: string;
   currentUserId: string | null;
   isFollowing: boolean;

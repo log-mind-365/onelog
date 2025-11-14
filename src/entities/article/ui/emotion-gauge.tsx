@@ -14,24 +14,24 @@ export default function EmotionGauge({
   onClick,
 }: EmotionGaugeProps) {
   const label =
-    EMOTION_STATUS.find((emotion) => emotion.percent === emotionLevel)
-      ?.status || "알 수 없음";
+    EMOTION_STATUS.find((emotion) => emotion.level === emotionLevel)?.status ||
+    "알 수 없음";
   let emotionBlock = [0, 0, 0, 0, 0];
 
   switch (emotionLevel) {
-    case 0:
+    case 1:
       emotionBlock = [1, 0, 0, 0, 0];
       break;
-    case 25:
+    case 2:
       emotionBlock = [1, 1, 0, 0, 0];
       break;
-    case 50:
+    case 3:
       emotionBlock = [1, 1, 1, 0, 0];
       break;
-    case 75:
+    case 4:
       emotionBlock = [1, 1, 1, 1, 0];
       break;
-    case 100:
+    case 5:
       emotionBlock = [1, 1, 1, 1, 1];
       break;
     default:

@@ -13,7 +13,7 @@ import type {
  * 댓글 목록 조회 (작성자 정보 포함)
  */
 export const getComments = async (
-  articleId: string,
+  articleId: number,
 ): Promise<CommentWithAuthor[]> => {
   return db
     .select({
@@ -42,7 +42,7 @@ export const getComments = async (
 /**
  * 댓글 개수 조회
  */
-export const getCommentCount = async (articleId: string): Promise<number> => {
+export const getCommentCount = async (articleId: number): Promise<number> => {
   const result = await db
     .select({ count: count() })
     .from(comments)
@@ -89,7 +89,7 @@ export const postComment = async (
  * 댓글 수정
  */
 export const updateComment = async (
-  commentId: string,
+  commentId: number,
   content: string,
 ): Promise<CommentWithAuthor> => {
   await db
@@ -128,7 +128,7 @@ export const updateComment = async (
  * 댓글 삭제
  */
 export const deleteComment = async (
-  commentId: string,
+  commentId: number,
   userId: string,
 ): Promise<void> => {
   await db

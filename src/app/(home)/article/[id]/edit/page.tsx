@@ -9,13 +9,14 @@ type PageProps = {
 
 const ArticleEditPage = async ({ params }: PageProps) => {
   const { id } = await params;
+  const articleId = Number(id);
   const queryClient = getQueryClient();
   const user = await getCurrentUser();
   const userId = user?.id ?? null;
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ArticleEditPageView id={id} userId={userId} />
+      <ArticleEditPageView id={articleId} userId={userId} />
     </HydrationBoundary>
   );
 };

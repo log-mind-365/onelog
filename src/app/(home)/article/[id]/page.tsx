@@ -11,18 +11,19 @@ type PageProps = {
 
 const ArticlePage = async ({ params }: PageProps) => {
   const { id } = await params;
+  const articleId = Number(id);
   const queryClient = getQueryClient();
   const user = await getCurrentUser();
   const currentUserId = user?.id ?? null;
 
   await Promise.all([
-    queryClient.prefetchQuery(articleQueries.detail(id, currentUserId)),
-    queryClient.prefetchQuery(commentQueries.list(id)),
+    queryClient.prefetchQuery(articleQueries.detail(articleId, currentUserId)),
+    queryClient.prefetchQuery(commentQueries.list(articleId)),
   ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ArticleDetailPageView articleId={id} currentUserId={currentUserId} />
+      <ArticleDetailPageView articleId={articleId} currentUserId={currentUserId} />
     </HydrationBoundary>
   );
 };

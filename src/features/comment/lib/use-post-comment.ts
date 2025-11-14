@@ -1,8 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { COMMENT_TOAST_MESSAGE } from "@/entities/article/model/constants";
 import { postComment } from "@/entities/comment/api/server";
-import { COMMENT_QUERY_KEY } from "@/entities/comment/model/constants";
+import {
+  COMMENT_QUERY_KEY,
+  COMMENT_TOAST_MESSAGE,
+} from "@/entities/comment/model/constants";
 import type { CommentInsertSchema } from "@/entities/comment/model/types";
 
 export const usePostComment = () => {

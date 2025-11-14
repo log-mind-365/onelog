@@ -1,8 +1,8 @@
 CREATE TYPE "public"."access_types" AS ENUM('public', 'private');--> statement-breakpoint
 CREATE TYPE "public"."report_types" AS ENUM('spam', 'inappropriate', 'harassment', 'other');--> statement-breakpoint
 CREATE TABLE "article_likes" (
-	"id" uuid DEFAULT gen_random_uuid() NOT NULL,
-	"article_id" uuid NOT NULL,
+	"id" serial NOT NULL,
+	"article_id" integer NOT NULL,
 	"user_id" uuid NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "article_likes_article_id_user_id_pk" PRIMARY KEY("article_id","user_id")
@@ -10,7 +10,7 @@ CREATE TABLE "article_likes" (
 --> statement-breakpoint
 ALTER TABLE "article_likes" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
 CREATE TABLE "articles" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"id" serial PRIMARY KEY NOT NULL,
 	"user_id" uuid NOT NULL,
 	"title" text NOT NULL,
 	"content" text NOT NULL,
@@ -22,8 +22,8 @@ CREATE TABLE "articles" (
 --> statement-breakpoint
 ALTER TABLE "articles" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
 CREATE TABLE "comments" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"article_id" uuid NOT NULL,
+	"id" serial PRIMARY KEY NOT NULL,
+	"article_id" integer NOT NULL,
 	"user_id" uuid NOT NULL,
 	"content" text NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
@@ -43,8 +43,8 @@ CREATE TABLE "profiles" (
 --> statement-breakpoint
 ALTER TABLE "profiles" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
 CREATE TABLE "reports" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"article_id" uuid NOT NULL,
+	"id" serial PRIMARY KEY NOT NULL,
+	"article_id" integer NOT NULL,
 	"reporter_id" uuid NOT NULL,
 	"report_type" "report_types" NOT NULL,
 	"reason" text,
@@ -53,7 +53,6 @@ CREATE TABLE "reports" (
 --> statement-breakpoint
 ALTER TABLE "reports" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
 CREATE TABLE "user_follows" (
-	"id" uuid DEFAULT gen_random_uuid() NOT NULL,
 	"follower_id" uuid NOT NULL,
 	"following_id" uuid NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,

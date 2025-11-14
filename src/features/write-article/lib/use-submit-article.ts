@@ -26,7 +26,7 @@ export const useSubmitArticle = () => {
     },
     onSettled: () => {
       void queryClient.invalidateQueries({
-        queryKey: ARTICLE_QUERY_KEY.PUBLIC,
+        queryKey: ARTICLE_QUERY_KEY.PUBLIC(null),
       });
     },
   });

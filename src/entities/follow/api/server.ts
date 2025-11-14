@@ -66,7 +66,7 @@ export const getFollowers = async (pageParam: string, userId: string) => {
     .leftJoin(profiles, eq(userFollows.followerId, profiles.id))
     .where(
       and(
-        pageParam ? gt(userFollows.id, pageParam) : undefined,
+        pageParam ? gt(userFollows.followerId, pageParam) : undefined,
         eq(userFollows.followingId, userId),
       ),
     )
@@ -81,9 +81,9 @@ export const getFollowers = async (pageParam: string, userId: string) => {
 
   const nextId =
     result.length === FOLLOWER_PAGE_LIMIT
-      ? result[FOLLOWER_PAGE_LIMIT - 1].id
+      ? result[FOLLOWER_PAGE_LIMIT - 1].followerId
       : undefined;
-  const previousId = result.length > 0 ? result[0].id : undefined;
+  const previousId = result.length > 0 ? result[0].followerId : undefined;
 
   return {
     nextId,
@@ -102,7 +102,7 @@ export const getFollowing = async (pageParam: string, userId: string) => {
     .leftJoin(profiles, eq(userFollows.followingId, profiles.id))
     .where(
       and(
-        pageParam ? gt(userFollows.id, pageParam) : undefined,
+        pageParam ? gt(userFollows.followingId, pageParam) : undefined,
         eq(userFollows.followingId, userId),
       ),
     )
@@ -117,9 +117,9 @@ export const getFollowing = async (pageParam: string, userId: string) => {
 
   const nextId =
     result.length === FOLLOWER_PAGE_LIMIT
-      ? result[FOLLOWER_PAGE_LIMIT - 1].id
+      ? result[FOLLOWER_PAGE_LIMIT - 1].followingId
       : undefined;
-  const previousId = result.length > 0 ? result[0].id : undefined;
+  const previousId = result.length > 0 ? result[0].followingId : undefined;
 
   return {
     nextId,

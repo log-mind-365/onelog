@@ -8,8 +8,8 @@ import {
 import type { ArticleWithAuthorInfo } from "@/entities/article/model/types";
 
 type UseLikeArticleParams = {
-  articleId: string;
-  userId: string;
+  articleId: number;
+  currentUserId: string;
 };
 
 export const useLikeArticle = () => {
@@ -18,20 +18,20 @@ export const useLikeArticle = () => {
   return useMutation({
     mutationFn: async ({
       articleId,
-      userId,
+      currentUserId,
     }: UseLikeArticleParams): Promise<{
       isLiked: boolean;
       likeCount: number;
     }> => {
-      return toggleArticleLike(articleId, userId);
+      return toggleArticleLike(articleId, currentUserId);
     },
-    onMutate: async ({ articleId, userId }) => {
+    onMutate: async ({ articleId, currentUserId }) => {
       // 진행 중인 쿼리들을 취소
       await queryClient.cancelQueries({
-        queryKey: ARTICLE_QUERY_KEY.PUBLIC,
+        queryKey: ARTICLE_QUERY_KEY.PUBLIC(currentUserId),
       });
       await queryClient.cancelQueries({
-        queryKey: ARTICLE_QUERY_KEY.DETAIL(articleId, userId),
+        queryKey: ARTICLE_QUERY_KEY.DETAIL(articleId, currentUserId),
       });
 
       /**
@@ -41,17 +41,17 @@ export const useLikeArticle = () => {
        * - onError에서 이 데이터를 사용해 롤백
        */
       const previousInfiniteData = queryClient.getQueryData(
-        ARTICLE_QUERY_KEY.PUBLIC,
+        ARTICLE_QUERY_KEY.PUBLIC(currentUserId),
       );
       const previousDetailData = queryClient.getQueryData(
-        ARTICLE_QUERY_KEY.DETAIL(articleId, userId),
+        ARTICLE_QUERY_KEY.DETAIL(articleId, currentUserId),
       );
 
       // Optimistic Update - 무한 스크롤 목록
       queryClient.setQueryData<{
         pages: Array<{ data: ArticleWithAuthorInfo[] }>;
         pageParams: unknown[];
-      }>(ARTICLE_QUERY_KEY.PUBLIC, (old) => {
+      }>(ARTICLE_QUERY_KEY.PUBLIC(currentUserId), (old) => {
         if (!old) return old;
 
         return {
@@ -75,7 +75,7 @@ export const useLikeArticle = () => {
 
       // Optimistic Update - 상세 페이지
       queryClient.setQueryData<ArticleWithAuthorInfo>(
-        ARTICLE_QUERY_KEY.DETAIL(articleId, userId),
+        ARTICLE_QUERY_KEY.DETAIL(articleId, currentUserId),
         (old) => {
           if (!old) return old;
 
@@ -100,13 +100,16 @@ export const useLikeArticle = () => {
       // 에러 발생 시 이전 데이터로 롤백
       if (context?.previousInfiniteData) {
         queryClient.setQueryData(
-          ARTICLE_QUERY_KEY.PUBLIC,
+          ARTICLE_QUERY_KEY.PUBLIC(variables.currentUserId),
           context.previousInfiniteData,
         );
       }
       if (context?.previousDetailData) {
         queryClient.setQueryData(
-          ARTICLE_QUERY_KEY.DETAIL(variables.articleId, variables.userId),
+          ARTICLE_QUERY_KEY.DETAIL(
+            variables.articleId,
+            variables.currentUserId,
+          ),
           context.previousDetailData,
         );
       }
@@ -119,18 +122,18 @@ export const useLikeArticle = () => {
     onSettled: (data, error, variables) => {
       // 쿼리 무효화하여 최신 데이터 가져오기
       void queryClient.invalidateQueries({
-        queryKey: ARTICLE_QUERY_KEY.PUBLIC,
+        queryKey: ARTICLE_QUERY_KEY.PUBLIC(variables.currentUserId),
       });
       void queryClient.invalidateQueries({
         queryKey: ARTICLE_QUERY_KEY.DETAIL(
           variables.articleId,
-          variables.userId,
+          variables.currentUserId,
         ),
       });
       void queryClient.invalidateQueries({
         queryKey: ARTICLE_QUERY_KEY.CHECK_LIKED(
-          Number(variables.articleId),
-          variables.userId,
+          variables.articleId,
+          variables.currentUserId,
         ),
       });
     },

@@ -1,12 +1,5 @@
 import { sql } from "drizzle-orm";
-import {
-  foreignKey,
-  pgPolicy,
-  pgTable,
-  text,
-  timestamp,
-  uuid,
-} from "drizzle-orm/pg-core";
+import { pgPolicy, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 import { authenticatedRole, authUsers } from "drizzle-orm/supabase";
 
 export const profiles = pgTable(

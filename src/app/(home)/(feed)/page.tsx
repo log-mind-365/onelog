@@ -11,7 +11,9 @@ const HomePage = async () => {
 
   await Promise.all([
     queryClient.prefetchQuery(userQueries.getUserInfo(user?.id ?? null)),
-    queryClient.prefetchInfiniteQuery(articleQueries.list(user?.id ?? null)),
+    queryClient.prefetchInfiniteQuery(
+      articleQueries.publicList(user?.id ?? null),
+    ),
   ]);
 
   return (

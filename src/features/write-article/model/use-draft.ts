@@ -21,7 +21,7 @@ export const useDraft = create<DraftStore>()(
     (set) => ({
       title: "",
       content: "",
-      emotionLevel: 50,
+      emotionLevel: 3,
       accessType: "public",
       userId: "",
       setTitle: (title) => set({ title }),
@@ -30,7 +30,7 @@ export const useDraft = create<DraftStore>()(
       setAccessType: (accessType) => set({ accessType }),
       setUserId: (userId) => set({ userId }),
       reset: () =>
-        set({ title: "", content: "", emotionLevel: 50, accessType: "public" }),
+        set({ title: "", content: "", emotionLevel: 3, accessType: "public" }),
     }),
     {
       name: "draft-storage",

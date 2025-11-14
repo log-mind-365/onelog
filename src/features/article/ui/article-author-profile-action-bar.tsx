@@ -4,7 +4,7 @@ import { ArticleVisitorActions } from "@/features/article/ui/article-visitor-act
 
 type ArticleAuthorProfileActionBarProps = {
   viewMode: ArticleViewMode;
-  articleId: string;
+  articleId: number;
   authorId: string;
   currentUserId: string | null;
   isFollowing: boolean;

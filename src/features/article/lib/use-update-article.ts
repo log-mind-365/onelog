@@ -10,7 +10,7 @@ import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
 import { ROUTES } from "@/shared/model/routes";
 
 type UpdateArticleParams = {
-  id: string;
+  id: number;
   title: string;
   content: string;
   emotionLevel: number;
@@ -43,10 +43,10 @@ export const useUpdateArticle = () => {
     },
     onSettled: (_, __, variables) => {
       void queryClient.invalidateQueries({
-        queryKey: ARTICLE_QUERY_KEY.PUBLIC,
+        queryKey: ARTICLE_QUERY_KEY.PUBLIC(null),
       });
       void queryClient.invalidateQueries({
-        queryKey: ARTICLE_QUERY_KEY.DETAIL(variables.id),
+        queryKey: ARTICLE_QUERY_KEY.DETAIL(variables.id, null),
       });
     },
   });

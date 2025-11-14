@@ -1,12 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { deleteComment } from "@/entities/comment/api/server";
-import { COMMENT_QUERY_KEY } from "@/entities/comment/model/constants";
-import { COMMENT_TOAST_MESSAGE } from "@/entities/article/model/constants";
+import {
+  COMMENT_QUERY_KEY,
+  COMMENT_TOAST_MESSAGE,
+} from "@/entities/comment/model/constants";
 
 type DeleteCommentParams = {
-  commentId: string;
-  articleId: string;
+  commentId: number;
+  articleId: number;
   userId: string;
 };
 

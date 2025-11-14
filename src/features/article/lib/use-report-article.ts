@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { reportArticle } from "@/entities/article/api/server";
 
 type UseReportArticleParams = {
-  articleId: string;
+  articleId: number;
   reporterId: string;
   reportType: "spam" | "inappropriate" | "harassment" | "other";
   reason?: string;

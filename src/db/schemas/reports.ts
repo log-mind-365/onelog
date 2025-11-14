@@ -1,8 +1,10 @@
 import { sql } from "drizzle-orm";
 import {
+  integer,
   pgEnum,
   pgPolicy,
   pgTable,
+  serial,
   text,
   timestamp,
   uuid,
@@ -20,8 +22,8 @@ export const reportTypes = pgEnum("report_types", [
 export const reports = pgTable(
   "reports",
   {
-    id: uuid("id").primaryKey().defaultRandom(),
-    articleId: uuid("article_id")
+    id: serial("id").primaryKey(),
+    articleId: integer("article_id")
       .notNull()
       .references(() => articles.id, { onDelete: "cascade" }),
     reporterId: uuid("reporter_id")

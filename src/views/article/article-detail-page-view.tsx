@@ -4,7 +4,7 @@ import { ArticleDetailPageActionbar } from "@/views/article/article-detail-page-
 import { ArticleDetailPageContent } from "@/views/article/article-detail-page-content";
 
 type ArticleDetailPageView = {
-  articleId: string;
+  articleId: number;
   currentUserId: string | null;
 };
 

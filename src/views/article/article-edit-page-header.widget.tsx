@@ -16,7 +16,7 @@ import {
 } from "@/shared/components/ui/tooltip";
 
 type ArticleEditPageHeaderProps = {
-  articleId: string;
+  articleId: number;
 };
 
 export const ArticleEditPageHeader = ({

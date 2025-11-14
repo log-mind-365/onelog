@@ -1,0 +1,1 @@
+ALTER TABLE "article_likes" DROP COLUMN "id";

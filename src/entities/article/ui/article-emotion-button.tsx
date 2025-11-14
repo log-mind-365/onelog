@@ -56,8 +56,8 @@ export const ArticleEmotionButton = ({
           >
             {EMOTION_STATUS.map((emotion) => (
               <DropdownMenuRadioItem
-                key={emotion.percent}
-                value={emotion.percent.toString()}
+                key={emotion.level}
+                value={emotion.level.toString()}
               >
                 {emotion.status}
               </DropdownMenuRadioItem>

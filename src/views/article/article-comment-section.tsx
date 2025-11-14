@@ -11,7 +11,7 @@ import { useUpdateComment } from "@/features/comment/lib/use-update-comment";
 import { Card, CardContent, CardHeader } from "@/shared/components/ui/card";
 
 type ArticleCommentSectionProps = {
-  articleId: string;
+  articleId: number;
   userId: string | null;
 };
 
@@ -35,7 +35,7 @@ export const ArticleCommentSection = ({
     });
   };
 
-  const handleUpdateComment = (commentId: string, content: string) => {
+  const handleUpdateComment = (commentId: number, content: string) => {
     updateComment({
       commentId,
       articleId,
@@ -43,7 +43,7 @@ export const ArticleCommentSection = ({
     });
   };
 
-  const handleDeleteComment = (commentId: string) => {
+  const handleDeleteComment = (commentId: number) => {
     if (!userId) return;
 
     deleteComment({
