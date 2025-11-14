@@ -10,16 +10,22 @@ type PageProps = {
 };
 
 const ArticlePage = async ({ params }: PageProps) => {
+  console.time("ArticlePage Total");
   const { id } = await params;
   const articleId = Number(id);
   const queryClient = getQueryClient();
+  console.time("Auth Check");
   const user = await getCurrentUser();
+  console.timeEnd("Auth Check");
   const currentUserId = user?.id ?? null;
 
+  console.time("Article, comments prefetch");
   await Promise.all([
     queryClient.prefetchQuery(articleQueries.detail(articleId, currentUserId)),
     queryClient.prefetchQuery(commentQueries.list(articleId)),
   ]);
+  console.timeEnd("Article, comments prefetch");
+  console.timeEnd("ArticlePage Total");
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
