@@ -1,7 +1,7 @@
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import { userQueries } from "@/entities/user/api/queries";
-import { getCurrentUser } from "@/features/auth/api/server";
+import { getUserIdFromMiddleware } from "@/shared/lib/helpers/server-helper";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
 import { ProfilePageView } from "@/views/profile/profile-page-view";
 
@@ -13,8 +13,8 @@ const Page = async ({ params }: PageProps) => {
   const { id } = await params;
   const queryClient = getQueryClient();
 
-  const [currentUser, profileUser] = await Promise.all([
-    getCurrentUser(),
+  const [currentUserId, profileUser] = await Promise.all([
+    getUserIdFromMiddleware(),
     queryClient.fetchQuery(userQueries.getUserInfo(id)),
   ]);
 
@@ -24,10 +24,7 @@ const Page = async ({ params }: PageProps) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ProfilePageView
-        profileUserId={id}
-        currentUserId={currentUser?.id ?? null}
-      />
+      <ProfilePageView profileUserId={id} currentUserId={currentUserId} />
     </HydrationBoundary>
   );
 };

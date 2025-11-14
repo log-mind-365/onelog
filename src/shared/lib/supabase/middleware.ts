@@ -66,5 +66,11 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
+  // Add user ID to request headers for server components to use
+  // This avoids duplicate auth calls in pages
+  if (user?.sub) {
+    supabaseResponse.headers.set("x-user-id", user.sub);
+  }
+
   return supabaseResponse;
 }

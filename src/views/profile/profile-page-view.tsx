@@ -2,6 +2,7 @@
 
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { Calendar, Mail, User } from "lucide-react";
+import { Suspense } from "react";
 import { followQueries } from "@/entities/follow/api/queries";
 import { FollowStats } from "@/entities/follow/ui/follow-stats";
 import { userQueries } from "@/entities/user/api/queries";
@@ -19,6 +20,7 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card";
 import { Separator } from "@/shared/components/ui/separator";
+import { ProfileHeaderCard } from "@/widgets/profile-card/ui/profile-header-card";
 
 type ProfilePageViewProps = {
   profileUserId: string;
@@ -49,39 +51,19 @@ export const ProfilePageView = ({
 
   return (
     <PageContainer title="프로필" description="사용자 정보를 확인하세요">
-      {/* Profile Header Card */}
-      <Card>
-        <CardContent className="flex flex-col items-center gap-4">
-          <UserAvatar
-            avatarUrl={user?.avatarUrl ?? null}
-            fallback={user?.userName ?? "U"}
-            size="xl"
-          />
-          <div className="flex flex-col items-center gap-1">
-            <CardTitle className="text-2xl">{user?.userName ?? ""}</CardTitle>
-            <CardDescription className="flex flex-col items-center text-muted-foreground text-sm">
-              <FollowStats
-                followerCount={stats?.followerCount ?? 0}
-                followingCount={stats?.followingCount ?? 0}
-              />
-              <div className="flex gap-2">
-                <Mail className="size-4" />
-                {user?.email ?? ""}
-              </div>
-            </CardDescription>
-          </div>
-        </CardContent>
-        <CardFooter className="justify-center">
-          <CardAction className="flex items-center gap-2">
-            <ProfileActionBar
-              viewMode={viewMode}
-              profileUserId={profileUserId}
-              currentUserId={currentUserId}
-              isFollowing={isFollowing}
-            />
-          </CardAction>
-        </CardFooter>
-      </Card>
+      <Suspense fallback={<div>Loading...</div>}>
+        <ProfileHeaderCard
+          avatarUrl={user?.avatarUrl ?? null}
+          userName={user?.userName ?? ""}
+          email={user?.email ?? ""}
+          viewMode={viewMode}
+          profileUserId={profileUserId}
+          currentUserId={currentUserId}
+          followerCount={stats?.followerCount ?? 0}
+          followingCount={stats?.followingCount ?? 0}
+          isFollowing={isFollowing}
+        />
+      </Suspense>
 
       {/* About Me Card */}
       <Card>
