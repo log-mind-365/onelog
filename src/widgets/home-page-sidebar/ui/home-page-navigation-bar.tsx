@@ -44,7 +44,7 @@ export const HomePageNavigationBar = () => {
   return (
     <>
       {/* Mobile Header */}
-      <header className="fixed top-0 right-0 left-0 z-50 m-2 flex items-center justify-between rounded-md border bg-card px-2 py-2 shadow-sm sm:hidden">
+      <header className="fixed top-0 right-0 left-0 z-50 m-2 flex items-center justify-between rounded-md border bg-card/50 px-2 py-2 shadow-lg backdrop-blur-lg sm:hidden">
         <MobileNavigationMenu
           onNavigate={handleNavigate}
           isActive={isActive}

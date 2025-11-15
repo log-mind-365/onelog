@@ -1,4 +1,6 @@
+import { useQuery } from "@tanstack/react-query";
 import { Mail } from "lucide-react";
+import { followQueries } from "@/entities/follow/api/queries";
 import { FollowStats } from "@/entities/follow/ui/follow-stats";
 import type { ProfileViewMode } from "@/entities/user/model/types";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
@@ -19,8 +21,6 @@ type ProfileHeaderCardProps = {
   viewMode: ProfileViewMode;
   profileUserId: string;
   currentUserId: string | null;
-  followerCount: number;
-  followingCount: number;
   isFollowing: boolean;
 };
 
@@ -28,13 +28,16 @@ export const ProfileHeaderCard = ({
   avatarUrl,
   userName,
   email,
-  followerCount,
-  followingCount,
   viewMode,
   profileUserId,
   currentUserId,
   isFollowing,
 }: ProfileHeaderCardProps) => {
+  const { data: stats } = useQuery(followQueries.stats(profileUserId));
+
+  const followerCount = stats?.followerCount ?? 0;
+  const followingCount = stats?.followingCount ?? 0;
+
   return (
     <Card>
       <CardContent className="flex flex-col items-center gap-4">
