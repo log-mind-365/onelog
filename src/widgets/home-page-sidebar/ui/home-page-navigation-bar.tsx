@@ -58,7 +58,7 @@ export const HomePageNavigationBar = () => {
       </header>
 
       {/* Desktop Sidebar */}
-      <aside className="sticky top-4 ml-4 hidden size-fit flex-col gap-2 rounded-lg border-1 bg-card p-2 shadow-sm sm:flex">
+      <aside className="sticky top-4 hidden size-fit flex-col gap-2 rounded-lg border-1 bg-card p-2 shadow-sm sm:flex">
         <DesktopNavigationMenu
           onNavigate={handleNavigate}
           isActive={isActive}

@@ -1,18 +1,12 @@
 "use client";
 
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Calendar, User } from "lucide-react";
 import { Suspense } from "react";
 import { userQueries } from "@/entities/user/api/queries";
 import { useProfileViewMode } from "@/features/profile/lib/use-profile-view-mode";
 import { PageContainer } from "@/shared/components/page-container";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/shared/components/ui/card";
-import { Separator } from "@/shared/components/ui/separator";
+import { ProfileAboutMeCard } from "@/widgets/profile-card/ui/profile-about-me-card";
+import { ProfileAccountInfoCard } from "@/widgets/profile-card/ui/profile-account-info-card";
 import { ProfileHeaderCard } from "@/widgets/profile-card/ui/profile-header-card";
 
 type ProfilePageViewProps = {
@@ -32,15 +26,6 @@ export const ProfilePageView = ({
     userQueries.getUserInfo(profileUserId),
   );
 
-  const formatDate = (date: Date | string | null) => {
-    if (!date) return "-";
-    return new Date(date).toLocaleDateString("ko-KR", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
-
   return (
     <PageContainer title="프로필" description="사용자 정보를 확인하세요">
       <Suspense fallback={<div>Loading...</div>}>
@@ -55,49 +40,12 @@ export const ProfilePageView = ({
         />
       </Suspense>
 
-      {/* About Me Card */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <User className="size-5" />
-            소개
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          {user?.aboutMe ? (
-            <p className="text-sm leading-relaxed">{user.aboutMe}</p>
-          ) : (
-            <p className="text-muted-foreground text-sm">
-              아직 소개가 작성되지 않았습니다.
-            </p>
-          )}
-        </CardContent>
-      </Card>
+      <ProfileAboutMeCard aboutMe={user?.aboutMe ?? null} />
 
-      {/* Account Info Card */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Calendar className="size-5" />
-            계정 정보
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-muted-foreground">가입일</span>
-            <span className="font-medium">
-              {formatDate(user?.createdAt ?? "")}
-            </span>
-          </div>
-          <Separator />
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-muted-foreground">마지막 업데이트</span>
-            <span className="font-medium">
-              {formatDate(user?.updatedAt ?? "")}
-            </span>
-          </div>
-        </CardContent>
-      </Card>
+      <ProfileAccountInfoCard
+        createdAt={user?.createdAt ?? null}
+        updatedAt={user?.updatedAt ?? null}
+      />
     </PageContainer>
   );
 };

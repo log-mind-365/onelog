@@ -33,7 +33,7 @@ export const WritePageHeader = ({
   authorId,
 }: WritePageHeaderProps) => {
   return (
-    <header className="flex w-full items-center justify-between rounded-lg border bg-card p-2">
+    <header className="flex w-full items-center justify-between rounded-lg border bg-card p-2 shadow-sm">
       <TooltipProvider>
         <ArticleAccessTypeButton
           value={accessType}
