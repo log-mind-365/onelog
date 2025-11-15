@@ -1,8 +1,9 @@
 import type { ComponentProps } from "react";
-import type { AccessType } from "@/entities/article/model/types";
+import type { AccessType, ArticleViewMode } from "@/entities/article/model/types";
 import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-type-button";
 import { ArticleCommentButton } from "@/entities/article/ui/article-comment-button";
 import { ArticleLikeButton } from "@/entities/article/ui/article-like-button";
+import { ArticleOptionsDropdownMenu } from "@/entities/article/ui/article-option-button";
 import { ArticleReportButton } from "@/entities/article/ui/article-report-button";
 import { cn } from "@/shared/lib/utils";
 
@@ -12,7 +13,10 @@ type ArticleFooterProps = ComponentProps<"div"> & {
   onLike: () => void;
   commentCount: number;
   accessType: AccessType;
-  onReport: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  viewMode: ArticleViewMode;
+  onReport?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onModify?: () => void;
+  onDelete?: () => void;
 };
 
 export const ArticleFooter = ({
@@ -21,7 +25,10 @@ export const ArticleFooter = ({
   onLike,
   commentCount,
   accessType,
+  viewMode,
   onReport,
+  onModify,
+  onDelete,
   className,
 }: ArticleFooterProps) => {
   return (
@@ -36,12 +43,20 @@ export const ArticleFooter = ({
       />
       <ArticleCommentButton commentCount={commentCount} />
       <ArticleAccessTypeButton value={accessType} readOnly />
-      <ArticleReportButton
-        onClick={(e) => {
-          e.stopPropagation();
-          onReport(e);
-        }}
-      />
+      {viewMode === "viewer" && onReport && (
+        <ArticleReportButton
+          onClick={(e) => {
+            e.stopPropagation();
+            onReport(e);
+          }}
+        />
+      )}
+      {viewMode === "author" && onModify && onDelete && (
+        <ArticleOptionsDropdownMenu
+          onModify={onModify}
+          onDelete={onDelete}
+        />
+      )}
     </footer>
   );
 };

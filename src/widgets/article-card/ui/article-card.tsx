@@ -50,7 +50,9 @@ type ArticleCardProps = {
   commentCount: number;
   onClick: () => void;
   onLike: () => void;
-  onReport: (e: MouseEvent<HTMLButtonElement>) => void;
+  onReport?: (e: MouseEvent<HTMLButtonElement>) => void;
+  onModify?: () => void;
+  onDelete?: () => void;
 };
 
 export const ArticleCard = ({
@@ -74,6 +76,8 @@ export const ArticleCard = ({
   onClick,
   onLike,
   onReport,
+  onModify,
+  onDelete,
 }: ArticleCardProps) => {
   return (
     <div className="flex flex-col gap-2">
@@ -131,7 +135,10 @@ export const ArticleCard = ({
             onLike={onLike}
             commentCount={commentCount}
             accessType={accessType}
+            viewMode={viewMode}
             onReport={onReport}
+            onModify={onModify}
+            onDelete={onDelete}
           />
         </CardFooter>
       </Card>

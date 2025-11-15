@@ -1,7 +1,8 @@
 "use client";
 
-import { Menu, Moon, Sun } from "lucide-react";
+import { Menu, Monitor, Moon, Sun } from "lucide-react";
 import Image from "next/image";
+import { useTheme } from "next-themes";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
 import { useAuthMenu } from "@/features/auth/lib/use-auth-menu";
 import { useUserProfileMenu } from "@/features/profile/lib/use-user-profile-menu";
@@ -11,6 +12,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu";
@@ -38,6 +41,7 @@ export const MobileNavigationMenu = ({
 }: MobileNavigationMenuProps) => {
   const profileMenuItems = useUserProfileMenu();
   const authMenuItems = useAuthMenu();
+  const { setTheme } = useTheme();
 
   return (
     <>
@@ -79,20 +83,24 @@ export const MobileNavigationMenu = ({
             );
           })}
 
+          <DropdownMenuSeparator />
+
           {/* Theme Toggle */}
-          <DropdownMenuItem onClick={onThemeToggle}>
-            {theme === "dark" ? (
-              <>
-                <Sun className="size-4" />
-                <span>라이트 모드</span>
-              </>
-            ) : (
-              <>
-                <Moon className="size-4" />
-                <span>다크 모드</span>
-              </>
-            )}
-          </DropdownMenuItem>
+          <DropdownMenuLabel>테마 설정</DropdownMenuLabel>
+          <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
+            <DropdownMenuRadioItem value="light">
+              <Sun className="mr-2 h-4 w-4" />
+              라이트
+            </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="dark">
+              <Moon className="mr-2 h-4 w-4" />
+              다크
+            </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="system">
+              <Monitor className="mr-2 h-4 w-4" />
+              시스템
+            </DropdownMenuRadioItem>
+          </DropdownMenuRadioGroup>
 
           <DropdownMenuSeparator />
 

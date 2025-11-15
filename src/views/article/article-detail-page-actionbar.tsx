@@ -32,6 +32,8 @@ export const ArticleDetailPageActionbar = ({
   const { mutate: deleteArticle } = useDeleteArticle();
   const { openModal } = useModal();
 
+  const viewMode = currentUserId === article?.author?.id ? "author" : "viewer";
+
   const handleLike = () => {
     if (!currentUserId) {
       openModal("auth-guard");
@@ -83,11 +85,13 @@ export const ArticleDetailPageActionbar = ({
       <ArticleCommentButton commentCount={article.commentCount} />
       <ArticleAccessTypeButton value={article.accessType} />
       <ShareArticleButton onClick={copyURL} />
-      <ArticleReportButton onClick={handleReport} />
-      <ArticleOptionsDropdownMenu
-        onDelete={handleDelete}
-        onModify={handleModify}
-      />
+      {viewMode === "viewer" && <ArticleReportButton onClick={handleReport} />}
+      {viewMode === "author" && (
+        <ArticleOptionsDropdownMenu
+          onDelete={handleDelete}
+          onModify={handleModify}
+        />
+      )}
     </div>
   );
 };

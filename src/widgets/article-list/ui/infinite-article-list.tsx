@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { type MouseEvent, useEffect, useRef } from "react";
 import { useModal } from "@/app/_store/modal-store";
 import { articleQueries } from "@/entities/article/api/queries";
+import { useDeleteArticle } from "@/features/article/lib/use-delete-article";
 import { useLikeArticle } from "@/features/like-article/lib/use-like-article";
 import { ROUTES } from "@/shared/model/routes";
 import { ArticleCard } from "@/widgets/article-card/ui/article-card";
@@ -17,6 +18,7 @@ export const InfiniteArticleList = ({
   const router = useRouter();
   const { openModal } = useModal();
   const { mutate: likeArticle } = useLikeArticle();
+  const { mutate: deleteArticle } = useDeleteArticle();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useSuspenseInfiniteQuery(articleQueries.publicList(currentUserId ?? null));
   const loadMoreRef = useRef<HTMLDivElement>(null);
@@ -36,6 +38,28 @@ export const InfiniteArticleList = ({
         articleId,
         reporterId: currentUserId,
       });
+    }
+  };
+
+  const handleModify = (articleId: number) => {
+    if (!currentUserId) {
+      openModal("auth-guard");
+    } else {
+      router.push(ROUTES.ARTICLE.EDIT(articleId));
+    }
+  };
+
+  const handleDelete = (articleId: number) => {
+    if (!currentUserId) {
+      openModal("auth-guard");
+    } else {
+      const confirmed = window.confirm(
+        "정말로 이 게시글을 삭제하시겠습니까?\n삭제된 게시글은 복구할 수 없습니다.",
+      );
+
+      if (confirmed) {
+        deleteArticle({ articleId, currentUserId });
+      }
     }
   };
 
@@ -97,6 +121,9 @@ export const InfiniteArticleList = ({
           e.stopPropagation();
           handleReport(id);
         };
+        const onModify = () => handleModify(id);
+        const onDelete = () => handleDelete(id);
+
         return (
           <ArticleCard
             key={id}
@@ -119,7 +146,9 @@ export const InfiniteArticleList = ({
             commentCount={commentCount}
             onClick={() => router.push(ROUTES.ARTICLE.VIEW(id))}
             onLike={onLike}
-            onReport={onReport}
+            onReport={viewMode === "viewer" ? onReport : undefined}
+            onModify={viewMode === "author" ? onModify : undefined}
+            onDelete={viewMode === "author" ? onDelete : undefined}
           />
         );
       })}
