@@ -1,7 +1,6 @@
 "use client";
 
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Suspense } from "react";
 import { userQueries } from "@/entities/user/api/queries";
 import { useProfileViewMode } from "@/features/profile/lib/use-profile-view-mode";
 import { PageContainer } from "@/shared/components/page-container";
@@ -28,17 +27,15 @@ export const ProfilePageView = ({
 
   return (
     <PageContainer title="프로필" description="사용자 정보를 확인하세요">
-      <Suspense fallback={<div>Loading...</div>}>
-        <ProfileHeaderCard
-          avatarUrl={user?.avatarUrl ?? null}
-          userName={user?.userName ?? ""}
-          email={user?.email ?? ""}
-          viewMode={viewMode}
-          profileUserId={profileUserId}
-          currentUserId={currentUserId}
-          isFollowing={isFollowing}
-        />
-      </Suspense>
+      <ProfileHeaderCard
+        avatarUrl={user?.avatarUrl ?? null}
+        userName={user?.userName ?? ""}
+        email={user?.email ?? ""}
+        viewMode={viewMode}
+        profileUserId={profileUserId}
+        currentUserId={currentUserId}
+        isFollowing={isFollowing}
+      />
 
       <ProfileAboutMeCard aboutMe={user?.aboutMe ?? null} />
 

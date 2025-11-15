@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 
 /**
- * Get user ID from middleware headers without making additional auth calls.
+ * Get user ID from proxy headers without making additional auth calls.
  * This avoids duplicate Supabase auth API calls.
  * @returns User ID string or null if not authenticated
  */
