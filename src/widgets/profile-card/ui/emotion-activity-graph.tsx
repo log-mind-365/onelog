@@ -1,9 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { articleQueries } from "@/entities/article/api/queries";
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/shared/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -88,7 +93,10 @@ export const EmotionActivityGraph = ({ userId }: EmotionActivityGraphProps) => {
 
   // 활동 데이터를 Map으로 변환
   const activityMap = new Map(
-    activities.map((a) => [a.date, { emotionLevel: a.emotionLevel, count: a.count }]),
+    activities.map((a) => [
+      a.date,
+      { emotionLevel: a.emotionLevel, count: a.count },
+    ]),
   );
 
   // 사용 가능한 년도 목록 생성 (가입 년도부터 현재까지)
@@ -127,7 +135,10 @@ export const EmotionActivityGraph = ({ userId }: EmotionActivityGraphProps) => {
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
         <CardTitle>감정 한눈에 보기</CardTitle>
-        <Select value={selectedYear.toString()} onValueChange={(value) => setSelectedYear(Number(value))}>
+        <Select
+          value={selectedYear.toString()}
+          onValueChange={(value) => setSelectedYear(Number(value))}
+        >
           <SelectTrigger className="w-[100px]">
             <SelectValue />
           </SelectTrigger>
@@ -144,13 +155,13 @@ export const EmotionActivityGraph = ({ userId }: EmotionActivityGraphProps) => {
         <TooltipProvider delayDuration={0} skipDelayDuration={0}>
           <div className="inline-flex min-w-full flex-col gap-2">
             {/* 월 레이블 */}
-            <div className="relative flex h-4 gap-[3px] pl-8 text-xs text-muted-foreground">
+            <div className="relative flex h-4 gap-[3px] pl-8 text-muted-foreground text-xs">
               {monthLabels.map(({ month, weekIndex }) => (
                 <div
                   key={`${month}-${weekIndex}`}
                   className="absolute"
                   style={{
-                    left: `${32 + (weekIndex * 16)}px`,
+                    left: `${32 + weekIndex * 16}px`,
                   }}
                 >
                   {month}
@@ -161,7 +172,7 @@ export const EmotionActivityGraph = ({ userId }: EmotionActivityGraphProps) => {
             {/* 그래프 */}
             <div className="flex gap-2">
               {/* 요일 레이블 */}
-              <div className="flex flex-col justify-around pr-2 text-xs text-muted-foreground">
+              <div className="flex flex-col justify-around pr-2 text-muted-foreground text-xs">
                 <div className="h-[13px]" />
                 <div className="h-[13px] leading-[13px]">월</div>
                 <div className="h-[13px]" />
@@ -226,7 +237,7 @@ export const EmotionActivityGraph = ({ userId }: EmotionActivityGraphProps) => {
             </div>
 
             {/* 범례 */}
-            <div className="mt-2 flex items-center justify-end gap-2 text-xs text-muted-foreground">
+            <div className="mt-2 flex items-center justify-end gap-2 text-muted-foreground text-xs">
               <span>낮음</span>
               <div className="flex gap-[3px]">
                 <div className="h-[13px] w-[13px] rounded-sm bg-muted" />
