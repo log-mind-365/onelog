@@ -129,8 +129,6 @@ export const EmotionActivityGraph = ({ userId }: EmotionActivityGraphProps) => {
     }
   });
 
-  const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
-
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">

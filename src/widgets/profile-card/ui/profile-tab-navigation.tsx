@@ -1,11 +1,9 @@
-"use client";
-
 import type { ProfileTab } from "@/entities/user/model/types";
 import { Tabs, TabsList, TabsTrigger } from "@/shared/components/ui/tabs";
 
 type ProfileTabNavigationProps = {
   selectedTab?: ProfileTab;
-  onTabChange?: (tab: ProfileTab) => void;
+  onTabChange?: (tab: string) => void;
 };
 
 export const ProfileTabNavigation = ({
@@ -15,7 +13,7 @@ export const ProfileTabNavigation = ({
   return (
     <Tabs
       value={selectedTab}
-      onValueChange={(value) => onTabChange?.(value as ProfileTab)}
+      onValueChange={onTabChange ? onTabChange : undefined}
       className="w-full rounded-lg border bg-card p-1 shadow-sm"
     >
       <TabsList className="grid w-full grid-cols-5 gap-2 bg-card">

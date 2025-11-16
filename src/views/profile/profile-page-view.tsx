@@ -32,6 +32,11 @@ export const ProfilePageView = ({
     userQueries.getUserInfo(profileUserId),
   );
 
+  const handleTabChange = (value: string) => {
+    if (selectedTab === value) return;
+    setSelectedTab(value as ProfileTab);
+  };
+
   return (
     <PageContainer title="프로필" description="사용자 정보를 확인하세요">
       <ProfileHeaderCard
@@ -46,7 +51,7 @@ export const ProfilePageView = ({
 
       <ProfileTabNavigation
         selectedTab={selectedTab}
-        onTabChange={setSelectedTab}
+        onTabChange={handleTabChange}
       />
 
       {selectedTab === "summary" && (
