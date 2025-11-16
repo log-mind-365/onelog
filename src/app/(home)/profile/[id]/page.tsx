@@ -16,7 +16,7 @@ const Page = async ({ params }: PageProps) => {
 
   const parsedId = profileUserUUIDSchema.safeParse({ id });
 
-  if (!parsedId.success) {
+  if (parsedId.error) {
     notFound();
   }
 
