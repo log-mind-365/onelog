@@ -24,6 +24,7 @@ export const ArticleCommentButton = ({
     <Tooltip>
       <TooltipTrigger asChild>
         <Button
+          aria-label="댓글"
           variant="ghost"
           onClick={onClick}
           className={cn(

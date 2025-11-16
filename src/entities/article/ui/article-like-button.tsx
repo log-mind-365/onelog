@@ -24,6 +24,7 @@ export const ArticleLikeButton = ({
     <Tooltip>
       <TooltipTrigger asChild>
         <Button
+          aria-label="좋아요"
           variant="ghost"
           onClick={(e) => {
             e.stopPropagation();

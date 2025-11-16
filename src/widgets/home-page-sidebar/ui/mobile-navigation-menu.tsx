@@ -43,12 +43,17 @@ export const MobileNavigationMenu = ({
 
   return (
     <>
-      <Button variant="ghost" size="icon" onClick={onNavigateHome}>
+      <Button
+        aria-label="홈으로 가기"
+        variant="ghost"
+        size="icon"
+        onClick={onNavigateHome}
+      >
         <Image src="/brand_logo.svg" alt="logo icon" width={24} height={24} />
       </Button>
-      <DropdownMenu>
+      <DropdownMenu aria-label="메뉴" aria-role="nav">
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon">
+          <Button aria-label="메뉴 열기" variant="ghost" size="icon">
             {isAuthenticated ? (
               <UserAvatar fallback={userName} avatarUrl={avatarUrl} size="sm" />
             ) : (
@@ -72,6 +77,7 @@ export const MobileNavigationMenu = ({
             return (
               <DropdownMenuItem
                 key={menu.label}
+                aria-label={menu.label}
                 onClick={() => onNavigate(menu.path!)}
                 className={active ? "bg-accent" : ""}
               >
@@ -85,16 +91,20 @@ export const MobileNavigationMenu = ({
 
           {/* Theme Toggle */}
           <DropdownMenuLabel>테마 설정</DropdownMenuLabel>
-          <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
-            <DropdownMenuRadioItem value="light">
+          <DropdownMenuRadioGroup
+            aria-label="테마 설정"
+            value={theme}
+            onValueChange={setTheme}
+          >
+            <DropdownMenuRadioItem aria-label="라이트" value="light">
               <Sun className="mr-2 h-4 w-4" />
               라이트
             </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="dark">
+            <DropdownMenuRadioItem aria-label="다크" value="dark">
               <Moon className="mr-2 h-4 w-4" />
               다크
             </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="system">
+            <DropdownMenuRadioItem aria-label="커스텀" value="system">
               <Monitor className="mr-2 h-4 w-4" />
               시스템
             </DropdownMenuRadioItem>
@@ -112,7 +122,11 @@ export const MobileNavigationMenu = ({
 
                 const Icon = item.icon;
                 return (
-                  <DropdownMenuItem key={item.id} onClick={item.action}>
+                  <DropdownMenuItem
+                    aria-label={item.label}
+                    key={item.id}
+                    onClick={item.action}
+                  >
                     <Icon className="size-4" />
                     <span>{item.label}</span>
                   </DropdownMenuItem>
@@ -123,7 +137,11 @@ export const MobileNavigationMenu = ({
             authMenuItems.map((item) => {
               const Icon = item.icon;
               return (
-                <DropdownMenuItem key={item.id} onClick={item.action}>
+                <DropdownMenuItem
+                  aria-label="로그아웃"
+                  key={item.id}
+                  onClick={item.action}
+                >
                   <Icon className="size-4" />
                   <span>{item.label}</span>
                 </DropdownMenuItem>

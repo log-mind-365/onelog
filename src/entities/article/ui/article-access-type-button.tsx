@@ -37,6 +37,7 @@ export const ArticleAccessTypeButton = ({
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
+            aria-label="게시물 공개 여부"
             variant="ghost"
             className={cn(
               "cursor-default gap-1 font-light text-xs hover:bg-transparent",
@@ -64,6 +65,7 @@ export const ArticleAccessTypeButton = ({
         <DropdownMenuTrigger asChild>
           <TooltipTrigger asChild>
             <Button
+              aria-label="게시물 공개 여부"
               variant="ghost"
               className={cn(
                 "gap-1 font-light text-xs transition-colors hover:text-green-400",

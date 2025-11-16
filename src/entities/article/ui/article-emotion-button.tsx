@@ -43,7 +43,11 @@ export const ArticleEmotionButton = ({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <TooltipTrigger asChild>
-            <Button variant="ghost" className="gap-1 font-light text-xs">
+            <Button
+              aria-label="감정 농도"
+              variant="ghost"
+              className="gap-1 font-light text-xs"
+            >
               <SmilePlus />
             </Button>
           </TooltipTrigger>

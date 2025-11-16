@@ -26,7 +26,11 @@ export const ArticleOptionsDropdownMenu = ({
       <DropdownMenu>
         <TooltipTrigger asChild>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-auto p-2">
+            <Button
+              aria-label="게시물 옵션"
+              variant="ghost"
+              className="h-auto p-2"
+            >
               <MoreVertical className="h-4 w-4 md:h-6 md:w-6" />
             </Button>
           </DropdownMenuTrigger>

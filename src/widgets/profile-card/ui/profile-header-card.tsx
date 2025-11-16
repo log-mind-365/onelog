@@ -44,7 +44,7 @@ export const ProfileHeaderCard = ({
   const followingCount = stats?.followingCount ?? 0;
 
   return (
-    <Card>
+    <Card aria-invalid="false">
       <CardContent className="flex flex-col items-center gap-4">
         <UserAvatar avatarUrl={avatarUrl} fallback={userName} size="xl" />
         <div className="flex flex-col items-center gap-1">

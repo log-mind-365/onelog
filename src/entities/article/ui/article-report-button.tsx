@@ -15,6 +15,7 @@ export function ArticleReportButton({ onClick }: Props) {
     <Tooltip>
       <TooltipTrigger asChild>
         <Button
+          aria-label="신고"
           variant="ghost"
           onClick={(e) => {
             e.stopPropagation();
