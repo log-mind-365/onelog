@@ -2,7 +2,9 @@
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { articleQueries } from "@/entities/article/api/queries";
+import { EmptyArticle } from "@/features/profile/ui/empty-article";
 import { Skeleton } from "@/shared/components/ui/skeleton";
+import { Spinner } from "@/shared/components/ui/spinner";
 import { ArticleCard } from "@/widgets/article-card/ui/article-card";
 import { useArticleListLogic } from "../lib/use-article-list-logic";
 
@@ -29,16 +31,15 @@ export const UserLikedArticleList = ({
   const allArticles = data?.pages.flatMap((page) => page.data) ?? [];
 
   if (isLoading) {
-    return <Skeleton className="h-96 w-full" />;
+    return <Spinner className="w-full" />;
   }
 
   if (allArticles.length === 0) {
     return (
-      <div className="flex items-center justify-center rounded-lg border bg-card p-8 shadow-sm">
-        <p className="text-muted-foreground text-sm">
-          아직 좋아요한 글이 없습니다.
-        </p>
-      </div>
+      <EmptyArticle
+        title="아직 좋아요한 글이 없어요."
+        description="좋아요를 추가해 보세요."
+      />
     );
   }
 

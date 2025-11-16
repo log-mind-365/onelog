@@ -2,8 +2,9 @@
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { articleQueries } from "@/entities/article/api/queries";
-import { Empty, EmptyHeader } from "@/shared/components/ui/empty";
+import { EmptyArticle } from "@/features/profile/ui/empty-article";
 import { Skeleton } from "@/shared/components/ui/skeleton";
+import { Spinner } from "@/shared/components/ui/spinner";
 import { ArticleCard } from "@/widgets/article-card/ui/article-card";
 import { useArticleListLogic } from "../lib/use-article-list-logic";
 
@@ -11,12 +12,16 @@ type UserArticleListProps = {
   userId: string;
   currentUserId: string | null;
   accessType?: "public" | "private";
+  emptyTitle: string;
+  emptyDescription: string;
 };
 
 export const UserArticleList = ({
   userId,
   currentUserId,
   accessType,
+  emptyTitle,
+  emptyDescription,
 }: UserArticleListProps) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useInfiniteQuery(
@@ -34,15 +39,11 @@ export const UserArticleList = ({
   const allArticles = data?.pages.flatMap((page) => page.data) ?? [];
 
   if (isLoading) {
-    return <Skeleton className="h-48 w-full" />;
+    return <Spinner className="w-full" />;
   }
 
   if (allArticles.length === 0) {
-    return (
-      <Empty>
-        <EmptyHeader>뭘봐 시발아</EmptyHeader>
-      </Empty>
-    );
+    return <EmptyArticle title={emptyTitle} description={emptyDescription} />;
   }
 
   return (
@@ -98,11 +99,7 @@ export const UserArticleList = ({
           ref={loadMoreRef}
           className="flex items-center justify-center py-8"
         >
-          {isFetchingNextPage ? (
-            <p className="text-muted-foreground text-sm">로딩 중...</p>
-          ) : (
-            <p className="text-muted-foreground text-sm">더 보기</p>
-          )}
+          {isFetchingNextPage && <Spinner />}
         </div>
       )}
     </div>

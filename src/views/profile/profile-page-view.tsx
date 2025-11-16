@@ -73,6 +73,8 @@ export const ProfilePageView = ({
           userId={profileUserId}
           currentUserId={currentUserId}
           accessType="private"
+          emptyTitle="아직 작성된 일기가 없어요."
+          emptyDescription="일기를 작성해 보세요."
         />
       )}
 
@@ -81,6 +83,8 @@ export const ProfilePageView = ({
           userId={profileUserId}
           currentUserId={currentUserId}
           accessType="public"
+          emptyTitle="아직 작성된 글이 없어요."
+          emptyDescription="글을 작성해 보세요."
         />
       )}
 
