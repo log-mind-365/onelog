@@ -443,7 +443,7 @@ export const deleteArticle = async (id: string) => {
 
 **타입 안전성 체인:**
 ```
-Database Schema (schema.ts)
+Database Schema (schemas.ts)
        ↓ $inferSelect/$inferInsert
 Entity Types (types.ts)
        ↓

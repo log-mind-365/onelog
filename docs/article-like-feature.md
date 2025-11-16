@@ -31,7 +31,7 @@
 ```
 src/
 ├── db/
-│   └── schema.ts                          # 데이터베이스 스키마
+│   └── schemas.ts                          # 데이터베이스 스키마
 ├── entities/
 │   └── article/
 │       ├── api/
@@ -88,7 +88,7 @@ src/
 
 ### 스키마 정의
 
-**파일**: `src/db/schema.ts`
+**파일**: `src/db/schemas.ts`
 
 ```typescript
 export const articleLikes = pgTable(

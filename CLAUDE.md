@@ -93,7 +93,7 @@ src/
 
 ## Database Schema
 
-Located in `src/db/schema.ts`:
+Located in `src/db/schemas.ts`:
 
 - **user_info**: User profiles (references Supabase auth.users)
 - **articles**: Blog posts with content, emotion_level, access_type
@@ -102,7 +102,7 @@ Located in `src/db/schema.ts`:
 
 ### Making Schema Changes
 
-1. Edit `src/db/schema.ts`
+1. Edit `src/db/schemas.ts`
 2. Generate migration: `bun db:generate`
 3. Apply migration: `bun db:migrate` (production) or `bun db:push` (development)
 

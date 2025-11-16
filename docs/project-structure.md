@@ -120,7 +120,7 @@ src/entities/
 │   ├── model/
 │   │   ├── types.ts          # TypeScript 타입
 │   │   ├── constants.ts      # 상수 (감정 레벨 등)
-│   │   └── schema.ts         # Zod 검증 스키마
+│   │   └── schemas.ts         # Zod 검증 스키마
 │   └── ui/
 │       ├── article-header.tsx
 │       ├── article-content.tsx
@@ -184,7 +184,7 @@ src/features/
 │   │   └── use-auth-guard.ts # 인증 가드 훅
 │   ├── model/
 │   │   ├── store.ts          # Auth Zustand Store
-│   │   ├── schema.ts         # 검증 스키마
+│   │   ├── schemas.ts         # 검증 스키마
 │   │   ├── types.ts
 │   │   └── constants.ts
 │   └── ui/

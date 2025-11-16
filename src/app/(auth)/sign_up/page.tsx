@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useSignUp } from "@/features/auth/lib/use-sign-up";
-import { signUpSchema } from "@/features/auth/model/schema";
+import { signUpSchema } from "@/features/auth/model/schemas";
 import type { SignUpFormData } from "@/features/auth/model/types";
 import { Button } from "@/shared/components/ui/button";
 import {
