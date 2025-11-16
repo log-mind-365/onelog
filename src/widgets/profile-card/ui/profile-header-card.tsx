@@ -1,7 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { Mail } from "lucide-react";
 import { followQueries } from "@/entities/follow/api/queries";
-import { FollowStats } from "@/entities/follow/ui/follow-stats";
+import {
+  FollowStats,
+  FollowStatsSkeleton,
+} from "@/entities/follow/ui/follow-stats";
 import type { ProfileViewMode } from "@/entities/user/model/types";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
 import { ProfileActionBar } from "@/features/profile/ui/profile-action-bar";
@@ -33,7 +36,9 @@ export const ProfileHeaderCard = ({
   currentUserId,
   isFollowing,
 }: ProfileHeaderCardProps) => {
-  const { data: stats } = useQuery(followQueries.stats(profileUserId));
+  const { data: stats, isPending: isFollowStatPending } = useQuery(
+    followQueries.stats(profileUserId),
+  );
 
   const followerCount = stats?.followerCount ?? 0;
   const followingCount = stats?.followingCount ?? 0;
@@ -45,10 +50,14 @@ export const ProfileHeaderCard = ({
         <div className="flex flex-col items-center gap-1">
           <CardTitle className="text-2xl">{userName}</CardTitle>
           <CardDescription className="flex flex-col items-center text-muted-foreground text-sm">
-            <FollowStats
-              followerCount={followerCount ?? 0}
-              followingCount={followingCount ?? 0}
-            />
+            {isFollowStatPending ? (
+              <FollowStatsSkeleton />
+            ) : (
+              <FollowStats
+                followerCount={followerCount ?? 0}
+                followingCount={followingCount ?? 0}
+              />
+            )}
             <div className="flex gap-2">
               <Mail className="size-4" />
               {email}
