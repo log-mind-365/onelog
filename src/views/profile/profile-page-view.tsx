@@ -6,6 +6,7 @@ import { userQueries } from "@/entities/user/api/queries";
 import type { ProfileTab } from "@/entities/user/model/types";
 import { useProfileViewMode } from "@/features/profile/lib/use-profile-view-mode";
 import { PageContainer } from "@/shared/components/page-container";
+import { Spacer } from "@/shared/components/spacer";
 import { UserArticleList } from "@/widgets/article-list/ui/user-article-list";
 import { UserLikedArticleList } from "@/widgets/article-list/ui/user-liked-article-list";
 import { EmotionActivityGraph } from "@/widgets/profile-card/ui/emotion-activity-graph";
@@ -48,7 +49,6 @@ export const ProfilePageView = ({
         currentUserId={currentUserId}
         isFollowing={isFollowing}
       />
-
       <ProfileTabNavigation
         selectedTab={selectedTab}
         onTabChange={handleTabChange}
@@ -69,30 +69,39 @@ export const ProfilePageView = ({
       )}
 
       {selectedTab === "diaries" && (
-        <UserArticleList
-          userId={profileUserId}
-          currentUserId={currentUserId}
-          accessType="private"
-          emptyTitle="아직 작성된 일기가 없어요."
-          emptyDescription="일기를 작성해 보세요."
-        />
+        <>
+          <Spacer />
+          <UserArticleList
+            userId={profileUserId}
+            currentUserId={currentUserId}
+            accessType="private"
+            emptyTitle="아직 작성된 일기가 없어요."
+            emptyDescription="일기를 작성해 보세요."
+          />
+        </>
       )}
 
       {selectedTab === "articles" && (
-        <UserArticleList
-          userId={profileUserId}
-          currentUserId={currentUserId}
-          accessType="public"
-          emptyTitle="아직 작성된 글이 없어요."
-          emptyDescription="글을 작성해 보세요."
-        />
+        <>
+          <Spacer />
+          <UserArticleList
+            userId={profileUserId}
+            currentUserId={currentUserId}
+            accessType="public"
+            emptyTitle="아직 작성된 글이 없어요."
+            emptyDescription="글을 작성해 보세요."
+          />
+        </>
       )}
 
       {selectedTab === "liked" && (
-        <UserLikedArticleList
-          userId={profileUserId}
-          currentUserId={currentUserId}
-        />
+        <>
+          <Spacer />
+          <UserLikedArticleList
+            userId={profileUserId}
+            currentUserId={currentUserId}
+          />
+        </>
       )}
     </PageContainer>
   );

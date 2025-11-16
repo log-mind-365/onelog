@@ -1,24 +1,33 @@
 import type { ComponentProps } from "react";
 import { cn } from "@/shared/lib/utils";
 
+const spacingSizes = {
+  1: "h-1 w-1", // 4px
+  2: "h-2 w-2", // 8px
+  3: "h-3 w-3", // 12px
+  4: "h-4 w-4", // 16px
+  6: "h-6 w-6", // 24px
+  8: "h-8 w-8", // 32px
+  10: "h-10 w-10", // 40px
+  12: "h-12 w-12", // 48px
+  16: "h-16 w-16", // 64px
+} as const;
+
 type SpacerProps = ComponentProps<"div"> & {
-  size?: number;
+  size?: keyof typeof spacingSizes;
   direction?: "vertical" | "horizontal";
 };
 
 export const Spacer = ({
-  size = 16,
+  size = 4,
   direction = "vertical",
   className,
+  ...props
 }: SpacerProps) => {
-  const sizeClass = `h-${size}`;
+  const sizeClasses = spacingSizes[size].split(" ");
+  const sizeClass = direction === "vertical" ? sizeClasses[0] : sizeClasses[1];
+
   return (
-    <div
-      className={cn(
-        direction === "horizontal" && sizeClass.replace("h-", "w-"),
-        direction === "vertical" && sizeClass,
-        className,
-      )}
-    />
+    <div aria-hidden="true" className={cn(sizeClass, className)} {...props} />
   );
 };
