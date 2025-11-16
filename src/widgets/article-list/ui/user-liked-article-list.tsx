@@ -6,21 +6,17 @@ import { Skeleton } from "@/shared/components/ui/skeleton";
 import { ArticleCard } from "@/widgets/article-card/ui/article-card";
 import { useArticleListLogic } from "../lib/use-article-list-logic";
 
-type UserArticleListProps = {
+type UserLikedArticleListProps = {
   userId: string;
   currentUserId: string | null;
-  accessType?: "public" | "private";
 };
 
-export const UserArticleList = ({
+export const UserLikedArticleList = ({
   userId,
   currentUserId,
-  accessType,
-}: UserArticleListProps) => {
+}: UserLikedArticleListProps) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
-    useInfiniteQuery(
-      articleQueries.userArticles(userId, currentUserId, accessType),
-    );
+    useInfiniteQuery(articleQueries.userLikedArticles(userId, currentUserId));
 
   const { loadMoreRef, onLike, onModify, onDelete, onNavigate, onReport } =
     useArticleListLogic({
@@ -40,7 +36,7 @@ export const UserArticleList = ({
     return (
       <div className="flex items-center justify-center rounded-lg border bg-card p-8 shadow-sm">
         <p className="text-muted-foreground text-sm">
-          아직 작성된 글이 없습니다.
+          아직 좋아요한 글이 없습니다.
         </p>
       </div>
     );
