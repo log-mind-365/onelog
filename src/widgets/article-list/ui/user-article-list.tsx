@@ -2,6 +2,7 @@
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { articleQueries } from "@/entities/article/api/queries";
+import { Empty, EmptyHeader } from "@/shared/components/ui/empty";
 import { Skeleton } from "@/shared/components/ui/skeleton";
 import { ArticleCard } from "@/widgets/article-card/ui/article-card";
 import { useArticleListLogic } from "../lib/use-article-list-logic";
@@ -33,16 +34,14 @@ export const UserArticleList = ({
   const allArticles = data?.pages.flatMap((page) => page.data) ?? [];
 
   if (isLoading) {
-    return <Skeleton className="h-96 w-full" />;
+    return <Skeleton className="h-48 w-full" />;
   }
 
   if (allArticles.length === 0) {
     return (
-      <div className="flex items-center justify-center rounded-lg border bg-card p-8 shadow-sm">
-        <p className="text-muted-foreground text-sm">
-          아직 작성된 글이 없습니다.
-        </p>
-      </div>
+      <Empty>
+        <EmptyHeader>뭘봐 시발아</EmptyHeader>
+      </Empty>
     );
   }
 
