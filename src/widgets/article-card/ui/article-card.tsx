@@ -1,4 +1,3 @@
-import type { MouseEvent } from "react";
 import type {
   AccessType,
   ArticleViewMode,
@@ -50,7 +49,7 @@ type ArticleCardProps = {
   commentCount: number;
   onClick: () => void;
   onLike: () => void;
-  onReport?: (e: MouseEvent<HTMLButtonElement>) => void;
+  onReport?: () => void;
   onModify?: () => void;
   onDelete?: () => void;
 };
@@ -80,7 +79,7 @@ export const ArticleCard = ({
   onDelete,
 }: ArticleCardProps) => {
   return (
-    <div className="flex flex-col gap-2">
+    <article className="flex flex-col gap-2">
       <ArticleHeader>
         <HoverCard openDelay={0}>
           <HoverCardTrigger asChild>
@@ -132,16 +131,16 @@ export const ArticleCard = ({
           <ArticleFooter
             isLiked={isLiked}
             likeCount={likeCount}
-            onLike={onLike}
             commentCount={commentCount}
             accessType={accessType}
             viewMode={viewMode}
+            onLike={onLike}
             onReport={onReport}
             onModify={onModify}
             onDelete={onDelete}
           />
         </CardFooter>
       </Card>
-    </div>
+    </article>
   );
 };

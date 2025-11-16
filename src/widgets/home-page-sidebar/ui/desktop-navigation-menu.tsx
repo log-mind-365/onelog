@@ -28,7 +28,6 @@ import {
 type DesktopNavigationMenuProps = {
   onNavigate: (route: string) => void;
   isActive: (menuPath?: string) => boolean;
-  onThemeToggle: () => void;
   theme?: string;
   isAuthenticated: boolean;
   userName: string;
@@ -39,7 +38,6 @@ type DesktopNavigationMenuProps = {
 export const DesktopNavigationMenu = ({
   onNavigate,
   isActive,
-  onThemeToggle,
   theme,
   isAuthenticated,
   userName,

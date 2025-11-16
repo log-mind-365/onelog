@@ -1,13 +1,13 @@
 "use client";
 
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { userQueries } from "@/entities/user/api/queries";
 import type { ProfileTab } from "@/entities/user/model/types";
 import { useProfileViewMode } from "@/features/profile/lib/use-profile-view-mode";
 import { PageContainer } from "@/shared/components/page-container";
-import { Skeleton } from "@/shared/components/ui/skeleton";
 import { UserArticleList } from "@/widgets/article-list/ui/user-article-list";
+import { UserLikedArticleList } from "@/widgets/article-list/ui/user-liked-article-list";
 import { EmotionActivityGraph } from "@/widgets/profile-card/ui/emotion-activity-graph";
 import { ProfileAboutMeCard } from "@/widgets/profile-card/ui/profile-about-me-card";
 import { ProfileAccountInfoCard } from "@/widgets/profile-card/ui/profile-account-info-card";
@@ -64,33 +64,26 @@ export const ProfilePageView = ({
       )}
 
       {selectedTab === "diaries" && (
-        <Suspense fallback={<Skeleton className="h-96 w-full" />}>
-          <UserArticleList
-            userId={profileUserId}
-            currentUserId={currentUserId}
-            accessType="private"
-          />
-        </Suspense>
+        <UserArticleList
+          userId={profileUserId}
+          currentUserId={currentUserId}
+          accessType="private"
+        />
       )}
 
       {selectedTab === "articles" && (
-        <Suspense fallback={<Skeleton className="h-96 w-full" />}>
-          <UserArticleList
-            userId={profileUserId}
-            currentUserId={currentUserId}
-            accessType="public"
-          />
-        </Suspense>
+        <UserArticleList
+          userId={profileUserId}
+          currentUserId={currentUserId}
+          accessType="public"
+        />
       )}
 
       {selectedTab === "liked" && (
-        <Suspense fallback={<Skeleton className="h-96 w-full" />}>
-          <UserArticleList
-            userId={profileUserId}
-            currentUserId={currentUserId}
-            showLiked={true}
-          />
-        </Suspense>
+        <UserLikedArticleList
+          userId={profileUserId}
+          currentUserId={currentUserId}
+        />
       )}
     </PageContainer>
   );

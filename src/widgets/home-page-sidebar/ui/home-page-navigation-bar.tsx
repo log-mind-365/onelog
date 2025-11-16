@@ -11,7 +11,7 @@ import { MobileNavigationMenu } from "@/widgets/home-page-sidebar/ui/mobile-navi
 
 export const HomePageNavigationBar = () => {
   const { me, isAuthenticated } = useAuth();
-  const { theme, onThemeToggle } = useToggleTheme();
+  const { theme } = useToggleTheme();
   const router = useRouter();
   const pathname = usePathname();
   const authGuard = useAuthGuard();
@@ -48,7 +48,6 @@ export const HomePageNavigationBar = () => {
         <MobileNavigationMenu
           onNavigate={handleNavigate}
           isActive={isActive}
-          onThemeToggle={onThemeToggle}
           theme={theme}
           isAuthenticated={isAuthenticated}
           userName={me?.userName || ""}
@@ -62,7 +61,6 @@ export const HomePageNavigationBar = () => {
         <DesktopNavigationMenu
           onNavigate={handleNavigate}
           isActive={isActive}
-          onThemeToggle={onThemeToggle}
           theme={theme}
           isAuthenticated={isAuthenticated}
           userName={me?.userName || ""}

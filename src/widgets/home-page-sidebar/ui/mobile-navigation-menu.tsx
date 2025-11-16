@@ -22,7 +22,6 @@ import { SIDEBAR_MENUS } from "@/widgets/home-page-sidebar/model/constants";
 type MobileNavigationMenuProps = {
   onNavigate: (route: string) => void;
   isActive: (menuPath?: string) => boolean;
-  onThemeToggle: () => void;
   theme?: string;
   isAuthenticated: boolean;
   userName: string;
@@ -32,7 +31,6 @@ type MobileNavigationMenuProps = {
 export const MobileNavigationMenu = ({
   onNavigate,
   isActive,
-  onThemeToggle,
   theme,
   isAuthenticated,
   userName,

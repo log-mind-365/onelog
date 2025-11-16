@@ -17,7 +17,7 @@ export const ArticleUserInfo = ({
           · @{email?.split("@")[0]}
         </span>
       </div>
-      <p className="text-muted-foreground text-sm">
+      <time className="text-muted-foreground text-sm">
         {createdAt
           ? new Date(createdAt).toLocaleDateString("ko-KR", {
               year: "numeric",
@@ -31,7 +31,7 @@ export const ArticleUserInfo = ({
               month: "long",
               day: "numeric",
             })}
-      </p>
+      </time>
     </div>
   );
 };

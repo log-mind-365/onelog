@@ -1,5 +1,4 @@
 import { Heart } from "lucide-react";
-import type { MouseEvent } from "react";
 import { Button } from "@/shared/components/ui/button";
 import {
   Tooltip,
@@ -9,7 +8,7 @@ import {
 import { cn } from "@/shared/lib/utils";
 
 type LikeButtonProps = {
-  onClick: (e: MouseEvent) => void;
+  onClick: () => void;
   likeCount?: number;
   orientation?: "horizontal" | "vertical";
   isLike?: boolean;
@@ -26,7 +25,10 @@ export const ArticleLikeButton = ({
       <TooltipTrigger asChild>
         <Button
           variant="ghost"
-          onClick={onClick}
+          onClick={(e) => {
+            e.stopPropagation();
+            onClick();
+          }}
           className={cn(
             "flex gap-1 text-xs transition-colors hover:text-red-500",
             orientation === "horizontal" && "flex-row",
