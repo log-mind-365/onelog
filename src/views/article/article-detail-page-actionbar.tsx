@@ -50,8 +50,7 @@ export const ArticleDetailPageActionbar = ({
     }
   };
 
-  const handleReport = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
+  const handleReport = () => {
     if (!currentUserId) {
       openModal("auth-guard");
     } else {
@@ -75,6 +74,7 @@ export const ArticleDetailPageActionbar = ({
       }
     }
   };
+
   return (
     <div className="flex w-full justify-between rounded-lg border-1 bg-card p-2 shadow-sm">
       <ArticleLikeButton
