@@ -4,6 +4,9 @@ import {
   getArticleDetail,
   getArticleLikeCount,
   getInfinitePublicArticleList,
+  getUserArticles,
+  getUserEmotionActivity,
+  getUserLikedArticles,
 } from "@/entities/article/api/server";
 import { ARTICLE_QUERY_KEY } from "@/entities/article/model/constants";
 import type { InfiniteArticleList } from "@/entities/article/model/types";
@@ -41,5 +44,34 @@ export const articleQueries = {
       queryKey: ARTICLE_QUERY_KEY.CHECK_LIKED(Number(articleId), userId),
       queryFn: async () => checkUserLiked(articleId, userId),
       enabled: !!userId,
+    }),
+  emotionActivity: (userId: string) =>
+    queryOptions({
+      queryKey: ARTICLE_QUERY_KEY.EMOTION_ACTIVITY(userId),
+      queryFn: async () => getUserEmotionActivity(userId),
+    }),
+  userArticles: (
+    userId: string,
+    currentUserId: string | null,
+    accessType?: "public" | "private",
+  ) =>
+    infiniteQueryOptions({
+      queryKey: ARTICLE_QUERY_KEY.USER_ARTICLES(
+        userId,
+        currentUserId,
+        accessType,
+      ),
+      queryFn: async ({ pageParam }): Promise<InfiniteArticleList> =>
+        getUserArticles(userId, pageParam, currentUserId, accessType),
+      initialPageParam: undefined as number | undefined,
+      getNextPageParam: (lastPage) => lastPage.nextId ?? undefined,
+    }),
+  userLikedArticles: (userId: string, currentUserId: string | null) =>
+    infiniteQueryOptions({
+      queryKey: ARTICLE_QUERY_KEY.USER_LIKED_ARTICLES(userId, currentUserId),
+      queryFn: async ({ pageParam }): Promise<InfiniteArticleList> =>
+        getUserLikedArticles(userId, pageParam, currentUserId),
+      initialPageParam: undefined as number | undefined,
+      getNextPageParam: (lastPage) => lastPage.nextId ?? undefined,
     }),
 };

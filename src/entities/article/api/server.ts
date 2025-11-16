@@ -356,3 +356,170 @@ export const reportArticle = async (params: {
     reason: params.reason,
   });
 };
+
+// 감정 통계 관련 함수들
+export type EmotionActivity = {
+  date: string;
+  emotionLevel: number;
+  count: number;
+};
+
+export const getUserEmotionActivity = async (
+  userId: string,
+): Promise<EmotionActivity[]> => {
+  // 최근 1년간의 데이터
+  const oneYearAgo = new Date();
+  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+
+  const result = await db
+    .select({
+      date: sql<string>`DATE(${articles.createdAt})`,
+      emotionLevel: sql<number>`AVG(${articles.emotionLevel})::int`,
+      count: count(articles.id),
+    })
+    .from(articles)
+    .where(
+      and(
+        eq(articles.userId, userId),
+        sql`${articles.createdAt} >= ${oneYearAgo.toISOString()}`,
+      ),
+    )
+    .groupBy(sql`DATE(${articles.createdAt})`)
+    .orderBy(sql`DATE(${articles.createdAt})`);
+
+  return result.map((row) => ({
+    date: row.date,
+    emotionLevel: Number(row.emotionLevel),
+    count: Number(row.count),
+  }));
+};
+
+// 사용자별 아티클 목록 조회
+export const getUserArticles = async (
+  userId: string,
+  pageParam: number | undefined,
+  currentUserId: string | null,
+  accessType?: "public" | "private",
+): Promise<InfiniteArticleList> => {
+  const result = await db
+    .select({
+      ...getTableColumns(articles),
+      author: profiles,
+      likeCount: count(articleLikes.articleId).as("likeCount"),
+      commentCount: sql<number>`(
+        SELECT COUNT(*)::int
+        FROM ${comments}
+        WHERE ${comments.articleId} = ${articles.id}
+      )`,
+      isLiked: currentUserId
+        ? sql<boolean>`
+            EXISTS(
+                SELECT 1 FROM ${articleLikes}
+                WHERE ${articleLikes.articleId} = ${articles.id}
+                AND ${articleLikes.userId} = ${currentUserId}
+            )`
+        : sql<boolean>`false`,
+      isFollowing: currentUserId
+        ? sql<boolean>`
+            EXISTS(
+                SELECT 1 FROM ${userFollows}
+                WHERE ${userFollows.followerId} = ${currentUserId}
+                AND ${userFollows.followingId} = ${articles.userId}
+            )`
+        : sql<boolean>`false`,
+    })
+    .from(articles)
+    .leftJoin(profiles, eq(articles.userId, profiles.id))
+    .leftJoin(articleLikes, eq(articles.id, articleLikes.articleId))
+    .where(
+      and(
+        eq(articles.userId, userId),
+        pageParam ? lt(articles.id, pageParam) : undefined,
+        accessType ? eq(articles.accessType, accessType) : undefined,
+      ),
+    )
+    .groupBy(articles.id, profiles.id)
+    .limit(ARTICLE_PAGE_LIMIT)
+    .orderBy(desc(articles.createdAt), desc(articles.id))
+    .then((rows) =>
+      rows.map((row) => ({
+        ...row,
+        author: row.author?.id ? row.author : null,
+        likeCount: Number(row.likeCount) || 0,
+        commentCount: Number(row.commentCount) || 0,
+      })),
+    );
+
+  const nextId =
+    result.length === ARTICLE_PAGE_LIMIT
+      ? result[ARTICLE_PAGE_LIMIT - 1].id
+      : undefined;
+  const previousId = result.length > 0 ? result[0].id : undefined;
+
+  return {
+    nextId,
+    previousId,
+    data: result,
+  };
+};
+
+// 좋아요한 게시글 목록 조회
+export const getUserLikedArticles = async (
+  userId: string,
+  pageParam: number | undefined,
+  currentUserId: string | null,
+): Promise<InfiniteArticleList> => {
+  const result = await db
+    .select({
+      ...getTableColumns(articles),
+      author: profiles,
+      likeCount: count(articleLikes.articleId).as("likeCount"),
+      commentCount: sql<number>`(
+        SELECT COUNT(*)::int
+        FROM ${comments}
+        WHERE ${comments.articleId} = ${articles.id}
+      )`,
+      isLiked: sql<boolean>`true`,
+      isFollowing: currentUserId
+        ? sql<boolean>`
+            EXISTS(
+                SELECT 1 FROM ${userFollows}
+                WHERE ${userFollows.followerId} = ${currentUserId}
+                AND ${userFollows.followingId} = ${articles.userId}
+            )`
+        : sql<boolean>`false`,
+    })
+    .from(articleLikes)
+    .innerJoin(articles, eq(articleLikes.articleId, articles.id))
+    .leftJoin(profiles, eq(articles.userId, profiles.id))
+    .where(
+      and(
+        eq(articleLikes.userId, userId),
+        pageParam ? lt(articles.id, pageParam) : undefined,
+        eq(articles.accessType, "public"),
+      ),
+    )
+    .groupBy(articles.id, profiles.id)
+    .limit(ARTICLE_PAGE_LIMIT)
+    .orderBy(desc(articles.createdAt), desc(articles.id))
+    .then((rows) =>
+      rows.map((row) => ({
+        ...row,
+        author: row.author?.id ? row.author : null,
+        likeCount: Number(row.likeCount) || 0,
+        commentCount: Number(row.commentCount) || 0,
+      })),
+    );
+
+  const nextId =
+    result.length === ARTICLE_PAGE_LIMIT
+      ? result[ARTICLE_PAGE_LIMIT - 1].id
+      : undefined;
+  const previousId = result.length > 0 ? result[0].id : undefined;
+
+  return {
+    nextId,
+    previousId,
+    data: result,
+  };
+};

@@ -1,11 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import type { ProfileTab } from "@/entities/user/model/types";
+import { Suspense, useState } from "react";
 import { userQueries } from "@/entities/user/api/queries";
+import type { ProfileTab } from "@/entities/user/model/types";
 import { useProfileViewMode } from "@/features/profile/lib/use-profile-view-mode";
 import { PageContainer } from "@/shared/components/page-container";
+import { Skeleton } from "@/shared/components/ui/skeleton";
+import { UserArticleList } from "@/widgets/article-list/ui/user-article-list";
+import { EmotionActivityGraph } from "@/widgets/profile-card/ui/emotion-activity-graph";
 import { ProfileAboutMeCard } from "@/widgets/profile-card/ui/profile-about-me-card";
 import { ProfileAccountInfoCard } from "@/widgets/profile-card/ui/profile-account-info-card";
 import { ProfileHeaderCard } from "@/widgets/profile-card/ui/profile-header-card";
@@ -57,31 +60,37 @@ export const ProfilePageView = ({
       )}
 
       {selectedTab === "emotions" && (
-        <div className="rounded-lg border bg-card p-8 text-center shadow-sm">
-          <p className="text-muted-foreground">감정 통계 기능 준비 중입니다.</p>
-        </div>
+        <EmotionActivityGraph userId={profileUserId} />
       )}
 
       {selectedTab === "diaries" && (
-        <div className="rounded-lg border bg-card p-8 text-center shadow-sm">
-          <p className="text-muted-foreground">작성한 일기 목록 준비 중입니다.</p>
-        </div>
+        <Suspense fallback={<Skeleton className="h-96 w-full" />}>
+          <UserArticleList
+            userId={profileUserId}
+            currentUserId={currentUserId}
+            accessType="private"
+          />
+        </Suspense>
       )}
 
       {selectedTab === "articles" && (
-        <div className="rounded-lg border bg-card p-8 text-center shadow-sm">
-          <p className="text-muted-foreground">
-            작성한 아티클 목록 준비 중입니다.
-          </p>
-        </div>
+        <Suspense fallback={<Skeleton className="h-96 w-full" />}>
+          <UserArticleList
+            userId={profileUserId}
+            currentUserId={currentUserId}
+            accessType="public"
+          />
+        </Suspense>
       )}
 
       {selectedTab === "liked" && (
-        <div className="rounded-lg border bg-card p-8 text-center shadow-sm">
-          <p className="text-muted-foreground">
-            좋아요한 게시글 목록 준비 중입니다.
-          </p>
-        </div>
+        <Suspense fallback={<Skeleton className="h-96 w-full" />}>
+          <UserArticleList
+            userId={profileUserId}
+            currentUserId={currentUserId}
+            showLiked={true}
+          />
+        </Suspense>
       )}
     </PageContainer>
   );

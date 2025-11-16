@@ -69,4 +69,17 @@ export const ARTICLE_QUERY_KEY = {
       userId,
     ],
   },
+  EMOTION_ACTIVITY: (userId: string) => ["emotion", "activity", userId],
+  USER_ARTICLES: (
+    userId: string,
+    currentUserId: string | null,
+    accessType?: "public" | "private",
+  ) => ["user", "articles", userId, currentUserId, accessType],
+  USER_LIKED_ARTICLES: (userId: string, currentUserId: string | null) => [
+    "user",
+    "liked",
+    "articles",
+    userId,
+    currentUserId,
+  ],
 };
