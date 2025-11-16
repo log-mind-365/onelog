@@ -5,7 +5,7 @@ export const ROUTES = {
     SIGN_UP: "/sign_up",
   },
   PROFILE: {
-    VIEW: (profileId: string) => `/${profileId}`,
+    VIEW: (profileId: string) => `/profile/${profileId}`,
   },
   ARTICLE: {
     VIEW: (articleId: number) => `/article/${articleId}`,
