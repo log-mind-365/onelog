@@ -1,91 +1,26 @@
 "use client";
 
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import { type MouseEvent, useEffect, useRef } from "react";
-import { useModal } from "@/app/_store/modal-store";
 import { articleQueries } from "@/entities/article/api/queries";
-import { useDeleteArticle } from "@/features/article/lib/use-delete-article";
-import { useLikeArticle } from "@/features/like-article/lib/use-like-article";
-import { ROUTES } from "@/shared/model/routes";
 import { ArticleCard } from "@/widgets/article-card/ui/article-card";
+import { useArticleListLogic } from "@/widgets/article-list/lib/use-article-list-logic";
 
 type InfiniteArticleListProps = { currentUserId: string | null };
 
 export const InfiniteArticleList = ({
   currentUserId,
 }: InfiniteArticleListProps) => {
-  const router = useRouter();
-  const { openModal } = useModal();
-  const { mutate: likeArticle } = useLikeArticle();
-  const { mutate: deleteArticle } = useDeleteArticle();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useSuspenseInfiniteQuery(articleQueries.publicList(currentUserId ?? null));
-  const loadMoreRef = useRef<HTMLDivElement>(null);
+  const { loadMoreRef, onLike, onModify, onDelete, onNavigate, onReport } =
+    useArticleListLogic({
+      currentUserId,
+      hasNextPage,
+      isFetchingNextPage,
+      fetchNextPage,
+    });
 
   const allArticles = data?.pages.flatMap((page) => page.data) ?? [];
-
-  const handleLike = (articleId: number) => {
-    if (!currentUserId) return null;
-    likeArticle({ articleId, currentUserId });
-  };
-
-  const handleReport = (articleId: number) => {
-    if (!currentUserId) {
-      openModal("auth-guard");
-    } else {
-      openModal("report-article", {
-        articleId,
-        reporterId: currentUserId,
-      });
-    }
-  };
-
-  const handleModify = (articleId: number) => {
-    if (!currentUserId) {
-      openModal("auth-guard");
-    } else {
-      router.push(ROUTES.ARTICLE.EDIT(articleId));
-    }
-  };
-
-  const handleDelete = (articleId: number) => {
-    if (!currentUserId) {
-      openModal("auth-guard");
-    } else {
-      const confirmed = window.confirm(
-        "정말로 이 게시글을 삭제하시겠습니까?\n삭제된 게시글은 복구할 수 없습니다.",
-      );
-
-      if (confirmed) {
-        deleteArticle({ articleId, currentUserId });
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (!hasNextPage || isFetchingNextPage) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          fetchNextPage();
-        }
-      },
-      { threshold: 0.1 },
-    );
-
-    const currentRef = loadMoreRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   if (allArticles.length === 0) {
     return (
@@ -98,7 +33,7 @@ export const InfiniteArticleList = ({
   }
 
   return (
-    <div className="flex flex-col gap-8">
+    <section className="flex flex-col gap-8">
       {allArticles.map((article) => {
         const {
           id,
@@ -115,14 +50,6 @@ export const InfiniteArticleList = ({
           commentCount,
         } = article;
         const viewMode = userId === currentUserId ? "author" : "viewer";
-
-        const onLike = () => handleLike(id);
-        const onReport = (e: MouseEvent<HTMLButtonElement>) => {
-          e.stopPropagation();
-          handleReport(id);
-        };
-        const onModify = () => handleModify(id);
-        const onDelete = () => handleDelete(id);
 
         return (
           <ArticleCard
@@ -144,11 +71,11 @@ export const InfiniteArticleList = ({
             isFollowing={isFollowing}
             isLiked={isLiked}
             commentCount={commentCount}
-            onClick={() => router.push(ROUTES.ARTICLE.VIEW(id))}
-            onLike={onLike}
-            onReport={viewMode === "viewer" ? onReport : undefined}
-            onModify={viewMode === "author" ? onModify : undefined}
-            onDelete={viewMode === "author" ? onDelete : undefined}
+            onClick={() => onNavigate(id)}
+            onLike={() => onLike(id)}
+            onReport={viewMode === "viewer" ? () => onReport(id) : undefined}
+            onModify={viewMode === "author" ? () => onModify(id) : undefined}
+            onDelete={viewMode === "author" ? () => onDelete(id) : undefined}
           />
         );
       })}
@@ -165,6 +92,6 @@ export const InfiniteArticleList = ({
           )}
         </div>
       )}
-    </div>
+    </section>
   );
 };
