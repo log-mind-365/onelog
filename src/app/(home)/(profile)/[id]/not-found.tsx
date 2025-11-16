@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card";
 
-export default function NotFound() {
+const NotFound = () => {
   return (
     <PageContainer>
       <Card className="shadow-none">
@@ -23,4 +23,6 @@ export default function NotFound() {
       </Card>
     </PageContainer>
   );
-}
+};
+
+export default NotFound;
