@@ -3,7 +3,7 @@
 import { PageContainer } from "@/shared/components/page-container";
 import { Spacer } from "@/shared/components/spacer";
 import { useProfilePage } from "@/views/profile/model/use-profile-page";
-import { EmotionActivityGraph } from "@/widgets/card/profile-card/ui/emotion-activity-graph";
+import { ActivityGraph } from "@/widgets/card/profile-card/ui/activity-graph";
 import { ProfileAboutMeCard } from "@/widgets/card/profile-card/ui/profile-about-me-card";
 import { ProfileAccountInfoCard } from "@/widgets/card/profile-card/ui/profile-account-info-card";
 import { ProfileHeaderCard } from "@/widgets/card/profile-card/ui/profile-header-card";
@@ -49,12 +49,9 @@ export const ProfilePageView = ({
         </>
       )}
 
-      {selectedTab === "emotions" && (
-        <EmotionActivityGraph userId={profileUserId} />
-      )}
-
       {selectedTab === "diaries" && (
         <>
+          <ActivityGraph userId={profileUserId} />
           <Spacer />
           <UserArticleList
             userId={profileUserId}
@@ -68,6 +65,7 @@ export const ProfilePageView = ({
 
       {selectedTab === "articles" && (
         <>
+          <ActivityGraph userId={profileUserId} />
           <Spacer />
           <UserArticleList
             userId={profileUserId}

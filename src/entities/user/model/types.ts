@@ -4,9 +4,4 @@ export type UserInfo = typeof profiles.$inferSelect;
 export type UserInfoInsertSchema = typeof profiles.$inferInsert;
 export type ProfileViewMode = "visitor" | "owner";
 
-export type ProfileTab =
-  | "summary"
-  | "emotions"
-  | "diaries"
-  | "articles"
-  | "liked";
+export type ProfileTab = "summary" | "diaries" | "articles" | "liked";

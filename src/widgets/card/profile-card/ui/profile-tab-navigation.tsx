@@ -16,12 +16,9 @@ export const ProfileTabNavigation = ({
       onValueChange={onTabChange ? onTabChange : undefined}
       className="h-fit w-full rounded-lg border bg-card p-1 shadow-sm"
     >
-      <TabsList className="grid h-fit w-full grid-cols-3 gap-2 bg-card sm:grid-cols-5">
+      <TabsList className="grid h-fit w-full grid-cols-4 gap-2 bg-card">
         <TabsTrigger value="summary" className="text-xs">
           요약
-        </TabsTrigger>
-        <TabsTrigger value="emotions" className="text-xs">
-          감정 한 눈에 보기
         </TabsTrigger>
         <TabsTrigger value="diaries" className="text-xs">
           작성한 일기
