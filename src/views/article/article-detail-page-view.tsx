@@ -1,7 +1,7 @@
+import { ArticleDetailPageActionbar } from "@/features/article/ui/article-detail-page-actionbar";
+import { ArticleDetailPageContent } from "@/features/article/ui/article-detail-page-content";
+import { ArticleCommentSection } from "@/features/comment/ui/article-comment-section";
 import { PageContainer } from "@/shared/components/page-container";
-import { ArticleCommentSection } from "@/views/article/article-comment-section";
-import { ArticleDetailPageActionbar } from "@/views/article/article-detail-page-actionbar";
-import { ArticleDetailPageContent } from "@/views/article/article-detail-page-content";
 
 type ArticleDetailPageView = {
   articleId: number;
