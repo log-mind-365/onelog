@@ -1,5 +1,5 @@
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import { getUserIdFromMiddleware } from "@/shared/lib/helpers/server-helper";
+import { getUserIdFromProxy } from "@/shared/lib/helpers/server-helper";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
 import { ArticleEditPageView } from "@/views/article/article-edit-page-view";
 
@@ -11,7 +11,7 @@ const ArticleEditPage = async ({ params }: PageProps) => {
   const { id } = await params;
   const articleId = Number(id);
   const queryClient = getQueryClient();
-  const userId = await getUserIdFromMiddleware();
+  const userId = await getUserIdFromProxy();
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

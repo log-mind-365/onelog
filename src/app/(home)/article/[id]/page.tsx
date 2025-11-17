@@ -1,7 +1,7 @@
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { articleQueries } from "@/entities/article/api/queries";
 import { commentQueries } from "@/entities/comment/api/queries";
-import { getUserIdFromMiddleware } from "@/shared/lib/helpers/server-helper";
+import { getUserIdFromProxy } from "@/shared/lib/helpers/server-helper";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
 import { ArticleDetailPageView } from "@/views/article/article-detail-page-view";
 
@@ -13,7 +13,7 @@ const ArticlePage = async ({ params }: PageProps) => {
   const { id } = await params;
   const articleId = Number(id);
   const queryClient = getQueryClient();
-  const userId = await getUserIdFromMiddleware();
+  const userId = await getUserIdFromProxy();
 
   await Promise.all([
     queryClient.prefetchQuery(articleQueries.detail(articleId, userId)),

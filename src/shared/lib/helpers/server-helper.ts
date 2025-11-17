@@ -5,7 +5,7 @@ import { headers } from "next/headers";
  * This avoids duplicate Supabase auth API calls.
  * @returns User ID string or null if not authenticated
  */
-export const getUserIdFromMiddleware = async (): Promise<string | null> => {
+export const getUserIdFromProxy = async (): Promise<string | null> => {
   const headersList = await headers();
   return headersList.get("x-user-id");
 };
