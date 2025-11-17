@@ -1,5 +1,4 @@
 import type * as React from "react";
-
 import { cn } from "@/shared/lib/helpers/client-helper";
 
 function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {

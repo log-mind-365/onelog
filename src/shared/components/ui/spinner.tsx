@@ -1,9 +1,9 @@
 import { Loader2Icon } from "lucide-react";
-
 import { cn } from "@/shared/lib/helpers/client-helper";
 
 function Spinner({ className, ...props }: React.ComponentProps<"svg">) {
   return (
+    // biome-ignore lint/a11y/useSemanticElements: <explanation>
     <Loader2Icon
       role="status"
       aria-label="Loading"

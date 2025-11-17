@@ -5,7 +5,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/shared/components/ui/tooltip";
-
 import { cn } from "@/shared/lib/helpers/client-helper";
 
 type LikeButtonProps = {

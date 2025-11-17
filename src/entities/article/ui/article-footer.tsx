@@ -8,7 +8,6 @@ import { ArticleCommentButton } from "@/entities/article/ui/article-comment-butt
 import { ArticleLikeButton } from "@/entities/article/ui/article-like-button";
 import { ArticleOptionsDropdownMenu } from "@/entities/article/ui/article-option-button";
 import { ArticleReportButton } from "@/entities/article/ui/article-report-button";
-
 import { cn } from "@/shared/lib/helpers/client-helper";
 
 type ArticleFooterProps = ComponentProps<"div"> & {

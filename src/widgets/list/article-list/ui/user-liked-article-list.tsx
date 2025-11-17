@@ -3,7 +3,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { articleQueries } from "@/entities/article/api/queries";
 import { EmptyArticle } from "@/features/profile/ui/empty-article";
-import { Skeleton } from "@/shared/components/ui/skeleton";
 import { Spinner } from "@/shared/components/ui/spinner";
 import { ArticleCard } from "@/widgets/card/article-card/ui/article-card";
 import { useArticleListLogic } from "../lib/use-article-list-logic";

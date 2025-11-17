@@ -1,5 +1,4 @@
 import type { ComponentProps } from "react";
-
 import { cn } from "@/shared/lib/helpers/client-helper";
 
 const spacingSizes = {
