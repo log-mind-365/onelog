@@ -23,7 +23,7 @@ import {
 import {
   APP_LOGO,
   SIDEBAR_MENUS,
-} from "@/widgets/home-page-sidebar/model/constants";
+} from "@/widgets/sidebar/home-page-sidebar/model/constants";
 
 type DesktopNavigationMenuProps = {
   onNavigate: (route: string) => void;

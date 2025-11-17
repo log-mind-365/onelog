@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { type MouseEvent, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useModal } from "@/app/_store/modal-store";
 import { useDeleteArticle } from "@/features/article/lib/use-delete-article";
 import { useLikeArticle } from "@/features/like-article/lib/use-like-article";

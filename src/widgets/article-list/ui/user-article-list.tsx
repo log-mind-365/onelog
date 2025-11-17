@@ -4,7 +4,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { articleQueries } from "@/entities/article/api/queries";
 import { EmptyArticle } from "@/features/profile/ui/empty-article";
 import { Spinner } from "@/shared/components/ui/spinner";
-import { ArticleCard } from "@/widgets/article-card/ui/article-card";
+import { ArticleCard } from "@/widgets/card/article-card/ui/article-card";
 import { useArticleListLogic } from "../lib/use-article-list-logic";
 
 type UserArticleListProps = {

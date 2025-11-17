@@ -17,7 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu";
-import { SIDEBAR_MENUS } from "@/widgets/home-page-sidebar/model/constants";
+import { SIDEBAR_MENUS } from "@/widgets/sidebar/home-page-sidebar/model/constants";
 
 type MobileNavigationMenuProps = {
   onNavigate: (route: string) => void;

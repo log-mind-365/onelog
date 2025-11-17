@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
-import { HomePageNavigationBar } from "@/widgets/home-page-sidebar/ui/home-page-navigation-bar";
+import { HomePageNavigationBar } from "@/widgets/sidebar/home-page-sidebar/ui/home-page-navigation-bar";
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (

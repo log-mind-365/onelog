@@ -9,11 +9,11 @@ import { PageContainer } from "@/shared/components/page-container";
 import { Spacer } from "@/shared/components/spacer";
 import { UserArticleList } from "@/widgets/article-list/ui/user-article-list";
 import { UserLikedArticleList } from "@/widgets/article-list/ui/user-liked-article-list";
-import { EmotionActivityGraph } from "@/widgets/profile-card/ui/emotion-activity-graph";
-import { ProfileAboutMeCard } from "@/widgets/profile-card/ui/profile-about-me-card";
-import { ProfileAccountInfoCard } from "@/widgets/profile-card/ui/profile-account-info-card";
-import { ProfileHeaderCard } from "@/widgets/profile-card/ui/profile-header-card";
-import { ProfileTabNavigation } from "@/widgets/profile-card/ui/profile-tab-navigation";
+import { EmotionActivityGraph } from "@/widgets/card/profile-card/ui/emotion-activity-graph";
+import { ProfileAboutMeCard } from "@/widgets/card/profile-card/ui/profile-about-me-card";
+import { ProfileAccountInfoCard } from "@/widgets/card/profile-card/ui/profile-account-info-card";
+import { ProfileHeaderCard } from "@/widgets/card/profile-card/ui/profile-header-card";
+import { ProfileTabNavigation } from "@/widgets/card/profile-card/ui/profile-tab-navigation";
 
 type ProfilePageViewProps = {
   profileUserId: string;

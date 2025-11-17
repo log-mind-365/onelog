@@ -1,9 +1,9 @@
 "use client";
 
 import { useAuth } from "@/features/auth/model/store";
-import { useHomePageNavigation } from "@/widgets/home-page-sidebar/lib/use-home-page-navigation";
-import { DesktopNavigationMenu } from "@/widgets/home-page-sidebar/ui/desktop-navigation-menu";
-import { MobileNavigationMenu } from "@/widgets/home-page-sidebar/ui/mobile-navigation-menu";
+import { useHomePageNavigation } from "@/widgets/sidebar/home-page-sidebar/lib/use-home-page-navigation";
+import { DesktopNavigationMenu } from "@/widgets/sidebar/home-page-sidebar/ui/desktop-navigation-menu";
+import { MobileNavigationMenu } from "@/widgets/sidebar/home-page-sidebar/ui/mobile-navigation-menu";
 
 export const HomePageNavigationBar = () => {
   const { me, isAuthenticated } = useAuth();
