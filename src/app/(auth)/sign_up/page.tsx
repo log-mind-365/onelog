@@ -38,6 +38,9 @@ const SignUpPage = () => {
   const handleSubmitSignUp = (data: SignUpFormData) => {
     setIsSubmitting(true);
     signUp(data, {
+      onSuccess: () => {
+        router.replace(ROUTES.HOME);
+      },
       onError: (error) => {
         console.error(error);
         setIsSubmitting(false);

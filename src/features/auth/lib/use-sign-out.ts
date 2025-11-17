@@ -7,13 +7,11 @@ import {
   AUTH_QUERY_KEY,
   AUTH_TOAST_MESSAGE,
 } from "@/features/auth/model/constants";
-import { useAuth } from "@/features/auth/model/store";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
 import { ROUTES } from "@/shared/model/routes";
 
 export const useSignOut = () => {
   const queryClient = getQueryClient();
-  const { clearMe } = useAuth();
 
   return useMutation({
     mutationFn: async (): Promise<void> => {
@@ -25,7 +23,6 @@ export const useSignOut = () => {
       });
     },
     onSettled: () => {
-      clearMe();
       void queryClient.invalidateQueries({ queryKey: AUTH_QUERY_KEY.INFO });
       window.location.href = ROUTES.HOME;
       toast.success(AUTH_TOAST_MESSAGE.SIGN_OUT.SUCCESS);

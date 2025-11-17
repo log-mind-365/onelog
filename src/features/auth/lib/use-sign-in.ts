@@ -1,9 +1,6 @@
 import type { User } from "@supabase/auth-js";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { getUserInfo } from "@/entities/user/api/server";
-import { signInToEntity } from "@/entities/user/lib/mappers";
-import type { UserInfo } from "@/entities/user/model/types";
 import { signIn } from "@/features/auth/api/client";
 import {
   AUTH_QUERY_KEY,

@@ -37,6 +37,9 @@ const SignInPage = () => {
   const handleSubmitSignIn = (data: SignInFormData) => {
     setIsSubmitting(true);
     signIn(data, {
+      onSuccess: () => {
+        router.replace(ROUTES.HOME);
+      },
       onError: (error) => {
         console.error(error);
         setIsSubmitting(false);
