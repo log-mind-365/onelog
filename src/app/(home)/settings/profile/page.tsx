@@ -4,7 +4,7 @@ import { userQueries } from "@/entities/user/api/queries";
 import { getUserIdFromProxy } from "@/shared/lib/helpers/server-helper";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
 import { ROUTES } from "@/shared/model/routes";
-import { SettingsProfilePageView } from "@/views/settings/profile/settings-profile-page-view";
+import { SettingsProfilePageView } from "@/views/settings/profile/ui/settings-profile-page-view";
 
 const Page = async () => {
   const queryClient = getQueryClient();

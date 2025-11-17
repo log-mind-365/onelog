@@ -1,12 +1,7 @@
 "use client";
 
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { Camera, Mail, Save, UserIcon, X } from "lucide-react";
-import { redirect, useRouter } from "next/navigation";
-import { useRef, useState } from "react";
-import { userQueries } from "@/entities/user/api/queries";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
-import { useUpdateProfile } from "@/features/profile/lib/use-update-profile";
 import { PageContainer } from "@/shared/components/page-container";
 import { Button } from "@/shared/components/ui/button";
 import {
@@ -19,7 +14,7 @@ import {
 import { Input } from "@/shared/components/ui/input";
 import { Label } from "@/shared/components/ui/label";
 import { Textarea } from "@/shared/components/ui/textarea";
-import { ROUTES } from "@/shared/model/routes";
+import { useSettingsProfilePage } from "@/views/settings/profile/model/use-settings-profile-page";
 
 type SettingsProfilePageViewProps = {
   currentUserId: string;
@@ -28,90 +23,30 @@ type SettingsProfilePageViewProps = {
 export const SettingsProfilePageView = ({
   currentUserId,
 }: SettingsProfilePageViewProps) => {
-  const { data: me } = useSuspenseQuery(userQueries.getUserInfo(currentUserId));
-  const router = useRouter();
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const [userName, setUserName] = useState(me?.userName || "");
-  const [aboutMe, setAboutMe] = useState(me?.aboutMe || "");
-  const [avatarFile, setAvatarFile] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-
-  const { mutate: updateProfile, isPending } = useUpdateProfile();
-
-  if (!me) {
-    redirect(ROUTES.HOME);
-  }
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    // 파일 크기 체크 (5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      alert("파일 크기는 5MB를 초과할 수 없습니다");
-      return;
-    }
-
-    // 파일 타입 체크
-    if (!file.type.startsWith("image/")) {
-      alert("이미지 파일만 업로드 가능합니다");
-      return;
-    }
-
-    setAvatarFile(file);
-
-    // 미리보기 생성
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPreviewUrl(reader.result as string);
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleUploadClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleDeleteAvatar = () => {
-    setAvatarFile(null);
-    setPreviewUrl(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    updateProfile(
-      {
-        id: me.id,
-        userName,
-        aboutMe,
-        avatarFile,
-        currentAvatarUrl: me.avatarUrl,
-      },
-      {
-        onSuccess: () => {
-          router.push(ROUTES.PROFILE.VIEW(me.id));
-        },
-      },
-    );
-  };
-
-  const handleCancel = () => {
-    router.back();
-  };
-
-  const displayAvatarUrl = previewUrl || me.avatarUrl || undefined;
+  const {
+    userName,
+    aboutMe,
+    email,
+    avatarUrl,
+    onSubmit,
+    fileInputRef,
+    isPending,
+    onFileChange,
+    displayAvatarUrl,
+    onDeleteAvatar,
+    onUploadClick,
+    onUserNameChange,
+    onAboutMeChange,
+    onCancel,
+    previewUrl,
+  } = useSettingsProfilePage(currentUserId);
 
   return (
     <PageContainer
       title="프로필 수정"
       description="프로필 정보를 수정할 수 있습니다"
     >
-      <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+      <form onSubmit={onSubmit} className="flex flex-col gap-2">
         {/* Profile Photo Card */}
         <Card>
           <CardHeader>
@@ -125,14 +60,14 @@ export const SettingsProfilePageView = ({
               ref={fileInputRef}
               type="file"
               accept="image/*"
-              onChange={handleFileChange}
+              onChange={onFileChange}
               className="hidden"
             />
             <div className="flex items-center gap-6">
               <div className="relative">
                 <UserAvatar
                   avatarUrl={displayAvatarUrl}
-                  fallback={me.userName}
+                  fallback={userName}
                   size="xl"
                 />
                 <Button
@@ -140,7 +75,7 @@ export const SettingsProfilePageView = ({
                   size="icon"
                   variant="secondary"
                   className="absolute right-0 bottom-0 rounded-full shadow-md"
-                  onClick={handleUploadClick}
+                  onClick={onUploadClick}
                 >
                   <Camera className="size-4" />
                 </Button>
@@ -154,7 +89,7 @@ export const SettingsProfilePageView = ({
                     type="button"
                     variant="outline"
                     size="sm"
-                    onClick={handleUploadClick}
+                    onClick={onUploadClick}
                   >
                     사진 업로드
                   </Button>
@@ -162,8 +97,8 @@ export const SettingsProfilePageView = ({
                     type="button"
                     variant="ghost"
                     size="sm"
-                    disabled={!previewUrl && !me.avatarUrl}
-                    onClick={handleDeleteAvatar}
+                    disabled={!previewUrl && !avatarUrl}
+                    onClick={onDeleteAvatar}
                   >
                     삭제
                   </Button>
@@ -189,7 +124,7 @@ export const SettingsProfilePageView = ({
                 <Input
                   id="email"
                   type="email"
-                  value={me.email}
+                  value={email}
                   disabled
                   className="flex-1"
                 />
@@ -205,7 +140,7 @@ export const SettingsProfilePageView = ({
                 id="userName"
                 type="text"
                 value={userName}
-                onChange={(e) => setUserName(e.target.value)}
+                onChange={onUserNameChange}
                 placeholder="사용자 이름을 입력하세요"
                 maxLength={30}
               />
@@ -219,7 +154,7 @@ export const SettingsProfilePageView = ({
               <Textarea
                 id="aboutMe"
                 value={aboutMe}
-                onChange={(e) => setAboutMe(e.target.value)}
+                onChange={onAboutMeChange}
                 placeholder="자신을 소개해주세요"
                 rows={5}
                 maxLength={200}
@@ -236,7 +171,7 @@ export const SettingsProfilePageView = ({
           <Button
             type="button"
             variant="outline"
-            onClick={handleCancel}
+            onClick={onCancel}
             disabled={isPending}
             className="bg-card"
           >

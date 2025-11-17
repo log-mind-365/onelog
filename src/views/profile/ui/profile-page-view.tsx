@@ -1,12 +1,8 @@
 "use client";
 
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import { userQueries } from "@/entities/user/api/queries";
-import type { ProfileTab } from "@/entities/user/model/types";
-import { useProfileViewMode } from "@/features/profile/lib/use-profile-view-mode";
 import { PageContainer } from "@/shared/components/page-container";
 import { Spacer } from "@/shared/components/spacer";
+import { useProfilePage } from "@/views/profile/model/use-profile-page";
 import { EmotionActivityGraph } from "@/widgets/card/profile-card/ui/emotion-activity-graph";
 import { ProfileAboutMeCard } from "@/widgets/card/profile-card/ui/profile-about-me-card";
 import { ProfileAccountInfoCard } from "@/widgets/card/profile-card/ui/profile-account-info-card";
@@ -24,19 +20,8 @@ export const ProfilePageView = ({
   profileUserId,
   currentUserId,
 }: ProfilePageViewProps) => {
-  const [selectedTab, setSelectedTab] = useState<ProfileTab>("summary");
-  const { viewMode, isFollowing } = useProfileViewMode(
-    profileUserId,
-    currentUserId,
-  );
-  const { data: user } = useSuspenseQuery(
-    userQueries.getUserInfo(profileUserId),
-  );
-
-  const handleTabChange = (value: string) => {
-    if (selectedTab === value) return;
-    setSelectedTab(value as ProfileTab);
-  };
+  const { viewMode, isFollowing, user, onTabChange, selectedTab } =
+    useProfilePage(profileUserId, currentUserId);
 
   return (
     <PageContainer title="프로필" description="사용자 정보를 확인하세요">
@@ -51,7 +36,7 @@ export const ProfilePageView = ({
       />
       <ProfileTabNavigation
         selectedTab={selectedTab}
-        onTabChange={handleTabChange}
+        onTabChange={onTabChange}
       />
 
       {selectedTab === "summary" && (

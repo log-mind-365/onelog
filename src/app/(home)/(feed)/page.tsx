@@ -3,7 +3,7 @@ import { articleQueries } from "@/entities/article/api/queries";
 import { userQueries } from "@/entities/user/api/queries";
 import { getUserIdFromProxy } from "@/shared/lib/helpers/server-helper";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
-import { HomePageView } from "@/views/home/home-page-view";
+import { HomePageView } from "@/views/home/ui/home-page-view";
 
 const HomePage = async () => {
   const queryClient = getQueryClient();

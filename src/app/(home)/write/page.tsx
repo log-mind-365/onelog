@@ -1,6 +1,6 @@
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
-import { WritePageView } from "@/views/write/write-page-view";
+import { WritePageView } from "@/views/write/ui/write-page-view";
 
 const Page = async () => {
   const queryClient = getQueryClient();

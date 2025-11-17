@@ -4,7 +4,7 @@ import { userQueries } from "@/entities/user/api/queries";
 import { profileUserUUIDSchema } from "@/features/profile/model/schemas";
 import { getUserIdFromProxy } from "@/shared/lib/helpers/server-helper";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
-import { ProfilePageView } from "@/views/profile/profile-page-view";
+import { ProfilePageView } from "@/views/profile/ui/profile-page-view";
 
 type PageProps = {
   params: Promise<{ id: string }>;

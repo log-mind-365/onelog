@@ -3,7 +3,7 @@ import { articleQueries } from "@/entities/article/api/queries";
 import { commentQueries } from "@/entities/comment/api/queries";
 import { getUserIdFromProxy } from "@/shared/lib/helpers/server-helper";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
-import { ArticleDetailPageView } from "@/views/article/article-detail-page-view";
+import { ArticleDetailPageView } from "@/views/article/ui/article-detail-page-view";
 
 type PageProps = {
   params: Promise<{ id: string }>;
