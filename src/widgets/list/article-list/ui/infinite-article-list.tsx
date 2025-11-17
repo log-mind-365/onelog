@@ -4,8 +4,8 @@ import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { articleQueries } from "@/entities/article/api/queries";
 import { EmptyArticle } from "@/features/profile/ui/empty-article";
 import { Spinner } from "@/shared/components/ui/spinner";
-import { useArticleListLogic } from "@/widgets/article-list/lib/use-article-list-logic";
 import { ArticleCard } from "@/widgets/card/article-card/ui/article-card";
+import { useArticleListLogic } from "@/widgets/list/article-list/lib/use-article-list-logic";
 
 type InfiniteArticleListProps = {
   currentUserId: string | null;

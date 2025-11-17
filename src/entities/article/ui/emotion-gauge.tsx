@@ -1,7 +1,8 @@
 import type { ComponentProps } from "react";
 import { EMOTION_STATUS } from "@/entities/article/model/constants";
 import type { EmotionLevel } from "@/entities/article/model/types";
-import { cn } from "@/shared/lib/utils";
+
+import { cn } from "@/shared/lib/helpers/client-helper";
 
 type EmotionGaugeProps = ComponentProps<"div"> & {
   emotionLevel: EmotionLevel;

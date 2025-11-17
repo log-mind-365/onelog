@@ -18,7 +18,7 @@ import { useDraft } from "@/features/write-article/model/use-draft";
 import { PageContainer } from "@/shared/components/page-container";
 import { Card, CardContent, CardHeader } from "@/shared/components/ui/card";
 import { Separator } from "@/shared/components/ui/separator";
-import { WritePageHeader } from "@/widgets/write-page-header/ui/write-page-header";
+import { WritePageHeader } from "@/widgets/header/write-page-header/ui/write-page-header";
 
 type ArticleEditPageViewProps = {
   id: number;

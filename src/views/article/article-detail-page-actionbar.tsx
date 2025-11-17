@@ -12,7 +12,7 @@ import { ArticleReportButton } from "@/entities/article/ui/article-report-button
 import { useDeleteArticle } from "@/features/article/lib/use-delete-article";
 import { ShareArticleButton } from "@/features/article/ui/share-article-button";
 import { useLikeArticle } from "@/features/like-article/lib/use-like-article";
-import { copyURL } from "@/shared/lib/utils";
+import { copyURL } from "@/shared/lib/helpers/client-helper";
 import { ROUTES } from "@/shared/model/routes";
 
 type ArticleActionbarProps = {

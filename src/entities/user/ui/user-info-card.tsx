@@ -1,6 +1,7 @@
 import type { ComponentProps } from "react";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
-import { cn } from "@/shared/lib/utils";
+
+import { cn } from "@/shared/lib/helpers/client-helper";
 
 const UserInfoCard = ({
   className,

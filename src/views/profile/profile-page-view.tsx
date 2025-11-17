@@ -7,13 +7,13 @@ import type { ProfileTab } from "@/entities/user/model/types";
 import { useProfileViewMode } from "@/features/profile/lib/use-profile-view-mode";
 import { PageContainer } from "@/shared/components/page-container";
 import { Spacer } from "@/shared/components/spacer";
-import { UserArticleList } from "@/widgets/article-list/ui/user-article-list";
-import { UserLikedArticleList } from "@/widgets/article-list/ui/user-liked-article-list";
 import { EmotionActivityGraph } from "@/widgets/card/profile-card/ui/emotion-activity-graph";
 import { ProfileAboutMeCard } from "@/widgets/card/profile-card/ui/profile-about-me-card";
 import { ProfileAccountInfoCard } from "@/widgets/card/profile-card/ui/profile-account-info-card";
 import { ProfileHeaderCard } from "@/widgets/card/profile-card/ui/profile-header-card";
 import { ProfileTabNavigation } from "@/widgets/card/profile-card/ui/profile-tab-navigation";
+import { UserArticleList } from "@/widgets/list/article-list/ui/user-article-list";
+import { UserLikedArticleList } from "@/widgets/list/article-list/ui/user-liked-article-list";
 
 type ProfilePageViewProps = {
   profileUserId: string;

@@ -6,7 +6,8 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/shared/components/ui/avatar";
-import { cn } from "@/shared/lib/utils";
+
+import { cn } from "@/shared/lib/helpers/client-helper";
 
 type UserAvatarProps = {
   avatarUrl?: string | null;

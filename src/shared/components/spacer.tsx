@@ -1,5 +1,6 @@
 import type { ComponentProps } from "react";
-import { cn } from "@/shared/lib/utils";
+
+import { cn } from "@/shared/lib/helpers/client-helper";
 
 const spacingSizes = {
   1: "h-1 w-1", // 4px

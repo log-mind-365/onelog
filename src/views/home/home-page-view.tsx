@@ -1,7 +1,7 @@
 import { PageContainer } from "@/shared/components/page-container";
 import { SlideInTransition } from "@/shared/components/transition-container";
-import { InfiniteArticleList } from "@/widgets/article-list/ui/infinite-article-list";
 import { FakeForm } from "@/widgets/form/fake-form/ui/fake-form";
+import { InfiniteArticleList } from "@/widgets/list/article-list/ui/infinite-article-list";
 
 type HomePageProps = {
   currentUserId: string | null;

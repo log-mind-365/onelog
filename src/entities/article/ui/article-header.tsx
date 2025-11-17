@@ -2,7 +2,8 @@ import type { ComponentProps } from "react";
 import { ArticleUserInfo } from "@/entities/article/ui/article-user-info";
 import EmotionGauge from "@/entities/article/ui/emotion-gauge";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
-import { cn } from "@/shared/lib/utils";
+
+import { cn } from "@/shared/lib/helpers/client-helper";
 
 const ArticleHeader = ({
   className,

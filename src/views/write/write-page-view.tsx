@@ -14,7 +14,7 @@ import { useAuth } from "@/features/auth/model/store";
 import { useDraft } from "@/features/write-article/model/use-draft";
 import { PageContainer } from "@/shared/components/page-container";
 import { Card, CardContent, CardHeader } from "@/shared/components/ui/card";
-import { WritePageHeader } from "@/widgets/write-page-header/ui/write-page-header";
+import { WritePageHeader } from "@/widgets/header/write-page-header/ui/write-page-header";
 
 export const WritePageView = () => {
   const { me } = useAuth();
