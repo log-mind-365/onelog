@@ -31,7 +31,13 @@ export function ShareArticleButton({ onClick }: Props) {
           </DropdownMenuTrigger>
         </TooltipTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={onClick} className="cursor-pointer gap-2">
+          <DropdownMenuItem
+            onClick={(e) => {
+              e.stopPropagation();
+              void onClick();
+            }}
+            className="cursor-pointer gap-2"
+          >
             <Link className="h-4 w-4" />
             URL 복사
           </DropdownMenuItem>

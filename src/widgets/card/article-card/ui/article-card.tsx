@@ -22,12 +22,18 @@ import {
 } from "@/entities/user/ui/user-info-card";
 import { ArticleAuthorProfileActionBar } from "@/features/article/ui/article-author-profile-action-bar";
 import { Button } from "@/shared/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/shared/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/shared/components/ui/card";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/shared/components/ui/hover-card";
+import { Separator } from "@/shared/components/ui/separator";
 
 type ArticleCardProps = {
   articleId: number;
@@ -49,6 +55,7 @@ type ArticleCardProps = {
   commentCount: number;
   onClick: () => void;
   onLike: () => void;
+  onShare: () => void;
   onReport?: () => void;
   onModify?: () => void;
   onDelete?: () => void;
@@ -74,58 +81,66 @@ export const ArticleCard = ({
   commentCount,
   onClick,
   onLike,
+  onShare,
   onReport,
   onModify,
   onDelete,
 }: ArticleCardProps) => {
   return (
-    <article className="flex flex-col gap-2">
-      <ArticleHeader>
-        <HoverCard openDelay={0}>
-          <HoverCardTrigger asChild>
-            <Button asChild variant="ghost" size="icon">
-              <ArticleHeaderAvatar userName={userName} avatarUrl={avatarUrl} />
-            </Button>
-          </HoverCardTrigger>
-          <HoverCardContent asChild>
-            <UserInfoCard className="flex-col items-center">
-              <UserInfoCardContent className="itmes-center flex-1 flex-col">
-                <UserInfoCardAvatar
-                  userName={userName}
-                  avatarUrl={avatarUrl}
-                  className="flex justify-center"
-                />
-                <UserInfoCardDetails className="flex flex-col items-center">
-                  <UserInfoCardName userName={userName} />
-                  <UserInfoCardEmail email={email} />
-                  <UserInfoCardAboutMe aboutMe={aboutMe} />
-                </UserInfoCardDetails>
-              </UserInfoCardContent>
-              <UserInfoCardActions className="flex-row">
-                <ArticleAuthorProfileActionBar
-                  viewMode={viewMode}
-                  articleId={articleId}
-                  authorId={authorId}
-                  currentUserId={currentUserId}
-                  isFollowing={isFollowing}
-                />
-              </UserInfoCardActions>
-            </UserInfoCard>
-          </HoverCardContent>
-        </HoverCard>
-        <ArticleHeaderUserInfo
-          userName={userName}
-          email={email}
-          createdAt={createdAt}
-        />
-        <ArticleHeaderEmotionGauge emotionLevel={emotionLevel} />
-      </ArticleHeader>
+    <article>
       <Card
         onClick={onClick}
-        className="cursor-pointer select-none pb-4 transition-shadow duration-200 ease-in-out hover:shadow-lg"
+        className="cursor-pointer select-none transition-shadow duration-200 ease-in-out hover:shadow-lg"
       >
-        <CardContent>
+        <CardHeader>
+          <ArticleHeader>
+            <HoverCard openDelay={0}>
+              <HoverCardTrigger asChild>
+                <Button asChild variant="ghost" size="icon">
+                  <ArticleHeaderAvatar
+                    userName={userName}
+                    avatarUrl={avatarUrl}
+                  />
+                </Button>
+              </HoverCardTrigger>
+              <HoverCardContent asChild>
+                <UserInfoCard className="flex-col items-center">
+                  <UserInfoCardContent className="itmes-center flex-1 flex-col">
+                    <UserInfoCardAvatar
+                      userName={userName}
+                      avatarUrl={avatarUrl}
+                      className="flex justify-center"
+                    />
+                    <UserInfoCardDetails className="flex flex-col items-center">
+                      <UserInfoCardName userName={userName} />
+                      <UserInfoCardEmail email={email} />
+                      <UserInfoCardAboutMe aboutMe={aboutMe} />
+                    </UserInfoCardDetails>
+                  </UserInfoCardContent>
+                  <UserInfoCardActions className="flex-row">
+                    <ArticleAuthorProfileActionBar
+                      viewMode={viewMode}
+                      articleId={articleId}
+                      authorId={authorId}
+                      currentUserId={currentUserId}
+                      isFollowing={isFollowing}
+                    />
+                  </UserInfoCardActions>
+                </UserInfoCard>
+              </HoverCardContent>
+            </HoverCard>
+            <ArticleHeaderUserInfo
+              userName={userName}
+              email={email}
+              createdAt={createdAt}
+            />
+            <ArticleHeaderEmotionGauge emotionLevel={emotionLevel} />
+          </ArticleHeader>
+        </CardHeader>
+
+        <CardContent className="space-y-8">
           <ArticleContent title={title} content={content} />
+          <Separator />
         </CardContent>
         <CardFooter>
           <ArticleFooter

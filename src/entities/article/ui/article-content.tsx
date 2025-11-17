@@ -12,9 +12,16 @@ export const ArticleContent = ({
   className,
 }: ArticleCardContentProps) => {
   return (
-    <div className={cn("relative max-h-64 overflow-hidden", className)}>
+    <div
+      className={cn(
+        "relative flex max-h-64 flex-col gap-4 overflow-hidden",
+        className,
+      )}
+    >
       <h2 className="mb-2 font-semibold text-xl">{title}</h2>
-      <p className="whitespace-pre-wrap break-words">{content}</p>
+      <p className="whitespace-pre-wrap break-words text-muted-foreground text-sm">
+        {content}
+      </p>
     </div>
   );
 };
