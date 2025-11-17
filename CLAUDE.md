@@ -85,7 +85,7 @@ src/
 
 ### Data Flow Pattern
 
-1. **Server Actions** (`entities/*/api/server.ts`): Database operations using Drizzle ORM
+1. **Server Actions** (`entities/*/api/client.ts`): Database operations using Drizzle ORM
 2. **Query Definitions** (`entities/*/api/queries.ts`): TanStack Query configuration
 3. **Custom Hooks** (`features/*/lib/use-*.ts`): Business logic encapsulation
 4. **View Components** (`views/*.tsx`): Composition and data orchestration
@@ -112,7 +112,7 @@ Located in `src/db/schemas.ts`:
 - Server-side client: `createClient()` from `@/shared/lib/supabase/server`
 - Browser client: `supabase` from `@/shared/lib/supabase/client`
 - Auth state management: Zustand store at `src/features/auth/model/store.ts`
-- Server actions: `src/features/auth/api/server.ts` (signIn, signUp, signOut, getCurrentUser)
+- Server actions: `src/features/auth/api/client.ts` (signIn, signUp, signOut, getCurrentUser)
 
 ## State Management
 

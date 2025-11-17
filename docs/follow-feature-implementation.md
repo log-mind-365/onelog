@@ -40,7 +40,7 @@ src/
 ├── entities/
 │   └── follow/
 │       ├── api/
-│       │   ├── server.ts            # Server Actions
+│       │   ├── client.ts            # Server Actions
 │       │   └── queries.ts           # TanStack Query 정의
 │       ├── model/
 │       │   ├── types.ts             # 타입 정의
@@ -57,7 +57,7 @@ src/
 └── entities/user/
     ├── model/types.ts               # UserInfoWithStats 추가
     └── api/
-        ├── server.ts                # getUserInfoWithStats 추가
+        ├── client.ts                # getUserInfoWithStats 추가
         └── queries.ts               # 쿼리 정의 추가
 ```
 
@@ -233,7 +233,7 @@ export const FOLLOW_TOAST_MESSAGE = {
 
 ### Phase 3: Follow Entity - API (Server Actions)
 
-**파일**: `src/entities/follow/api/server.ts`
+**파일**: `src/entities/follow/api/client.ts`
 
 ```typescript
 "use server";
@@ -1012,7 +1012,7 @@ export type UserInfoWithStats = UserInfo & {
 
 #### 8-2. Server Action 추가
 
-**파일**: `src/entities/user/api/server.ts`에 추가
+**파일**: `src/entities/user/api/client.ts`에 추가
 
 ```typescript
 import { getFollowStats } from "@/entities/follow/api/server";

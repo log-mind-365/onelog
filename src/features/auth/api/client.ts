@@ -1,7 +1,5 @@
-"use server";
-
 import type { User } from "@supabase/auth-js";
-import { createClient } from "@/shared/lib/supabase/server";
+import { supabase } from "@/shared/lib/supabase/client";
 
 type SignInParams = {
   email: string;
@@ -12,7 +10,6 @@ type SignUpParams = SignInParams & {
 };
 
 export const signIn = async ({ email, password }: SignInParams) => {
-  const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
@@ -29,7 +26,6 @@ export const signUp = async ({
   password,
   userName,
 }: SignUpParams): Promise<User | null> => {
-  const supabase = await createClient();
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -47,7 +43,6 @@ export const signUp = async ({
 };
 
 export const signOut = async (): Promise<void> => {
-  const supabase = await createClient();
   const { error } = await supabase.auth.signOut();
 
   if (error) {
@@ -57,13 +52,4 @@ export const signOut = async (): Promise<void> => {
   if (typeof window !== "undefined") {
     localStorage.removeItem("auth-storage");
   }
-};
-
-export const getCurrentUser = async (): Promise<User | null> => {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  return user;
 };

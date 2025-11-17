@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { postUserInfo } from "@/entities/user/api/server";
 import { signUpToEntity } from "@/entities/user/lib/mappers";
 import type { UserInfo } from "@/entities/user/model/types";
-import { signUp } from "@/features/auth/api/server";
+import { signUp } from "@/features/auth/api/client";
 import {
   AUTH_QUERY_KEY,
   AUTH_TOAST_MESSAGE,

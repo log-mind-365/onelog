@@ -35,7 +35,7 @@ src/
 ├── entities/
 │   └── article/
 │       ├── api/
-│       │   ├── server.ts                  # 서버 액션 (백엔드 로직)
+│       │   ├── client.ts                  # 서버 액션 (백엔드 로직)
 │       │   └── queries.ts                 # React Query 설정
 │       ├── model/
 │       │   └── types.ts                   # 타입 정의
@@ -138,7 +138,7 @@ export type ArticleWithAuthorInfo = Article & {
 
 ### 2. 서버 액션 함수
 
-**파일**: `src/entities/article/api/server.ts`
+**파일**: `src/entities/article/api/client.ts`
 
 #### (1) toggleArticleLike - 좋아요 토글
 

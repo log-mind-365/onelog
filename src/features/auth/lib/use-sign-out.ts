@@ -2,7 +2,7 @@
 
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { signOut } from "@/features/auth/api/server";
+import { signOut } from "@/features/auth/api/client";
 import {
   AUTH_QUERY_KEY,
   AUTH_TOAST_MESSAGE,

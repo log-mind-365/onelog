@@ -115,7 +115,7 @@ src/app/
 src/entities/
 ├── article/                   # 게시글 엔티티
 │   ├── api/
-│   │   ├── server.ts         # Server Actions (CRUD)
+│   │   ├── client.ts         # Server Actions (CRUD)
 │   │   └── queries.ts        # TanStack Query 정의
 │   ├── model/
 │   │   ├── types.ts          # TypeScript 타입
@@ -135,7 +135,7 @@ src/entities/
 │       └── emotion-gauge.tsx  # 감정 레벨 시각화
 ├── comment/                   # 댓글 엔티티
 │   ├── api/
-│   │   ├── server.ts
+│   │   ├── client.ts
 │   │   └── queries.ts
 │   ├── model/
 │   │   ├── types.ts
@@ -146,7 +146,7 @@ src/entities/
 │       └── comment-list.tsx
 └── user/                      # 사용자 엔티티
     ├── api/
-    │   ├── server.ts
+    │   ├── client.ts
     │   └── queries.ts
     ├── model/
     │   ├── types.ts
@@ -176,7 +176,7 @@ src/entities/
 src/features/
 ├── auth/                      # 인증 기능
 │   ├── api/
-│   │   └── server.ts         # signIn, signUp, signOut
+│   │   └── client.ts         # signIn, signUp, signOut
 │   ├── lib/
 │   │   ├── use-sign-in.ts    # 로그인 훅
 │   │   ├── use-sign-up.ts    # 회원가입 훅
@@ -324,7 +324,7 @@ src/shared/
 │   └── transition-container.tsx
 ├── lib/
 │   ├── supabase/
-│   │   ├── server.ts                # Server-side Supabase client
+│   │   ├── client.ts                # Server-side Supabase client
 │   │   ├── client.ts                # Client-side Supabase client
 │   │   └── storage.ts               # File upload utilities
 │   ├── tanstack/

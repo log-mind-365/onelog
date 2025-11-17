@@ -335,7 +335,7 @@ export type ArticleWithAuthorInfo = Article & {
 
 #### 복잡한 쿼리
 
-**`src/entities/article/api/server.ts:65`**
+**`src/entities/article/api/client.ts:65`**
 ```typescript
 export const getInfinitePublicArticleList = async (
   pageParam: string,
@@ -447,7 +447,7 @@ Database Schema (schemas.ts)
        ↓ $inferSelect/$inferInsert
 Entity Types (types.ts)
        ↓
-Server Actions (server.ts)
+Server Actions (client.ts)
        ↓
 TanStack Query (queries.ts)
        ↓
@@ -462,7 +462,7 @@ React Components
 
 #### 서버 클라이언트
 
-**`src/shared/lib/supabase/server.ts:4`**
+**`src/shared/lib/supabase/client.ts:4`**
 ```typescript
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
@@ -495,7 +495,7 @@ export async function createClient() {
 
 #### 인증 플로우
 
-**`src/features/auth/api/server.ts:5`**
+**`src/features/auth/api/client.ts:5`**
 ```typescript
 "use server";
 

@@ -33,7 +33,7 @@ OneLog의 아티클 신고 기능은 사용자가 부적절한 게시물을 신�
 
 ### 1. 서버 액션 (Server Action)
 
-**파일**: `src/entities/article/api/server.ts`
+**파일**: `src/entities/article/api/client.ts`
 
 ```typescript
 reportArticle(params: {
@@ -286,7 +286,7 @@ const MyComponent = () => {
 - `src/db/schemas/reports.ts` - reports 테이블 스키마
 
 ### Server Actions
-- `src/entities/article/api/server.ts` - reportArticle 함수
+- `src/entities/article/api/client.ts` - reportArticle 함수
 
 ### Hooks
 - `src/features/article/lib/use-report-article.ts` - useReportArticle mutation
