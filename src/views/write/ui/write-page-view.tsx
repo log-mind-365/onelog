@@ -45,7 +45,11 @@ export const WritePageView = () => {
         <CardHeader>
           <ArticleHeader>
             <ArticleHeaderAvatar userName={userName} avatarUrl={avatarUrl} />
-            <ArticleHeaderUserInfo userName={userName} email={email} />
+            <ArticleHeaderUserInfo
+              userName={userName}
+              email={email}
+              createdAt={new Date()}
+            />
             <ArticleHeaderEmotionGauge emotionLevel={emotionLevel} />
           </ArticleHeader>
         </CardHeader>
