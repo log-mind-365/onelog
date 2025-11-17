@@ -28,7 +28,6 @@ const Page = async ({ params }: PageProps) => {
   if (!profileUser) {
     notFound();
   }
-  console.log("currentUserId: ", currentUserId);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

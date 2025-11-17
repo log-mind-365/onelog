@@ -2,7 +2,6 @@
 
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { useLogger } from "react-use";
 import { userQueries } from "@/entities/user/api/queries";
 import type { ProfileTab } from "@/entities/user/model/types";
 import { useProfileViewMode } from "@/features/profile/lib/use-profile-view-mode";
@@ -38,19 +37,6 @@ export const ProfilePageView = ({
     if (selectedTab === value) return;
     setSelectedTab(value as ProfileTab);
   };
-
-  useLogger(
-    "profile-page-view",
-    {
-      profileUserId,
-      currentUserId,
-      viewMode,
-      isFollowing,
-    },
-    {
-      onlyInDevelopment: true,
-    },
-  );
 
   return (
     <PageContainer title="프로필" description="사용자 정보를 확인하세요">

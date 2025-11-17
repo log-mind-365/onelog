@@ -22,7 +22,6 @@ import { SIDEBAR_MENUS } from "@/widgets/home-page-sidebar/model/constants";
 type MobileNavigationMenuProps = {
   onNavigate: (route: string) => void;
   isActive: (menuPath?: string) => boolean;
-  theme?: string;
   isAuthenticated: boolean;
   userName: string;
   avatarUrl: string | null;
@@ -31,7 +30,6 @@ type MobileNavigationMenuProps = {
 export const MobileNavigationMenu = ({
   onNavigate,
   isActive,
-  theme,
   isAuthenticated,
   userName,
   avatarUrl,
@@ -39,7 +37,7 @@ export const MobileNavigationMenu = ({
 }: MobileNavigationMenuProps) => {
   const profileMenuItems = useUserProfileMenu();
   const authMenuItems = useAuthMenu();
-  const { setTheme } = useTheme();
+  const { setTheme, theme } = useTheme();
 
   return (
     <>

@@ -2,10 +2,15 @@
 
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { articleQueries } from "@/entities/article/api/queries";
+import { EmptyArticle } from "@/features/profile/ui/empty-article";
+import { Empty, EmptyHeader, EmptyMedia } from "@/shared/components/ui/empty";
+import { Spinner } from "@/shared/components/ui/spinner";
 import { ArticleCard } from "@/widgets/article-card/ui/article-card";
 import { useArticleListLogic } from "@/widgets/article-list/lib/use-article-list-logic";
 
-type InfiniteArticleListProps = { currentUserId: string | null };
+type InfiniteArticleListProps = {
+  currentUserId: string | null;
+};
 
 export const InfiniteArticleList = ({
   currentUserId,
@@ -23,13 +28,7 @@ export const InfiniteArticleList = ({
   const allArticles = data?.pages.flatMap((page) => page.data) ?? [];
 
   if (allArticles.length === 0) {
-    return (
-      <div className="flex items-center justify-center py-12">
-        <p className="text-muted-foreground text-sm">
-          아직 작성된 글이 없습니다.
-        </p>
-      </div>
-    );
+    return <EmptyArticle description="첫 게시물을 작성해 보세요." />;
   }
 
   return (
@@ -85,11 +84,7 @@ export const InfiniteArticleList = ({
           ref={loadMoreRef}
           className="flex items-center justify-center py-8"
         >
-          {isFetchingNextPage ? (
-            <p className="text-muted-foreground text-sm">로딩 중...</p>
-          ) : (
-            <p className="text-muted-foreground text-sm">더 보기</p>
-          )}
+          {isFetchingNextPage && <Spinner className="w-full" />}
         </div>
       )}
     </section>

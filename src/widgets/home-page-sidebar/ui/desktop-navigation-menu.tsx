@@ -28,7 +28,6 @@ import {
 type DesktopNavigationMenuProps = {
   onNavigate: (route: string) => void;
   isActive: (menuPath?: string) => boolean;
-  theme?: string;
   isAuthenticated: boolean;
   userName: string;
   avatarUrl: string | null;
@@ -38,13 +37,12 @@ type DesktopNavigationMenuProps = {
 export const DesktopNavigationMenu = ({
   onNavigate,
   isActive,
-  theme,
   isAuthenticated,
   userName,
   avatarUrl,
   onNavigateHome,
 }: DesktopNavigationMenuProps) => {
-  const { setTheme } = useTheme();
+  const { setTheme, theme } = useTheme();
 
   return (
     <TooltipProvider delayDuration={0}>

@@ -8,7 +8,7 @@ import { SignOutModal } from "@/widgets/modal/sign-out-modal";
 import { SubmitArticleModal } from "@/widgets/modal/submit-article-modal";
 import { UpdateArticleModal } from "@/widgets/modal/update-article-modal";
 
-export const ModalHandler = () => {
+export const ModalProvider = () => {
   const { currentModal, closeModal } = useModal();
 
   if (currentModal === null) return null;
