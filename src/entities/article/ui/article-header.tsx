@@ -43,7 +43,7 @@ const ArticleHeaderAvatar = ({
 type ArticleHeaderUserInfoProps = {
   userName: string;
   email: string;
-  createdAt?: Date;
+  createdAt: Date;
   className?: string;
 };
 
@@ -57,8 +57,8 @@ const ArticleHeaderUserInfo = ({
   return (
     <div className={cn("flex-1", className)} {...props}>
       <ArticleUserInfo
-        userName={userName || ""}
-        email={email || ""}
+        userName={userName}
+        email={email}
         createdAt={createdAt}
       />
     </div>

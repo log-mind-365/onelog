@@ -52,14 +52,24 @@ export const ArticleDetailPageContent = ({
     aboutMe = null,
     avatarUrl = null,
   } = article.author ?? {};
-  const { title = "", content = "", emotionLevel, isFollowing } = article;
+  const {
+    title = "",
+    content = "",
+    emotionLevel,
+    createdAt,
+    isFollowing,
+  } = article;
 
   return (
     <Card>
       <CardHeader>
         <ArticleHeader>
           <ArticleHeaderAvatar userName={userName} avatarUrl={avatarUrl} />
-          <ArticleHeaderUserInfo userName={userName} email={email} />
+          <ArticleHeaderUserInfo
+            userName={userName}
+            email={email}
+            createdAt={createdAt}
+          />
           <ArticleHeaderEmotionGauge emotionLevel={emotionLevel} />
         </ArticleHeader>
       </CardHeader>

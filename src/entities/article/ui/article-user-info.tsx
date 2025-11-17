@@ -1,7 +1,10 @@
+import { formatDistanceToNow } from "date-fns";
+import { ko } from "date-fns/locale";
+
 type ArticleUserInfoProps = {
   userName: string;
   email: string;
-  createdAt?: Date;
+  createdAt: Date;
 };
 
 export const ArticleUserInfo = ({
@@ -18,19 +21,10 @@ export const ArticleUserInfo = ({
         </span>
       </div>
       <time className="text-muted-foreground text-sm">
-        {createdAt
-          ? new Date(createdAt).toLocaleDateString("ko-KR", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-            })
-          : new Date(Date.now()).toLocaleDateString("ko-KR", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
+        {formatDistanceToNow(createdAt, {
+          addSuffix: true,
+          locale: ko,
+        })}
       </time>
     </div>
   );
