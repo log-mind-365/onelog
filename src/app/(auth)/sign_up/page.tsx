@@ -38,7 +38,6 @@ const SignUpPage = () => {
   const handleSubmitSignUp = (data: SignUpFormData) => {
     setIsSubmitting(true);
     signUp(data, {
-      onSuccess: () => router.replace(ROUTES.HOME),
       onError: (error) => {
         console.error(error);
         setIsSubmitting(false);
@@ -49,7 +48,7 @@ const SignUpPage = () => {
   const isLoading = isSubmitting || isPending;
 
   return (
-    <div className="flex w-sm flex-col gap-4">
+    <main className="flex w-sm flex-col gap-4">
       <form onSubmit={handleSubmit(handleSubmitSignUp)}>
         <FieldSet>
           <FieldLegend className="!text-xl font-semibold">회원가입</FieldLegend>
@@ -134,7 +133,7 @@ const SignUpPage = () => {
           로그인하러 가기
         </Button>
       </div>
-    </div>
+    </main>
   );
 };
 

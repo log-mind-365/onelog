@@ -41,14 +41,13 @@ const SignInPage = () => {
         console.error(error);
         setIsSubmitting(false);
       },
-      onSuccess: () => setIsSubmitting(false),
     });
   };
 
   const isLoading = isSubmitting || isPending;
 
   return (
-    <div className="flex w-sm flex-col gap-4">
+    <main className="flex w-sm flex-col gap-4">
       <form onSubmit={handleSubmit(handleSubmitSignIn)}>
         <FieldSet>
           <FieldLegend className="!text-xl font-semibold">로그인</FieldLegend>
@@ -115,7 +114,7 @@ const SignInPage = () => {
           가입하러 가기
         </Button>
       </div>
-    </div>
+    </main>
   );
 };
 
