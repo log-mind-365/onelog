@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       }
 
       if (event === "SIGNED_OUT") {
-        console.log("SIGNED_OUT");
+        console.info("SIGNED_OUT");
         clearMe();
         router.replace(ROUTES.HOME);
       }

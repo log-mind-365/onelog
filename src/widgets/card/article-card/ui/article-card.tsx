@@ -21,6 +21,7 @@ import {
   UserInfoCardName,
 } from "@/entities/user/ui/user-info-card";
 import { ArticleAuthorProfileActionBar } from "@/features/article/ui/article-author-profile-action-bar";
+import { Spacer } from "@/shared/components/spacer";
 import { Button } from "@/shared/components/ui/button";
 import {
   Card,
@@ -55,7 +56,6 @@ type ArticleCardProps = {
   commentCount: number;
   onClick: () => void;
   onLike: () => void;
-  onShare: () => void;
   onReport?: () => void;
   onModify?: () => void;
   onDelete?: () => void;
@@ -81,7 +81,6 @@ export const ArticleCard = ({
   commentCount,
   onClick,
   onLike,
-  onShare,
   onReport,
   onModify,
   onDelete,
@@ -90,7 +89,7 @@ export const ArticleCard = ({
     <article>
       <Card
         onClick={onClick}
-        className="cursor-pointer select-none transition-shadow duration-200 ease-in-out hover:shadow-lg"
+        className="cursor-pointer select-none gap-4 transition-shadow duration-200 ease-in-out hover:shadow-lg"
       >
         <CardHeader>
           <ArticleHeader>
@@ -138,8 +137,9 @@ export const ArticleCard = ({
           </ArticleHeader>
         </CardHeader>
 
-        <CardContent className="space-y-8">
+        <CardContent>
           <ArticleContent title={title} content={content} />
+          <Spacer size={4} />
           <Separator />
         </CardContent>
         <CardFooter>
