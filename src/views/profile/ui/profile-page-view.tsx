@@ -1,7 +1,7 @@
 "use client";
 
 import { PageContainer } from "@/shared/components/page-container";
-import { Spacer } from "@/shared/components/spacer";
+import { SizedBox } from "@/shared/components/sized-box";
 import { useProfilePage } from "@/views/profile/model/use-profile-page";
 import { ActivityGraph } from "@/widgets/card/profile-card/ui/activity-graph";
 import { ProfileAboutMeCard } from "@/widgets/card/profile-card/ui/profile-about-me-card";
@@ -52,7 +52,7 @@ export const ProfilePageView = ({
       {selectedTab === "diaries" && (
         <>
           <ActivityGraph userId={profileUserId} />
-          <Spacer />
+          <SizedBox />
           <UserArticleList
             userId={profileUserId}
             currentUserId={currentUserId}
@@ -66,7 +66,7 @@ export const ProfilePageView = ({
       {selectedTab === "articles" && (
         <>
           <ActivityGraph userId={profileUserId} />
-          <Spacer />
+          <SizedBox />
           <UserArticleList
             userId={profileUserId}
             currentUserId={currentUserId}
@@ -79,7 +79,7 @@ export const ProfilePageView = ({
 
       {selectedTab === "liked" && (
         <>
-          <Spacer />
+          <SizedBox />
           <UserLikedArticleList
             userId={profileUserId}
             currentUserId={currentUserId}

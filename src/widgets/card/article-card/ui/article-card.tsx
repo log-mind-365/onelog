@@ -21,7 +21,7 @@ import {
   UserInfoCardName,
 } from "@/entities/user/ui/user-info-card";
 import { ArticleAuthorProfileActionBar } from "@/features/article/ui/article-author-profile-action-bar";
-import { Spacer } from "@/shared/components/spacer";
+import { SizedBox } from "@/shared/components/sized-box";
 import { Button } from "@/shared/components/ui/button";
 import {
   Card,
@@ -139,7 +139,7 @@ export const ArticleCard = ({
 
         <CardContent>
           <ArticleContent title={title} content={content} />
-          <Spacer size={4} />
+          <SizedBox size={4} />
           <Separator />
         </CardContent>
         <CardFooter>

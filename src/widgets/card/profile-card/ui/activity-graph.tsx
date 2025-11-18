@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { articleQueries } from "@/entities/article/api/queries";
-import { Spacer } from "@/shared/components/spacer";
+import { SizedBox } from "@/shared/components/sized-box";
 import {
   Card,
   CardContent,
@@ -238,7 +238,7 @@ export const ActivityGraph = ({ userId }: EmotionActivityGraphProps) => {
               </div>
             </div>
           </TooltipProvider>
-          <Spacer />
+          <SizedBox />
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
         <div className="mt-2 flex items-center justify-end gap-2 text-muted-foreground text-xs">
