@@ -1,15 +1,14 @@
 import { cva } from "class-variance-authority";
 import { User } from "lucide-react";
-import { forwardRef } from "react";
+import type { ComponentPropsWithRef } from "react";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from "@/shared/components/ui/avatar";
-
 import { cn } from "@/shared/lib/helpers/client-helper";
 
-type UserAvatarProps = {
+type UserAvatarProps = ComponentPropsWithRef<"div"> & {
   avatarUrl?: string | null;
   fallback: string;
   size?: "sm" | "md" | "lg" | "xl";
@@ -29,15 +28,19 @@ const userAvatarVariants = cva("border-1 bg-card shadow-sm", {
   },
 });
 
-export const UserAvatar = forwardRef<HTMLDivElement, UserAvatarProps>(
-  ({ avatarUrl, fallback, size = "md", ...props }, ref) => {
-    return (
-      <Avatar ref={ref} className={cn(userAvatarVariants({ size }))} {...props}>
-        <AvatarImage src={avatarUrl || undefined} />
-        <AvatarFallback className="select-none bg-card">
-          {fallback?.[0]?.toUpperCase() || <User />}
-        </AvatarFallback>
-      </Avatar>
-    );
-  },
-);
+export const UserAvatar = ({
+  avatarUrl,
+  fallback,
+  size = "md",
+  ref,
+  ...props
+}: UserAvatarProps) => {
+  return (
+    <Avatar ref={ref} className={cn(userAvatarVariants({ size }))} {...props}>
+      <AvatarImage src={avatarUrl || undefined} />
+      <AvatarFallback className="select-none bg-card">
+        {fallback?.[0]?.toUpperCase() || <User />}
+      </AvatarFallback>
+    </Avatar>
+  );
+};
