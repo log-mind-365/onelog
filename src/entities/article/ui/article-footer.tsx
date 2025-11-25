@@ -4,12 +4,10 @@ import type {
   ArticleViewMode,
 } from "@/entities/article/model/types";
 import { ArticleAccessTypeBadge } from "@/entities/article/ui/article-access-type-badge";
-import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-type-button";
 import { ArticleCommentButton } from "@/entities/article/ui/article-comment-button";
 import { ArticleLikeButton } from "@/entities/article/ui/article-like-button";
 import { ArticleOptionsDropdownMenu } from "@/entities/article/ui/article-option-button";
 import { ArticleReportButton } from "@/entities/article/ui/article-report-button";
-import { ShareArticleButton } from "@/features/article/ui/share-article-button";
 import { cn } from "@/shared/lib/helpers/client-helper";
 
 type ArticleFooterProps = ComponentProps<"div"> & {
