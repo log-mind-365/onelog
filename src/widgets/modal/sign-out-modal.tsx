@@ -1,6 +1,5 @@
 "use client";
 
-import { useModal } from "@/app/_store/modal-store";
 import { useSignOut } from "@/features/auth/lib/use-sign-out";
 import { Button } from "@/shared/components/ui/button";
 import {
@@ -10,6 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/shared/components/ui/dialog";
+import { useModal } from "@/shared/store/modal-store";
 
 export const SignOutModal = () => {
   const { closeModal } = useModal();

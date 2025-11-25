@@ -1,9 +1,9 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
-import { useModal } from "@/app/_store/modal-store";
 import { useDeleteArticle } from "@/features/article/lib/use-delete-article";
 import { useLikeArticle } from "@/features/like-article/lib/use-like-article";
 import { ROUTES } from "@/shared/model/routes";
+import { useModal } from "@/shared/store/modal-store";
 
 type UseArticleListLogicParams = {
   currentUserId: string | null;

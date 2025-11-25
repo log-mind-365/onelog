@@ -2,7 +2,6 @@
 
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useModal } from "@/app/_store/modal-store";
 import { articleQueries } from "@/entities/article/api/queries";
 import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-type-button";
 import { ArticleCommentButton } from "@/entities/article/ui/article-comment-button";
@@ -14,6 +13,7 @@ import { ShareArticleButton } from "@/features/article/ui/share-article-button";
 import { useLikeArticle } from "@/features/like-article/lib/use-like-article";
 import { copyURL } from "@/shared/lib/helpers/client-helper";
 import { ROUTES } from "@/shared/model/routes";
+import { useModal } from "@/shared/store/modal-store";
 
 type ArticleActionbarProps = {
   currentUserId: string | null;

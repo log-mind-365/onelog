@@ -2,8 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
-import type { SubmitArticleDialogProps } from "@/app/_store/modal-store";
-import { useModal } from "@/app/_store/modal-store";
 import { useSubmitArticle } from "@/features/write-article/lib/use-submit-article";
 import { useDraft } from "@/features/write-article/model/use-draft";
 import { Button } from "@/shared/components/ui/button";
@@ -15,6 +13,8 @@ import {
 } from "@/shared/components/ui/dialog";
 import { Spinner } from "@/shared/components/ui/spinner";
 import { ROUTES } from "@/shared/model/routes";
+import type { SubmitArticleDialogProps } from "@/shared/store/modal-store";
+import { useModal } from "@/shared/store/modal-store";
 
 export const SubmitArticleModal = () => {
   const { props, closeModal } = useModal();

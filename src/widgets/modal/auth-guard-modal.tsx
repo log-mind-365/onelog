@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useModal } from "@/app/_store/modal-store";
 import { Button } from "@/shared/components/ui/button";
 import {
   DialogContent,
@@ -11,6 +10,7 @@ import {
   DialogTitle,
 } from "@/shared/components/ui/dialog";
 import { ROUTES } from "@/shared/model/routes";
+import { useModal } from "@/shared/store/modal-store";
 
 export const AuthGuardModal = () => {
   const { closeModal } = useModal();

@@ -1,5 +1,5 @@
-import { useModal } from "@/app/_store/modal-store";
 import { useAuth } from "@/features/auth/model/store";
+import { useModal } from "@/shared/store/modal-store";
 
 export const useAuthGuard = () => {
   const { isAuthenticated } = useAuth();

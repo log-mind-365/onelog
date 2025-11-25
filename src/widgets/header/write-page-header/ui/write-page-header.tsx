@@ -1,5 +1,4 @@
 import { Check } from "lucide-react";
-import type { ModalProps, ModalType } from "@/app/_store/modal-store";
 import type { AccessType, EmotionLevel } from "@/entities/article/model/types";
 import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-type-button";
 import { ArticleEmotionButton } from "@/entities/article/ui/article-emotion-button";
@@ -10,6 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/shared/components/ui/tooltip";
+import type { ModalProps, ModalType } from "@/shared/store/modal-store";
 
 type WritePageHeaderProps = {
   accessType: AccessType;

@@ -1,7 +1,7 @@
 "use client";
 
-import { useModal } from "@/app/_store/modal-store";
 import { Dialog } from "@/shared/components/ui/dialog";
+import { useModal } from "@/shared/store/modal-store";
 import { AuthGuardModal } from "@/widgets/modal/auth-guard-modal";
 import { ReportArticleModal } from "@/widgets/modal/report-article-modal";
 import { SignOutModal } from "@/widgets/modal/sign-out-modal";

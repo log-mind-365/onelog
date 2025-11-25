@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import type { ReportArticleDialogProps } from "@/app/_store/modal-store";
-import { useModal } from "@/app/_store/modal-store";
 import { useReportArticle } from "@/features/article/lib/use-report-article";
 import { Button } from "@/shared/components/ui/button";
 import {
@@ -21,6 +19,8 @@ import {
 } from "@/shared/components/ui/select";
 import { Spinner } from "@/shared/components/ui/spinner";
 import { Textarea } from "@/shared/components/ui/textarea";
+import type { ReportArticleDialogProps } from "@/shared/store/modal-store";
+import { useModal } from "@/shared/store/modal-store";
 
 const REPORT_TYPES = [
   { value: "spam", label: "스팸" },

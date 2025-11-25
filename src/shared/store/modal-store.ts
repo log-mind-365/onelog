@@ -35,7 +35,7 @@ export type UpdateArticleDialogProps = {
 
 export type ReportArticleDialogProps = {
   articleId: number;
-  reporterId: string;
+  reporterId: string; 
 };
 
 type ModalStore = {

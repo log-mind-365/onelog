@@ -1,8 +1,6 @@
 "use client";
 
 import type { FormEvent } from "react";
-import type { UpdateArticleDialogProps } from "@/app/_store/modal-store";
-import { useModal } from "@/app/_store/modal-store";
 import { useUpdateArticle } from "@/features/article/lib/use-update-article";
 import { Button } from "@/shared/components/ui/button";
 import {
@@ -12,6 +10,8 @@ import {
   DialogTitle,
 } from "@/shared/components/ui/dialog";
 import { Spinner } from "@/shared/components/ui/spinner";
+import type { UpdateArticleDialogProps } from "@/shared/store/modal-store";
+import { useModal } from "@/shared/store/modal-store";
 
 export const UpdateArticleModal = () => {
   const { props, closeModal } = useModal();

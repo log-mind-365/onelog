@@ -1,8 +1,8 @@
 import type { ChangeEvent } from "react";
-import { useModal } from "@/app/_store/modal-store";
 import type { AccessType, EmotionLevel } from "@/entities/article/model/types";
 import { useAuth } from "@/features/auth/model/store";
 import { useDraft } from "@/features/write-article/model/use-draft";
+import { useModal } from "@/shared/store/modal-store";
 
 export const useWritePage = () => {
   const { me } = useAuth();

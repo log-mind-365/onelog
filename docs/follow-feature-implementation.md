@@ -1122,8 +1122,8 @@ import { Suspense } from "react";
 import type {
   FollowersDialogProps,
   FollowingDialogProps,
-} from "@/app/_store/modal-store";
-import { useModal } from "@/app/_store/modal-store";
+} from "@/app/store/modal-store";
+import { useModal } from "@/app/store/modal-store";
 // ... 기존 imports
 import { FollowersModal } from "@/features/follow/ui/followers-modal";
 import { FollowingModal } from "@/features/follow/ui/following-modal";
@@ -1181,7 +1181,7 @@ export const Modal = () => {
 "use client";
 
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
-import { useModal } from "@/app/_store/modal-store";
+import { useModal } from "@/app/store/modal-store";
 import { followQueries } from "@/entities/follow/api/queries";
 import { FollowButton } from "@/entities/follow/ui/follow-button";
 import { userQueries } from "@/entities/user/api/queries";

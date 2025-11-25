@@ -1,6 +1,5 @@
 "use client";
 
-import { useModal } from "@/app/_store/modal-store";
 import {
   ArticleHeader,
   ArticleHeaderAvatar,
@@ -11,6 +10,7 @@ import { ArticleForm } from "@/features/article/ui/article-form";
 import { PageContainer } from "@/shared/components/page-container";
 import { Card, CardContent, CardHeader } from "@/shared/components/ui/card";
 import { Separator } from "@/shared/components/ui/separator";
+import { useModal } from "@/shared/store/modal-store";
 import { useArticleEditPage } from "@/views/article/model/use-article-edit-page";
 import { WritePageHeader } from "@/widgets/header/write-page-header/ui/write-page-header";
 
