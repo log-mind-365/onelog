@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OneLog 프로젝트
 
-## Getting Started
-
-First, run the development server:
-
+## 실행 방법
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# install dependencies
+bun install
+
+# run server
+bun run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 폴더 구조 (FSD Architecture)
+`src/` 디렉토리는 기능 단위로 분리된 FSD 패턴을 따릅니다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+├── app/          # Next.js App Router (페이지 라우팅)
+├── widgets/      # 페이지를 구성하는 독립적인 UI 블록 (DataTable, DashboardStats 등)
+├── entities/     # 비즈니스 도메인 로직 (Merchant, Payment 모델 및 API)
+├── shared/       # 재사용 가능한 공통 컴포넌트(UI Kit), 유틸리티, 훅
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 커밋 컨벤션
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| 태그       | 설명            | 예시                                     |
+|----------|---------------|----------------------------------------|
+| feat     | 새로운 기능 추가     | `feat: 결제 리스트 api 연동`                  |
+| fix      | 버그 수정         | `fix: 날짜 포맷팅 오류 수정`                    |
+| refactor | 코드 리팩토링       | `refactor: 결제 내역 훅을 api 폴더로 이동`        |
+| style    | 코드 포맷팅 오타 수정  | `style: 코드 포맷팅 및 세미콜론 추가`              |
+| docs     | 문서 수정         | `docs: README 실행 방법 업데이트`              |
+| chore    | 설정 변경/빌드      | `chore: 패키지 의존성 설치 및 .github 폴더 생성`    |
+| rename   | 파일,컴포넌트 이름 변경 | `rename: Button -> AppButton 컴포넌트명 수정` |
+| remove   | 파일, 코드 구문 삭제  | `remove: 미사용 임포트 구문 삭제`                 |
