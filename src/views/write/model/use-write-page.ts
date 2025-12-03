@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "@/features/auth/model/store";
 import { useDraft } from "@/features/write-article/lib/use-draft";
 import { articleFormSchema } from "@/features/write-article/model/schemas";
-import type { ArticleFormData } from "@/features/write-article/model/types";
+import type { ArticleInsertSchema } from "@/features/write-article/model/types";
 import { useModal } from "@/shared/store/modal-store";
 
 export const useWritePage = () => {
@@ -21,12 +21,12 @@ export const useWritePage = () => {
     setEmotionLevel,
   } = useDraft();
 
-  const form = useForm<ArticleFormData>({
+  const form = useForm<ArticleInsertSchema>({
     resolver: zodResolver(articleFormSchema),
     defaultValues: {
       title: initialTitle,
       content: initialContent,
-      accessType: initialAccessType ?? "public",
+      accessType: initialAccessType,
       emotionLevel: initialEmotionLevel,
     },
   });

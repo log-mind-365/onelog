@@ -5,14 +5,14 @@ import {
   ARTICLE_QUERY_KEY,
   ARTICLE_TOAST_MESSAGE,
 } from "@/entities/article/model/constants";
-import type { ArticleFormData } from "@/features/write-article/model/types";
+import type { ArticleInsertSchema } from "@/features/write-article/model/types";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
 
 export const useSubmitArticle = () => {
   const queryClient = getQueryClient();
 
   return useMutation({
-    mutationFn: async (params: ArticleFormData): Promise<void> => {
+    mutationFn: async (params: ArticleInsertSchema): Promise<void> => {
       await postArticle(params);
     },
     onSuccess: () => {

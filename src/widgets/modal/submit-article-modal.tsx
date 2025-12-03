@@ -25,14 +25,8 @@ export const SubmitArticleModal = () => {
 
   const submitArticle = () => {
     if (!props) return;
-    const { authorId, ...rest } = props as SubmitArticleDialogProps;
 
-    const data = {
-      ...rest,
-      userId: authorId,
-    };
-
-    onSubmit(data as any, {
+    onSubmit(props as SubmitArticleDialogProps, {
       onSuccess: () => {
         closeModal();
         reset();
@@ -40,7 +34,6 @@ export const SubmitArticleModal = () => {
       },
     });
   };
-
 
   return (
     <DialogContent>
