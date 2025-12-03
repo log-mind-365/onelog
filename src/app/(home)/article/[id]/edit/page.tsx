@@ -1,4 +1,5 @@
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { articleQueries } from "@/entities/article/api/queries";
 import { getUserIdFromProxy } from "@/shared/lib/helpers/server-helper";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
 import { ArticleEditPageView } from "@/views/article/ui/article-edit-page-view";
@@ -12,6 +13,7 @@ const ArticleEditPage = async ({ params }: PageProps) => {
   const articleId = Number(id);
   const queryClient = getQueryClient();
   const userId = await getUserIdFromProxy();
+  await queryClient.prefetchQuery(articleQueries.detail(articleId, userId));
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
