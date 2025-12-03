@@ -1,63 +1,66 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { type ChangeEvent, useEffect } from "react";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { articleQueries } from "@/entities/article/api/queries";
-import type { AccessType, EmotionLevel } from "@/entities/article/model/types";
 import { useAuth } from "@/features/auth/model/store";
-import { useDraft } from "@/features/write-article/model/use-draft";
+import { useDraft } from "@/features/write-article/lib/use-draft";
+import { articleFormSchema } from "@/features/write-article/model/schemas";
+import type { ArticleInsertSchema } from "@/features/write-article/model/types";
+import { useModal } from "@/shared/store/modal-store";
 
 export const useArticleEditPage = (
   articleId: number,
   currentUserId: string | null,
 ) => {
   const { me } = useAuth();
-  const { setTitle, setContent, setEmotionLevel, setAccessType, reset } =
-    useDraft();
+  const { openModal } = useModal();
+  const {
+    setTitle,
+    setContent,
+    setEmotionLevel,
+    setAccessType,
+    reset,
+  } = useDraft();
+
   const { data: article } = useSuspenseQuery(
     articleQueries.detail(articleId, currentUserId),
   );
-  const title = useDraft((state) => state.title);
-  const emotionLevel = useDraft((state) => state.emotionLevel);
-  const content = useDraft((state) => state.content);
-  const accessType = useDraft((state) => state.accessType);
+
+  const form = useForm<ArticleInsertSchema>({
+    resolver: zodResolver(articleFormSchema),
+    defaultValues: {
+      title: article.title,
+      content: article.content,
+      accessType: article.accessType,
+      emotionLevel: article.emotionLevel,
+    },
+  });
 
   useEffect(() => {
-    if (article) {
-      setTitle(article.title);
-      setContent(article.content);
-      setEmotionLevel(article.emotionLevel);
-      setAccessType(article.accessType);
-    }
+    const subscription = form.watch((value) => {
+      if (value.title !== undefined) setTitle(value.title);
+      if (value.content !== undefined) setContent(value.content);
+      if (value.accessType !== undefined) setAccessType(value.accessType);
+      if (value.emotionLevel !== undefined) setEmotionLevel(value.emotionLevel);
+    });
+    return () => subscription.unsubscribe();
+  }, [form.watch, setAccessType, setContent, setEmotionLevel, setTitle]);
 
+  useEffect(() => {
     return () => {
       reset();
     };
-  }, [article, setTitle, setContent, setEmotionLevel, setAccessType, reset]);
+  }, [reset]);
 
-  const handleAccessTypeChange = (value: string) => {
-    setAccessType(value as AccessType);
-  };
-
-  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
-
-  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
-  };
-
-  const handleEmotionLevelChange = (value: EmotionLevel) => {
-    setEmotionLevel(value);
-  };
+  const { userName = "", email = "", avatarUrl = null, id = "" } = me ?? {};
 
   return {
-    me,
-    title,
-    content,
-    emotionLevel,
-    accessType,
-    onAccessTypeChange: handleAccessTypeChange,
-    onTitleChange: handleTitleChange,
-    onContentChange: handleContentChange,
-    onEmotionLevelChange: handleEmotionLevelChange,
+    userName,
+    email,
+    avatarUrl,
+    openModal,
+    currentUserId: id,
+    form,
   };
 };

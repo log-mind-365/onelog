@@ -20,10 +20,12 @@ import { userFollows } from "@/db/schemas/user-follows";
 import { ARTICLE_PAGE_LIMIT } from "@/entities/article/model/constants";
 import type {
   Article,
-  ArticleInsertSchema,
   ArticleWithAuthorInfo,
   InfiniteArticleList,
 } from "@/entities/article/model/types";
+import { articleFormSchema } from "@/features/write-article/model/schemas";
+import type { ArticleInsertSchema } from "@/features/write-article/model/types";
+import { getUserIdFromProxy } from "@/shared/lib/helpers/server-helper";
 
 export const getInfinitePrivateArticleList = async (
   pageParam: number,
@@ -219,9 +221,20 @@ export const getArticleDetail = async (
 export const postArticle = async (
   params: ArticleInsertSchema,
 ): Promise<Article> => {
+  const userId = await getUserIdFromProxy();
+  const parsed = articleFormSchema.safeParse(params);
+
+  if (!parsed.success) {
+    throw new Error("제목이나 내용이 비어있습니다.");
+  }
+
+  if (!userId) {
+    throw new Error("로그인이 필요합니다.");
+  }
+
   return db
     .insert(articles)
-    .values(params)
+    .values({ ...parsed.data, userId })
     .returning()
     .then((rows) => rows[0]);
 };
@@ -230,6 +243,13 @@ export const updateArticle = async (
   id: number,
   params: Partial<ArticleInsertSchema>,
 ): Promise<Article> => {
+  const userId = await getUserIdFromProxy();
+  const parsed = articleFormSchema.safeParse(params);
+
+  if (parsed.error) {
+    throw new Error(parsed.error.message);
+  }
+
   return db
     .update(articles)
     .set({ ...params, updatedAt: new Date() })

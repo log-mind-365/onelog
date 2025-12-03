@@ -11,7 +11,6 @@ export type ArticleWithAuthorInfo = Article & {
   isFollowing: boolean;
   commentCount: number;
 };
-export type ArticleInsertSchema = typeof articles.$inferInsert;
 export type InfiniteArticleList = {
   data: ArticleWithAuthorInfo[];
   previousId?: number;

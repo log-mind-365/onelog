@@ -7,10 +7,10 @@ import {
   ArticleHeaderUserInfo,
 } from "@/entities/article/ui/article-header";
 import { ArticleForm } from "@/features/article/ui/article-form";
+import type { ArticleInsertSchema } from "@/features/write-article/model/types";
 import { PageContainer } from "@/shared/components/page-container";
 import { Card, CardContent, CardHeader } from "@/shared/components/ui/card";
 import { Separator } from "@/shared/components/ui/separator";
-import { useModal } from "@/shared/store/modal-store";
 import { useArticleEditPage } from "@/views/article/model/use-article-edit-page";
 import { WritePageHeader } from "@/widgets/header/write-page-header/ui/write-page-header";
 
@@ -23,55 +23,46 @@ export const ArticleEditPageView = ({
   id,
   userId,
 }: ArticleEditPageViewProps) => {
-  const { openModal } = useModal();
-  const {
-    me,
-    title,
-    content,
-    accessType,
-    onAccessTypeChange,
-    onEmotionLevelChange,
-    onContentChange,
-    emotionLevel,
-    onTitleChange,
-  } = useArticleEditPage(id, userId);
+  const { userName, email, avatarUrl, openModal, form } = useArticleEditPage(
+    id,
+    userId,
+  );
 
-  const { userName = "", email = "", avatarUrl = null } = me ?? {};
+  const onSubmit = (data: ArticleInsertSchema) => {
+    openModal("update-article", {
+      id,
+      ...data,
+    });
+  };
+
+  const emotionLevel = form.watch("emotionLevel");
 
   return (
     <PageContainer title="게시글 수정" description="게시글을 수정합니다">
-      <WritePageHeader
-        accessType={accessType}
-        onAccessTypeChange={onAccessTypeChange}
-        emotionLevel={emotionLevel}
-        onEmotionLevelChange={onEmotionLevelChange}
-        openModal={openModal}
-        title={title}
-        content={content}
-        authorId={me?.id ?? ""}
-      />
-      <Card>
-        <CardHeader>
-          <ArticleHeader>
-            <ArticleHeaderAvatar userName={userName} avatarUrl={avatarUrl} />
-            <ArticleHeaderUserInfo
-              userName={userName}
-              email={email}
-              createdAt={new Date()}
-            />
-            <ArticleHeaderEmotionGauge emotionLevel={emotionLevel} />
-          </ArticleHeader>
-        </CardHeader>
-        <Separator />
-        <CardContent>
-          <ArticleForm
-            title={title}
-            content={content}
-            onContentChange={onContentChange}
-            onTitleChange={onTitleChange}
-          />
-        </CardContent>
-      </Card>
+      <form className="contents" onSubmit={form.handleSubmit(onSubmit)}>
+        <WritePageHeader
+          control={form.control}
+          onSubmit={form.handleSubmit(onSubmit)}
+          isValid={form.formState.isValid}
+        />
+        <Card>
+          <CardHeader>
+            <ArticleHeader>
+              <ArticleHeaderAvatar userName={userName} avatarUrl={avatarUrl} />
+              <ArticleHeaderUserInfo
+                userName={userName}
+                email={email}
+                createdAt={new Date()}
+              />
+              <ArticleHeaderEmotionGauge emotionLevel={emotionLevel} />
+            </ArticleHeader>
+          </CardHeader>
+          <Separator />
+          <CardContent>
+            <ArticleForm control={form.control} />
+          </CardContent>
+        </Card>
+      </form>
     </PageContainer>
   );
 };

@@ -5,7 +5,7 @@ import {
   ARTICLE_QUERY_KEY,
   ARTICLE_TOAST_MESSAGE,
 } from "@/entities/article/model/constants";
-import type { ArticleInsertSchema } from "@/entities/article/model/types";
+import type { ArticleInsertSchema } from "@/features/write-article/model/types";
 import { getQueryClient } from "@/shared/lib/tanstack/get-query-client";
 
 export const useSubmitArticle = () => {
@@ -19,7 +19,7 @@ export const useSubmitArticle = () => {
       toast.success(ARTICLE_TOAST_MESSAGE.POST.SUCCESS);
     },
     onError: (error) => {
-      console.error(error);
+      console.error(error.message);
       toast.error(ARTICLE_TOAST_MESSAGE.POST.EXCEPTION, {
         description: error.message,
       });

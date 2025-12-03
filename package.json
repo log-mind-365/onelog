@@ -46,6 +46,7 @@
     "dotenv": "^17.2.3",
     "drizzle-orm": "^0.44.7",
     "drizzle-seed": "^0.3.1",
+    "drizzle-zod": "^0.8.3",
     "lucide-react": "^0.553.0",
     "motion": "^12.23.24",
     "next": "16.0.1",
@@ -63,6 +64,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.0",
+    "@hookform/devtools": "^4.4.0",
     "@tailwindcss/postcss": "^4",
     "@tanstack/react-query-devtools": "^5.90.2",
     "@types/node": "^20",
