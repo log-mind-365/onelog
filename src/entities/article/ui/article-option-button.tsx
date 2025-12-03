@@ -36,11 +36,23 @@ export const ArticleOptionsDropdownMenu = ({
           </DropdownMenuTrigger>
         </TooltipTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem onClick={onModify} className="cursor-pointer gap-2">
+          <DropdownMenuItem
+            onClick={(e) => {
+              e.stopPropagation();
+              onModify();
+            }}
+            className="cursor-pointer gap-2"
+          >
             <Edit2 className="h-4 w-4" />
             수정하기
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={onDelete} className="cursor-pointer gap-2">
+          <DropdownMenuItem
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete();
+            }}
+            className="cursor-pointer gap-2"
+          >
             <Trash2 className="h-4 w-4" />
             삭제하기
           </DropdownMenuItem>
