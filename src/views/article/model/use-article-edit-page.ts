@@ -3,7 +3,7 @@ import { type ChangeEvent, useEffect } from "react";
 import { articleQueries } from "@/entities/article/api/queries";
 import type { AccessType, EmotionLevel } from "@/entities/article/model/types";
 import { useAuth } from "@/features/auth/model/store";
-import { useDraft } from "@/features/write-article/model/use-draft";
+import { useDraft } from "@/features/write-article/lib/use-draft";
 
 export const useArticleEditPage = (
   articleId: number,

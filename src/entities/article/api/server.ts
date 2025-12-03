@@ -24,6 +24,7 @@ import type {
   ArticleWithAuthorInfo,
   InfiniteArticleList,
 } from "@/entities/article/model/types";
+import { articleFormSchema } from "@/features/write-article/model/schemas";
 
 export const getInfinitePrivateArticleList = async (
   pageParam: number,
@@ -219,6 +220,12 @@ export const getArticleDetail = async (
 export const postArticle = async (
   params: ArticleInsertSchema,
 ): Promise<Article> => {
+  const validation = articleFormSchema.safeParse(params);
+
+  if (!validation.success) {
+    throw new Error(validation.error.message);
+  }
+
   return db
     .insert(articles)
     .values(params)
