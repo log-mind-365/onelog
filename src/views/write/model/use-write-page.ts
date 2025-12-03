@@ -1,33 +1,45 @@
-import type { ChangeEvent } from "react";
-import type { AccessType, EmotionLevel } from "@/entities/article/model/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { useAuth } from "@/features/auth/model/store";
-import { useDraft } from "@/features/write-article/model/use-draft";
+import { useDraft } from "@/features/write-article/lib/use-draft";
+import { articleFormSchema } from "@/features/write-article/model/schemas";
+import type { ArticleFormData } from "@/features/write-article/model/types";
 import { useModal } from "@/shared/store/modal-store";
 
 export const useWritePage = () => {
   const { me } = useAuth();
   const { openModal } = useModal();
-  const { setTitle, setContent, setAccessType, setEmotionLevel } = useDraft();
-  const title = useDraft((state) => state.title);
-  const content = useDraft((state) => state.content);
-  const accessType = useDraft((state) => state.accessType);
-  const emotionLevel = useDraft((state) => state.emotionLevel);
+  const {
+    title: initialTitle,
+    content: initialContent,
+    accessType: initialAccessType,
+    emotionLevel: initialEmotionLevel,
+    setTitle,
+    setContent,
+    setAccessType,
+    setEmotionLevel,
+  } = useDraft();
 
-  const handleAccessTypeChange = (value: string) => {
-    setAccessType(value as AccessType);
-  };
+  const form = useForm<ArticleFormData>({
+    resolver: zodResolver(articleFormSchema),
+    defaultValues: {
+      title: initialTitle,
+      content: initialContent,
+      accessType: initialAccessType ?? "public",
+      emotionLevel: initialEmotionLevel,
+    },
+  });
 
-  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
-
-  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
-  };
-
-  const handleEmotionLevelChange = (value: EmotionLevel) => {
-    setEmotionLevel(value);
-  };
+  useEffect(() => {
+    const subscription = form.watch((value) => {
+      if (value.title !== undefined) setTitle(value.title);
+      if (value.content !== undefined) setContent(value.content);
+      if (value.accessType !== undefined) setAccessType(value.accessType);
+      if (value.emotionLevel !== undefined) setEmotionLevel(value.emotionLevel);
+    });
+    return () => subscription.unsubscribe();
+  }, [form.watch, setAccessType, setContent, setEmotionLevel, setTitle]);
 
   const { userName = "", email = "", avatarUrl = null, id = "" } = me ?? {};
 
@@ -37,13 +49,6 @@ export const useWritePage = () => {
     avatarUrl,
     openModal,
     currentUserId: id,
-    title,
-    content,
-    accessType,
-    emotionLevel,
-    onAccessTypeChange: handleAccessTypeChange,
-    onTitleChange: handleTitleChange,
-    onContentChange: handleContentChange,
-    onEmotionLevelChange: handleEmotionLevelChange,
+    form,
   };
 };
