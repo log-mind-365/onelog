@@ -20,10 +20,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/shared/components/ui/tooltip";
-import {
-  APP_LOGO,
-  SIDEBAR_MENUS,
-} from "@/widgets/sidebar/home-page-sidebar/model/constants";
+import { SIDEBAR_MENUS } from "@/widgets/sidebar/home-page-sidebar/model/constants";
 
 type DesktopNavigationMenuProps = {
   onNavigate: (route: string) => void;
@@ -31,7 +28,6 @@ type DesktopNavigationMenuProps = {
   isAuthenticated: boolean;
   userName: string;
   avatarUrl: string | null;
-  onNavigateHome: () => void;
 };
 
 export const DesktopNavigationMenu = ({
@@ -40,40 +36,18 @@ export const DesktopNavigationMenu = ({
   isAuthenticated,
   userName,
   avatarUrl,
-  onNavigateHome,
 }: DesktopNavigationMenuProps) => {
   const { setTheme, theme } = useTheme();
 
   return (
     <TooltipProvider delayDuration={0}>
-      {/* App Logo */}
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button variant="ghost" size="icon" onClick={onNavigateHome}>
-            <Image
-              src="/brand_logo.svg"
-              alt="logo icon"
-              width={24}
-              height={24}
-            />
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent side="right">
-          <p>{APP_LOGO.label}</p>
-        </TooltipContent>
-      </Tooltip>
-
-      <Separator />
-
       {/* Navigation Menus */}
       {SIDEBAR_MENUS.map((menu, index) => {
-        if (!menu) {
+        if (menu.type === "divider") {
           // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
           return <Separator key={index} />;
         }
-
-        const Icon = menu.icon;
-        const active = isActive(menu.path);
+        const active = isActive(menu.href);
 
         return (
           <Tooltip key={menu.label}>
@@ -81,9 +55,18 @@ export const DesktopNavigationMenu = ({
               <Button
                 variant={active ? "default" : "ghost"}
                 size="icon"
-                onClick={() => onNavigate(menu.path!)}
+                onClick={() => onNavigate(menu.href)}
               >
-                <Icon />
+                {menu.type === "icon" ? (
+                  <menu.icon />
+                ) : (
+                  <Image
+                    src="/brand_logo.svg"
+                    alt="logo icon"
+                    width={24}
+                    height={24}
+                  />
+                )}
               </Button>
             </TooltipTrigger>
             <TooltipContent side="right">

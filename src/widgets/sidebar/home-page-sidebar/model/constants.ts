@@ -1,28 +1,19 @@
-import { Home, PenSquare, XIcon } from "lucide-react";
+import { Home } from "lucide-react";
 import { ROUTES } from "@/shared/model/routes";
+import type { NavItem } from "@/widgets/sidebar/home-page-sidebar/model/types";
 
-export const APP_LOGO = {
-  label: "OneLog",
-  icon: XIcon,
-  path: ROUTES.HOME,
-};
-
-export const SIDEBAR_MENUS: (
-  | {
-      label: string;
-      icon: any;
-      path: string;
-    }
-  | undefined
-)[] = [
+export const SIDEBAR_MENUS: NavItem[] = [
   {
+    type: "image",
     label: "글쓰기",
-    icon: PenSquare,
-    path: ROUTES.ARTICLE.NEW,
+    image: "/brand_logo.svg",
+    href: ROUTES.ARTICLE.NEW,
   },
+  { type: "divider" },
   {
+    type: "icon",
     label: "홈",
     icon: Home,
-    path: ROUTES.HOME,
+    href: ROUTES.HOME,
   },
 ];

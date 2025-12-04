@@ -4,7 +4,7 @@ import { ArticleAccessTypeButton } from "@/entities/article/ui/article-access-ty
 import { ArticleEmotionButton } from "@/entities/article/ui/article-emotion-button";
 import type { ArticleInsertSchema } from "@/features/write-article/model/types";
 import { Button } from "@/shared/components/ui/button";
-import { Field, FieldGroup } from "@/shared/components/ui/field";
+import { Field } from "@/shared/components/ui/field";
 import {
   Tooltip,
   TooltipContent,

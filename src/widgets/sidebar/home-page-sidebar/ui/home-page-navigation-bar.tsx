@@ -7,19 +7,19 @@ import { MobileNavigationMenu } from "@/widgets/sidebar/home-page-sidebar/ui/mob
 
 export const HomePageNavigationBar = () => {
   const { me, isAuthenticated } = useAuth();
-  const { onNavigateHome, onNavigate, isActive } = useHomePageNavigation();
+  const { onNavigate, isActive } = useHomePageNavigation();
 
   return (
     <>
       {/* Mobile Header */}
       <header className="fixed top-0 right-0 left-0 z-50 m-2 flex items-center justify-between rounded-md border bg-card/50 px-2 py-2 shadow-lg backdrop-blur-lg sm:hidden">
+        <div />
         <MobileNavigationMenu
           onNavigate={onNavigate}
           isActive={isActive}
           isAuthenticated={isAuthenticated}
           userName={me?.userName || ""}
           avatarUrl={me?.avatarUrl || null}
-          onNavigateHome={onNavigateHome}
         />
       </header>
 
@@ -31,7 +31,6 @@ export const HomePageNavigationBar = () => {
           isAuthenticated={isAuthenticated}
           userName={me?.userName || ""}
           avatarUrl={me?.avatarUrl || null}
-          onNavigateHome={onNavigateHome}
         />
       </aside>
     </>
