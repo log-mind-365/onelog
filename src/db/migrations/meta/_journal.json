@@ -8,6 +8,13 @@
       "when": 1763133975971,
       "tag": "0000_illegal_kang",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1764819645375,
+      "tag": "0001_tiresome_nekra",
+      "breakpoints": true
     }
   ]
 }

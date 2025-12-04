@@ -21,13 +21,8 @@ export const useHomePageNavigation = () => {
     authGuard(() => router.push(route));
   };
 
-  const handleNavigateHome = () => {
-    router.push(ROUTES.HOME);
-  };
-
   return {
     isActive,
     onNavigate: handleNavigate,
-    onNavigateHome: handleNavigateHome,
   };
 };
