@@ -8,7 +8,7 @@ import {
 } from "@/shared/components/ui/item";
 
 type NotificationItemProps = {
-  item: Notification;
+  item?: Notification;
 };
 
 export const NotificationItem = ({ item }: NotificationItemProps) => {
@@ -18,7 +18,7 @@ export const NotificationItem = ({ item }: NotificationItemProps) => {
         <ShieldAlertIcon />
       </ItemMedia>
       <ItemContent>
-        <ItemTitle>{item.receiverId}</ItemTitle>
+        <ItemTitle>{item?.receiverId ?? ""}</ItemTitle>
       </ItemContent>
     </Item>
   );
