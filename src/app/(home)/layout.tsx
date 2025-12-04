@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
-import { NotificationButton } from "@/entities/notification/ui/notification-button";
+import { NotificationButton } from "@/features/notification/ui/notification-button";
 import { HomePageNavigationBar } from "@/widgets/sidebar/home-page-sidebar/ui/home-page-navigation-bar";
 
 const Layout = ({ children }: PropsWithChildren) => {
