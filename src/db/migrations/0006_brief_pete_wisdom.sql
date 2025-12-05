@@ -1,0 +1,1 @@
+ALTER TABLE "notifications" ALTER COLUMN "sender_id" DROP NOT NULL;
