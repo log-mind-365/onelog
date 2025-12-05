@@ -53,7 +53,7 @@ export const useUpdateProfile = () => {
     },
     onSuccess: (data: UserInfo) => {
       void queryClient.invalidateQueries({
-        queryKey: USER_QUERY_KEY.INFO(data.id),
+        queryKey: USER_QUERY_KEY.INFO,
       });
       setMe(data);
       toast.success("프로필이 업데이트되었습니다");
