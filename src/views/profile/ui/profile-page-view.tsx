@@ -38,54 +38,50 @@ export const ProfilePageView = ({
         selectedTab={selectedTab}
         onTabChange={onTabChange}
       />
+      <div className="flex flex-col gap-4">
+        {selectedTab === "summary" && (
+          <>
+            <ProfileAboutMeCard aboutMe={user?.aboutMe ?? null} />
+            <ProfileAccountInfoCard
+              createdAt={user?.createdAt ?? null}
+              updatedAt={user?.updatedAt ?? null}
+            />
+          </>
+        )}
 
-      {selectedTab === "summary" && (
-        <>
-          <ProfileAboutMeCard aboutMe={user?.aboutMe ?? null} />
-          <ProfileAccountInfoCard
-            createdAt={user?.createdAt ?? null}
-            updatedAt={user?.updatedAt ?? null}
-          />
-        </>
-      )}
+        {selectedTab === "diaries" && (
+          <>
+            <ActivityGraph userId={profileUserId} />
+            <UserArticleList
+              userId={profileUserId}
+              currentUserId={currentUserId}
+              accessType="private"
+              emptyTitle="아직 작성된 일기가 없어요."
+              emptyDescription="일기를 작성해 보세요."
+            />
+          </>
+        )}
 
-      {selectedTab === "diaries" && (
-        <>
-          <ActivityGraph userId={profileUserId} />
-          <SizedBox />
-          <UserArticleList
-            userId={profileUserId}
-            currentUserId={currentUserId}
-            accessType="private"
-            emptyTitle="아직 작성된 일기가 없어요."
-            emptyDescription="일기를 작성해 보세요."
-          />
-        </>
-      )}
+        {selectedTab === "articles" && (
+          <>
+            <ActivityGraph userId={profileUserId} />
+            <UserArticleList
+              userId={profileUserId}
+              currentUserId={currentUserId}
+              accessType="public"
+              emptyTitle="아직 작성된 글이 없어요."
+              emptyDescription="글을 작성해 보세요."
+            />
+          </>
+        )}
 
-      {selectedTab === "articles" && (
-        <>
-          <ActivityGraph userId={profileUserId} />
-          <SizedBox />
-          <UserArticleList
-            userId={profileUserId}
-            currentUserId={currentUserId}
-            accessType="public"
-            emptyTitle="아직 작성된 글이 없어요."
-            emptyDescription="글을 작성해 보세요."
-          />
-        </>
-      )}
-
-      {selectedTab === "liked" && (
-        <>
-          <SizedBox />
+        {selectedTab === "liked" && (
           <UserLikedArticleList
             userId={profileUserId}
             currentUserId={currentUserId}
           />
-        </>
-      )}
+        )}
+      </div>
     </PageContainer>
   );
 };
