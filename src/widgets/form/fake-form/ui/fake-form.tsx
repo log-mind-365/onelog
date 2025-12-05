@@ -18,7 +18,7 @@ export const FakeForm = () => {
   return (
     <button
       type="button"
-      className="flex w-full cursor-pointer flex-row items-center gap-4 py-4"
+      className="flex w-full cursor-pointer flex-row items-center gap-4"
       onClick={handlePostClick}
     >
       <UserAvatar fallback={me?.userName || "U"} avatarUrl={me?.avatarUrl} />
