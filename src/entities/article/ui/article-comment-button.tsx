@@ -28,7 +28,7 @@ export const ArticleCommentButton = ({
           variant="ghost"
           onClick={onClick}
           className={cn(
-            "flex gap-1 text-xs transition-colors hover:text-blue-400",
+            "flex gap-1 text-xs hover:text-blue-400",
             orientation === "horizontal" && "flex-row",
             orientation === "vertical" && "flex-col py-2",
             isSide && "max-lg:flex-col",
