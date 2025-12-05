@@ -1,19 +1,48 @@
 "use client";
 
+import { ArrowUpRightIcon, FileXIcon } from "lucide-react";
 import Link from "next/link";
+import { BackButton } from "@/shared/components/back-button";
+import { PageContainer } from "@/shared/components/page-container";
 import { Button } from "@/shared/components/ui/button";
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@/shared/components/ui/empty";
+import { ROUTES } from "@/shared/model/routes";
 
 // biome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>
-const Error = () => {
+const Error = ({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) => {
   return (
-    <div className="flex min-h-[calc(100vh-110px)] flex-col items-center justify-center">
-      <h2 className="mb-4 text-[20px] text-bold">
-        예상치 못한 오류가 발생했습니다.
-      </h2>
-      <Button>
-        <Link href={"/"}>홈으로 이동하기</Link>
-      </Button>
-    </div>
+    <PageContainer>
+      <Empty className="relative border bg-card shadow-md">
+        <BackButton className="absolute top-4 left-4" />
+        <EmptyHeader>
+          <EmptyMedia>
+            <FileXIcon />
+          </EmptyMedia>
+        </EmptyHeader>
+        <EmptyTitle className="text-xl">
+          요청하신 게시물을 찾을 수 없습니다.
+        </EmptyTitle>
+        <EmptyDescription>{error.message}</EmptyDescription>
+        <Button asChild>
+          <Link href={ROUTES.HOME}>
+            홈으로 이동하기
+            <ArrowUpRightIcon />
+          </Link>
+        </Button>
+      </Empty>
+    </PageContainer>
   );
 };
 
