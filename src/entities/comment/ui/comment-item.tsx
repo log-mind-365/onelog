@@ -1,7 +1,20 @@
+import { formatDistanceToNow } from "date-fns";
+import { ko } from "date-fns/locale";
 import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import { useState } from "react";
 import type { CommentWithAuthor } from "@/entities/comment/model/types";
 import { UserAvatar } from "@/entities/user/ui/user-avatar";
+import {
+  UserInfoCard,
+  UserInfoCardAboutMe,
+  UserInfoCardActions,
+  UserInfoCardAvatar,
+  UserInfoCardContent,
+  UserInfoCardDetails,
+  UserInfoCardEmail,
+  UserInfoCardName,
+} from "@/entities/user/ui/user-info-card";
+import { ArticleAuthorProfileActionBar } from "@/features/article/ui/article-author-profile-action-bar";
 import { Button } from "@/shared/components/ui/button";
 import {
   DropdownMenu,
@@ -9,18 +22,23 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/shared/components/ui/hover-card";
 import { Textarea } from "@/shared/components/ui/textarea";
 
 type CommentItemProps = {
   comment: CommentWithAuthor;
-  isAuthor: boolean;
+  currentUserId: string | null;
   onUpdate: (commentId: number, content: string) => void;
   onDelete: (commentId: number) => void;
 };
 
 export const CommentItem = ({
   comment,
-  isAuthor,
+  currentUserId,
   onUpdate,
   onDelete,
 }: CommentItemProps) => {
@@ -39,13 +57,43 @@ export const CommentItem = ({
     setIsEditing(false);
   };
 
+  const viewMode = currentUserId === comment.author?.id ? "author" : "viewer";
+
   return (
     <div className="flex gap-3">
-      <UserAvatar
-        avatarUrl={comment.author?.avatarUrl}
-        fallback={comment.author?.userName?.[0] || "U"}
-        size="sm"
-      />
+      <HoverCard openDelay={0}>
+        <HoverCardTrigger>
+          <UserAvatar
+            avatarUrl={comment.author?.avatarUrl}
+            fallback={comment.author?.userName?.[0] || "U"}
+          />
+        </HoverCardTrigger>
+        <HoverCardContent asChild>
+          <UserInfoCard className="flex-col items-center">
+            <UserInfoCardContent className="itmes-center flex-1 flex-col">
+              <UserInfoCardAvatar
+                userName={comment.author?.userName ?? ""}
+                avatarUrl={comment.author?.avatarUrl ?? null}
+                className="flex justify-center"
+              />
+              <UserInfoCardDetails className="flex flex-col items-center">
+                <UserInfoCardName userName={comment.author?.userName ?? ""} />
+                <UserInfoCardEmail email={comment.author?.email ?? ""} />
+                <UserInfoCardAboutMe aboutMe={comment.author?.aboutMe ?? ""} />
+              </UserInfoCardDetails>
+            </UserInfoCardContent>
+            <UserInfoCardActions className="flex-row">
+              <ArticleAuthorProfileActionBar
+                viewMode={viewMode}
+                articleId={comment.articleId}
+                authorId={comment.author?.id ?? ""}
+                currentUserId={currentUserId}
+                isFollowing={false}
+              />
+            </UserInfoCardActions>
+          </UserInfoCard>
+        </HoverCardContent>
+      </HoverCard>
       <div className="flex flex-1 flex-col gap-2">
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
@@ -53,16 +101,13 @@ export const CommentItem = ({
               {comment.author?.userName}
             </span>
             <span className="text-muted-foreground text-xs">
-              {new Date(comment.createdAt).toLocaleDateString("ko-KR", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
+              {formatDistanceToNow(comment.createdAt, {
+                addSuffix: true,
+                locale: ko,
               })}
             </span>
           </div>
-          {isAuthor && !isEditing && (
+          {viewMode === "author" && !isEditing && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="h-8 w-8">

@@ -9,7 +9,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/shared/components/ui/popover";
-import { Separator } from "@/shared/components/ui/separator";
 import {
   Tabs,
   TabsContent,
@@ -99,7 +98,7 @@ export const NotificationButton = ({
         <Button
           variant="default"
           size="icon-lg"
-          className={cn(className, "rounded-full backdrop-blur-lg")}
+          className={cn("rounded-full shadow-md", className)}
           {...props}
         >
           <InboxIcon />
@@ -122,7 +121,6 @@ export const NotificationButton = ({
               </Button>
             </PopoverClose>
           </div>
-          <Separator orientation="horizontal" />
 
           {/* 알림 탭 내용 */}
           <TabsContent value="notification" className="flex flex-col gap-2">

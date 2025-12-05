@@ -9,7 +9,7 @@ export const ArticleAccessTypeBadge = ({
   accessType,
 }: ArticleAccessTypeLabelProps) => {
   return (
-    <Badge variant="outline" className="h-fit items-center">
+    <Badge variant="outline" className="items-center">
       {accessType === "public" ? "공개" : "비공개"}
     </Badge>
   );

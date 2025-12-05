@@ -43,7 +43,7 @@ export const UserLikedArticleList = ({
   }
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-4">
       {allArticles.map((article) => {
         const {
           id,

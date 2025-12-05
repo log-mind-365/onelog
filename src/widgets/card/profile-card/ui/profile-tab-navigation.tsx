@@ -14,9 +14,9 @@ export const ProfileTabNavigation = ({
     <Tabs
       value={selectedTab}
       onValueChange={onTabChange ? onTabChange : undefined}
-      className="h-fit w-full rounded-lg border bg-card p-1 shadow-sm"
+      className="w-full rounded-lg border bg-card p-1 shadow-sm"
     >
-      <TabsList className="grid h-fit w-full grid-cols-4 gap-2 bg-card">
+      <TabsList className="grid w-full grid-cols-4 gap-2 bg-card">
         <TabsTrigger value="summary" className="text-xs">
           요약
         </TabsTrigger>

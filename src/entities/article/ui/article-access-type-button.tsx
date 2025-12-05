@@ -14,7 +14,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/shared/components/ui/tooltip";
-import { cn } from "@/shared/lib/helpers/client-helper";
 
 type AccessTypeButtonProps = {
   value?: AccessType;
@@ -38,9 +37,7 @@ export const ArticleAccessTypeButton = ({
             <Button
               aria-label="게시물 공개 여부"
               variant="ghost"
-              className={cn(
-                "gap-1 font-light text-xs transition-colors hover:text-green-400",
-              )}
+              className="gap-1 font-light text-xs hover:text-green-400"
             >
               {value === "public" ? (
                 <Globe className="size-4" />

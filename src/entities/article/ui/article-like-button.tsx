@@ -31,7 +31,7 @@ export const ArticleLikeButton = ({
             onClick();
           }}
           className={cn(
-            "flex gap-1 text-xs transition-colors hover:text-red-500",
+            "flex gap-1 text-xs hover:text-red-500",
             orientation === "horizontal" && "flex-row",
             orientation === "vertical" && "flex-col",
             isLike && "text-red-500",
