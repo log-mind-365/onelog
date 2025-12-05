@@ -39,7 +39,6 @@ export const CommentForm = ({
       <UserAvatar
         avatarUrl={currentUserAvatar}
         fallback={currentUserName?.[0] || "U"}
-        size="sm"
       />
       <div className="flex flex-1 flex-col gap-2">
         <Textarea

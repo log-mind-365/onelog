@@ -31,7 +31,7 @@ export const CommentList = ({
         <div key={comment.id}>
           <CommentItem
             comment={comment}
-            isAuthor={currentUserId === comment.userId}
+            currentUserId={currentUserId}
             onUpdate={onUpdate}
             onDelete={onDelete}
           />
