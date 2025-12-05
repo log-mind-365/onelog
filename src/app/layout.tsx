@@ -18,7 +18,7 @@ const RootLayout = async ({
 }>) => {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="antialiased">
+      <body className="antialiased" suppressHydrationWarning>
         <AppProvider>{children}</AppProvider>
       </body>
     </html>

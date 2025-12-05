@@ -79,7 +79,7 @@ export const ReportArticleModal = () => {
                 )
               }
             >
-              <SelectTrigger id="report-type">
+              <SelectTrigger id="report-type" className="bg-popover">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -103,6 +103,7 @@ export const ReportArticleModal = () => {
             onChange={(e) => setReason(e.target.value)}
             placeholder="신고 사유를 자세히 적어주세요..."
             rows={4}
+            className="bg-popover"
           />
         </div>
 
@@ -112,7 +113,7 @@ export const ReportArticleModal = () => {
             variant="outline"
             onClick={closeModal}
             disabled={isPending}
-            className="flex-1"
+            className="flex-1 bg-popover"
           >
             취소
           </Button>
